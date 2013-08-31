@@ -26,6 +26,7 @@ void display(void)
     glRotatef(rotateY,0.0f,1.0f,0.0f);
     glRotatef(rotateZ,0.0f,0.0f,1.0f);
 
+    //TODO:
     glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
     glGetDoublev( GL_PROJECTION_MATRIX, projection );
     glGetIntegerv( GL_VIEWPORT, viewport );
@@ -41,8 +42,7 @@ void display(void)
     glVertex3f(posX1,posY1,posZ1);
     glVertex3f(posX2,posY2,posZ2);
     glEnd();
-    printf("%f %f %f, %f %f %f\n",posX1,posY1,posZ1,posX2,posY2,posZ2);
-    
+
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
     glutPostRedisplay();
