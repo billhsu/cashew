@@ -5,11 +5,13 @@
 int width = 400, height = 300;
 int mouseStatus =1;
 int mouseButton = 0;
+int mouseX=0,mouseY=0;
 extern float rotateX, rotateY, rotateZ;
 int lastX=0,lastY=0;
 void reshape(GLint width, GLint height);
 void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
+void PassiveMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 int main(int argc, char** argv)
 {
@@ -24,6 +26,7 @@ int main(int argc, char** argv)
     glutKeyboardFunc (Keyboard);
     glutMouseFunc (MouseButton);
     glutMotionFunc (MouseMotion);
+    glutPassiveMotionFunc(PassiveMotion);
 
     // Turn the flow of control over to GLUT
     glutMainLoop ();
@@ -63,6 +66,11 @@ void MouseMotion(int x, int y)
         lastY = y;
         printf("x: %f y: %f\n",rotateX,rotateY);
     }
+}
+void PassiveMotion(int x, int y)
+{
+    mouseX = x;
+    mouseY = y;
 }
 void Keyboard(unsigned char key, int x, int y)
 {

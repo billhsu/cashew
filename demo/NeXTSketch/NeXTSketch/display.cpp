@@ -3,9 +3,20 @@
 #include "glut.h"
 #include "scene.h"
 extern int width,height;
+extern int mouseX, mouseY;
 float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;
 void display(void)
 {
+    GLint viewport[4];
+    GLdouble modelview[16];
+    GLdouble projection[16];
+    GLfloat winX, winY, winZ;
+    GLdouble posX1, posY1, posZ1;
+    GLdouble posX2, posY2, posZ2;
+
+    
+
+
     glClearColor (0.9f, 0.9f, 0.9f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1.0, 1.0, 1.0);
@@ -14,6 +25,24 @@ void display(void)
     glRotatef(rotateX,1.0f,0.0f,0.0f);
     glRotatef(rotateY,0.0f,1.0f,0.0f);
     glRotatef(rotateZ,0.0f,0.0f,1.0f);
+
+    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
+    glGetDoublev( GL_PROJECTION_MATRIX, projection );
+    glGetIntegerv( GL_VIEWPORT, viewport );
+
+    winX = (float)mouseX;
+    winY = (float)viewport[3] - (float)mouseY;
+
+    gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
+    gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
+
+    glBegin(GL_LINES);
+    glColor3f(0,0,1);
+    glVertex3f(posX1,posY1,posZ1);
+    glVertex3f(posX2,posY2,posZ2);
+    glEnd();
+    printf("%f %f %f, %f %f %f\n",posX1,posY1,posZ1,posX2,posY2,posZ2);
+    
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
     glutPostRedisplay();
