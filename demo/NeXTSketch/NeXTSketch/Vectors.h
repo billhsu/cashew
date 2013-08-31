@@ -6,6 +6,7 @@
 //  AUTHOR: Song Ho Ahn (song.ahn@gmail.com)
 // CREATED: 2007-02-14
 // UPDATED: 2013-01-20
+// UPDATED: 2013-08-31 by Shipeng Xu
 //
 // Copyright (C) 2007-2013 Song Ho Ahn
 ///////////////////////////////////////////////////////////////////////////////
@@ -66,9 +67,12 @@ struct Vector2
 ///////////////////////////////////////////////////////////////////////////////
 struct Vector3
 {
-    float x;
-    float y;
-    float z;
+    union
+    {
+        struct { float x, y, z; };
+        struct { float r, g, b; };
+        struct { float cell[3]; };
+    };
 
     // ctors
     Vector3() : x(0), y(0), z(0) {};
@@ -112,10 +116,12 @@ struct Vector3
 ///////////////////////////////////////////////////////////////////////////////
 struct Vector4
 {
-    float x;
-    float y;
-    float z;
-    float w;
+    union
+    {
+        struct { float x, y, z, w; };
+        struct { float r, g, b, a; };
+        struct { float cell[4]; };
+    };
 
     // ctors
     Vector4() : x(0), y(0), z(0), w(0) {};

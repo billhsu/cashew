@@ -42,6 +42,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>Draw;Control;E:\Projects\nextsketch\demo\NeXTSketch\NeXTSketch;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,11 +77,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Control\Camera.cpp" />
     <ClCompile Include="display.cpp" />
+    <ClCompile Include="Draw\line.cpp" />
+    <ClCompile Include="Draw\plane.cpp" />
+    <ClCompile Include="Draw\scene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Matrices.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Control\Camera.h" />
     <ClInclude Include="display.h" />
+    <ClInclude Include="Draw\line.h" />
+    <ClInclude Include="Draw\plane.h" />
+    <ClInclude Include="Draw\scene.h" />
+    <ClInclude Include="Matrices.h" />
+    <ClInclude Include="Vectors.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
