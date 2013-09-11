@@ -1,5 +1,5 @@
 #include "line.h"
-#include "glut.h"
+#include <GL/glut.h>
 void Line::addVec(Vector3 vec)
 {
     vectorList.push_back(vec);

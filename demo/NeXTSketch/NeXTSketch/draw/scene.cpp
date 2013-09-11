@@ -1,5 +1,5 @@
 #include "scene.h"
-#include "glut.h"
+#include <GL/glut.h>
 void drawGrid(float size, float step)
 {
     // disable lighting

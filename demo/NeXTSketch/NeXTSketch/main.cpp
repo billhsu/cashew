@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "glut.h"
+#include <GL/glut.h>
 #include "display.h"
 
 int width = 400, height = 300;
