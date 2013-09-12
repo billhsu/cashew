@@ -1,7 +1,7 @@
 #include "display.h"
-#include "draw/line.h"
+#include "line.h"
 #include<GL/glut.h>
-#include "draw/scene.h"
+#include "scene.h"
 extern int width,height;
 extern int mouseX, mouseY;
 float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;

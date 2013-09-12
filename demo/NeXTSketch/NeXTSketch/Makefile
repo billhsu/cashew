@@ -1,17 +1,35 @@
-CC=g++
-CFLAGS=-c -Wall -I. -Icontrol -Idraw -lGL -lGLU -lglut
-LDFLAGS=-lGL -lGLU -lglut
-SOURCES=main.cpp display.cpp draw/scene.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
-EXECUTABLE=test
+CC        := g++
+LDFLAGS   := -lGL -lGLU -lglut
 
-all: $(SOURCES) $(EXECUTABLE)
-		
-$(EXECUTABLE): $(OBJECTS) 
-		$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+MODULES   := control draw core 
+SRC_DIR   := $(addprefix ,$(MODULES))
+BUILD_DIR := $(addprefix build/,$(MODULES))
 
-.cpp.o:
-	$(CC) $(CFLAGS) $< -o $@
+SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
+OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
+INCLUDES  := $(addprefix -I,$(SRC_DIR))
+
+vpath %.cpp $(SRC_DIR)
+
+define make-goal
+$1/%.o: %.cpp
+	$(CC) $(INCLUDES) -c $$< -o $$@
+endef
+
+.PHONY: all checkdirs clean
+
+all: checkdirs test
+
+test: $(OBJ)
+	$(CC) $(LDFLAGS) $(OBJ) -o $@
+	
+
+checkdirs: $(BUILD_DIR)
+
+$(BUILD_DIR):
+	@mkdir -p $@
+
 clean:
-	rm -rf *.o test
+	@rm -rf $(BUILD_DIR)
 
+$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
