@@ -1,5 +1,11 @@
 #include "scene.h"
 #include <GL/glut.h>
+Vector3 intersect(Ray r, plane p)
+{
+    float dist =  -(r.GetOrigin().dot(p.N)+p.D)/r.GetDirection().dot(p.N);
+    Vector3 pos = r.GetOrigin() + r.GetDirection()*dist;
+    return pos;
+}
 void drawGrid(float size, float step)
 {
     // disable lighting

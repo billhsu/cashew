@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include "display.h"
-
+#include "ray.h"
+#include "plane.h"
 int width = 400, height = 300;
 int mouseStatus =1;
 int mouseButton = 0;
@@ -64,7 +65,7 @@ void MouseMotion(int x, int y)
         rotateY+=dx;
         lastX = x;
         lastY = y;
-        printf("x: %f y: %f\n",rotateX,rotateY);
+        //printf("x: %f y: %f\n",rotateX,rotateY);
     }
 }
 void PassiveMotion(int x, int y)

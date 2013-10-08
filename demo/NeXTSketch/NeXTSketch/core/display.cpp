@@ -2,6 +2,8 @@
 #include "line.h"
 #include<GL/glut.h>
 #include "scene.h"
+#include "ray.h"
+#include "plane.h"
 extern int width,height;
 extern int mouseX, mouseY;
 float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;
@@ -36,6 +38,11 @@ void display(void)
 
     gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
     gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
+    std::cout<<winX<<" "<<winY<<std::endl; 
+    Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX2-posX1,posY2-posY1,posZ2-posZ1));
+    plane ground = plane(Vector3(0,0,1), 0);
+    Vector3 pos = intersect(selectRay, ground);
+    std::cout <<Vector3(posX1,posY1,posZ1)<<" "<<Vector3(posX2,posY2,posZ2)<<std::endl;
 
     glBegin(GL_LINES);
     glColor3f(0,0,1);

@@ -18,9 +18,9 @@ endef
 
 .PHONY: all checkdirs clean
 
-all: checkdirs test
+all: checkdirs nextsketch
 
-test: $(OBJ)
+nextsketch: $(OBJ)
 	$(CC) $(LDFLAGS) $(OBJ) -o $@
 	
 
