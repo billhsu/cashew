@@ -3,6 +3,9 @@
 #include "display.h"
 #include "ray.h"
 #include "plane.h"
+#include "scene.h"
+#include <vector>
+using namespace std;
 int width = 400, height = 300;
 int mouseStatus =1;
 int mouseButton = 0;
@@ -14,6 +17,7 @@ void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void PassiveMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
+extern vector<Vector3> posList;
 int main(int argc, char** argv)
 {
     glutInit (&argc, argv);
@@ -53,6 +57,10 @@ void MouseButton(int button, int state, int x, int y)
     {
         lastX=x;
         lastY=y;
+        Ray selectRay = getMouseRay(x,y);
+        plane ground = plane(Vector3(0,1,0), 0);
+        Vector3 pos = intersect(selectRay, ground);
+        posList.push_back(pos);
     }
 }
 void MouseMotion(int x, int y)
