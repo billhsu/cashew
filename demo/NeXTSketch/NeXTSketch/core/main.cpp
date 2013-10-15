@@ -53,19 +53,15 @@ void MouseButton(int button, int state, int x, int y)
     printf("button:%d state:%d x:%d y:%d\n",button, state, x, y);
     mouseButton = button;
     mouseStatus = state;
-    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
+    if(mouseButton==GLUT_RIGHT_BUTTON && mouseStatus==GLUT_DOWN)
     {
         lastX=x;
         lastY=y;
-        Ray selectRay = getMouseRay(x,y);
-        plane ground = plane(Vector3(0,1,0), 0);
-        Vector3 pos = intersect(selectRay, ground);
-        posList.push_back(pos);
     }
 }
 void MouseMotion(int x, int y)
 {
-    if(mouseButton==GLUT_LEFT_BUTTON&&mouseStatus==GLUT_DOWN)
+    if(mouseButton==GLUT_RIGHT_BUTTON&&mouseStatus==GLUT_DOWN)
     {
         int dx = x - lastX;
         int dy = y - lastY;
@@ -75,6 +71,14 @@ void MouseMotion(int x, int y)
         lastY = y;
         //printf("x: %f y: %f\n",rotateX,rotateY);
     }
+    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
+    {
+        Ray selectRay = getMouseRay(x,y);
+        plane ground = plane(Vector3(0,1,0), 0);
+        Vector3 pos = intersect(selectRay, ground);
+        posList.push_back(pos);
+    }
+
 }
 void PassiveMotion(int x, int y)
 {
