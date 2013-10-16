@@ -14,7 +14,6 @@ void display(void)
 {
     glClearColor (0.9f, 0.9f, 0.9f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glColor3f(1.0, 1.0, 1.0);
     glLoadIdentity();
     gluLookAt (0.0, 0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
     glRotatef(rotateX,1.0f,0.0f,0.0f);
@@ -28,8 +27,10 @@ void display(void)
         }
     glEnd();
 
+    drawPlane(Vector3(0,0,0), plane(Vector3(0,1,0),0), 10);
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
+
     glutPostRedisplay();
     glutSwapBuffers();
 }
