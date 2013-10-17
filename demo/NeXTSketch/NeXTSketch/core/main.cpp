@@ -17,7 +17,10 @@ void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void PassiveMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
-extern vector<Vector3> posList;
+
+extern vector<Vector3> pointList;
+extern vector< vector<Vector3> > lineList;
+
 int main(int argc, char** argv)
 {
     glutInit (&argc, argv);
@@ -58,6 +61,14 @@ void MouseButton(int button, int state, int x, int y)
         lastX=x;
         lastY=y;
     }
+    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
+    {
+        pointList.clear();
+    }
+    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_UP)
+    {
+        lineList.push_back(pointList);
+    }
 }
 void MouseMotion(int x, int y)
 {
@@ -76,7 +87,7 @@ void MouseMotion(int x, int y)
         Ray selectRay = getMouseRay(x,y);
         plane ground = plane(Vector3(0,1,0), 0);
         Vector3 pos = intersect(selectRay, ground);
-        posList.push_back(pos);
+        pointList.push_back(pos);
     }
 
 }
