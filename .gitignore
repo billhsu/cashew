@@ -151,3 +151,5 @@ $RECYCLE.BIN/
 .DS_Store
 
 *.o
+
+tags
