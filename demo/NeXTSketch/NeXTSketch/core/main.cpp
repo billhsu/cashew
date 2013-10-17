@@ -20,7 +20,8 @@ void Keyboard(unsigned char key, int x, int y);
 
 extern vector<Vector3> pointList;
 extern vector< vector<Vector3> > lineList;
-
+extern plane currPlane;
+extern Vector3 currPoint;
 int main(int argc, char** argv)
 {
     glutInit (&argc, argv);
@@ -37,6 +38,7 @@ int main(int argc, char** argv)
     glutPassiveMotionFunc(PassiveMotion);
 
     // Turn the flow of control over to GLUT
+
     glutMainLoop ();
 
     return 0;
@@ -72,6 +74,7 @@ void MouseButton(int button, int state, int x, int y)
 }
 void MouseMotion(int x, int y)
 {
+    Ray selectRay = getMouseRay(x,y);
     if(mouseButton==GLUT_RIGHT_BUTTON&&mouseStatus==GLUT_DOWN)
     {
         int dx = x - lastX;
@@ -84,15 +87,34 @@ void MouseMotion(int x, int y)
     }
     if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
     {
-        Ray selectRay = getMouseRay(x,y);
-        plane ground = plane(Vector3(0,1,0), 0);
-        Vector3 pos = intersect(selectRay, ground);
+        Vector3 pos = intersect(selectRay, currPlane);
         pointList.push_back(pos);
     }
 
 }
 void PassiveMotion(int x, int y)
 {
+    Ray selectRay = getMouseRay(x,y);
+    float minDist = 1000.0f;
+    bool findCurr = false;
+
+    for(int i=0; i<lineList.size(); ++i)
+    {
+        for(int j=0; j<lineList[i].size(); ++j)
+        {
+            if(distRayPoint(selectRay,lineList[i][j])<0.1f)
+            {
+                if((selectRay.GetOrigin() - lineList[i][j]).length()<minDist)
+                {
+                    minDist = (selectRay.GetOrigin() - lineList[i][j]).length();
+                    currPoint = lineList[i][j];
+                    findCurr = true;
+                    cout<<currPoint<<endl;
+                }
+            }
+        }
+    }
+    if(!findCurr) currPoint = Vector3(0,0,-1000);
     mouseX = x;
     mouseY = y;
 }

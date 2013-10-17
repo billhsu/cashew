@@ -9,7 +9,7 @@ class Ray
         void SetOrigin( Vector3& a_Origin ) { m_Origin = a_Origin; }
         void SetDirection( Vector3& a_Direction ) { m_Direction = a_Direction.normalize();}
         Vector3& GetOrigin() { return m_Origin; }
-        Vector3& GetDirection() { return m_Direction; }
+        Vector3& GetDirection() { return m_Direction.normalize(); }
     private:
         Vector3 m_Origin;
         Vector3 m_Direction;

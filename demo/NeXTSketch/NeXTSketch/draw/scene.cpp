@@ -1,5 +1,10 @@
 #include "scene.h"
 #include <GL/glut.h>
+
+float distRayPoint(Ray r, Vector3 p)
+{
+    return r.GetDirection().cross(p - r.GetOrigin()).length();
+}
 Vector3 intersect(Ray r, plane p)
 {
     float dist =  -(r.GetOrigin().dot(p.N)+p.D)/r.GetDirection().dot(p.N);
@@ -101,7 +106,7 @@ Ray getMouseRay(int mx, int my)
 
     gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
     gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
-    std::cout<<winX<<" "<<winY<<std::endl; 
+    //std::cout<<winX<<" "<<winY<<std::endl; 
     Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX1-posX2,posY1-posY2,posZ1-posZ2));
     
     return selectRay;

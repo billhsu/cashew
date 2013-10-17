@@ -11,6 +11,10 @@ extern int mouseX, mouseY;
 float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;
 vector<Vector3> pointList;
 vector< vector<Vector3> > lineList;
+
+plane currPlane;
+Vector3 currPoint;
+
 void display(void)
 {
     glClearColor (0.9f, 0.9f, 0.9f, 0.0f);
@@ -47,7 +51,13 @@ void display(void)
 
     glLineWidth(1.0f);
 
-    drawPlane(Vector3(0,0,0), plane(Vector3(0,1,0),0), 10);
+    glPointSize(4.0f);
+    glColor3f(1,0,0);
+    glBegin(GL_POINTS);
+        glVertex3fv(currPoint.cell);
+    glEnd();
+
+    drawPlane(Vector3(0,0,0), currPlane, 10);
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
 
