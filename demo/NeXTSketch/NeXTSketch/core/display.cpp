@@ -26,7 +26,7 @@ void display(void)
     glRotatef(rotateZ,0.0f,0.0f,1.0f);
 
     glDisable(GL_LIGHTING);
-    glLineWidth(3.0f);
+    glLineWidth(2.0f);
     for(int i=0; i<lineList.size(); ++i)
     {
         glBegin(GL_LINES);
@@ -51,8 +51,27 @@ void display(void)
 
     glLineWidth(1.0f);
 
-    glPointSize(4.0f);
+    glPointSize(5.0f);
+    glColor3f(1,1,0);
+    for(int i=0; i<lineList.size(); ++i)
+    {
+        glBegin(GL_POINTS);
+            for(int j=0; j<lineList[i].size(); ++j)
+            {
+                glVertex3fv(lineList[i][j].cell);
+            }
+        glEnd();
+    }
+
+    glBegin(GL_POINTS);
+            for(int i=0; i<pointList.size(); ++i)
+            {
+                glVertex3fv(pointList[i].cell);
+            }
+    glEnd();
     glColor3f(1,0,0);
+
+    glPointSize(8.0f);
     glBegin(GL_POINTS);
         glVertex3fv(currPoint.cell);
     glEnd();
