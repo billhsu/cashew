@@ -8,3 +8,6 @@ void drawGrid(float size, float step);
 void drawAxis(float size);
 void drawPlane(Vector3 center, plane p, float size);
 Ray getMouseRay(int mx, int my); 
+
+enum {IDLE, HOR_MODE, VER_MODE};
+extern int sysMode;

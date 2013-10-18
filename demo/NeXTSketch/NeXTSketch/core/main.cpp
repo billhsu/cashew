@@ -4,6 +4,8 @@
 #include "ray.h"
 #include "plane.h"
 #include "scene.h"
+#include "utility.h"
+#include <math.h>
 #include <vector>
 using namespace std;
 int width = 400, height = 300;
@@ -74,21 +76,33 @@ void MouseButton(int button, int state, int x, int y)
 }
 void MouseMotion(int x, int y)
 {
+    static unsigned long timeCurr = 0;
     Ray selectRay = getMouseRay(x,y);
-    if(mouseButton==GLUT_RIGHT_BUTTON&&mouseStatus==GLUT_DOWN)
-    {
-        int dx = x - lastX;
-        int dy = y - lastY;
-        rotateX-=dy;
-        rotateY+=dx;
+    int dx,dy;
+
+        dx = x - lastX;
+        dy = y - lastY;
         lastX = x;
         lastY = y;
+
+    if(mouseButton==GLUT_RIGHT_BUTTON&&mouseStatus==GLUT_DOWN)
+    {
+        rotateX-=dy;
+        rotateY+=dx;   
         //printf("x: %f y: %f\n",rotateX,rotateY);
     }
     if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
     {
-        Vector3 pos = intersect(selectRay, currPlane);
-        pointList.push_back(pos);
+        int mouseChange = dx*dx + dy*dy;
+        float changeRate = exp(-mouseChange/10);
+        if(getMilliSec()-timeCurr>changeRate*200)
+        {
+            
+            Vector3 pos = intersect(selectRay, currPlane);
+            pointList.push_back(pos);
+           
+            timeCurr = getMilliSec();
+        }
     }
 
 }
@@ -121,5 +135,11 @@ void PassiveMotion(int x, int y)
 void Keyboard(unsigned char key, int x, int y)
 {
     if(key == 27) exit(1);
+    else if (key == 'C' || key == 'c')
+    {
+        lineList.clear();
+        pointList.clear();
+    }
     printf("Key:%d x:%d y:%d\n",key,x,y);
+
 }

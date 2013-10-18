@@ -1,5 +1,6 @@
 #include "scene.h"
 #include <GL/glut.h>
+int sysMode = IDLE;
 
 float distRayPoint(Ray r, Vector3 p)
 {

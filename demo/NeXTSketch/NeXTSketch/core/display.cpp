@@ -9,6 +9,7 @@ using namespace std;
 extern int width,height;
 extern int mouseX, mouseY;
 float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;
+
 vector<Vector3> pointList;
 vector< vector<Vector3> > lineList;
 
