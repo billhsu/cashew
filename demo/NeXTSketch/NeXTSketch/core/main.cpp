@@ -109,7 +109,7 @@ void PassiveMotion(int x, int y)
                     minDist = (selectRay.GetOrigin() - lineList[i][j]).length();
                     currPoint = lineList[i][j];
                     findCurr = true;
-                    cout<<currPoint<<endl;
+                    //cout<<currPoint<<endl;
                 }
             }
         }

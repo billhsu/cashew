@@ -1,6 +1,6 @@
 #include "display.h"
 #include "line.h"
-#include<GL/glut.h>
+#include <GL/glut.h>
 #include "scene.h"
 #include "ray.h"
 #include "plane.h"
@@ -25,8 +25,11 @@ void display(void)
     glRotatef(rotateY,0.0f,1.0f,0.0f);
     glRotatef(rotateZ,0.0f,0.0f,1.0f);
 
+    drawPlane(Vector3(0,0,0), currPlane, 10);
+
     glDisable(GL_LIGHTING);
     glLineWidth(2.0f);
+    glColor3f(0.1,0,1);
     for(int i=0; i<lineList.size(); ++i)
     {
         glBegin(GL_LINES);
@@ -76,7 +79,6 @@ void display(void)
         glVertex3fv(currPoint.cell);
     glEnd();
 
-    drawPlane(Vector3(0,0,0), currPlane, 10);
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
 
