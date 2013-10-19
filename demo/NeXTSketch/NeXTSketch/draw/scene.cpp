@@ -1,13 +1,16 @@
 #include "scene.h"
+#include "display.h"
 #include <GL/glut.h>
 int sysMode = IDLE;
-
+bool findCurr = false;
+int planeMode = HOR_PLANE;
 float distRayPoint(Ray r, Vector3 p)
 {
     return r.GetDirection().cross(p - r.GetOrigin()).length();
 }
 Vector3 intersect(Ray r, plane p)
 {
+    p.N = - p.N;
     float dist =  -(r.GetOrigin().dot(p.N)+p.D)/r.GetDirection().dot(p.N);
     Vector3 pos = r.GetOrigin() + r.GetDirection()*dist;
     return pos;
@@ -116,6 +119,7 @@ Ray getMouseRay(int mx, int my)
 void drawPlane(Vector3 center, plane p, float size)
 {
     size/=2.0f;
+    center.y=0;
     center = center + p.D*p.N.normalize();
     Vector3 randVec = Vector3(0,0,1);
     if (randVec.cross(p.N).length()==0.0f) randVec = Vector3(1,0,0);
@@ -147,4 +151,27 @@ void drawPlane(Vector3 center, plane p, float size)
     glEnable(GL_LIGHTING);
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
+}
+
+bool getRayPoint(Ray selectRay, Vector3& p)
+{
+    float minDist = 1000.0f;
+    findCurr = false;
+    for(int i=0; i<lineList.size(); ++i)
+    {
+        for(int j=0; j<lineList[i].size(); ++j)
+        {
+            if(distRayPoint(selectRay,lineList[i][j])<0.1f)
+            {
+                if((selectRay.GetOrigin() - lineList[i][j]).length()<minDist)
+                {
+                    minDist = (selectRay.GetOrigin() - lineList[i][j]).length();
+                    p = lineList[i][j];
+                    findCurr = true;
+                }
+            }
+        }
+    }
+    if(!findCurr) p = Vector3(0,0,0);
+    return findCurr;
 }

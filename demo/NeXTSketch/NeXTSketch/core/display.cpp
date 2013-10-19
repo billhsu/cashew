@@ -1,10 +1,5 @@
 #include "display.h"
-#include "line.h"
-#include <GL/glut.h>
-#include "scene.h"
-#include "ray.h"
-#include "plane.h"
-#include <vector>
+
 using namespace std;
 extern int width,height;
 extern int mouseX, mouseY;
@@ -26,7 +21,7 @@ void display(void)
     glRotatef(rotateY,0.0f,1.0f,0.0f);
     glRotatef(rotateZ,0.0f,0.0f,1.0f);
 
-    drawPlane(Vector3(0,0,0), currPlane, 10);
+    if(sysMode==DRAW && findCurr) drawPlane(currPoint, currPlane, 20);
 
     glDisable(GL_LIGHTING);
     glLineWidth(2.0f);
@@ -73,13 +68,15 @@ void display(void)
                 glVertex3fv(pointList[i].cell);
             }
     glEnd();
-    glColor3f(1,0,0);
 
-    glPointSize(8.0f);
-    glBegin(GL_POINTS);
-        glVertex3fv(currPoint.cell);
-    glEnd();
-
+    if(findCurr)
+    {
+        glColor3f(1,0,0);
+        glPointSize(8.0f);
+        glBegin(GL_POINTS);
+            glVertex3fv(currPoint.cell);
+        glEnd();
+    }
     drawGrid(20.0f,2.0f);
     drawAxis(2.0f);
 

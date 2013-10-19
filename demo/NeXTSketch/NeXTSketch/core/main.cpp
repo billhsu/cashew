@@ -20,10 +20,7 @@ void MouseMotion(int x, int y);
 void PassiveMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 
-extern vector<Vector3> pointList;
-extern vector< vector<Vector3> > lineList;
-extern plane currPlane;
-extern Vector3 currPoint;
+
 int main(int argc, char** argv)
 {
     glutInit (&argc, argv);
@@ -65,13 +62,33 @@ void MouseButton(int button, int state, int x, int y)
         lastX=x;
         lastY=y;
     }
-    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
+    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN && sysMode==IDLE)
     {
+        planeMode = HOR_PLANE;
         pointList.clear();
+        Ray selectRay = getMouseRay(x,y);
+        if(!getRayPoint(selectRay,currPoint))
+        {
+            currPlane.N = Vector3(0,1,0);
+            currPlane.D = 0;
+            Vector3 pos = intersect(selectRay, currPlane);
+            currPoint = pos;
+            findCurr = true;
+            currPlane.N = Vector3(0,1,0);
+            currPlane.D = currPoint.y;
+            sysMode = DRAW;
+        }
+        else
+        {
+            currPlane.N = Vector3(0,1,0);
+            currPlane.D = currPoint.y;
+            sysMode = DRAW;
+        }
     }
     if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_UP)
     {
         lineList.push_back(pointList);
+        sysMode = IDLE;
     }
 }
 void MouseMotion(int x, int y)
@@ -91,14 +108,14 @@ void MouseMotion(int x, int y)
         rotateY+=dx;   
         //printf("x: %f y: %f\n",rotateX,rotateY);
     }
-    if(mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
+    if(sysMode==DRAW && mouseButton==GLUT_LEFT_BUTTON && mouseStatus==GLUT_DOWN)
     {
         int mouseChange = dx*dx + dy*dy;
         float changeRate = exp(-mouseChange/10);
         if(getMilliSec()-timeCurr>changeRate*200)
         {
-            
             Vector3 pos = intersect(selectRay, currPlane);
+            cout<<pos<<endl;
             pointList.push_back(pos);
            
             timeCurr = getMilliSec();
@@ -108,27 +125,10 @@ void MouseMotion(int x, int y)
 }
 void PassiveMotion(int x, int y)
 {
+    if(sysMode!=IDLE) return;
     Ray selectRay = getMouseRay(x,y);
-    float minDist = 1000.0f;
-    bool findCurr = false;
-
-    for(int i=0; i<lineList.size(); ++i)
-    {
-        for(int j=0; j<lineList[i].size(); ++j)
-        {
-            if(distRayPoint(selectRay,lineList[i][j])<0.1f)
-            {
-                if((selectRay.GetOrigin() - lineList[i][j]).length()<minDist)
-                {
-                    minDist = (selectRay.GetOrigin() - lineList[i][j]).length();
-                    currPoint = lineList[i][j];
-                    findCurr = true;
-                    //cout<<currPoint<<endl;
-                }
-            }
-        }
-    }
-    if(!findCurr) currPoint = Vector3(0,0,-1000);
+    
+    getRayPoint(selectRay,currPoint);
     mouseX = x;
     mouseY = y;
 }
@@ -139,6 +139,19 @@ void Keyboard(unsigned char key, int x, int y)
     {
         lineList.clear();
         pointList.clear();
+    }
+    else if (key =='x' || key =='X')
+    {
+        if(planeMode == VER_PLANE) 
+        {
+            planeMode = HOR_PLANE;
+            currPlane.N = Vector3(0,1,0);
+        }
+        else 
+        {
+            planeMode = VER_PLANE;
+            currPlane.N = Vector3(1,0,0);
+        }
     }
     printf("Key:%d x:%d y:%d\n",key,x,y);
 
