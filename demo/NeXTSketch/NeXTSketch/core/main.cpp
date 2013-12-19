@@ -146,11 +146,18 @@ void Keyboard(unsigned char key, int x, int y)
         {
             planeMode = HOR_PLANE;
             currPlane.N = Vector3(0,1,0);
+            currPlane.D = currPoint.y;
         }
         else 
         {
+            Ray selectRay = getMouseRay(width/2,height/2);
+            Vector3 planeN = selectRay.GetOrigin();
+            planeN.y=0;
+            planeN.normalize();
             planeMode = VER_PLANE;
-            currPlane.N = Vector3(1,0,0);
+            currPlane.N = planeN;//Vector3(1,0,0);
+            float dist = planeN.dot(currPoint);
+            currPlane.D = dist;
         }
     }
     printf("Key:%d x:%d y:%d\n",key,x,y);
