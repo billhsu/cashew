@@ -1,7 +1,7 @@
 CC        := g++
 LDFLAGS   := -lGL -lGLU -lglut
 
-MODULES   := control draw core 
+MODULES   := src/control src/draw src/core src/impl 
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 
