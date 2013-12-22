@@ -1,12 +1,16 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+*/
 #pragma once
-#include "ray.h"
-#include "plane.h"
-#include "vectors.h"
-Vector3 intersect(Ray r, plane p);
+#include "Ray.h"
+#include "Plane.h"
+#include "Vectors.h"
+Vector3 intersect(Ray r, Plane p);
 float distRayPoint(Ray r, Vector3 p);
 void drawGrid(float size, float step);
 void drawAxis(float size);
-void drawPlane(Vector3 center, plane p, float size);
+void drawPlane(Vector3 center, Plane p, float size);
 Ray getMouseRay(int mx, int my); 
 bool getRayPoint(Ray selectRay, Vector3& p);
 enum {IDLE, DRAW};

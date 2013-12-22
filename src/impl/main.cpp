@@ -1,10 +1,14 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+*/
 #include <stdio.h>
 #include <GL/glut.h>
-#include "display.h"
-#include "ray.h"
-#include "plane.h"
-#include "scene.h"
-#include "utility.h"
+#include "Display.h"
+#include "Ray.h"
+#include "Plane.h"
+#include "Scene.h"
+#include "Utility.h"
 #include <math.h>
 #include <vector>
 using namespace std;

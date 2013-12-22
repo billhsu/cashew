@@ -1,6 +1,10 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+*/
 #pragma once
 #include <vector>
-#include "vectors.h"
+#include "Vectors.h"
 
 class Line
 {

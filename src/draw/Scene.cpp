@@ -1,4 +1,4 @@
-#include "scene.h"
+#include "Scene.h"
 #include "display.h"
 #include <GL/glut.h>
 int sysMode = IDLE;
@@ -8,7 +8,7 @@ float distRayPoint(Ray r, Vector3 p)
 {
     return r.GetDirection().cross(p - r.GetOrigin()).length();
 }
-Vector3 intersect(Ray r, plane p)
+Vector3 intersect(Ray r, Plane p)
 {
     p.N = - p.N;
     float dist =  -(r.GetOrigin().dot(p.N)+p.D)/r.GetDirection().dot(p.N);
@@ -116,7 +116,7 @@ Ray getMouseRay(int mx, int my)
     return selectRay;
 }
 
-void drawPlane(Vector3 center, plane p, float size)
+void drawPlane(Vector3 center, Plane p, float size)
 {
     size/=2.0f;
     center.y=0;

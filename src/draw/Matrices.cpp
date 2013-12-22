@@ -18,7 +18,7 @@
 
 #include <cmath>
 #include <algorithm>
-#include "matrices.h"
+#include "Matrices.h"
 
 const float DEG2RAD = 3.141593f / 180;
 

@@ -1,3 +1,7 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+*/
 class Camera
 {
     public:

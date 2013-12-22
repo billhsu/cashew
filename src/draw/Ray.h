@@ -1,6 +1,10 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+*/
 #ifndef RAY_H
 #define RAY_H
-#include "vectors.h"
+#include "Vectors.h"
 class Ray
 {
     public:

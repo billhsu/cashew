@@ -1,4 +1,4 @@
-#include "line.h"
+#include "Line.h"
 #include <GL/glut.h>
 void Line::addVec(Vector3 vec)
 {

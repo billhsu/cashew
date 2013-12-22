@@ -1,4 +1,4 @@
-#include "display.h"
+#include "Display.h"
 
 using namespace std;
 extern int width,height;
@@ -8,7 +8,7 @@ float rotateX=-30.0f, rotateY=0.0f, rotateZ=0.0f;
 vector<Vector3> pointList;
 vector< vector<Vector3> > lineList;
 
-plane currPlane;
+Plane currPlane;
 Vector3 currPoint;
 
 void display(void)
