@@ -16,12 +16,23 @@ void display(void)
     glClearColor (0.9f, 0.9f, 0.9f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    gluLookAt (0.0, 0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-    glRotatef(rotateX,1.0f,0.0f,0.0f);
-    glRotatef(rotateY,0.0f,1.0f,0.0f);
-    glRotatef(rotateZ,0.0f,0.0f,1.0f);
 
+    Vector3 planeN = currPlane.N;
+
+    if(sysMode==DRAW && findCurr && planeMode == VER_PLANE) 
+        gluLookAt (currPoint.x + planeN.x*20,currPoint.y,currPoint.z + planeN.z*20,
+            currPoint.x,currPoint.y,currPoint.z, 
+            0.0, 1.0, 0.0);
+    else 
+    {
+        gluLookAt (0.0, 0.0, -10.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+        glRotatef(rotateX,1.0f,0.0f,0.0f);
+        glRotatef(rotateY,0.0f,1.0f,0.0f);
+        glRotatef(rotateZ,0.0f,0.0f,1.0f);
+    }
     if(sysMode==DRAW && findCurr) drawPlane(currPoint, currPlane, 20);
+
+
 
     glDisable(GL_LIGHTING);
     glLineWidth(2.0f);

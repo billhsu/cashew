@@ -119,12 +119,14 @@ Ray getMouseRay(int mx, int my)
 void drawPlane(Vector3 center, Plane p, float size)
 {
     size/=2.0f;
-    center.y=0;
-    center = center + p.D*p.N.normalize();
+    //center.y=0;
+    //center = center + p.D*p.N.normalize();
     Vector3 randVec = Vector3(0,0,1);
-    if (randVec.cross(p.N).length()==0.0f) randVec = Vector3(1,0,0);
+    if (randVec.cross(p.N).length()<0.001f) randVec = Vector3(1,0,0);
     Vector3 vx = p.N.cross(randVec);
     Vector3 vy = p.N.cross(vx);
+    vx.normalize();
+    vy.normalize();
     vx*=size;
     vy*=size;
 

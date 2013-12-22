@@ -160,8 +160,11 @@ void Keyboard(unsigned char key, int x, int y)
             planeN.normalize();
             planeMode = VER_PLANE;
             currPlane.N = planeN;//Vector3(1,0,0);
-            float dist = planeN.dot(currPoint);
+            Vector3 currPointY0 = currPoint;
+            currPointY0.y = 0;
+            float dist = planeN.dot(currPointY0);
             currPlane.D = dist;
+            std::cout<<"planeN: "<<planeN<<" D:"<<dist<<std::endl;
         }
     }
     printf("Key:%d x:%d y:%d\n",key,x,y);
