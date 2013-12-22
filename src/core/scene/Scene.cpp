@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "display.h"
+#include "Display.h"
 #include <GL/glut.h>
 int sysMode = IDLE;
 bool findCurr = false;
