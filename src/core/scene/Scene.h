@@ -10,7 +10,6 @@ Vector3 intersect(Ray r, Plane p);
 float distRayPoint(Ray r, Vector3 p);
 void drawGrid(float size, float step);
 void drawAxis(float size);
-void drawPlane(Vector3 center, Plane p, float size);
 Ray getMouseRay(int mx, int my); 
 bool getRayPoint(Ray selectRay, Vector3& p);
 enum {IDLE, DRAW};

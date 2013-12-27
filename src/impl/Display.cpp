@@ -30,7 +30,7 @@ void display(void)
         glRotatef(rotateY,0.0f,1.0f,0.0f);
         glRotatef(rotateZ,0.0f,0.0f,1.0f);
     }
-    if(sysMode==DRAW && findCurr) drawPlane(currPoint, currPlane, 20);
+    if(sysMode==DRAW && findCurr) currPlane.drawPlane(currPoint, 20);
 
 
 
