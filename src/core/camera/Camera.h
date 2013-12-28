@@ -9,7 +9,7 @@ class Camera
 public:
     static Camera& getInstance()
     {
-        static Camera    instance;
+        static Camera instance;
         std::cout <<"Camera getInstance()"<<std::endl;
         return instance;
     }
