@@ -24,8 +24,8 @@ public:
         return instance;
     }
 
-    ~Controller();
     
+    void init();
     void MouseButton(int button, int state, int x, int y);
     void MouseMotion(int x, int y);
     void PassiveMotion(int x, int y);
@@ -51,7 +51,7 @@ public:
 
 private:
     Controller();
-
+    ~Controller();
     Controller(Controller const&);
     void operator=(Controller const&);
 };

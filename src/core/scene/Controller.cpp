@@ -6,16 +6,10 @@ billhsu.x@gmail.com
 #include "State.h"
 State* State::currState;
 
-Controller::Controller():width(400),height(300)
+Controller::Controller()
 {
-    sidle = new StateIdle();
-    sselectPlane = new StateSelectPlane();
-    sdraw = new StateDraw();
-
-    sidle->stateSelectPlane = sselectPlane;
-    sselectPlane->stateDraw = sdraw;
-    sdraw->stateIdle = sidle;
-    State::enterState(sidle);
+    width = 400;
+    height = 300;
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
@@ -28,6 +22,19 @@ Controller::~Controller()
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
+
+void Controller::init()
+{
+    sidle = new StateIdle();
+    sselectPlane = new StateSelectPlane();
+    sdraw = new StateDraw();
+
+    sidle->stateSelectPlane = sselectPlane;
+    sselectPlane->stateDraw = sdraw;
+    sdraw->stateIdle = sidle;
+    State::enterState(sidle);
+
+}
 void Controller::MouseButton(int button, int state, int x, int y)
 {
     mouseButton = button;

@@ -16,5 +16,9 @@ unsigned long getMilliSec()
     return 1000 * tv.tv_sec + tv.tv_usec/1000;
 }
 
+bool floatEq(float a, float b)
+{
+    return fabs(a - b) < 0.000001f;
+}
 
 #endif
