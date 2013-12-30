@@ -1,5 +1,6 @@
 CC        := g++
 LDFLAGS   := -lGL -lGLU -lglut
+CFLAGS    := 
 
 MODULES   := src/core/camera src/core/math src/core/scene src/impl 
 SRC_DIR   := $(addprefix ,$(MODULES))

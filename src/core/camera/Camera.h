@@ -3,7 +3,11 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #pragma once
+
+#include <iostream>
 #include "Vectors.h"
+#include "Ray.h"
+
 class Camera
 {
 public:
@@ -16,9 +20,10 @@ public:
 
     void update();
 
-    Vector3 eye,eyeDest;
-    Vector3 lookat,lookatDest;
-    Vector3 up,upDest;
+    float distance;
+    Vector3 rotate, rotateDest;
+    void setCamera();
+    Ray getRay(int mx, int my);
 
 private:
     Camera() {};

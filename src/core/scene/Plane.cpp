@@ -1,4 +1,4 @@
-#include "glut.h"
+#include <GL/glut.h>
 #include "Plane.h"
 
 void Plane::drawPlane(Vector3 center, float size)
