@@ -38,7 +38,7 @@ void Camera::update(float timeDelta)
         bool rotZOK = false;
 
         if(distanceDelta*(distanceTo - distance)>0) 
-            distance = distance + (distanceDelta>0?1:-1)*timeDelta*5.0f;
+            distance = distance + (distanceDelta>0?1:-1)*timeDelta*0.5f;
         else distOK = true;
         if(rotateDelta.x*(rotateTo.x - rotate.x)>0) 
             rotate.x = rotate.x + (rotateDelta.x>0?1:-1)*timeDelta*5.0f;

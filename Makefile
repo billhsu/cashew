@@ -1,5 +1,5 @@
 CC        := g++
-LDFLAGS   := -lGL -lGLU -lglut
+LDFLAGS   := -lGL -lGLU -lglut -lrt
 CFLAGS    := 
 
 MODULES   := src/core/camera src/core/math src/core/scene src/impl 

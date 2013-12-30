@@ -49,6 +49,7 @@ void StateIdle::Keyboard(unsigned char key, int x, int y)
 {
     if(key == 27) exit(1);
     if(key == 'x') camera->rotateCamTo(-90.0f,camera->rotate.y, camera->rotate.z);
+    if(key == 'y') camera->setCamDistTo(20);
 }
 
 void StateIdle::render(float timeDelta)

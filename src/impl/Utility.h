@@ -1,19 +1,19 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-#include<sys/time.h>
+#include <sys/time.h>
 unsigned long getMicroSec()
 {
-	struct timeval tv;
-	gettimeofday(&tv,NULL);
-	return 1000000 * tv.tv_sec + tv.tv_usec;
+	struct timespec tv;
+	clock_gettime(CLOCK_REALTIME, &tv);
+	return 1000000 * tv.tv_sec + tv.tv_nsec/1000;
 }
 
 unsigned long getMilliSec()
 {
-    struct timeval tv;
-    gettimeofday(&tv,NULL);
-    return 1000 * tv.tv_sec + tv.tv_usec/1000;
+    struct timespec tv;
+    clock_gettime(CLOCK_REALTIME, &tv);
+    return 1000 * tv.tv_sec + tv.tv_nsec/1000000;
 }
 
 bool floatEq(float a, float b)
