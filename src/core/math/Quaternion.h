@@ -1,5 +1,6 @@
 #pragma once
-#include <math>
+#include <cmath>
+#include "Matrices.h"
 
 class Quaternion
 {
@@ -14,26 +15,10 @@ public:
         y = float(y1 * result);
         z = float(z1 * result);
     };
-    void gl_matrix(double *m)
-    {
-        if(!m) return;
-        m[ 0] = 1.0f - 2.0f * ( y * y + z * z ); 
-        m[ 1] = 2.0f * (x * y + z * w);
-        m[ 2] = 2.0f * (x * z - y * w);
-        m[ 3] = 0.0f;  
-        m[ 4] = 2.0f * ( x * y - z * w );  
-        m[ 5] = 1.0f - 2.0f * ( x * x + z * z ); 
-        m[ 6] = 2.0f * (z * y + x * w );  
-        m[ 7] = 0.0f;  
-        m[ 8] = 2.0f * ( x * z + y * w );
-        m[ 9] = 2.0f * ( y * z - x * w );
-        m[10] = 1.0f - 2.0f * ( x * x + y * y );  
-        m[11] = 0.0f;  
-        m[12] = 0;  
-        m[13] = 0;  
-        m[14] = 0;  
-        m[15] = 1.0f;
-    };
+
+    Matrix4& getMatrix();
+    float*   getFloat();
+    
     Quaternion operator* (const Quaternion &b) {
         Quaternion r;
         r.w = w*b.w - x*b.x - y*b.y - z*b.z;
@@ -44,4 +29,6 @@ public:
     };
 private:
     float w,x,y,z;
+    float m[16];
+    Matrix4 mat;
 };
