@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <GL/glut.h>
+#include "Quaternion.h"
 
 Camera::Camera()
 {
@@ -26,9 +27,19 @@ void Camera::update(float timeDelta)
     if(!anim)
     {
         gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-        glRotatef(rotate.x,1.0f,0.0f,0.0f);
-        glRotatef(rotate.y,0.0f,1.0f,0.0f);
-        glRotatef(rotate.z,0.0f,0.0f,1.0f);
+        //glRotatef(rotate.x,1.0f,0.0f,0.0f);
+        //glRotatef(rotate.y,0.0f,1.0f,0.0f);
+        //glRotatef(rotate.z,0.0f,0.0f,1.0f);
+        Vector3 xAxis(1.0f,0.0f,0.0f);
+        Vector3 yAxis(0.0f,1.0f,0.0f);
+        Vector3 zAxis(0.0f,0.0f,1.0f);
+
+        Quaternion quatX(xAxis,rotate.x);
+        Quaternion quatY(yAxis,rotate.y);
+        Quaternion quatZ(zAxis,rotate.z);
+
+        Quaternion quat = quatX*quatY*quatZ;
+        glMultTransposeMatrixf(quat.getFloat());
     }
     else
     {
