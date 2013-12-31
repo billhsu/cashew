@@ -39,7 +39,7 @@ public:
 
     int status;
 
-    int width,height;
+    static int width,height;
     int mouseX,mouseY;
     int mouseButton,mouseState; // mouse status
     int lastMouseX,lastMouseY; // last mouse position

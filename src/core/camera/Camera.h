@@ -52,10 +52,17 @@ public:
     float distance,distanceTo,distanceDelta;
     Vector3 rotate, rotateTo, rotateDelta;
     bool anim;
+    int width,height;
 
 private:
     Camera();
     ~Camera();
     Camera(Camera const&);
     void operator=(Camera const&);
+
+    void drawFPS();
+    long lastTimeMS;
+    int FPS;
+    int lastFPS;
+    char FPSchar[64];
 };

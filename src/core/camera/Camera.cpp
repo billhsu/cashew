@@ -1,7 +1,8 @@
 #include "Camera.h"
-#include <GL/glut.h>
+#include <GL/freeglut.h>
 #include "Quaternion.h"
-
+#include "Controller.h"
+#include "Utility.h"
 Camera::Camera()
 {
     anim = false;
@@ -15,6 +16,11 @@ Camera::Camera()
     rotateDelta.x = 0.0f;
     rotateDelta.y = 0.0f;
     rotateDelta.z = 0.0f;
+    width = 400;
+    height = 300;
+    lastTimeMS = getMilliSec();
+    FPS = 0;
+    lastFPS = 0;
     std::cout <<"Camera Camera()"<<std::endl;
 }
 
@@ -30,9 +36,9 @@ void Camera::update(float timeDelta)
         //glRotatef(rotate.x,1.0f,0.0f,0.0f);
         //glRotatef(rotate.y,0.0f,1.0f,0.0f);
         //glRotatef(rotate.z,0.0f,0.0f,1.0f);
-        Vector3 xAxis(1.0f,0.0f,0.0f);
-        Vector3 yAxis(0.0f,1.0f,0.0f);
-        Vector3 zAxis(0.0f,0.0f,1.0f);
+        Vector3 const xAxis(1.0f,0.0f,0.0f);
+        Vector3 const yAxis(0.0f,1.0f,0.0f);
+        Vector3 const zAxis(0.0f,0.0f,1.0f);
 
         Quaternion quatX(xAxis,rotate.x);
         Quaternion quatY(yAxis,rotate.y);
@@ -49,7 +55,7 @@ void Camera::update(float timeDelta)
         bool rotZOK = false;
 
         if(distanceDelta*(distanceTo - distance)>0) 
-            distance = distance + (distanceDelta>0?1:-1)*timeDelta*0.5f;
+            distance = distance + (distanceDelta>0?1:-1);
         else distOK = true;
         if(rotateDelta.x*(rotateTo.x - rotate.x)>0) 
             rotate.x = rotate.x + (rotateDelta.x>0?1:-1)*timeDelta*5.0f;
@@ -67,6 +73,47 @@ void Camera::update(float timeDelta)
         glRotatef(rotate.z,0.0f,0.0f,1.0f);
         if(distOK && rotXOK && rotYOK && rotZOK) anim = false;
     }
+    // draw FPS
+    
+    drawFPS();
+}
+
+void Camera::drawFPS()
+{
+    FPS++;
+    if(getMilliSec() - lastTimeMS>=1000)
+    {
+        lastTimeMS = getMilliSec();
+        lastFPS = FPS;
+        FPS = 0;
+    }
+    glMatrixMode( GL_PROJECTION ) ;
+    glPushMatrix() ; // save
+    glLoadIdentity();// and clear
+
+    glOrtho(0, Controller::width, 0, Controller::height,-1,1);
+    glMatrixMode( GL_MODELVIEW ) ;
+    glPushMatrix() ;
+    glLoadIdentity() ;
+
+    glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
+    glTranslatef(0.0f, (float)-Controller::height, 0.0f); 
+
+
+    glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
+
+    glRasterPos2f(10, 20);
+    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d", 
+        Controller::width, Controller::height, lastFPS);
+    glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)FPSchar);
+    //glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,'a');
+
+    glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
+
+    glMatrixMode( GL_PROJECTION ) ;
+    glPopMatrix(); // revert back to the matrix I had before.
+    glMatrixMode( GL_MODELVIEW ) ;
+    glPopMatrix();
 }
 
 Ray Camera::getRay(int mx, int my)

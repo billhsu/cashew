@@ -6,10 +6,12 @@ billhsu.x@gmail.com
 #include "State.h"
 State* State::currState;
 
+int Controller::width = 400;
+int Controller::height = 300;
+
 Controller::Controller()
 {
-    width = 400;
-    height = 300;
+
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
