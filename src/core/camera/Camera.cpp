@@ -30,6 +30,7 @@ Camera::~Camera()
 {
     std::cout <<"Camera ~Camera()"<<std::endl;
 }
+
 void Camera::update(float timeDelta)
 {
     if(!anim)
@@ -42,6 +43,7 @@ void Camera::update(float timeDelta)
     else
     {
         animTime += timeDelta;
+        float alpha = animTime/ANIM_TIME_MS;
         if(animTime>=ANIM_TIME_MS)
         {
             animTime = 0;
@@ -54,10 +56,11 @@ void Camera::update(float timeDelta)
         }
         else
         {
-            gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+            float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
+            gluLookAt (0.0, 0.0, -distanceTmp, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
             Quaternion quat0 = Quaternion::fromEuler(rotate);
             Quaternion quat1 = Quaternion::fromEuler(rotateTo);
-            Quaternion quat2 = Quaternion::slerp(quat0, quat1, animTime/ANIM_TIME_MS);
+            Quaternion quat2 = Quaternion::slerp(quat0, quat1, alpha);
             glMultTransposeMatrixf(quat2.getFloat());
         }
         

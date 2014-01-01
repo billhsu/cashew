@@ -18,21 +18,42 @@ public:
         return instance;
     }
 
-    void rotateCam(Vector3 rot) {rotate = rot; rotateTo = rot; anim=false;}
+    void rotateCam(Vector3 rot) {rotateCam(rot.x, rot.y, rot.z);}
     void rotateCam(float rotx, float roty, float rotz)
     {
+        if(anim) return;
+
+        if(rotx>=360.0f) rotx-=360.0f;
+        else if (rotx<=-360.0f) rotx+=360.0f;
+        if(roty>=360.0f) roty-=360.0f;
+        else if (roty<=-360.0f) roty+=360.0f;
+        if(rotz>=360.0f) rotz-=360.0f;
+        else if (rotz<=-360.0f) rotz+=360.0f;
+
         rotate.x = rotx;
         rotate.y = roty;
         rotate.z = rotz;
-        rotateTo = rotate;
-        anim = false;
-    }
-    void setCamDist(float dist){distance = dist; distanceTo=dist; anim = false;}
 
+        rotateTo = rotate;
+    }
+    void setCamDist(float dist)
+    {
+        if (dist<=0) return;
+        if(anim) return;
+        distance = dist;
+        distanceTo=dist;
+    }
     // rotate with animation
-    void rotateCamTo(Vector3 rot) {rotateTo = rot; anim=true;}
+    void rotateCamTo(Vector3 rot) {rotateCamTo(rot.x, rot.y, rot.z);}
     void rotateCamTo(float rotx, float roty, float rotz)
     {
+        if(rotx>=360.0f) rotx-=360.0f;
+        else if (rotx<=-360.0f) rotx+=360.0f;
+        if(roty>=360.0f) roty-=360.0f;
+        else if (roty<=-360.0f) roty+=360.0f;
+        if(rotz>=360.0f) rotz-=360.0f;
+        else if (rotz<=-360.0f) rotz+=360.0f;
+
         rotateTo.x = rotx;
         rotateTo.y = roty;
         rotateTo.z = rotz;

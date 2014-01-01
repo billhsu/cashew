@@ -15,10 +15,25 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
 {
     if(button == GLUT_LEFT_BUTTON && state==GLUT_DOWN)
         enterState(stateSelectPlane);
-    if(button==GLUT_RIGHT_BUTTON && state==GLUT_DOWN)
+    if(state==GLUT_DOWN)
     {
-        ctrl->lastMouseX=x;
-        ctrl->lastMouseY=y;
+        if(button==GLUT_RIGHT_BUTTON)
+        {
+            ctrl->lastMouseX=x;
+            ctrl->lastMouseY=y;
+        }
+        if(button == 3)
+        {
+            std::cout<<"ss"<<std::endl;
+            float dist = camera->distance;
+            camera->setCamDist(dist-2);
+        }
+        if(button == 4)
+        {
+            std::cout<<"ss"<<std::endl;
+            float dist = camera->distance;
+            camera->setCamDist(dist+2);
+        }
     }
 }
 
@@ -31,12 +46,15 @@ void StateIdle::MouseMotion(int x, int y)
     ctrl->lastMouseX = x;
     ctrl->lastMouseY = y;
 
-    if(ctrl->mouseButton==GLUT_RIGHT_BUTTON && ctrl->mouseState==GLUT_DOWN)
+    if(ctrl->mouseState==GLUT_DOWN)
     {
-        Vector3 rot = camera->rotate;
-        rot.x-=dy;
-        rot.y+=dx;
-        camera->rotateCam(rot);
+        if(ctrl->mouseButton==GLUT_RIGHT_BUTTON)
+        {
+            Vector3 rot = camera->rotate;
+            rot.x-=dy;
+            rot.y+=dx;
+            camera->rotateCam(rot);
+        }
     }
 }
 
