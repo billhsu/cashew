@@ -24,13 +24,11 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
         }
         if(button == 3)
         {
-            std::cout<<"ss"<<std::endl;
             float dist = camera->distance;
             camera->setCamDist(dist-2);
         }
         if(button == 4)
         {
-            std::cout<<"ss"<<std::endl;
             float dist = camera->distance;
             camera->setCamDist(dist+2);
         }
