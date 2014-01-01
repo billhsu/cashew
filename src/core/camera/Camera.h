@@ -59,8 +59,10 @@ private:
     ~Camera();
     Camera(Camera const&);
     void operator=(Camera const&);
+    float ANIM_TIME_MS;
+    float animTime;
 
-    void drawFPS();
+    void drawFPS(float timeDelta);
     long lastTimeMS;
     int FPS;
     int lastFPS;

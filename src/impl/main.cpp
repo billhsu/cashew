@@ -15,6 +15,7 @@ billhsu.x@gmail.com
 #include <vector>
 using namespace std;
 
+
 Controller *ctrl;
 long timeMsLast;
 
@@ -37,8 +38,10 @@ void Keyboard(unsigned char key, int x, int y)
 
 void render()
 {
-    ctrl->render((getMilliSec() - timeMsLast));
+    float timeDelta = getMilliSec() - timeMsLast;
     timeMsLast = getMilliSec();
+    ctrl->render(timeDelta);
+
 }
 void reshape(GLint width, GLint height);
 

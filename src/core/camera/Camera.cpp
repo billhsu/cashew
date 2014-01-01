@@ -21,6 +21,8 @@ Camera::Camera()
     lastTimeMS = getMilliSec();
     FPS = 0;
     lastFPS = 0;
+    ANIM_TIME_MS = 300.0;
+    animTime = 0.0f;
     std::cout <<"Camera Camera()"<<std::endl;
 }
 
@@ -33,52 +35,38 @@ void Camera::update(float timeDelta)
     if(!anim)
     {
         gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-        //glRotatef(rotate.x,1.0f,0.0f,0.0f);
-        //glRotatef(rotate.y,0.0f,1.0f,0.0f);
-        //glRotatef(rotate.z,0.0f,0.0f,1.0f);
-        Vector3 const xAxis(1.0f,0.0f,0.0f);
-        Vector3 const yAxis(0.0f,1.0f,0.0f);
-        Vector3 const zAxis(0.0f,0.0f,1.0f);
-
-        Quaternion quatX(xAxis,rotate.x);
-        Quaternion quatY(yAxis,rotate.y);
-        Quaternion quatZ(zAxis,rotate.z);
-
-        Quaternion quat = quatX*quatY*quatZ;
+        Quaternion quat = Quaternion::fromEuler(rotate);
         glMultTransposeMatrixf(quat.getFloat());
+        animTime = 0;
     }
     else
     {
-        bool distOK = false;
-        bool rotXOK = false;
-        bool rotYOK = false;
-        bool rotZOK = false;
-
-        if(distanceDelta*(distanceTo - distance)>0) 
-            distance = distance + (distanceDelta>0?1:-1);
-        else distOK = true;
-        if(rotateDelta.x*(rotateTo.x - rotate.x)>0) 
-            rotate.x = rotate.x + (rotateDelta.x>0?1:-1)*timeDelta*5.0f;
-        else rotXOK = true;
-        if(rotateDelta.y*(rotateTo.y - rotate.y)>0) 
-            rotate.y = rotate.y + (rotateDelta.y>0?1:-1)*timeDelta*5.0f;
-        else rotYOK = true;
-        if(rotateDelta.z*(rotateTo.z - rotate.z)>0) 
-            rotate.z = rotate.z + (rotateDelta.z>0?1:-1)*timeDelta*5.0f;
-        else rotZOK = true;
-
-        gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-        glRotatef(rotate.x,1.0f,0.0f,0.0f);
-        glRotatef(rotate.y,0.0f,1.0f,0.0f);
-        glRotatef(rotate.z,0.0f,0.0f,1.0f);
-        if(distOK && rotXOK && rotYOK && rotZOK) anim = false;
+        animTime += timeDelta;
+        if(animTime>=ANIM_TIME_MS)
+        {
+            animTime = 0;
+            anim = false;
+            rotate = rotateTo;
+            distance = distanceTo;
+            Quaternion quat0 = Quaternion::fromEuler(rotate);
+            gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+            glMultTransposeMatrixf(quat0.getFloat());
+        }
+        else
+        {
+            gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+            Quaternion quat0 = Quaternion::fromEuler(rotate);
+            Quaternion quat1 = Quaternion::fromEuler(rotateTo);
+            Quaternion quat2 = Quaternion::slerp(quat0, quat1, animTime/ANIM_TIME_MS);
+            glMultTransposeMatrixf(quat2.getFloat());
+        }
+        
     }
-    // draw FPS
     
-    drawFPS();
+    drawFPS(timeDelta);
 }
 
-void Camera::drawFPS()
+void Camera::drawFPS(float timeDelta)
 {
     FPS++;
     if(getMilliSec() - lastTimeMS>=1000)
@@ -103,10 +91,9 @@ void Camera::drawFPS()
     glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
 
     glRasterPos2f(10, 20);
-    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d", 
-        Controller::width, Controller::height, lastFPS);
+    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d tDelta:%.1f", 
+        Controller::width, Controller::height, lastFPS, timeDelta);
     glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)FPSchar);
-    //glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18,'a');
 
     glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
 
