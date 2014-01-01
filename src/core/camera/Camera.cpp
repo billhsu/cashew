@@ -90,9 +90,9 @@ void Camera::drawFPS(float timeDelta)
     glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
     glTranslatef(0.0f, (float)-Controller::height, 0.0f); 
 
-
+    glDisable(GL_LIGHTING);
     glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
-
+    glColor3f(0.3f, 0.3f, 0.3f);
     glRasterPos2f(10, 20);
     snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d tDelta:%.1f", 
         Controller::width, Controller::height, lastFPS, timeDelta);
