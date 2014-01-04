@@ -1,3 +1,12 @@
+/* 
+Shipeng Xu
+billhsu.x@gmail.com
+
+Thanks to:
+http://willperone.net/Code/quaternion.php
+http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors
+*/
+
 #pragma once
 #include <cmath>
 #include "Matrices.h"
@@ -152,9 +161,25 @@ public:
         return quatX*quatY*quatZ;
     }
 
+    static Quaternion fromVector(Vector3& u, Vector3& v)
+    {
+        u.normalize();
+        v.normalize();
+        Vector3 w = u.cross(v);
+        Quaternion q;
+        q.w = 1.0f + u.dot(v);
+        q.x = w.x;
+        q.y = w.y;
+        q.z = w.z;
+        return q.normalized();
+    }
+
 
     Matrix4& getMatrix();
     float*   getFloat();
+
+    static Vector3 X_AXIS, Y_AXIS, Z_AXIS;
+    static Vector3 X_NEG_AXIS, Y_NEG_AXIS, Z_NEG_AXIS;
 private:
     float w,x,y,z;
     float m[16];

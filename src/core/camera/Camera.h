@@ -7,6 +7,7 @@ billhsu.x@gmail.com
 #include <iostream>
 #include "Vectors.h"
 #include "Ray.h"
+#include "Quaternion.h"
 
 class Camera
 {
@@ -18,23 +19,9 @@ public:
         return instance;
     }
 
-    void rotateCam(Vector3 rot) {rotateCam(rot.x, rot.y, rot.z);}
-    void rotateCam(float rotx, float roty, float rotz)
+    void rotateCam(Quaternion rot)
     {
-        if(anim) return;
-
-        if(rotx>=360.0f) rotx-=360.0f;
-        else if (rotx<=-360.0f) rotx+=360.0f;
-        if(roty>=360.0f) roty-=360.0f;
-        else if (roty<=-360.0f) roty+=360.0f;
-        if(rotz>=360.0f) rotz-=360.0f;
-        else if (rotz<=-360.0f) rotz+=360.0f;
-
-        rotate.x = rotx;
-        rotate.y = roty;
-        rotate.z = rotz;
-
-        rotateTo = rotate;
+        rotate = rot;
     }
     void setCamDist(float dist)
     {
@@ -44,20 +31,9 @@ public:
         distanceTo=dist;
     }
     // rotate with animation
-    void rotateCamTo(Vector3 rot) {rotateCamTo(rot.x, rot.y, rot.z);}
-    void rotateCamTo(float rotx, float roty, float rotz)
+    void rotateCamTo(Quaternion rot)
     {
-        if(rotx>=360.0f) rotx-=360.0f;
-        else if (rotx<=-360.0f) rotx+=360.0f;
-        if(roty>=360.0f) roty-=360.0f;
-        else if (roty<=-360.0f) roty+=360.0f;
-        if(rotz>=360.0f) rotz-=360.0f;
-        else if (rotz<=-360.0f) rotz+=360.0f;
-
-        rotateTo.x = rotx;
-        rotateTo.y = roty;
-        rotateTo.z = rotz;
-        rotateDelta = rotateTo - rotate;
+        rotateTo = rot;
         anim = true;
     }
     void setCamDistTo(float dist)
@@ -68,10 +44,12 @@ public:
     }
 
     void update(float timeDelta);
-    Ray getRay(int mx, int my);
+    Ray getRay();
+    bool getPoint(Vector3& p);
+    Quaternion getQuaternion() {return rotate;}
+
 
     float distance,distanceTo,distanceDelta;
-    Vector3 rotate, rotateTo, rotateDelta;
     bool anim;
     int width,height;
 
@@ -82,6 +60,7 @@ private:
     void operator=(Camera const&);
     float ANIM_TIME_MS;
     float animTime;
+    Quaternion rotate, rotateTo;
 
     void drawFPS(float timeDelta);
     long lastTimeMS;

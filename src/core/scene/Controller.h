@@ -7,12 +7,14 @@ billhsu.x@gmail.com
 #include <vector>
 #include "Vectors.h"
 #include "Plane.h"
+#include "LineSegment.h"
 #include <GL/glut.h>
 
 class StateIdle;
 class StateDraw;
 class StateSelectPlane;
 class State;
+class Camera;
 
 class Controller
 {
@@ -32,22 +34,22 @@ public:
     void Keyboard(unsigned char key, int x, int y);
     void render(float timeDelta);
 
-
-
-    std::vector<Vector3> highlightedPoints;
-    Plane currPlane; // Plane to draw
+    static std::vector<LineSegment> sketchLines;
+    static Plane currPlane; // Plane to draw
 
     int status;
 
     static int width,height;
-    int mouseX,mouseY;
-    int mouseButton,mouseState; // mouse status
-    int lastMouseX,lastMouseY; // last mouse position
+    static int mouseX,mouseY;
+    static int mouseButton,mouseState; // mouse status
+    static int lastMouseX,lastMouseY; // last mouse position
 
 
     StateIdle* sidle;
     StateSelectPlane* sselectPlane;
     StateDraw* sdraw;
+    Camera * camera;
+    static bool enableLight;
 
 private:
     Controller();

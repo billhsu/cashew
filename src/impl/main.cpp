@@ -4,7 +4,6 @@ billhsu.x@gmail.com
 */
 #include <stdio.h>
 #include <GL/glut.h>
-#include "Display.h"
 #include "Ray.h"
 #include "Plane.h"
 #include "Scene.h"

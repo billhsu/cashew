@@ -1,5 +1,13 @@
 #include "Quaternion.h"
 
+Vector3 Quaternion::X_AXIS = Vector3(1,0,0);
+Vector3 Quaternion::Y_AXIS = Vector3(0,1,0);
+Vector3 Quaternion::Z_AXIS = Vector3(0,0,1);
+
+Vector3 Quaternion::X_NEG_AXIS = Vector3(-1,0,0);
+Vector3 Quaternion::Y_NEG_AXIS = Vector3(0,-1,0);
+Vector3 Quaternion::Z_NEG_AXIS = Vector3(0,0,-1);
+
 float* Quaternion::getFloat()
 {
     m[ 0] = 1.0f - 2.0f * ( y * y + z * z ); 

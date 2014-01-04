@@ -3,6 +3,8 @@
 // here is a simple FSM
 #include <iostream>
 #include <GL/glut.h>
+#include <vector>
+#include "Vectors.h"
 
 class Controller;
 class Camera;
@@ -30,7 +32,7 @@ protected:
     int stateID;
 
 };
-
+class StateSelectPlane;
 // idle state
 class StateIdle:public State
 {
@@ -42,21 +44,28 @@ public:
     void Keyboard(unsigned char key, int x, int y);
 
     void render(float timeDelta);
-    State* stateSelectPlane;
+    StateSelectPlane* stateSelectPlane;
 };
 
+class StateDraw;
 // select drawing plane state
 class StateSelectPlane:public State
 {
 public:
-    StateSelectPlane(){stateID = CTRL_SELECT_CUR_PLANE;}
+    StateSelectPlane()
+    {
+        stateID = CTRL_SELECT_CUR_PLANE;
+        selectedPoints.clear();
+    }
     void MouseButton(int button, int state, int x, int y);
     void MouseMotion(int x, int y);
     void PassiveMotion(int x, int y);
     void Keyboard(unsigned char key, int x, int y);
 
     void render(float timeDelta);
-    State* stateDraw;
+    StateDraw* stateDraw;
+
+    std::vector<Vector3> selectedPoints;
 };
 
 
@@ -71,5 +80,5 @@ public:
     void Keyboard(unsigned char key, int x, int y);
 
     void render(float timeDelta);
-    State* stateIdle;
+    StateIdle* stateIdle;
 };

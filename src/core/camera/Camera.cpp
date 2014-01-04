@@ -1,23 +1,17 @@
 #include "Camera.h"
 #include <GL/freeglut.h>
-#include "Quaternion.h"
 #include "Controller.h"
 #include "Utility.h"
+#include "Scene.h"
+
+
 Camera::Camera()
 {
     anim = false;
     distance = 10.0f;
     distanceTo = distance;
     distanceDelta = 0.0f;
-    rotate.x = -30.0f;
-    rotate.y = 0.0f;
-    rotate.z = 0.0f;
-    rotateTo = rotate;
-    rotateDelta.x = 0.0f;
-    rotateDelta.y = 0.0f;
-    rotateDelta.z = 0.0f;
-    width = 400;
-    height = 300;
+
     lastTimeMS = getMilliSec();
     FPS = 0;
     lastFPS = 0;
@@ -36,8 +30,7 @@ void Camera::update(float timeDelta)
     if(!anim)
     {
         gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-        Quaternion quat = Quaternion::fromEuler(rotate);
-        glMultTransposeMatrixf(quat.getFloat());
+        glMultTransposeMatrixf(rotate.getFloat());
         animTime = 0;
     }
     else
@@ -50,18 +43,15 @@ void Camera::update(float timeDelta)
             anim = false;
             rotate = rotateTo;
             distance = distanceTo;
-            Quaternion quat0 = Quaternion::fromEuler(rotate);
             gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            glMultTransposeMatrixf(quat0.getFloat());
+            glMultTransposeMatrixf(rotate.getFloat());
         }
         else
         {
             float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
             gluLookAt (0.0, 0.0, -distanceTmp, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
-            Quaternion quat0 = Quaternion::fromEuler(rotate);
-            Quaternion quat1 = Quaternion::fromEuler(rotateTo);
-            Quaternion quat2 = Quaternion::slerp(quat0, quat1, alpha);
-            glMultTransposeMatrixf(quat2.getFloat());
+            Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
+            glMultTransposeMatrixf(quat.getFloat());
         }
         
     }
@@ -94,8 +84,8 @@ void Camera::drawFPS(float timeDelta)
     glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
     glColor3f(0.3f, 0.3f, 0.3f);
     glRasterPos2f(10, 20);
-    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d tDelta:%.1f", 
-        Controller::width, Controller::height, lastFPS, timeDelta);
+    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d", 
+        Controller::width, Controller::height, lastFPS);
     glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)FPSchar);
 
     glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
@@ -106,8 +96,10 @@ void Camera::drawFPS(float timeDelta)
     glPopMatrix();
 }
 
-Ray Camera::getRay(int mx, int my)
+Ray Camera::getRay()
 {
+    int mx = Controller::mouseX;
+    int my = Controller::mouseY;
     GLint viewport[4];
     GLdouble modelview[16];
     GLdouble projection[16];
@@ -127,4 +119,29 @@ Ray Camera::getRay(int mx, int my)
     Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX1-posX2,posY1-posY2,posZ1-posZ2));
     
     return selectRay;
+}
+
+bool Camera::getPoint(Vector3& p)
+{
+    float minDist = 1000.0f;
+    bool findCurr = false;
+    Ray ray = getRay();
+
+    for(int i=0; i<Controller::sketchLines.size(); ++i)
+    {
+        for(int j=0; j<2; ++j)
+        {
+            if(distRayPoint(ray,Controller::sketchLines[i].points[j])<0.1f)
+            {
+                if((ray.GetOrigin() - Controller::sketchLines[i].points[j]).length()<minDist)
+                {
+                    minDist = (ray.GetOrigin() - Controller::sketchLines[i].points[j]).length();
+                    p = Controller::sketchLines[i].points[j];
+                    findCurr = true;
+                }
+            }
+        }
+    }
+    if(!findCurr) p = intersect(ray, Plane(Vector3(0,1,0),0));
+    return findCurr;
 }

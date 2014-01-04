@@ -1,9 +1,6 @@
 #include "Scene.h"
-#include "Display.h"
 #include <GL/glut.h>
-int sysMode = IDLE;
-bool findCurr = false;
-int planeMode = HOR_PLANE;
+
 float distRayPoint(Ray r, Vector3 p)
 {
     return r.GetDirection().cross(p - r.GetOrigin()).length();
@@ -49,7 +46,7 @@ void drawGrid(float size, float step)
     glEnd();
 
     // enable lighting back
-    glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHTING);
 }
 
 void drawAxis(float size)
@@ -89,53 +86,6 @@ void drawAxis(float size)
 
     // restore default settings
     glPopMatrix();
-    glEnable(GL_LIGHTING);
+    //glEnable(GL_LIGHTING);
     glDepthFunc(GL_LEQUAL);
-}
-Ray getMouseRay(int mx, int my)
-{
-    GLint viewport[4];
-    GLdouble modelview[16];
-    GLdouble projection[16];
-    GLfloat winX, winY, winZ;
-    GLdouble posX1, posY1, posZ1;
-    GLdouble posX2, posY2, posZ2;
-    
-    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-    glGetDoublev( GL_PROJECTION_MATRIX, projection );
-    glGetIntegerv( GL_VIEWPORT, viewport );
-
-    winX = (float)mx;
-    winY = (float)viewport[3] - (float)my;
-
-    gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
-    gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
-    //std::cout<<winX<<" "<<winY<<std::endl; 
-    Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX1-posX2,posY1-posY2,posZ1-posZ2));
-    
-    return selectRay;
-}
-
-
-bool getRayPoint(Ray selectRay, Vector3& p)
-{
-    float minDist = 1000.0f;
-    findCurr = false;
-    for(int i=0; i<lineList.size(); ++i)
-    {
-        for(int j=0; j<lineList[i].size(); ++j)
-        {
-            if(distRayPoint(selectRay,lineList[i][j])<0.1f)
-            {
-                if((selectRay.GetOrigin() - lineList[i][j]).length()<minDist)
-                {
-                    minDist = (selectRay.GetOrigin() - lineList[i][j]).length();
-                    p = lineList[i][j];
-                    findCurr = true;
-                }
-            }
-        }
-    }
-    if(!findCurr) p = Vector3(0,0,0);
-    return findCurr;
 }
