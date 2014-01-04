@@ -55,7 +55,7 @@ public:
         rotateTo = rot;
         anim = true;
     }
-    
+
     void setCamDistTo(float dist)
     {
         distanceTo = dist;
@@ -63,11 +63,19 @@ public:
         anim = true;
     }
 
+    void setCamCenter(Vector3 center)
+    {
+        camCenter = center;
+    }
+    void setCamCenterTo(Vector3 center)
+    {
+        camCenterTo = center;
+    }
+
     void update(float timeDelta);
     Ray getRay();
     bool getPoint(Vector3& p);
     Quaternion getQuaternion() {return rotate;}
-
 
     float distance,distanceTo,distanceDelta;
     bool anim;
@@ -81,6 +89,7 @@ private:
     float ANIM_TIME_MS;
     float animTime;
     Quaternion rotate, rotateTo;
+    Vector3 camCenter, camCenterTo;
 
     void drawFPS(float timeDelta);
     long lastTimeMS;

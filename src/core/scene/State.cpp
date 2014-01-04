@@ -29,6 +29,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
                 stateSelectPlane->selectedPoints, Controller::currPlane);
             Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                 Quaternion::Z_NEG_AXIS);
+            camera->setCamCenterTo(v);
             camera->rotateCamTo(q);
             enterState(stateSelectPlane);
         }
@@ -100,6 +101,7 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             Plane::buildPlane(selectedPoints, Controller::currPlane);
             Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                 Quaternion::Z_NEG_AXIS);
+            camera->setCamCenter((v+selectedPoints[0])/2);
             camera->rotateCamTo(q);
             if(selectedPoints.size()==3) enterState(stateDraw);
         }

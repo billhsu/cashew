@@ -12,6 +12,7 @@ Camera::Camera()
     distanceTo = distance;
     distanceDelta = 0.0f;
     rotate = Quaternion::fromEuler(-30,0,0);
+    camCenter = Vector3(0,0,0);
     lastTimeMS = getMilliSec();
     FPS = 0;
     lastFPS = 0;
@@ -29,9 +30,11 @@ void Camera::update(float timeDelta)
 {
     if(!anim)
     {
-        gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+        gluLookAt (0.0f, 0.0f, 0.0f -distance,
+            0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
         glMultTransposeMatrixf(rotate.getFloat());
         animTime = 0;
+        glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
     }
     else
     {
@@ -43,18 +46,27 @@ void Camera::update(float timeDelta)
             anim = false;
             rotate = rotateTo;
             distance = distanceTo;
-            gluLookAt (0.0, 0.0, -distance, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+            camCenter = camCenterTo;
+            gluLookAt (0.0f, 0.0f, 0.0f -distance,
+                0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             glMultTransposeMatrixf(rotate.getFloat());
+            glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
         }
         else
         {
             float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
-            gluLookAt (0.0, 0.0, -distanceTmp, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
+            gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
+                0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             glMultTransposeMatrixf(quat.getFloat());
+            Vector3 camCenterTmp = camCenter*(1-alpha) + camCenterTo*alpha;
+            glTranslatef(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
         }
         
     }
+
+    
+
     
     drawFPS(timeDelta);
 }
