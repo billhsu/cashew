@@ -11,6 +11,8 @@ http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors
 #include <cmath>
 #include "Matrices.h"
 #include "Vectors.h"
+#include <iostream>
+#include "Utility.h"
 
 class Quaternion
 {
@@ -153,6 +155,7 @@ public:
         return quatX*quatY*quatZ;
     }
 
+    // build quaternion from euler angles(in degree)
     static Quaternion fromEuler(const Vector3& rot)
     {
         Quaternion quatX(1.0f,0.0f,0.0f,rot.x);
@@ -161,11 +164,44 @@ public:
         return quatX*quatY*quatZ;
     }
 
+    // convert quaternion to Euler(in degree)
+    static Vector3 toEuler(const Quaternion &q1)
+    {
+        Vector3 rot;
+        float sqw = q1.w*q1.w;
+        float sqx = q1.x*q1.x;
+        float sqy = q1.y*q1.y;
+        float sqz = q1.z*q1.z;
+        float unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+        float test = q1.x*q1.y + q1.z*q1.w;
+        if (test > 0.499*unit) { // singularity at north pole
+            rot.y = 2 * atan2(q1.x,q1.w)*180.0f/PI;
+            rot.z = 180.0f/2;
+            rot.x = 0;
+            return rot;
+        }
+        if (test < -0.499*unit) { // singularity at south pole
+            rot.y = -2 * atan2(q1.x,q1.w)*180.0f/PI;
+            rot.z = -180.0f/2;
+            rot.x = 0;
+            return rot;
+        }
+        rot.y = atan2(2*q1.y*q1.w-2*q1.x*q1.z , sqx - sqy - sqz + sqw)*180.0f/PI;
+        rot.z = asin(2*test/unit)*180.0f/PI;
+        rot.x = atan2(2*q1.x*q1.w-2*q1.y*q1.z , -sqx + sqy - sqz + sqw)*180.0f/PI;
+        return rot;
+    }
+
+    // build a quaternion from two vectors
+    // this can convert a directional vector to quaternion
     static Quaternion fromVector(Vector3& u, Vector3& v)
     {
         u.normalize();
         v.normalize();
         Vector3 w = u.cross(v);
+        // in case if u and v are parallel
+        if(w.length()<=0.0001) 
+            return Quaternion(Vector3(0,0,1), 0);
         Quaternion q;
         q.w = 1.0f + u.dot(v);
         q.x = w.x;
@@ -177,6 +213,10 @@ public:
 
     Matrix4& getMatrix();
     float*   getFloat();
+    void printStatus()
+    {
+        std::cout<<"w: "<<w<<" x:"<<x<<" y:"<<y<<" z:"<<z<<std::endl;
+    }
 
     static Vector3 X_AXIS, Y_AXIS, Z_AXIS;
     static Vector3 X_NEG_AXIS, Y_NEG_AXIS, Z_NEG_AXIS;

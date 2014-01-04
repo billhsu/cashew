@@ -47,6 +47,8 @@ void Camera::update(float timeDelta)
             rotate = rotateTo;
             distance = distanceTo;
             camCenter = camCenterTo;
+            Controller::rotate = Quaternion::toEuler(rotate);
+            std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
             gluLookAt (0.0f, 0.0f, 0.0f -distance,
                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             glMultTransposeMatrixf(rotate.getFloat());

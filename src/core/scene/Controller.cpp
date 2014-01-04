@@ -95,7 +95,7 @@ void Controller::render(float timeDelta)
 
     camera->update(timeDelta);
 
-    drawGrid(20.0f,2.0f);
+    drawGrid(20.0f,1.0f);
     drawAxis(2.0f);
 
     State::currState->render(timeDelta);
