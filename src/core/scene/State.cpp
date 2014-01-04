@@ -23,7 +23,6 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
             stateSelectPlane->selectedPoints.clear();
             Vector3 v;
             camera->getPoint(v);
-            v.x = 1;
             std::cout<<v<<std::endl;
             stateSelectPlane->selectedPoints.push_back(v);
             Plane::buildPlane(
@@ -97,15 +96,15 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
         {
             Vector3 v;
             camera->getPoint(v);
-            v.x = 1;
             std::cout<<v<<std::endl;
             selectedPoints.push_back(v);
             Plane::buildPlane(selectedPoints, Controller::currPlane);
             Controller::currPlane.printStatus();
             Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                 Quaternion::Z_NEG_AXIS);
-            q.printStatus();
-            camera->setCamCenter(v*0.5+selectedPoints[0]*0.5);
+            Vector3 center = (selectedPoints[0]+selectedPoints[1])*0.5f;
+            std::cout<<"Center:"<<center<<std::endl;
+            camera->setCamCenterTo(center);
             camera->rotateCamTo(q);
             if(selectedPoints.size()==3) enterState(stateDraw);
         }
@@ -152,7 +151,11 @@ void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
 
 void StateSelectPlane::render(float timeDelta)
 {
-    Controller::currPlane.drawPlane(selectedPoints[0], 10);
+    Vector3 center(0,0,0);
+    for(int i=0;i<selectedPoints.size();++i)
+        center += selectedPoints[i];
+    center /= selectedPoints.size();
+    Controller::currPlane.drawPlane(center, 10);
     glPointSize(5);
     glBegin(GL_POINTS);
     glColor3f(1,1,0);

@@ -54,6 +54,7 @@ public:
     {
         rotateTo = rot;
         anim = true;
+        rotChange = true;
     }
 
     void setCamDistTo(float dist)
@@ -61,6 +62,7 @@ public:
         distanceTo = dist;
         distanceDelta = distanceTo-distance;
         anim = true;
+        distChange =true;
     }
 
     void setCamCenter(Vector3 center)
@@ -70,6 +72,8 @@ public:
     void setCamCenterTo(Vector3 center)
     {
         camCenterTo = center;
+        anim = true;
+        centerChange = true;
     }
 
     void update(float timeDelta);
@@ -90,6 +94,7 @@ private:
     float animTime;
     Quaternion rotate, rotateTo;
     Vector3 camCenter, camCenterTo;
+    bool rotChange, centerChange, distChange;
 
     void drawFPS(float timeDelta);
     long lastTimeMS;

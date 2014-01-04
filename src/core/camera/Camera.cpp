@@ -18,6 +18,9 @@ Camera::Camera()
     lastFPS = 0;
     ANIM_TIME_MS = 300.0;
     animTime = 0.0f;
+    rotChange = false;
+    centerChange = false;
+    distChange = false;
     std::cout <<"Camera Camera()"<<std::endl;
 }
 
@@ -44,9 +47,14 @@ void Camera::update(float timeDelta)
         {
             animTime = 0;
             anim = false;
-            rotate = rotateTo;
-            distance = distanceTo;
-            camCenter = camCenterTo;
+            if(rotChange) rotate = rotateTo;
+            if(distChange) distance = distanceTo;
+            if(centerChange) camCenter = camCenterTo;
+            
+            rotChange = false;
+            centerChange = false;
+            distChange = false;
+
             Controller::rotate = Quaternion::toEuler(rotate);
             std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
             gluLookAt (0.0f, 0.0f, 0.0f -distance,
