@@ -55,8 +55,8 @@ void StateIdle::MouseMotion(int x, int y)
 {
     int dx,dy;
 
-    dx = x - ctrl->lastMouseX;
-    dy = y - ctrl->lastMouseY;
+    dx = x - Controller::lastMouseX;
+    dy = y - Controller::lastMouseY;
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
@@ -64,11 +64,9 @@ void StateIdle::MouseMotion(int x, int y)
     {
         if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
         {
-            Quaternion camQuat = camera->getQuaternion();
-            Quaternion q1(Quaternion::Y_AXIS, dx);
-            Quaternion q2(Quaternion::X_AXIS, -dy);
-            camQuat = q1*q2*camQuat;
-            camera->rotateCam(camQuat);
+            Controller::rotate.x -=dy;
+            Controller::rotate.y +=dx;
+            camera->rotateCam(Controller::rotate);
         }
     }
 }
@@ -117,8 +115,8 @@ void StateSelectPlane::MouseMotion(int x, int y)
 {
     int dx,dy;
 
-    dx = x - ctrl->lastMouseX;
-    dy = y - ctrl->lastMouseY;
+    dx = x - Controller::lastMouseX;
+    dy = y - Controller::lastMouseY;
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
@@ -126,11 +124,9 @@ void StateSelectPlane::MouseMotion(int x, int y)
     {
         if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
         {
-            Quaternion camQuat = camera->getQuaternion();
-            Quaternion q1(Quaternion::Y_AXIS, dx);
-            Quaternion q2(Quaternion::X_AXIS, -dy);
-            camQuat = q1*q2*camQuat;
-            camera->rotateCam(camQuat);
+            Controller::rotate.x -=dy;
+            Controller::rotate.y +=dx;
+            camera->rotateCam(Controller::rotate);
         }
     }
 }

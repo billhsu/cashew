@@ -11,7 +11,7 @@ Camera::Camera()
     distance = 10.0f;
     distanceTo = distance;
     distanceDelta = 0.0f;
-
+    rotate = Quaternion::fromEuler(-30,0,0);
     lastTimeMS = getMilliSec();
     FPS = 0;
     lastFPS = 0;

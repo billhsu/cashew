@@ -11,21 +11,19 @@ State* State::currState;
 
 int Controller::width = 400;
 int Controller::height = 300;
-
 int Controller::mouseX = 0;
 int Controller::mouseY = 0;
-
 int Controller::mouseButton;
 int Controller::mouseState;
-
 int Controller::lastMouseX = 0;
 int Controller::lastMouseY = 0;
 
 Plane Controller::currPlane = Plane();
-
 bool Controller::enableLight = false;
 
 std::vector<LineSegment> Controller::sketchLines;
+
+Vector3 Controller::rotate = Vector3(-30,0,0);
 
 Controller::Controller()
 {

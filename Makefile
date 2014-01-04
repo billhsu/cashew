@@ -232,7 +232,8 @@ build/src/core/scene/State.o: src/core/scene/Controller.h
 build/src/core/scene/State.o: src/core/scene/Plane.h
 build/src/core/scene/State.o: src/core/scene/LineSegment.h
 build/src/core/scene/State.o: src/core/camera/Camera.h src/core/scene/Scene.h
-build/src/core/scene/State.o: src/core/scene/Ray.h
+build/src/core/scene/State.o: src/core/scene/Ray.h src/core/math/Quaternion.h
+build/src/core/scene/State.o: src/core/math/Matrices.h
 build/src/impl/main.o: /usr/include/stdio.h /usr/include/features.h
 build/src/impl/main.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
 build/src/impl/main.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h

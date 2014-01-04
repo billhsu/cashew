@@ -50,6 +50,7 @@ public:
     StateDraw* sdraw;
     Camera * camera;
     static bool enableLight;
+    static Vector3 rotate;
 
 private:
     Controller();

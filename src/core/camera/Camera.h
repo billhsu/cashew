@@ -19,10 +19,19 @@ public:
         return instance;
     }
 
+    void rotateCam(float rotX, float rotY, float rotZ)
+    {
+        rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
+    }
+    void rotateCam(Vector3 rot)
+    {
+        rotateCam(rot.x, rot.y, rot.z);
+    }
     void rotateCam(Quaternion rot)
     {
         rotate = rot;
     }
+
     void setCamDist(float dist)
     {
         if (dist<=0) return;
@@ -30,12 +39,23 @@ public:
         distance = dist;
         distanceTo=dist;
     }
+
     // rotate with animation
+    void rotateCamTo(float rotX, float rotY, float rotZ)
+    {
+        rotateTo = Quaternion::fromEuler(rotX, rotY, rotZ);
+        anim = true;
+    }
+    void rotateCamTo(Vector3 rot)
+    {
+        rotateCamTo(rot.x, rot.y, rot.z);
+    }
     void rotateCamTo(Quaternion rot)
     {
         rotateTo = rot;
         anim = true;
     }
+    
     void setCamDistTo(float dist)
     {
         distanceTo = dist;
