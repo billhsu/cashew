@@ -97,6 +97,11 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             Vector3 v;
             camera->getPoint(v);
             std::cout<<v<<std::endl;
+            // three selected points should be different 
+            for(int i=0; i<selectedPoints.size();++i) 
+            {
+                if(v==selectedPoints[i]) return;
+            }
             selectedPoints.push_back(v);
             Plane::buildPlane(selectedPoints, Controller::currPlane);
             Controller::currPlane.printStatus();
@@ -112,6 +117,16 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
         {
             Controller::lastMouseX=x;
             Controller::lastMouseY=y;
+        }
+        if(button == 3)
+        {
+            float dist = camera->distance;
+            camera->setCamDist(dist-2);
+        }
+        if(button == 4)
+        {
+            float dist = camera->distance;
+            camera->setCamDist(dist+2);
         }
     }
 }
