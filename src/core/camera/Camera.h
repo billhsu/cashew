@@ -5,9 +5,9 @@ billhsu.x@gmail.com
 #pragma once
 
 #include <iostream>
-#include "Vectors.h"
-#include "Ray.h"
-#include "Quaternion.h"
+#include "../math/Vectors.h"
+#include "../scene/Ray.h"
+#include "../math/Quaternion.h"
 
 class Camera
 {

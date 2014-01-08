@@ -1,9 +1,9 @@
 #include "State.h"
 #include "Controller.h"
-#include "Camera.h"
+#include "../camera/Camera.h"
 #include "Scene.h"
 #include "Plane.h"
-#include "Quaternion.h"
+#include "../math/Quaternion.h"
 
 State::State()
 {

@@ -4,7 +4,7 @@ billhsu.x@gmail.com
 */
 #pragma once
 #include <vector>
-#include "Vectors.h"
+#include "../math/Vectors.h"
 
 class LineSegment
 {

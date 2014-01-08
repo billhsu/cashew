@@ -4,7 +4,7 @@
 #include <iostream>
 #include <GL/glut.h>
 #include <vector>
-#include "Vectors.h"
+#include "../math/Vectors.h"
 
 class Controller;
 class Camera;

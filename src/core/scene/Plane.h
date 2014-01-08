@@ -5,7 +5,7 @@ billhsu.x@gmail.com
 #ifndef PLANE_H
 #define PLANE_H
 #include <iostream>
-#include "Vectors.h"
+#include "../math/Vectors.h"
 #include <vector>
 class Plane
 {

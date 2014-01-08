@@ -5,7 +5,7 @@ billhsu.x@gmail.com
 #pragma once
 #include <iostream>
 #include <vector>
-#include "Vectors.h"
+#include "../math/Vectors.h"
 #include "Plane.h"
 #include "LineSegment.h"
 #include <GL/glut.h>
