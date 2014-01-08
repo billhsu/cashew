@@ -4,11 +4,11 @@ billhsu.x@gmail.com
 */
 #include <stdio.h>
 #include <GL/glut.h>
-#include "Ray.h"
-#include "Plane.h"
-#include "Scene.h"
+#include "../core/scene/Ray.h"
+#include "../core/scene/Plane.h"
+#include "../core/scene/Scene.h"
 #include "Utility.h"
-#include "Controller.h"
+#include "../core/scene/Controller.h"
 
 #include <math.h>
 #include <vector>

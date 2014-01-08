@@ -4,7 +4,7 @@ billhsu.x@gmail.com
 */
 #include "Controller.h"
 #include "State.h"
-#include "Camera.h"
+#include "../camera/Camera.h"
 #include "Scene.h"
 
 State* State::currState;

@@ -1,8 +1,8 @@
 #include "Camera.h"
 #include <GL/freeglut.h>
-#include "Controller.h"
-#include "Utility.h"
-#include "Scene.h"
+#include "../scene/Controller.h"
+#include "../../impl/Utility.h"
+#include "../scene/Scene.h"
 
 
 Camera::Camera()
