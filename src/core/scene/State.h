@@ -81,4 +81,6 @@ public:
 
     void render(float timeDelta);
     StateIdle* stateIdle;
+
+    Vector3 vCenter;
 };
