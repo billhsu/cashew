@@ -211,7 +211,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
         {
             if(internalState==IDLE)
             {
-                //startPoint = 
+                camera->getPoint(startPoint, Controller::currPlane);
+                camera->getPoint(endPoint, Controller::currPlane);
+                internalState = START_POINT_SELECTED;
             }
         }
         if(button == GLUT_RIGHT_BUTTON)
@@ -230,6 +232,17 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
             camera->setCamDist(dist+2);
         }
     }
+    if(state==GLUT_UP)
+    {
+        if(button == GLUT_LEFT_BUTTON)
+        {
+            if(internalState==START_POINT_SELECTED)
+            {
+                camera->getPoint(endPoint, Controller::currPlane);
+                internalState = IDLE;
+            }
+        }
+    }
 
 }
 
@@ -244,6 +257,11 @@ void StateDraw::MouseMotion(int x, int y)
 
     if(Controller::mouseState==GLUT_DOWN)
     {
+        if(Controller::mouseButton==GLUT_LEFT_BUTTON)
+        {
+            if(internalState == START_POINT_SELECTED)
+                camera->getPoint(endPoint, Controller::currPlane);
+        }
         if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
         {
             Controller::rotate.x -=dy;
@@ -278,6 +296,26 @@ void StateDraw::render(float timeDelta)
     glColor3f(1,1,0);
         glVertex3fv(vCenter.cell);
     glEnd();
+
+    if(internalState == START_POINT_SELECTED)
+    {
+        glPointSize(5);
+        glBegin(GL_POINTS);
+        glColor3f(1,0,1);
+            glVertex3fv(startPoint.cell);
+            glVertex3fv(endPoint.cell);
+        glEnd();
+
+        glColor3f(0,0.1,0.9);
+        glBegin(GL_LINES);
+            glVertex3fv(startPoint.cell);
+            glVertex3fv(endPoint.cell);
+        glEnd();
+    }
+    
+
     glPointSize(1);
+
+
 
 }

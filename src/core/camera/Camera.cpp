@@ -125,7 +125,7 @@ Ray Camera::getRay()
     GLint viewport[4];
     GLdouble modelview[16];
     GLdouble projection[16];
-    GLfloat winX, winY, winZ;
+    GLfloat winX, winY;
     GLdouble posX1, posY1, posZ1;
     GLdouble posX2, posY2, posZ2;
     

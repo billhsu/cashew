@@ -77,7 +77,7 @@ void Plane::drawPlane(Vector3 center, float size, float* color)
     glColor4f(1.0f,1.0f,1.0f,0.9f);
     glBegin(GL_LINES);
     int osize = size*2;
-    for(int i=0; i<size*2; ++i)
+    for(int i=0; i<=size*2; ++i)
     {
         Vector3 vXinter1 = p1*((float)i/(float)osize) + p2*((float)(osize - i)/(float)osize);
         Vector3 vXinter2 = p4*((float)i/(float)osize) + p3*((float)(osize - i)/(float)osize);
@@ -85,12 +85,15 @@ void Plane::drawPlane(Vector3 center, float size, float* color)
         Vector3 vYinter1 = p1*((float)i/(float)osize) + p4*((float)(osize - i)/(float)osize);
         Vector3 vYinter2 = p2*((float)i/(float)osize) + p3*((float)(osize - i)/(float)osize);
 
-
+        if(i==size) glColor4f(1.0f,0.0f,0.0f,1.0f);
         glVertex3fv(vXinter1.cell);
         glVertex3fv(vXinter2.cell);
 
+        if(i==size) glColor4f(0.0f,0.0f,1.0f,1.0f);
         glVertex3fv(vYinter1.cell);
         glVertex3fv(vYinter2.cell);
+
+        if(i==size) glColor4f(1.0f,1.0f,1.0f,0.9f);
 
     }
     glEnd();
