@@ -73,7 +73,11 @@ public:
 class StateDraw:public State
 {
 public:
-    StateDraw(){stateID = CTRL_DRAW;}
+    StateDraw()
+    {
+        stateID = CTRL_DRAW;
+        internalState = IDLE;
+    }
     void MouseButton(int button, int state, int x, int y);
     void MouseMotion(int x, int y);
     void PassiveMotion(int x, int y);
@@ -83,4 +87,7 @@ public:
     StateIdle* stateIdle;
 
     Vector3 vCenter;
+    Vector3 startPoint, endPoint;
+    int internalState;
+    enum {IDLE, START_POINT_SELECTED};
 };

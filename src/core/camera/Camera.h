@@ -7,6 +7,7 @@ billhsu.x@gmail.com
 #include <iostream>
 #include "../math/Vectors.h"
 #include "../scene/Ray.h"
+#include "../scene/Plane.h"
 #include "../math/Quaternion.h"
 
 class Camera
@@ -78,7 +79,7 @@ public:
 
     void update(float timeDelta);
     Ray getRay();
-    bool getPoint(Vector3& p);
+    bool getPoint(Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0));
     Quaternion getQuaternion() {return rotate;}
 
     float distance,distanceTo,distanceDelta;
