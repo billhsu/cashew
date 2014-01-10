@@ -43,19 +43,28 @@ void Plane::drawPlane(Vector3 center, float size, float* color)
     vy.normalize();
     vx*=size;
     vy*=size;
-
+    
+    /*
+        y
+        ^
+    p4  |  p1 
+        |
+    --------> x
+        |
+    p3  |  p2
+    */
     Vector3 p1,p2,p3,p4;
     p1 = center + vx + vy;
     p2 = center + vx - vy;
     p3 = center - vx - vy;
     p4 = center - vx + vy;
 
+    glDisable(GL_LIGHTING);
+
     glEnable(GL_BLEND);
     glDepthMask(GL_FALSE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-    glDisable(GL_LIGHTING);
     if(!color)glColor4f(0.4f,0.4f,0.4f,0.5f);
     else glColor4fv(color);
     glBegin(GL_QUADS);
@@ -63,6 +72,27 @@ void Plane::drawPlane(Vector3 center, float size, float* color)
         glVertex3fv(p2.cell);
         glVertex3fv(p3.cell);
         glVertex3fv(p4.cell);
+    glEnd();
+
+    glColor4f(1.0f,1.0f,1.0f,0.9f);
+    glBegin(GL_LINES);
+    int osize = size*2;
+    for(int i=0; i<size*2; ++i)
+    {
+        Vector3 vXinter1 = p1*((float)i/(float)osize) + p2*((float)(osize - i)/(float)osize);
+        Vector3 vXinter2 = p4*((float)i/(float)osize) + p3*((float)(osize - i)/(float)osize);
+
+        Vector3 vYinter1 = p1*((float)i/(float)osize) + p4*((float)(osize - i)/(float)osize);
+        Vector3 vYinter2 = p2*((float)i/(float)osize) + p3*((float)(osize - i)/(float)osize);
+
+
+        glVertex3fv(vXinter1.cell);
+        glVertex3fv(vXinter2.cell);
+
+        glVertex3fv(vYinter1.cell);
+        glVertex3fv(vYinter2.cell);
+
+    }
     glEnd();
 
     //glEnable(GL_LIGHTING);

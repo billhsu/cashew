@@ -170,7 +170,8 @@ void StateSelectPlane::render(float timeDelta)
     for(int i=0;i<selectedPoints.size();++i)
         center += selectedPoints[i];
     center /= selectedPoints.size();
-    Controller::currPlane.drawPlane(center, 10);
+    float color[4] = {0.3,0.3,0.3,0.3};
+    Controller::currPlane.drawPlane(center, 20, color);
     glPointSize(5);
     glBegin(GL_POINTS);
     glColor3f(1,1,0);
