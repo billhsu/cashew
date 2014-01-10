@@ -165,5 +165,6 @@ bool Camera::getPoint(Vector3& p, const Plane& plane)
         }
     }
     if(!findCurr) p = intersect(ray, plane);
+
     return findCurr;
 }

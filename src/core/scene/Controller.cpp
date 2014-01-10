@@ -23,6 +23,9 @@ bool Controller::enableLight = false;
 
 std::vector<LineSegment> Controller::sketchLines;
 
+Vector3 Controller::currPoint = Vector3(0,0,0);
+bool Controller::bCurrPoint = false;
+
 Vector3 Controller::rotate = Vector3(-30,0,0);
 
 Controller::Controller()
@@ -67,15 +70,22 @@ void Controller::MouseButton(int button, int state, int x, int y)
 
 void Controller::MouseMotion(int x, int y)
 {
-    State::currState->MouseMotion(x, y);
     Controller::mouseX = x;
     Controller::mouseY = y;
+    State::currState->MouseMotion(x, y);
 }
 void Controller::PassiveMotion(int x, int y)
 {
-    State::currState->PassiveMotion(x, y);
     Controller::mouseX = x;
     Controller::mouseY = y;
+    Vector3 p;
+    if(camera->getPoint(p))
+    {
+        currPoint = p;
+        bCurrPoint = true;
+    }
+    else bCurrPoint = false;
+    State::currState->PassiveMotion(x, y);
 }
 void Controller::Keyboard(unsigned char key, int x, int y)
 {
@@ -99,6 +109,22 @@ void Controller::render(float timeDelta)
     drawAxis(2.0f);
 
     State::currState->render(timeDelta);
+
+    for(int i=0; i<sketchLines.size(); ++i)
+    {
+        sketchLines[i].render();
+    }
+
+    if(bCurrPoint)
+    {
+        glPointSize(5);
+        glBegin(GL_POINTS);
+        glColor3f(1,0,0);
+            glVertex3fv(currPoint.cell);
+        glEnd();
+        glPointSize(1);
+    }
+
     glutPostRedisplay();
     glutSwapBuffers();
 }

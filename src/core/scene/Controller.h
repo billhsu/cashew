@@ -36,6 +36,8 @@ public:
 
     static std::vector<LineSegment> sketchLines;
     static Plane currPlane; // Plane to draw
+    static Vector3 currPoint;
+    static bool bCurrPoint;
 
     int status;
 

@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Plane.h"
 #include "../math/Quaternion.h"
+#include "LineSegment.h"
 
 State::State()
 {
@@ -239,6 +240,8 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
             if(internalState==START_POINT_SELECTED)
             {
                 camera->getPoint(endPoint, Controller::currPlane);
+                LineSegment line = LineSegment(startPoint, endPoint);
+                Controller::sketchLines.push_back(line);
                 internalState = IDLE;
             }
         }
@@ -278,11 +281,15 @@ void StateDraw::PassiveMotion(int x, int y)
 
 void StateDraw::Keyboard(unsigned char key, int x, int y)
 {
-    if(key =='b')
+    if(key == 'b')
     {
         Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
         Quaternion::Z_NEG_AXIS);
         camera->rotateCamTo(q);
+    }
+    if(key == 'e')
+    {
+        enterState(stateIdle);
     }
 }
 
@@ -305,8 +312,8 @@ void StateDraw::render(float timeDelta)
             glVertex3fv(startPoint.cell);
             glVertex3fv(endPoint.cell);
         glEnd();
-
-        glColor3f(0,0.1,0.9);
+        glLineWidth(3);
+        glColor3f(1,1,0);
         glBegin(GL_LINES);
             glVertex3fv(startPoint.cell);
             glVertex3fv(endPoint.cell);
@@ -314,6 +321,7 @@ void StateDraw::render(float timeDelta)
     }
     
 
+    glPointSize(1);
     glPointSize(1);
 
 
