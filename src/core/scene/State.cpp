@@ -322,7 +322,7 @@ void StateDraw::render(float timeDelta)
     
 
     glPointSize(1);
-    glPointSize(1);
+    glLineWidth(1);
 
 
 
