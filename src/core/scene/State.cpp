@@ -118,7 +118,7 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             if(selectedPoints.size()==3) 
             {
                 stateDraw->vCenter = center;
-                enterState(stateDraw);
+                //enterState(stateDraw);
             }
         }
         if(button == GLUT_RIGHT_BUTTON)
@@ -192,9 +192,9 @@ void StateSelectPlane::render(float timeDelta)
     center /= selectedPoints.size();
     float color[4] = {0.3,0.3,0.3,0.3};
     Controller::currPlane.drawPlane(center, 20, color);
-    glPointSize(5);
+    glPointSize(8);
     glBegin(GL_POINTS);
-    glColor3f(1,1,0);
+    glColor3f(0,1,0);
     for(int i = 0; i<selectedPoints.size(); ++i)
     {
         glVertex3fv(selectedPoints[i].cell);

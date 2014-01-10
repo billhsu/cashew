@@ -114,7 +114,7 @@ void Controller::render(float timeDelta)
     {
         sketchLines[i].render();
     }
-
+    
     if(bCurrPoint)
     {
         glPointSize(5);
@@ -124,6 +124,7 @@ void Controller::render(float timeDelta)
         glEnd();
         glPointSize(1);
     }
+
 
     glutPostRedisplay();
     glutSwapBuffers();

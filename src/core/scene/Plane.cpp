@@ -28,6 +28,7 @@ void Plane::buildPlane(Vector3 v1, Vector3 v2, Vector3 v3, Plane& plane)
 
 void Plane::buildPlane(std::vector<Vector3> &v, Plane& plane)
 {
+    std::cout<<"buildPlane size:"<<v.size()<<std::endl;
     if(v.size()==1) buildPlane(v[0], plane);
     else if(v.size()==2) buildPlane(v[0], v[1], plane);
     else if(v.size()==3) buildPlane(v[0], v[1], v[3], plane);

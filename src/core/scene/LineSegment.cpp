@@ -3,7 +3,7 @@
 
 void LineSegment::render()
 {
-    glLineWidth(3);
+    glLineWidth(8);
     glBegin(GL_LINES);
     glColor3f(0, 0, 1);
     glVertex3fv(points[0].cell);
