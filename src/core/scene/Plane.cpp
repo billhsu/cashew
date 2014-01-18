@@ -4,7 +4,7 @@
 void Plane::buildPlane(Vector3 v1, Plane& plane)
 {
     plane.N = Vector3(0,1,0);
-    plane.D = 0;
+    plane.D = v1.y;
 }
 
 void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane)

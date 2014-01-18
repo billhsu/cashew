@@ -93,8 +93,13 @@ void Controller::Keyboard(unsigned char key, int x, int y)
     Controller::mouseY = y;
 
     if(key == 27) exit(1);
-    else 
-    State::currState->Keyboard(key, x, y);
+    else if(key == 'r') 
+    {
+        if(sketchLines.size()>0)
+            sketchLines.pop_back();
+    }
+    else
+        State::currState->Keyboard(key, x, y);
 }
 
 void Controller::render(float timeDelta)

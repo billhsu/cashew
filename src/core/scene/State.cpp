@@ -80,7 +80,12 @@ void StateIdle::PassiveMotion(int x, int y)
 
 void StateIdle::Keyboard(unsigned char key, int x, int y)
 {
-
+    if(key == 'b')
+    {
+        Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
+        camera->setCamCenter(Vector3(0,0,0));
+        camera->rotateCamTo(q);
+    }
 }
 
 void StateIdle::render(float timeDelta)
@@ -212,8 +217,8 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
         {
             if(internalState==IDLE)
             {
-                camera->getPoint(startPoint, Controller::currPlane);
-                camera->getPoint(endPoint, Controller::currPlane);
+                camera->getPoint(startPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
+                camera->getPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
                 internalState = START_POINT_SELECTED;
             }
         }
@@ -239,9 +244,17 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
         {
             if(internalState==START_POINT_SELECTED)
             {
-                camera->getPoint(endPoint, Controller::currPlane);
+                camera->getPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
                 LineSegment line = LineSegment(startPoint, endPoint);
+
+                Vector3 startPointMirror = startPoint;
+                Vector3 endPointMirror = endPoint;
+                startPointMirror.x = -startPointMirror.x;
+                endPointMirror.x   = -endPointMirror.x;
+                LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+
                 Controller::sketchLines.push_back(line);
+                Controller::sketchLines.push_back(lineMirror);
                 internalState = IDLE;
             }
         }

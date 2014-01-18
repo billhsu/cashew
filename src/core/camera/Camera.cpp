@@ -143,7 +143,7 @@ Ray Camera::getRay()
     return selectRay;
 }
 
-bool Camera::getPoint(Vector3& p, const Plane& plane)
+bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
 {
     float minDist = 1000.0f;
     bool findCurr = false;
@@ -164,7 +164,7 @@ bool Camera::getPoint(Vector3& p, const Plane& plane)
             }
         }
     }
-    if(!findCurr) p = intersect(ray, plane);
+    if(!findCurr||mode==GETPOINT_PLANE) p = intersect(ray, plane);
 
     return findCurr;
 }
