@@ -39,6 +39,7 @@ Controller::~Controller()
     delete sidle;
     delete sselectPlane;
     delete sdraw;
+    delete sDelLine;
 
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
@@ -47,11 +48,14 @@ Controller::~Controller()
 void Controller::init()
 {
     sidle = new StateIdle();
+    sDelLine = new StateDeleteLine();
     sselectPlane = new StateSelectPlane();
     sdraw = new StateDraw();
-    camera = &Camera::getInstance(); 
+    camera = &Camera::getInstance();
 
     sidle->stateSelectPlane = sselectPlane;
+    sidle->stateDeleteLine  = sDelLine;
+    sDelLine->stateIdle     = sidle;
     sselectPlane->stateDraw = sdraw;
     sdraw->stateIdle = sidle;
     State::enterState(sidle);
@@ -113,21 +117,23 @@ void Controller::render(float timeDelta)
     drawGrid(20.0f,1.0f);
     drawAxis(2.0f);
 
-    State::currState->render(timeDelta);
-
     for(int i=0; i<sketchLines.size(); ++i)
     {
         sketchLines[i].render();
     }
+
+    State::currState->render(timeDelta);
     
     if(bCurrPoint)
     {
+        glDisable(GL_DEPTH);
         glPointSize(5);
         glBegin(GL_POINTS);
         glColor3f(1,0,0);
             glVertex3fv(currPoint.cell);
         glEnd();
         glPointSize(1);
+        glEnable(GL_DEPTH);
     }
 
 

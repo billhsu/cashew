@@ -82,7 +82,7 @@ public:
     Ray getRay();
     enum {GETPOINT_3D, GETPOINT_PLANE};
     bool getPoint(Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
-    bool getLine(LineSegment& line);
+    int getLine(LineSegment& line);
     Quaternion getQuaternion() {return rotate;}
 
     float distance,distanceTo,distanceDelta;

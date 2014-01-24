@@ -5,6 +5,7 @@
 #include <GL/glut.h>
 #include <vector>
 #include "../math/Vectors.h"
+#include "LineSegment.h"
 
 class Controller;
 class Camera;
@@ -12,6 +13,7 @@ class State
 {
 public:
     State();
+    virtual ~State(){};
     virtual void MouseButton(int button, int state, int x, int y){};
     virtual void MouseMotion(int x, int y){};
     virtual void PassiveMotion(int x, int y){};
@@ -23,7 +25,7 @@ public:
         currState = state;
         std::cout<<"enterState: "<<state->stateID<<std::endl;
     }
-    enum {CTRL_IDLE, CTRL_SELECT_CUR_PLANE, CTRL_DRAW};
+    enum {CTRL_IDLE, CTRL_DEL_LINE, CTRL_SELECT_CUR_PLANE, CTRL_DRAW};
     static State* currState;
     Controller *ctrl;
     Camera *camera;
@@ -33,6 +35,7 @@ protected:
 
 };
 class StateSelectPlane;
+class StateDeleteLine;
 // idle state
 class StateIdle:public State
 {
@@ -45,6 +48,28 @@ public:
 
     void render(float timeDelta);
     StateSelectPlane* stateSelectPlane;
+    StateDeleteLine*  stateDeleteLine;
+};
+
+// idle state
+class StateDeleteLine:public State
+{
+public:
+    StateDeleteLine()
+    {
+        stateID = CTRL_DEL_LINE;
+        bCurLine = false;
+    }
+    void MouseButton(int button, int state, int x, int y);
+    void MouseMotion(int x, int y);
+    void PassiveMotion(int x, int y);
+    void Keyboard(unsigned char key, int x, int y);
+
+    void render(float timeDelta);
+    State* stateIdle;
+    int bCurLine;
+    LineSegment line;
+
 };
 
 class StateDraw;

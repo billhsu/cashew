@@ -141,7 +141,7 @@ Ray Camera::getRay()
 
     gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
     gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
-    Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX1-posX2,posY1-posY2,posZ1-posZ2));
+    Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX2-posX1,posY2-posY1,posZ2-posZ1));
     
     return selectRay;
 }
@@ -172,32 +172,26 @@ bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
     return findCurr;
 }
 
-bool Camera::getLine(LineSegment& line)
+int Camera::getLine(LineSegment& line)
 {
     Ray ray = getRay();
     Vector3 v1 = ray.GetOrigin();
-    Vector3 v2 = v1 - ray.GetDirection();
+    Vector3 v2 = v1 + ray.GetDirection()*100.0f;
+    LineSegment l;
+    l.points[0] = v1;
+    l.points[1] = v2;
     float minDist = 1000.0f;
-    bool bFind = false;
-
+    int linePos=-1;
     for(int i=0; i<Controller::sketchLines.size(); ++i)
     {
-        Vector3 v3 = Controller::sketchLines[i].points[0];
-        Vector3 v4 = Controller::sketchLines[i].points[1];
-        Plane p;
-        Plane::buildPlane(v1, v2, v3, p);
-        float dist = v4.dot(p.N);
-        if(abs(dist - p.D)<=0.1)
+        float dist = distSegmentSegment(Controller::sketchLines[i],l);
+        if(dist<=0.1f)
         {
-            if(p.D<minDist)
-            {
-                minDist = p.D;
-                line = Controller::sketchLines[i];
-                bFind = true;
-            }
+            minDist = dist;
+            line = Controller::sketchLines[i];
+            linePos = i;
         }
     }
-
-    return bFind;
+    return linePos;
 
 }

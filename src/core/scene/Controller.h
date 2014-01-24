@@ -13,6 +13,7 @@ billhsu.x@gmail.com
 class StateIdle;
 class StateDraw;
 class StateSelectPlane;
+class StateDeleteLine;
 class State;
 class Camera;
 
@@ -48,6 +49,7 @@ public:
 
 
     StateIdle* sidle;
+    StateDeleteLine* sDelLine;
     StateSelectPlane* sselectPlane;
     StateDraw* sdraw;
     Camera * camera;

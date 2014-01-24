@@ -1,11 +1,11 @@
 #include "LineSegment.h"
 #include <GL/glut.h>
 
-void LineSegment::render()
+void LineSegment::render(float r, float g, float b)
 {
     glLineWidth(8);
     glBegin(GL_LINES);
-    glColor3f(0, 0, 1);
+    glColor3f(r, g, b);
     glVertex3fv(points[0].cell);
     glVertex3fv(points[1].cell);
     glEnd();
