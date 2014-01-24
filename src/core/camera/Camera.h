@@ -8,6 +8,7 @@ billhsu.x@gmail.com
 #include "../math/Vectors.h"
 #include "../scene/Ray.h"
 #include "../scene/Plane.h"
+#include "../scene/LineSegment.h"
 #include "../math/Quaternion.h"
 
 class Camera
@@ -81,6 +82,7 @@ public:
     Ray getRay();
     enum {GETPOINT_3D, GETPOINT_PLANE};
     bool getPoint(Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
+    bool getLine(LineSegment& line);
     Quaternion getQuaternion() {return rotate;}
 
     float distance,distanceTo,distanceDelta;

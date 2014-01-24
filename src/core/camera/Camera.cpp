@@ -3,6 +3,9 @@
 #include "../scene/Controller.h"
 #include "../../impl/Utility.h"
 #include "../scene/Scene.h"
+#include "../math/Vectors.h"
+#include "../scene/Plane.h"
+#include "../scene/Controller.h"
 
 
 Camera::Camera()
@@ -167,4 +170,34 @@ bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
     if(!findCurr||mode==GETPOINT_PLANE) p = intersect(ray, plane);
 
     return findCurr;
+}
+
+bool Camera::getLine(LineSegment& line)
+{
+    Ray ray = getRay();
+    Vector3 v1 = ray.GetOrigin();
+    Vector3 v2 = v1 - ray.GetDirection();
+    float minDist = 1000.0f;
+    bool bFind = false;
+
+    for(int i=0; i<Controller::sketchLines.size(); ++i)
+    {
+        Vector3 v3 = Controller::sketchLines[i].points[0];
+        Vector3 v4 = Controller::sketchLines[i].points[1];
+        Plane p;
+        Plane::buildPlane(v1, v2, v3, p);
+        float dist = v4.dot(p.N);
+        if(abs(dist - p.D)<=0.1)
+        {
+            if(p.D<minDist)
+            {
+                minDist = p.D;
+                line = Controller::sketchLines[i];
+                bFind = true;
+            }
+        }
+    }
+
+    return bFind;
+
 }

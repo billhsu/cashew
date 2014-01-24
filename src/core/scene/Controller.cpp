@@ -9,8 +9,8 @@ billhsu.x@gmail.com
 
 State* State::currState;
 
-int Controller::width = 400;
-int Controller::height = 300;
+int Controller::width = 800;
+int Controller::height = 600;
 int Controller::mouseX = 0;
 int Controller::mouseY = 0;
 int Controller::mouseButton;
