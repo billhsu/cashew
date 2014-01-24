@@ -106,6 +106,13 @@ void StateDeleteLine::MouseButton(int button, int state, int x, int y)
     {
         if(button == GLUT_LEFT_BUTTON)
         {
+            bCurLine = camera->getLine(line);
+            if(bCurLine!=-1)
+            {
+                Controller::sketchLines.erase(Controller::sketchLines.begin()+bCurLine);
+                bCurLine = -1;
+                enterState(stateIdle);
+            }
         }
         if(button==GLUT_RIGHT_BUTTON)
         {
