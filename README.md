@@ -18,3 +18,11 @@ Demo video: [Youtube](https://www.youtube.com/watch?v=LXAcakVGCuI) [Youku](http:
 ![f22_2](https://github.com/billhsu/NeXTSketch/raw/master/doc/f22_2.png)
 
 ![f22_3](https://github.com/billhsu/NeXTSketch/raw/master/doc/f22_3.png)
+
+
+##Author
+**Shipeng Xu**
+
++ http://BillHsu.me
++ http://twitter.com/1991bill
++ http://weibo.com/billhsu
