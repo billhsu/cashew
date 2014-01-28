@@ -1,2 +1,6 @@
 #!/bin/bash
+cd lib/freeglut-2.8.1
+./configure
+make
+cd ../../
 cat Makefile|sed -e '/build\/src/d' -i Makefile
