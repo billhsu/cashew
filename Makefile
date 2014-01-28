@@ -8,7 +8,7 @@ BUILD_DIR := $(addprefix build/,$(MODULES))
 
 SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
-INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ifreeglut-2.8.1/include 
+INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ilib/freeglut-2.8.1/include 
 
 vpath %.cpp $(SRC_DIR)
 
@@ -83,8 +83,7 @@ build/src/core/camera/Camera.o: /usr/include/GL/freeglut_ext.h
 build/src/core/camera/Camera.o: src/core/scene/Controller.h
 build/src/core/camera/Camera.o: src/core/scene/Plane.h
 build/src/core/camera/Camera.o: src/core/scene/LineSegment.h
-build/src/core/camera/Camera.o: /usr/include/GL/glut.h src/core/scene/Scene.h
-build/src/core/camera/Camera.o: src/core/scene/Ray.h
+build/src/core/camera/Camera.o: src/core/scene/Scene.h src/core/scene/Ray.h
 build/src/core/math/Matrices.o: src/core/math/Matrices.h
 build/src/core/math/Matrices.o: src/core/math/Vectors.h
 build/src/core/math/Quaternion.o: src/core/math/Quaternion.h
@@ -123,7 +122,7 @@ build/src/core/scene/Controller.o: src/core/scene/Controller.h
 build/src/core/scene/Controller.o: src/core/math/Vectors.h
 build/src/core/scene/Controller.o: src/core/scene/Plane.h
 build/src/core/scene/Controller.o: src/core/scene/LineSegment.h
-build/src/core/scene/Controller.o: /usr/include/GL/glut.h
+build/src/core/scene/Controller.o: /usr/include/GL/freeglut.h
 build/src/core/scene/Controller.o: /usr/include/GL/freeglut_std.h
 build/src/core/scene/Controller.o: /usr/include/GL/gl.h
 build/src/core/scene/Controller.o: /usr/include/GL/glext.h
@@ -154,6 +153,7 @@ build/src/core/scene/Controller.o: /usr/include/bits/time.h
 build/src/core/scene/Controller.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/Controller.o: /usr/include/bits/pthreadtypes.h
 build/src/core/scene/Controller.o: /usr/include/alloca.h
+build/src/core/scene/Controller.o: /usr/include/GL/freeglut_ext.h
 build/src/core/scene/Controller.o: src/core/scene/State.h
 build/src/core/scene/Controller.o: src/core/camera/Camera.h
 build/src/core/scene/Controller.o: src/core/scene/Ray.h
@@ -171,7 +171,7 @@ build/src/core/scene/Controller.o: src/core/scene/Scene.h
 build/src/core/scene/Controller.o: src/core/scene/Ray.h
 build/src/core/scene/LineSegment.o: src/core/scene/LineSegment.h
 build/src/core/scene/LineSegment.o: src/core/math/Vectors.h
-build/src/core/scene/LineSegment.o: /usr/include/GL/glut.h
+build/src/core/scene/LineSegment.o: /usr/include/GL/freeglut.h
 build/src/core/scene/LineSegment.o: /usr/include/GL/freeglut_std.h
 build/src/core/scene/LineSegment.o: /usr/include/GL/gl.h
 build/src/core/scene/LineSegment.o: /usr/include/GL/glext.h
@@ -202,7 +202,8 @@ build/src/core/scene/LineSegment.o: /usr/include/bits/time.h
 build/src/core/scene/LineSegment.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/LineSegment.o: /usr/include/bits/pthreadtypes.h
 build/src/core/scene/LineSegment.o: /usr/include/alloca.h
-build/src/core/scene/Plane.o: /usr/include/GL/glut.h
+build/src/core/scene/LineSegment.o: /usr/include/GL/freeglut_ext.h
+build/src/core/scene/Plane.o: /usr/include/GL/freeglut.h
 build/src/core/scene/Plane.o: /usr/include/GL/freeglut_std.h
 build/src/core/scene/Plane.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 build/src/core/scene/Plane.o: /usr/include/inttypes.h /usr/include/features.h
@@ -227,11 +228,13 @@ build/src/core/scene/Plane.o: /usr/include/bits/sigset.h
 build/src/core/scene/Plane.o: /usr/include/bits/time.h
 build/src/core/scene/Plane.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/Plane.o: /usr/include/bits/pthreadtypes.h
-build/src/core/scene/Plane.o: /usr/include/alloca.h src/core/scene/Plane.h
+build/src/core/scene/Plane.o: /usr/include/alloca.h
+build/src/core/scene/Plane.o: /usr/include/GL/freeglut_ext.h
+build/src/core/scene/Plane.o: src/core/scene/Plane.h
 build/src/core/scene/Scene.o: src/core/scene/Scene.h src/core/scene/Ray.h
 build/src/core/scene/Scene.o: src/core/scene/Plane.h src/core/math/Vectors.h
 build/src/core/scene/Scene.o: src/core/scene/LineSegment.h
-build/src/core/scene/Scene.o: /usr/include/GL/glut.h
+build/src/core/scene/Scene.o: /usr/include/GL/freeglut.h
 build/src/core/scene/Scene.o: /usr/include/GL/freeglut_std.h
 build/src/core/scene/Scene.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 build/src/core/scene/Scene.o: /usr/include/inttypes.h /usr/include/features.h
@@ -257,7 +260,9 @@ build/src/core/scene/Scene.o: /usr/include/bits/time.h
 build/src/core/scene/Scene.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/Scene.o: /usr/include/bits/pthreadtypes.h
 build/src/core/scene/Scene.o: /usr/include/alloca.h
-build/src/core/scene/State.o: src/core/scene/State.h /usr/include/GL/glut.h
+build/src/core/scene/Scene.o: /usr/include/GL/freeglut_ext.h
+build/src/core/scene/State.o: src/core/scene/State.h
+build/src/core/scene/State.o: /usr/include/GL/freeglut.h
 build/src/core/scene/State.o: /usr/include/GL/freeglut_std.h
 build/src/core/scene/State.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 build/src/core/scene/State.o: /usr/include/inttypes.h /usr/include/features.h
@@ -282,7 +287,9 @@ build/src/core/scene/State.o: /usr/include/bits/sigset.h
 build/src/core/scene/State.o: /usr/include/bits/time.h
 build/src/core/scene/State.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/State.o: /usr/include/bits/pthreadtypes.h
-build/src/core/scene/State.o: /usr/include/alloca.h src/core/math/Vectors.h
+build/src/core/scene/State.o: /usr/include/alloca.h
+build/src/core/scene/State.o: /usr/include/GL/freeglut_ext.h
+build/src/core/scene/State.o: src/core/math/Vectors.h
 build/src/core/scene/State.o: src/core/scene/LineSegment.h
 build/src/core/scene/State.o: src/core/scene/Controller.h
 build/src/core/scene/State.o: src/core/scene/Plane.h src/core/camera/Camera.h
@@ -320,7 +327,8 @@ build/src/impl/main.o: src/core/scene/Ray.h src/core/math/Vectors.h
 build/src/impl/main.o: src/core/scene/Plane.h src/core/scene/Scene.h
 build/src/impl/main.o: src/core/scene/Ray.h src/core/scene/Plane.h
 build/src/impl/main.o: src/core/scene/LineSegment.h src/impl/Utility.h
-build/src/impl/main.o: src/core/scene/Controller.h /usr/include/math.h
+build/src/impl/main.o: src/core/scene/Controller.h /usr/include/GL/freeglut.h
+build/src/impl/main.o: /usr/include/GL/freeglut_ext.h /usr/include/math.h
 build/src/impl/main.o: /usr/include/bits/huge_val.h
 build/src/impl/main.o: /usr/include/bits/huge_valf.h
 build/src/impl/main.o: /usr/include/bits/huge_vall.h /usr/include/bits/inf.h
