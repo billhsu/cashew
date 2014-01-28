@@ -22,8 +22,8 @@ endef
 all: checkdirs nextsketch
 
 nextsketch: $(OBJ)
+	export LD_LIBRARY_PATH=lib/src/.libs
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $@
-	
 
 checkdirs: $(BUILD_DIR)
 
