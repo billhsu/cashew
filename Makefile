@@ -8,7 +8,7 @@ BUILD_DIR := $(addprefix build/,$(MODULES))
 
 SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
-INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ilib/freeglut-2.8.1/include 
+INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ilib/freeglut-2.8.1/include -Llib/src/.libs
 
 vpath %.cpp $(SRC_DIR)
 
@@ -22,7 +22,6 @@ endef
 all: checkdirs nextsketch
 
 nextsketch: $(OBJ)
-	export LD_LIBRARY_PATH=lib/src/.libs
 	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $@
 
 checkdirs: $(BUILD_DIR)
