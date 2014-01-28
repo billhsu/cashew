@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "GL/freeglut.h"
+#include <GL/freeglut.h>
 #define SMALL_NUM 0.001f
 
 float distRayPoint(Ray r, Vector3 p)

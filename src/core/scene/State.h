@@ -2,7 +2,7 @@
 // base class for states
 // here is a simple FSM
 #include <iostream>
-#include "GL/freeglut.h"
+#include <GL/freeglut.h>
 #include <vector>
 #include "../math/Vectors.h"
 #include "LineSegment.h"
