@@ -1,6 +1,8 @@
 NeXTSketch
 ========
 
+[![Build Status](https://travis-ci.org/billhsu/NeXTSketch.png?branch=master)](https://travis-ci.org/billhsu/NeXTSketch)
+
 Next generation 3D sketch tool.
 
 Supported platforms:
