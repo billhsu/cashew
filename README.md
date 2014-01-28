@@ -10,6 +10,7 @@ Next generation 3D sketch tool.
 
 Supported platforms:
  * Linux
+ * Mac
  * Windows
  * Android (Plan)
  * iOS     (Plan)
