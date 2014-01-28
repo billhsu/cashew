@@ -22,7 +22,7 @@ endef
 all: checkdirs nextsketch
 
 nextsketch: $(OBJ)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) $(OBJ) -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LDFLAGS) -o $@
 
 checkdirs: $(BUILD_DIR)
 
