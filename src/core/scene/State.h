@@ -110,6 +110,7 @@ public:
 
     void render(float timeDelta);
     StateIdle* stateIdle;
+    std::vector<Vector3> selectedPoints;
 
     Vector3 vCenter;
     Vector3 startPoint, endPoint;

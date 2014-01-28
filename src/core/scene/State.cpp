@@ -269,6 +269,7 @@ void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
         center /= selectedPoints.size();
         
         stateDraw->vCenter = center;
+        stateDraw->selectedPoints = selectedPoints;
         enterState(stateDraw);
     }
     if(key =='b')
@@ -424,7 +425,20 @@ void StateDraw::render(float timeDelta)
     }
     
 
+    Vector3 center(0,0,0);
+    for(int i=0;i<selectedPoints.size();++i)
+        center += selectedPoints[i];
+    center /= selectedPoints.size();
+    glPointSize(8);
+    glBegin(GL_POINTS);
+    glColor3f(0,1,0);
+    for(int i = 0; i<selectedPoints.size(); ++i)
+    {
+        glVertex3fv(selectedPoints[i].cell);
+    }
+    glEnd();
     glPointSize(1);
+
     glLineWidth(1);
 
 
