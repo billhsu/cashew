@@ -1,2 +1,3 @@
 #!/bin/bash
 cat Makefile|sed -e '/build\/src/d' -i Makefile
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:lib/src/.libs
