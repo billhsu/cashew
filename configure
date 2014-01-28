@@ -2,6 +2,8 @@
 cd lib/freeglut-2.8.1
 ./configure
 make
-ls lib/freeglut-2.8.1/src/.libs
+cd src/.libs
+ls
+cd ../../
 cd ../../
 cat Makefile|sed -e '/build\/src/d' -i Makefile
