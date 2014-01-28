@@ -8,7 +8,7 @@ BUILD_DIR := $(addprefix build/,$(MODULES))
 
 SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
-INCLUDES  := $(addprefix -I,$(SRC_DIR))
+INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ifreeglut-2.8.1/include 
 
 vpath %.cpp $(SRC_DIR)
 
