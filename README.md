@@ -11,11 +11,11 @@ Next generation 3D sketch tool.
 Supported platforms:
  * Linux
  * Windows
- * Android
- * iOS
+ * Android (Plan)
+ * iOS     (Plan)
  
 
-Demo video: [Youtube](https://www.youtube.com/watch?v=LXAcakVGCuI)  [优酷](http://v.youku.com/v_show/id_XNjY1ODY2MjY4.html)
+Demo video: [Youtube](https://www.youtube.com/watch?v=LXAcakVGCuI),  [优酷](http://v.youku.com/v_show/id_XNjY1ODY2MjY4.html)
 
 
 ##Author
