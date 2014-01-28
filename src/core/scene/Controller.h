@@ -8,7 +8,7 @@ billhsu.x@gmail.com
 #include "../math/Vectors.h"
 #include "Plane.h"
 #include "LineSegment.h"
-#include <GL/glut.h>
+#include "GL/freeglut.h"
 
 class StateIdle;
 class StateDraw;

@@ -1,5 +1,5 @@
 #include "Camera.h"
-#include <GL/freeglut.h>
+#include "GL/freeglut.h"
 #include "../scene/Controller.h"
 #include "../../impl/Utility.h"
 #include "../scene/Scene.h"
