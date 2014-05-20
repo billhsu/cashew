@@ -14,7 +14,7 @@ UINode::UINode(UINode* parent)
     mPosX = mPosY = 0;
     mParentNode = parent;
 
-    mCallBack = 0;
+    mCallBackFunc = 0;
     
     if(parent != NULL)
     {
@@ -27,7 +27,7 @@ UINode::~UINode()
             Child != mChildNodes.end(); Child++)
         delete *Child;
     
-    if(ParentObject == NULL)
+    if(mParentNode == NULL)
         return;
     
     for(mChildIter Index = mParentNode->mChildNodes.begin(); 
@@ -45,5 +45,5 @@ void UINode::_render(float timeDelta)
 {
     render(timeDelta);
     for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
-        (*Child)->__render(timeDelta);
+        (*Child)->_render(timeDelta);
 }

@@ -8,6 +8,8 @@ billhsu.x@gmail.com
 class UILabel : public UINode
 {
 public:
+    UILabel(UINode* parent);
+    ~UILabel();
     void setText(const char* text);
 private:
 

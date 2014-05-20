@@ -2,7 +2,7 @@ CC        := g++
 LDFLAGS   := -lGL -lGLU -lglut -lrt
 CFLAGS    := 
 
-MODULES   := src/core/camera src/core/math src/core/scene src/impl 
+MODULES   := src/core/camera src/core/math src/core/scene src/core/UI src/impl 
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 
@@ -167,7 +167,10 @@ build/src/core/scene/Controller.o: /usr/include/wchar.h
 build/src/core/scene/Controller.o: /usr/include/bits/stdio_lim.h
 build/src/core/scene/Controller.o: /usr/include/bits/sys_errlist.h
 build/src/core/scene/Controller.o: src/core/scene/Scene.h
-build/src/core/scene/Controller.o: src/core/scene/Ray.h
+build/src/core/scene/Controller.o: src/core/scene/Ray.h src/core/UI/UI.h
+build/src/core/scene/Controller.o: src/core/UI/UINode.h
+build/src/core/scene/Controller.o: src/core/UI/UIButton.h
+build/src/core/scene/Controller.o: src/core/UI/UILabel.h
 build/src/core/scene/LineSegment.o: src/core/scene/LineSegment.h
 build/src/core/scene/LineSegment.o: src/core/math/Vectors.h
 build/src/core/scene/LineSegment.o: /usr/include/GL/freeglut.h
@@ -302,6 +305,30 @@ build/src/core/scene/State.o: /usr/include/_G_config.h /usr/include/wchar.h
 build/src/core/scene/State.o: /usr/include/bits/stdio_lim.h
 build/src/core/scene/State.o: /usr/include/bits/sys_errlist.h
 build/src/core/scene/State.o: src/core/scene/Scene.h src/core/scene/Ray.h
+build/src/core/UI/UIButton.o: src/core/UI/UIButton.h src/core/UI/UINode.h
+build/src/core/UI/UI.o: /usr/include/GL/freeglut.h
+build/src/core/UI/UI.o: /usr/include/GL/freeglut_std.h /usr/include/GL/gl.h
+build/src/core/UI/UI.o: /usr/include/GL/glext.h /usr/include/inttypes.h
+build/src/core/UI/UI.o: /usr/include/features.h /usr/include/bits/predefs.h
+build/src/core/UI/UI.o: /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h
+build/src/core/UI/UI.o: /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h
+build/src/core/UI/UI.o: /usr/include/stdint.h /usr/include/bits/wchar.h
+build/src/core/UI/UI.o: /usr/include/GL/glu.h /usr/include/stdlib.h
+build/src/core/UI/UI.o: /usr/include/bits/waitflags.h
+build/src/core/UI/UI.o: /usr/include/bits/waitstatus.h /usr/include/endian.h
+build/src/core/UI/UI.o: /usr/include/bits/endian.h
+build/src/core/UI/UI.o: /usr/include/bits/byteswap.h /usr/include/sys/types.h
+build/src/core/UI/UI.o: /usr/include/bits/types.h
+build/src/core/UI/UI.o: /usr/include/bits/typesizes.h /usr/include/time.h
+build/src/core/UI/UI.o: /usr/include/sys/select.h /usr/include/bits/select.h
+build/src/core/UI/UI.o: /usr/include/bits/sigset.h /usr/include/bits/time.h
+build/src/core/UI/UI.o: /usr/include/sys/sysmacros.h
+build/src/core/UI/UI.o: /usr/include/bits/pthreadtypes.h
+build/src/core/UI/UI.o: /usr/include/alloca.h /usr/include/GL/freeglut_ext.h
+build/src/core/UI/UI.o: src/core/UI/UI.h src/core/UI/UINode.h
+build/src/core/UI/UI.o: src/core/UI/UIButton.h src/core/UI/UILabel.h
+build/src/core/UI/UILabel.o: src/core/UI/UILabel.h src/core/UI/UINode.h
+build/src/core/UI/UINode.o: src/core/UI/UINode.h
 build/src/impl/main.o: /usr/include/stdio.h /usr/include/features.h
 build/src/impl/main.o: /usr/include/bits/predefs.h /usr/include/sys/cdefs.h
 build/src/impl/main.o: /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h

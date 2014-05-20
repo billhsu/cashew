@@ -2,6 +2,7 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
+#include <GL/freeglut.h>
 #include "UI.h"
 
 UI::UI()
@@ -21,11 +22,11 @@ UIButton* UI::addButton(int x, int y, int width, int height,
     button->setPos(x, y);
     button->setText(text);
     button->setSize(width, height);
-    button->SetCallback(callback);
+    button->setCallback(callback);
     return button;
 }
 
-UILabel* UI:addLabel(int x, int y, int width, int height,const char* text)
+UILabel* UI::addLabel(int x, int y, int width, int height, const char* text)
 {
     UILabel* label = new UILabel(mRootNode);
     label->setPos(x, y);
@@ -34,7 +35,7 @@ UILabel* UI:addLabel(int x, int y, int width, int height,const char* text)
     return label;
 }
 
-void UI:render(float timeDelta)
+void UI::render(float timeDelta)
 {
     glPushMatrix();
 

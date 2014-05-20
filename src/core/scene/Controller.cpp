@@ -53,6 +53,8 @@ void Controller::init()
     sselectPlane = new StateSelectPlane();
     sdraw = new StateDraw();
     camera = &Camera::getInstance();
+    GUI = &UI::getInstance();
+    GUI->setWindowSize(width, height);
 
     sidle->stateSelectPlane = sselectPlane;
     sidle->stateDeleteLine  = sDelLine;

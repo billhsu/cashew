@@ -6,6 +6,7 @@ Thanks to GLUI2
 */
 #pragma once
 
+#include <iostream>
 #include "UINode.h"
 #include "UIButton.h"
 #include "UILabel.h"
@@ -20,6 +21,12 @@ public:
         return instance;
     }
 
+    void setWindowSize(int width, int height)
+    {
+        mWindowWidth = width;
+        mWindowHeight = height;
+    }
+
     UIButton* addButton(int x, int y, int width, int height, 
             const char* text, void (*callback)(UINode* Sender));
 
@@ -29,6 +36,6 @@ public:
 private:
     UI();
     ~UI();
-    int mWindowWeight, mWindowHeight;
+    int mWindowWidth, mWindowHeight;
     UINode* mRootNode;
 };

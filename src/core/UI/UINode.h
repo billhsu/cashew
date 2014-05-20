@@ -7,6 +7,7 @@ Thanks to GLUI2
 #pragma once
 
 #include <list>
+#include <stddef.h>
 
 class UINode
 {
@@ -21,10 +22,10 @@ public:
         if(y != NULL) *y = mPosY;
     }
 
-    void setSize(int weight, int height){mWeight = weight; mHeight = height;}
-    void getSize(int* weight = NULL, int* height = NULL)
+    void setSize(int width, int height){mWidth = width; mHeight = height;}
+    void getSize(int* width = NULL, int* height = NULL)
     {
-        if(weight != NULL) *weight = mWeight;
+        if(width != NULL) *width = mWidth;
         if(height != NULL) *height = mHeight;
     }
 
@@ -50,17 +51,17 @@ public:
     void setDisabled(bool disable){mIsDisabled = disable;}
     bool getDisabled(){return mIsDisabled;}
 
-    void setCallback(void (*callback)(UINode* Sender)){mCallback = callback;}
+    void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
 
     virtual void render(float timeDelta){}
 private:
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;
-    int mWeight, mHeight;
+    int mWidth, mHeight;
 
     bool mIsVisible;
     bool mIsDisabled;
-    void (*mCallback)(UINode* Sender);
+    void (*mCallBackFunc)(UINode* sender);
 
     std::list< UINode* > mChildNodes;
     typedef std::list< UINode* >::iterator mChildIter;
