@@ -52,6 +52,8 @@ int main(int argc, char** argv)
     ctrl->init();
     UIButton* btn;
     btn = Controller::GUI->addButton(200, 200, 100, 40, "test", 0);
+    btn->setColor(1.0f,1.0f,1.0f,0.5f);
+
     glutInit (&argc, argv);
     glutInitWindowSize (ctrl->width, ctrl->height);
     glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);

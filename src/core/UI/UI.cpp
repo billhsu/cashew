@@ -55,7 +55,14 @@ void UI::render(float timeDelta)
     glDisable(GL_LIGHTING);
     glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
 
+    glEnable(GL_BLEND);
+    glDepthMask(GL_FALSE);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     mRootNode->_render(timeDelta);
+
+    glDepthMask(GL_TRUE);
+    glDisable(GL_BLEND);
 
     glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
 
