@@ -54,11 +54,12 @@ public:
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
 
     virtual void render(float timeDelta){}
-private:
+
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;
     int mWidth, mHeight;
-
+    
+private:
     bool mIsVisible;
     bool mIsDisabled;
     void (*mCallBackFunc)(UINode* sender);

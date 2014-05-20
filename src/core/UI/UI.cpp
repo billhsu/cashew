@@ -40,20 +40,25 @@ UILabel* UI::addLabel(int x, int y, int width, int height, const char* text)
 
 void UI::render(float timeDelta)
 {
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
-    glLoadIdentity();
+    glMatrixMode( GL_PROJECTION ) ;
+    glPushMatrix() ; // save
+    glLoadIdentity();// and clear
 
     glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
-    glDisable(GL_DEPTH_TEST);
-    glMatrixMode (GL_MODELVIEW);
-    glLoadIdentity();
-    
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    
+    glMatrixMode( GL_MODELVIEW ) ;
+    glPushMatrix() ;
+    glLoadIdentity() ;
+
+    glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
+    glTranslatef(0.0f, (float)-mWindowHeight, 0.0f); 
+
+    glDisable(GL_LIGHTING);
+    glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
+
     mRootNode->_render(timeDelta);
 
-    glEnable( GL_DEPTH_TEST ) ;
+    glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
+
     glMatrixMode( GL_PROJECTION ) ;
     glPopMatrix(); // revert back to the matrix I had before.
     glMatrixMode( GL_MODELVIEW ) ;
