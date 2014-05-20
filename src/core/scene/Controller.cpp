@@ -29,6 +29,8 @@ bool Controller::bCurrPoint = false;
 
 Vector3 Controller::rotate = Vector3(-30,0,0);
 
+UI* Controller::GUI = &UI::getInstance();
+
 Controller::Controller()
 {
 
@@ -53,7 +55,7 @@ void Controller::init()
     sselectPlane = new StateSelectPlane();
     sdraw = new StateDraw();
     camera = &Camera::getInstance();
-    GUI = &UI::getInstance();
+    
     GUI->setWindowSize(width, height);
 
     sidle->stateSelectPlane = sselectPlane;

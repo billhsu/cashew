@@ -9,6 +9,9 @@
 
 class Controller;
 class Camera;
+class UI;
+class UIButton;
+
 class State
 {
 public:

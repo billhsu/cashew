@@ -3,6 +3,7 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include "UINode.h"
+#include <iostream>
 
 UINode::UINode(UINode* parent)
 {
@@ -20,25 +21,17 @@ UINode::UINode(UINode* parent)
     {
         parent->mChildNodes.push_back(this);
     }
+    std::cout<<"UINode("<<parent<<")"<<std::endl;
 }
 UINode::~UINode()
 {
+    std::cout<<"~UINode()"<<std::endl;
     for(mChildIter Child = mChildNodes.begin(); 
             Child != mChildNodes.end(); Child++)
-        delete *Child;
-    
-    if(mParentNode == NULL)
-        return;
-    
-    for(mChildIter Index = mParentNode->mChildNodes.begin(); 
-            Index != mParentNode->mChildNodes.end(); Index++)
     {
-        if(*Index == this)
-        {
-            mParentNode->mChildNodes.erase(Index);
-            break;
-        }
+        delete *Child;
     }
+    
 }
 
 void UINode::_render(float timeDelta)

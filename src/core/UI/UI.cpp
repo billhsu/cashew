@@ -3,16 +3,19 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include <GL/freeglut.h>
+#include <iostream>
 #include "UI.h"
 
 UI::UI()
 {
     mRootNode = new UINode(NULL);
+    std::cout <<"UI()"<<std::endl;
 }
 
 UI::~UI()
 {
     delete mRootNode;
+    std::cout <<"~UI()"<<std::endl;
 }
 
 UIButton* UI::addButton(int x, int y, int width, int height, 
@@ -49,7 +52,7 @@ void UI::render(float timeDelta)
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     
     mRootNode->_render(timeDelta);
-    
+
     glEnable( GL_DEPTH_TEST ) ;
     glMatrixMode( GL_PROJECTION ) ;
     glPopMatrix(); // revert back to the matrix I had before.

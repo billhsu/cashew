@@ -54,8 +54,8 @@ public:
     StateSelectPlane* sselectPlane;
     StateDraw* sdraw;
     Camera * camera;
-    UI* GUI;
-    
+    static UI* GUI;
+
     static bool enableLight;
     static Vector3 rotate;
 
