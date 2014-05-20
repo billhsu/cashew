@@ -4,10 +4,11 @@ billhsu.x@gmail.com
 */
 #pragma once
 
-class UILabel
+#include "UINode.h"
+class UILabel : public UINode
 {
 public:
-
+    void setText(const char* text);
 private:
 
 }
