@@ -139,6 +139,8 @@ void Controller::render(float timeDelta)
         glEnable(GL_DEPTH);
     }
 
+    GUI->render(timeDelta);
+
 
     glutPostRedisplay();
     glutSwapBuffers();

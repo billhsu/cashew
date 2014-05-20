@@ -37,21 +37,22 @@ UILabel* UI::addLabel(int x, int y, int width, int height, const char* text)
 
 void UI::render(float timeDelta)
 {
+    glMatrixMode(GL_PROJECTION);
     glPushMatrix();
+    glLoadIdentity();
 
-    glMatrixMode (GL_PROJECTION);
-    glLoadIdentity ();
-    glOrtho(0, mWindowWidth, mWindowHeight, 0, 0, 1);
+    glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
     glDisable(GL_DEPTH_TEST);
     glMatrixMode (GL_MODELVIEW);
     glLoadIdentity();
     
-    // Make sure we are in fill mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     
-    // Render all children (this controller is the root of all controllers)
     mRootNode->_render(timeDelta);
     
-    // End 2D mode
+    glEnable( GL_DEPTH_TEST ) ;
+    glMatrixMode( GL_PROJECTION ) ;
+    glPopMatrix(); // revert back to the matrix I had before.
+    glMatrixMode( GL_MODELVIEW ) ;
     glPopMatrix();
 }
