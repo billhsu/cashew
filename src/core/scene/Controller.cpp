@@ -6,6 +6,7 @@ billhsu.x@gmail.com
 #include "State.h"
 #include "../camera/Camera.h"
 #include "Scene.h"
+#include "../UI/UI.h"
 
 State* State::currState;
 

@@ -11,4 +11,4 @@ public:
     void setText(const char* text);
 private:
 
-}
+};

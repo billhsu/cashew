@@ -40,3 +40,10 @@ UINode::~UINode()
         }
     }
 }
+
+void UINode::_render(float timeDelta)
+{
+    render(timeDelta);
+    for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        (*Child)->__render(timeDelta);
+}

@@ -1,6 +1,8 @@
 /* 
 Shipeng Xu
 billhsu.x@gmail.com
+
+Thanks to GLUI2
 */
 #pragma once
 
@@ -30,7 +32,7 @@ public:
     {
         mR = r; mG = g; mB = b; mAlpha = a;
     }
-    void getColor(float* r = NULL, float* g = NULL, float* b = NULL, float* a = NULL);
+    void getColor(float* r = NULL, float* g = NULL, float* b = NULL, float* a = NULL)
     {
         if(r != NULL)
             *r = mR;
@@ -66,5 +68,7 @@ private:
     
     UINode* mParentNode;
 
+    void _render(float timeDelta);
+
     friend class UI;
-}
+};

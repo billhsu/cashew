@@ -29,6 +29,6 @@ public:
 private:
     UI();
     ~UI();
-
-    UINode* rootNode;
-}
+    int mWindowWeight, mWindowHeight;
+    UINode* mRootNode;
+};
