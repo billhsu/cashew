@@ -19,6 +19,8 @@ int Controller::mouseState;
 int Controller::lastMouseX = 0;
 int Controller::lastMouseY = 0;
 
+int Controller::uiHold = 0;
+
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
 
@@ -75,9 +77,11 @@ void Controller::MouseButton(int button, int state, int x, int y)
     if(GUI->getNodeByPos(x, y)!=NULL && state == 0)
     {
         std::cout<<"UINode Hit"<<std::endl;
+        uiHold = 1;
     }
     else
     {
+        uiHold = 0;
         State::currState->MouseButton(button, state, x, y);
     }
 
@@ -88,7 +92,7 @@ void Controller::MouseMotion(int x, int y)
 {
     Controller::mouseX = x;
     Controller::mouseY = y;
-    State::currState->MouseMotion(x, y);
+    if(uiHold==0) State::currState->MouseMotion(x, y);
 }
 void Controller::PassiveMotion(int x, int y)
 {
@@ -101,7 +105,7 @@ void Controller::PassiveMotion(int x, int y)
         bCurrPoint = true;
     }
     else bCurrPoint = false;
-    State::currState->PassiveMotion(x, y);
+    if(uiHold==0) State::currState->PassiveMotion(x, y);
 }
 void Controller::Keyboard(unsigned char key, int x, int y)
 {

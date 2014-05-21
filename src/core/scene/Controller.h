@@ -48,6 +48,8 @@ public:
     static int mouseButton,mouseState; // mouse status
     static int lastMouseX,lastMouseY; // last mouse position
 
+    static int uiHold;
+
 
     StateIdle* sidle;
     StateDeleteLine* sDelLine;
