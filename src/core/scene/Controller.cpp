@@ -12,6 +12,8 @@ State* State::currState;
 
 int Controller::width = 800;
 int Controller::height = 600;
+int Controller::originWidth = 800;
+int Controller::originHeight = 600;
 int Controller::mouseX = 0;
 int Controller::mouseY = 0;
 int Controller::mouseButton;
@@ -58,7 +60,7 @@ void Controller::init()
     sdraw = new StateDraw();
     camera = &Camera::getInstance();
     
-    GUI->setWindowSize(width, height);
+    GUI->setWindowSize(originWidth, originHeight);
 
     sidle->stateSelectPlane = sselectPlane;
     sidle->stateDeleteLine  = sDelLine;
@@ -74,7 +76,7 @@ void Controller::MouseButton(int button, int state, int x, int y)
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if(GUI->MouseButton(button, state, x, y))
+    if(GUI->MouseButton(button, state, x*originWidth/width, y*originHeight/height))
     {
         uiHold = 1;
     }
@@ -162,5 +164,4 @@ void Controller::resize(int _width, int _heigth)
 {
     width = _width;
     height = _heigth;
-    GUI->setWindowSize(width, height);
 }
