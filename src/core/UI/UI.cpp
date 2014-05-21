@@ -22,10 +22,11 @@ UINode* UI::getNodeByPos(int x, int y)
 {
     return mRootNode->getNodeByPos(x, y);
 }
-UIButton* UI::addButton(int x, int y, int width, int height, 
+UIButton* UI::addButton(int x, int y, int width, int height, GLuint textureID, 
             const char* text, void (*callback)(UINode* Sender))
 {
     UIButton* button = new UIButton(mRootNode);
+    button->textureID = textureID;
     button->setPos(x, y);
     button->setText(text);
     button->setSize(width, height);

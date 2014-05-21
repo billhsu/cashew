@@ -8,6 +8,7 @@ Thanks to GLUI2
 
 #include <list>
 #include <stddef.h>
+#include <GL/freeglut.h>
 
 class UINode
 {
@@ -65,6 +66,7 @@ public:
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;
     int mWidth, mHeight;
+    GLuint textureID;
     
 private:
     bool mIsVisible;

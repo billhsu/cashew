@@ -23,10 +23,17 @@ void UIButton::setText(const char* text)
 void UIButton::render(float timeDelta)
 {
     glColor4f(mR, mG, mB, mAlpha);
+    
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+
+
     glBegin(GL_QUADS);
-        glVertex3fv(Vector3(mPosX,mPosY,0).cell);
-        glVertex3fv(Vector3(mPosX+mWidth,mPosY,0).cell);
-        glVertex3fv(Vector3(mPosX+mWidth,mPosY+mHeight,0).cell);
-        glVertex3fv(Vector3(mPosX,mPosY+mHeight,0).cell);
+        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX,mPosY);
+        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX+mWidth,mPosY);
+        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX+mWidth,mPosY+mHeight);
+        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX,mPosY+mHeight);
     glEnd();
+
+    glDisable(GL_TEXTURE_2D);
 }

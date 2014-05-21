@@ -2,7 +2,7 @@ CC        := g++
 LDFLAGS   := -lGL -lGLU -lglut -lrt
 CFLAGS    := -g
 
-MODULES   := src/core/camera src/core/math src/core/scene src/core/UI src/impl 
+MODULES   := src/core/camera src/core/math src/core/scene src/core/UI src/core/texture src/impl 
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 

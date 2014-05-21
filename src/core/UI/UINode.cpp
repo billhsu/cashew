@@ -15,6 +15,8 @@ UINode::UINode(UINode* parent)
     mPosX = mPosY = 0;
     mParentNode = parent;
 
+    textureID = -1;
+
     mCallBackFunc = 0;
     
     if(parent != NULL)

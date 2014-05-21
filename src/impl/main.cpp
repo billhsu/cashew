@@ -12,7 +12,7 @@ billhsu.x@gmail.com
 #include "../core/UI/UI.h"
 #include "../core/UI/UINode.h"
 #include "../core/UI/UIButton.h"
-
+#include "../core/texture/g2Images.h"
 #include <math.h>
 #include <vector>
 using namespace std;
@@ -55,9 +55,7 @@ int main(int argc, char** argv)
     ctrl=&Controller::getInstance();
     ctrl->init();
     UIButton* btn;
-    btn = Controller::GUI->addButton(200, 200, 100, 40, "test", testCallback);
-    btn->setColor(1.0f,1.0f,1.0f,0.5f);
-
+    
     glutInit (&argc, argv);
     glutInitWindowSize (ctrl->width, ctrl->height);
     glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -73,6 +71,12 @@ int main(int argc, char** argv)
 
     timeMsLast = getMilliSec();
 
+    int _w, _h, _ch;
+    GLuint TextureID = g2LoadImage("media/textures/test.png", &_w, &_h, &_ch, false, false);
+    std::cout<<_w<<" "<<_h<<" "<<_ch<<std::endl;
+
+    btn = Controller::GUI->addButton(200, 200, 200, 200, TextureID, "test", testCallback);
+    btn->setColor(1.0f,1.0f,1.0f,0.9f);
 
     // Turn the flow of control over to GLUT
 
