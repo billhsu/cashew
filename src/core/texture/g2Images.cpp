@@ -30,7 +30,6 @@ GLuint g2LoadImage(const char* ImagePath, int* Width, int* Height, int* Channels
         if(DataBuffer == NULL)
             return -1;
         
-        //glEnable(GL_TEXTURE_2D);
         // Allocate an OpenGL texture
         glGenTextures(1, &Image.GlTextureID);
         glBindTexture(GL_TEXTURE_2D, Image.GlTextureID);
@@ -62,7 +61,7 @@ GLuint g2LoadImage(const char* ImagePath, int* Width, int* Height, int* Channels
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, Wrap ? GL_REPEAT : GL_CLAMP);
         
         // Done setting image parameters
-        //glDisable(GL_TEXTURE_2D);
+        glDisable(GL_TEXTURE_2D);
         
         // Release internal buffer
         stbi_image_free(DataBuffer);

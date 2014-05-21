@@ -75,7 +75,7 @@ int main(int argc, char** argv)
     GLuint TextureID = g2LoadImage("media/textures/test.png", &_w, &_h, &_ch, false, false);
     std::cout<<_w<<" "<<_h<<" "<<_ch<<std::endl;
 
-    btn = Controller::GUI->addButton(200, 200, 200, 200, TextureID, "test", testCallback);
+    btn = Controller::GUI->addButton(200, 200, 100, 100, TextureID, "test", testCallback);
     btn->setColor(1.0f,1.0f,1.0f,0.9f);
 
     // Turn the flow of control over to GLUT
