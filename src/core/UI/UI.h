@@ -26,7 +26,7 @@ public:
         mWindowWidth = width;
         mWindowHeight = height;
     }
-
+    UINode* getNodeByPos(int x, int y);
     UIButton* addButton(int x, int y, int width, int height, 
             const char* text, void (*callback)(UINode* Sender));
 

@@ -55,6 +55,13 @@ public:
 
     virtual void render(float timeDelta){}
 
+    bool insideNode(int x, int y)
+    {
+        return ((x>=mPosX && x<=mPosX+mWidth)
+                &&(y>=mPosY && y<=mPosY+mHeight));
+    }
+    UINode* getNodeByPos(int x, int y);
+
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;
     int mWidth, mHeight;

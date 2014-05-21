@@ -18,6 +18,10 @@ UI::~UI()
     std::cout <<"~UI()"<<std::endl;
 }
 
+UINode* UI::getNodeByPos(int x, int y)
+{
+    return mRootNode->getNodeByPos(x, y);
+}
 UIButton* UI::addButton(int x, int y, int width, int height, 
             const char* text, void (*callback)(UINode* Sender))
 {

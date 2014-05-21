@@ -23,6 +23,7 @@ UINode::UINode(UINode* parent)
     }
     std::cout<<"UINode("<<parent<<")"<<std::endl;
 }
+
 UINode::~UINode()
 {
     std::cout<<"~UINode()"<<std::endl;
@@ -39,4 +40,24 @@ void UINode::_render(float timeDelta)
     render(timeDelta);
     for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
         (*Child)->_render(timeDelta);
+}
+
+UINode* UINode::getNodeByPos(int x, int y)
+{
+    UINode* findNode = NULL;
+    if(mChildNodes.size()>0)
+    {
+        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        {
+            if((*Child)->insideNode(x, y)) 
+            {
+                findNode = (*Child)->getNodeByPos(x, y);
+                break;
+            }
+        }
+    }
+
+    if(findNode == NULL && insideNode(x, y)) findNode = this;
+
+    return findNode;
 }

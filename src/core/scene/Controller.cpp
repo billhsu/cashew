@@ -72,9 +72,16 @@ void Controller::MouseButton(int button, int state, int x, int y)
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-    
-    State::currState->MouseButton(button, state, x, y);
-    //std::cout<<"button: "<<button<<" state:"<<state<<std::endl;
+    if(GUI->getNodeByPos(x, y)!=NULL && state == 0)
+    {
+        std::cout<<"UINode Hit"<<std::endl;
+    }
+    else
+    {
+        State::currState->MouseButton(button, state, x, y);
+    }
+
+    std::cout<<"button: "<<button<<" state:"<<state<<std::endl;
 }
 
 void Controller::MouseMotion(int x, int y)
