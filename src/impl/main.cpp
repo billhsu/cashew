@@ -10,6 +10,7 @@ billhsu.x@gmail.com
 #include "Utility.h"
 #include "../core/scene/Controller.h"
 #include "../core/UI/UI.h"
+#include "../core/UI/UINode.h"
 #include "../core/UI/UIButton.h"
 
 #include <math.h>
@@ -36,7 +37,10 @@ void Keyboard(unsigned char key, int x, int y)
 {
     ctrl->Keyboard(key, x, y);
 }
-
+void testCallback(UINode* sender)
+{
+    std::cout<<"testCallback"<<std::endl;
+}
 void render()
 {
     float timeDelta = getMilliSec() - timeMsLast;
@@ -51,7 +55,7 @@ int main(int argc, char** argv)
     ctrl=&Controller::getInstance();
     ctrl->init();
     UIButton* btn;
-    btn = Controller::GUI->addButton(200, 200, 100, 40, "test", 0);
+    btn = Controller::GUI->addButton(200, 200, 100, 40, "test", testCallback);
     btn->setColor(1.0f,1.0f,1.0f,0.5f);
 
     glutInit (&argc, argv);

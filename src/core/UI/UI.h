@@ -32,6 +32,9 @@ public:
 
     UILabel* addLabel(int x, int y, int width, int height,const char* text);
 
+    bool MouseButton(int button, int state, int x, int y);
+    bool PassiveMotion(int x, int y);
+
     void render(float timeDelta);
 private:
     UI();

@@ -42,6 +42,33 @@ UILabel* UI::addLabel(int x, int y, int width, int height, const char* text)
     return label;
 }
 
+bool UI::MouseButton(int button, int state, int x, int y)
+{
+    UINode* node = getNodeByPos(x, y);
+    if(node!=NULL && state == 0)
+    {
+        if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool UI::PassiveMotion(int x, int y)
+{
+    UINode* node = getNodeByPos(x, y);
+    if(node!=NULL)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void UI::render(float timeDelta)
 {
     glMatrixMode( GL_PROJECTION ) ;
