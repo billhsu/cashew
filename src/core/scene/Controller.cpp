@@ -157,3 +157,10 @@ void Controller::render(float timeDelta)
     glutPostRedisplay();
     glutSwapBuffers();
 }
+
+void Controller::resize(int _width, int _heigth)
+{
+    width = _width;
+    height = _heigth;
+    GUI->setWindowSize(width, height);
+}

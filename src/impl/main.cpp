@@ -84,8 +84,7 @@ int main(int argc, char** argv)
 
 void reshape(GLint w, GLint h)
 {
-    Controller::width = w;
-    Controller::height = h;
+    Controller::resize(w, h);
 
     glViewport (0, 0, (GLsizei) w, (GLsizei) h);
     glMatrixMode (GL_PROJECTION);

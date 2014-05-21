@@ -36,6 +36,8 @@ public:
     void Keyboard(unsigned char key, int x, int y);
     void render(float timeDelta);
 
+    static void resize(int _width, int _heigth);
+
     static std::vector<LineSegment> sketchLines;
     static Plane currPlane; // Plane to draw
     static Vector3 currPoint;
