@@ -66,7 +66,9 @@ public:
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;
     int mWidth, mHeight;
-    GLuint textureID;
+    enum{NODE_IDLE, NODE_HOVER, NODE_PRESS};
+    
+    int nodeStatus;
     
 private:
     bool mIsVisible;

@@ -9,6 +9,8 @@ billhsu.x@gmail.com
 UI::UI()
 {
     mRootNode = new UINode(NULL);
+    previousPressed = NULL;
+    previousHover = NULL;
     std::cout <<"UI()"<<std::endl;
 }
 
@@ -22,11 +24,15 @@ UINode* UI::getNodeByPos(int x, int y)
 {
     return mRootNode->getNodeByPos(x, y);
 }
-UIButton* UI::addButton(int x, int y, int width, int height, GLuint textureID, 
+
+UIButton* UI::addButton(int x, int y, int width, int height, 
+            GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
             const char* text, void (*callback)(UINode* Sender))
 {
     UIButton* button = new UIButton(mRootNode);
-    button->textureID = textureID;
+    button->textureID_idle = textureID_idle;
+    button->textureID_hover = textureID_hover;
+    button->textureID_press = textureID_press;
     button->setPos(x, y);
     button->setText(text);
     button->setSize(width, height);
@@ -48,11 +54,26 @@ bool UI::MouseButton(int button, int state, int x, int y)
     UINode* node = getNodeByPos(x, y);
     if(node!=NULL && state == 0)
     {
-        if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
+        node->nodeStatus = UINode::NODE_PRESS;
+        previousPressed = node;
         return true;
     }
     else
     {
+        if(state == 1 && node!=NULL && node == previousPressed)
+        {
+            if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
+        }
+
+        if(previousPressed!=NULL)
+        {
+            if(previousHover!=NULL)
+                previousPressed->nodeStatus = UINode::NODE_HOVER;
+            else
+                previousPressed->nodeStatus = UINode::NODE_IDLE;
+
+            previousPressed = NULL;
+        }
         return false;
     }
 }
@@ -62,10 +83,22 @@ bool UI::PassiveMotion(int x, int y)
     UINode* node = getNodeByPos(x, y);
     if(node!=NULL)
     {
+        if(previousHover!=NULL && previousHover!=node)
+        {
+            previousHover->nodeStatus = UINode::NODE_IDLE;
+            previousHover = NULL;
+        }
+        node->nodeStatus = UINode::NODE_HOVER;
+        previousHover = node;
         return true;
     }
     else
     {
+        if(previousHover!=NULL)
+        {
+            previousHover->nodeStatus = UINode::NODE_IDLE;
+            previousHover = NULL;
+        }
         return false;
     }
 }

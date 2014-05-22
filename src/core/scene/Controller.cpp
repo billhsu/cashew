@@ -100,6 +100,9 @@ void Controller::PassiveMotion(int x, int y)
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
+    
+    GUI->PassiveMotion(x, y);
+
     if(camera->getPoint(p))
     {
         currPoint = p;

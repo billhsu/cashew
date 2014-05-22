@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 {
     ctrl=&Controller::getInstance();
     ctrl->init();
-    UIButton* btn;
+    UIButton* btn, *btn2;
     
     glutInit (&argc, argv);
     glutInitWindowSize (ctrl->width, ctrl->height);
@@ -72,11 +72,19 @@ int main(int argc, char** argv)
     timeMsLast = getMilliSec();
 
     int _w, _h, _ch;
-    GLuint TextureID = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
-    std::cout<<_w<<" "<<_h<<" "<<_ch<<std::endl;
+    GLuint TextureID_idle = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
 
-    btn = Controller::GUI->addButton(200, 200, 100, 100, TextureID, "test", testCallback);
+    btn = Controller::GUI->addButton(200, 200, 100, 100, 
+                                    TextureID_idle, TextureID_hover, TextureID_press,
+                                    "test", testCallback);
     btn->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    btn2 = Controller::GUI->addButton(400, 200, 100, 100, 
+                                    TextureID_idle, TextureID_hover, TextureID_press,
+                                    "test", testCallback);
+    btn2->setColor(1.0f,1.0f,1.0f,0.9f);
 
     // Turn the flow of control over to GLUT
 

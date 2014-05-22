@@ -9,6 +9,7 @@ billhsu.x@gmail.com
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
+    textureID_idle = textureID_hover = textureID_press = -1;
     std::cout<<"UIButton("<<parent<<")"<<std::endl;
 }
 UIButton::~UIButton()
@@ -23,6 +24,11 @@ void UIButton::setText(const char* text)
 void UIButton::render(float timeDelta)
 {
     glColor4f(mR, mG, mB, mAlpha);
+    GLuint textureID = -1;
+    if(nodeStatus == UINode::NODE_IDLE) textureID = textureID_idle;
+    else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
+    else if(nodeStatus == UINode::NODE_PRESS) textureID = textureID_press;
+    
     if(textureID!=-1)
     {
         glEnable(GL_TEXTURE_2D);

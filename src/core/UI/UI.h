@@ -27,7 +27,9 @@ public:
         mWindowHeight = height;
     }
     UINode* getNodeByPos(int x, int y);
-    UIButton* addButton(int x, int y, int width, int height, GLuint textureID, 
+
+    UIButton* addButton(int x, int y, int width, int height, 
+            GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
             const char* text, void (*callback)(UINode* Sender));
 
     UILabel* addLabel(int x, int y, int width, int height,const char* text);
@@ -41,4 +43,6 @@ private:
     ~UI();
     int mWindowWidth, mWindowHeight;
     UINode* mRootNode;
+    UINode* previousPressed;
+    UINode* previousHover;
 };
