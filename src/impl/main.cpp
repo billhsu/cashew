@@ -72,7 +72,7 @@ int main(int argc, char** argv)
     timeMsLast = getMilliSec();
 
     int _w, _h, _ch;
-    GLuint TextureID = g2LoadImage("media/textures/test.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
     std::cout<<_w<<" "<<_h<<" "<<_ch<<std::endl;
 
     btn = Controller::GUI->addButton(200, 200, 100, 100, TextureID, "test", testCallback);
