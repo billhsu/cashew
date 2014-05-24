@@ -71,27 +71,27 @@ void Controller::init()
     GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
 
-    btnSelectOneH = GUI->addButton(centerX - btnSize*2, centerY, btnSize, btnSize, 
+    btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, centerX - btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectOneH->setColor(1.0f,1.0f,1.0f,0.9f);
 
-    btnSelectOneV = GUI->addButton(centerX - btnSize*1, centerY, btnSize, btnSize, 
+    btnSelectOneV = GUI->addButton(BTN_ID_SELECT_ONE, centerX - btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectOneV->setColor(1.0f,1.0f,1.0f,0.9f);
 
-    btnSelectTwo = GUI->addButton(centerX, centerY, btnSize, btnSize, 
+    btnSelectTwo = GUI->addButton(BTN_ID_SELECT_TWO, centerX, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectTwo->setColor(1.0f,1.0f,1.0f,0.9f);
 
-    btnSelectTwoV = GUI->addButton(centerX + btnSize*1, centerY, btnSize, btnSize, 
+    btnSelectTwoV = GUI->addButton(BTN_ID_SELECT_TWO_V, centerX + btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectTwoV->setColor(1.0f,1.0f,1.0f,0.9f);
 
-    btnSelectThree = GUI->addButton(centerX + btnSize*2, centerY, btnSize, btnSize, 
+    btnSelectThree = GUI->addButton(BTN_ID_SELECT_THREE, centerX + btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
@@ -110,9 +110,11 @@ void Controller::MouseButton(int button, int state, int x, int y)
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if(GUI->MouseButton(button, state, x, y))
+    UINode* node = GUI->MouseButton(button, state, x, y);
+    if(node!=NULL)
     {
         uiHold = 1;
+        State::currState->UIEvent(node, 1);
     }
     else
     {

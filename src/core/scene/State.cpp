@@ -6,7 +6,9 @@
 #include "../math/Quaternion.h"
 #include "LineSegment.h"
 #include "../core/UI/UI.h"
+#include "../core/UI/UINode.h"
 #include "../core/UI/UIButton.h"
+
 State::State()
 {
     ctrl = &Controller::getInstance();
@@ -15,7 +17,13 @@ State::State()
 }
 
 // State Idle
-
+void StateIdle::UIEvent(UINode* sender, int event)
+{
+    if(sender->nodeID == Controller::BTN_ID_SELECT_ONE)
+    {
+        
+    }
+}
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {    
     if(state==GLUT_DOWN)

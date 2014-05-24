@@ -69,6 +69,8 @@ public:
     enum{NODE_IDLE, NODE_HOVER, NODE_PRESS};
     
     int nodeStatus;
+
+    int nodeID;
     
 private:
     bool mIsVisible;
