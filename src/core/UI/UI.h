@@ -21,7 +21,7 @@ public:
         return instance;
     }
 
-    void setWindowSize(int width, int height)
+    void resize(int width, int height)
     {
         mWindowWidth = width;
         mWindowHeight = height;

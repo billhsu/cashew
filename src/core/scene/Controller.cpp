@@ -60,7 +60,7 @@ void Controller::init()
     sdraw = new StateDraw();
     camera = &Camera::getInstance();
     
-    GUI->setWindowSize(originWidth, originHeight);
+    GUI->resize(originWidth, originHeight);
 
     sidle->stateSelectPlane = sselectPlane;
     sidle->stateDeleteLine  = sDelLine;
@@ -76,7 +76,7 @@ void Controller::MouseButton(int button, int state, int x, int y)
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if(GUI->MouseButton(button, state, x*originWidth/width, y*originHeight/height))
+    if(GUI->MouseButton(button, state, x, y))
     {
         uiHold = 1;
     }
@@ -165,6 +165,7 @@ void Controller::render(float timeDelta)
 
 void Controller::resize(int _width, int _heigth)
 {
+    GUI->resize(_width, _heigth);
     width = _width;
     height = _heigth;
 }
