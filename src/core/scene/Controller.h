@@ -17,6 +17,7 @@ class StateDeleteLine;
 class State;
 class Camera;
 class UI;
+class UIButton;
 
 class Controller
 {
@@ -59,7 +60,10 @@ public:
     StateSelectPlane* sselectPlane;
     StateDraw* sdraw;
     Camera * camera;
+
     static UI* GUI;
+    UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
+             *btnSelectTwoV, *btnSelectThree;
 
     static bool enableLight;
     static Vector3 rotate;

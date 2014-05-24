@@ -7,6 +7,7 @@ billhsu.x@gmail.com
 #include "../camera/Camera.h"
 #include "Scene.h"
 #include "../UI/UI.h"
+#include "../texture/g2Images.h"
 
 State* State::currState;
 
@@ -61,6 +62,39 @@ void Controller::init()
     camera = &Camera::getInstance();
     
     GUI->resize(originWidth, originHeight);
+    int btnSize = 150/2;
+    int centerX = width / 2 - btnSize/2;
+    int centerY = height - btnSize*2;
+
+    int _w, _h, _ch;
+    GLuint TextureID_idle = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
+
+    btnSelectOneH = GUI->addButton(centerX - btnSize*2, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", NULL);
+    btnSelectOneH->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    btnSelectOneV = GUI->addButton(centerX - btnSize*1, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", NULL);
+    btnSelectOneV->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    btnSelectTwo = GUI->addButton(centerX, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", NULL);
+    btnSelectTwo->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    btnSelectTwoV = GUI->addButton(centerX + btnSize*1, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", NULL);
+    btnSelectTwoV->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    btnSelectThree = GUI->addButton(centerX + btnSize*2, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", NULL);
+    btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
 
     sidle->stateSelectPlane = sselectPlane;
     sidle->stateDeleteLine  = sDelLine;
