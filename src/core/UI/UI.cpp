@@ -87,20 +87,27 @@ UINode* UI::PassiveMotion(int x, int y)
     {
         if(previousHover!=NULL && previousHover!=node)
         {
-            previousHover->nodeStatus = UINode::NODE_IDLE;
+            if(previousHover->nodeStatus==UINode::NODE_HOVER) 
+            {
+                previousHover->nodeStatus = UINode::NODE_IDLE;
+            }
             previousHover = NULL;
         }
         if(node->nodeStatus==UINode::NODE_IDLE) 
+        {
             node->nodeStatus = UINode::NODE_HOVER;
-        previousHover = node;
+            previousHover = node;
+        }
         return node;
     }
     else
     {
         if(previousHover!=NULL)
         {
-            if(previousHover->nodeStatus==UINode::NODE_HOVER) 
+            if(previousHover->nodeStatus==UINode::NODE_HOVER)
+            {
                 previousHover->nodeStatus = UINode::NODE_IDLE;
+            }
             previousHover = NULL;
         }
         return NULL;
