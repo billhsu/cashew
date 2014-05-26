@@ -62,7 +62,7 @@ public:
     Camera * camera;
 
     static UI* GUI;
-    UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
+    static UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
              *btnSelectTwoV, *btnSelectThree;
     enum {BTN_ID_SELECT_ONE=100, BTN_ID_SELECT_ONE_H, BTN_ID_SELECT_TWO,
           BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE};

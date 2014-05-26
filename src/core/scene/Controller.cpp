@@ -24,6 +24,10 @@ int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
 
+UIButton *Controller::btnSelectOneH, *Controller::btnSelectOneV,
+         *Controller::btnSelectTwo, 
+         *Controller::btnSelectTwoV, *Controller::btnSelectThree;
+
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
 
@@ -201,7 +205,18 @@ void Controller::render(float timeDelta)
 
 void Controller::resize(int _width, int _heigth)
 {
-    GUI->resize(_width, _heigth);
     width = _width;
     height = _heigth;
+
+    GUI->resize(width, height);
+
+    int btnSize = 150/2;
+    int centerX = width / 2 - btnSize/2;
+    int centerY = height - btnSize*2;
+    btnSelectOneH->setPos(centerX - btnSize*2, centerY);
+    btnSelectOneV->setPos(centerX - btnSize*1, centerY);
+    btnSelectTwo->setPos(centerX - btnSize*0, centerY);
+    btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
+    btnSelectThree->setPos(centerX + btnSize*2, centerY);
+    
 }
