@@ -11,6 +11,9 @@ public:
     UILabel(UINode* parent);
     ~UILabel();
     void setText(const char* text);
-private:
+    char* getText();
 
+    void render(float timeDelta);
+
+private:
 };

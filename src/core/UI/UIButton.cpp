@@ -18,7 +18,7 @@ UIButton::~UIButton()
 }
 void UIButton::setText(const char* text)
 {
-    
+    strcpy(mText, text);
 }
 
 void UIButton::render(float timeDelta)

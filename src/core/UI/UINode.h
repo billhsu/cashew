@@ -9,6 +9,7 @@ Thanks to GLUI2
 #include <list>
 #include <stddef.h>
 #include <GL/freeglut.h>
+#include <string.h>
 
 class UINode
 {
@@ -63,14 +64,17 @@ public:
     }
     UINode* getNodeByPos(int x, int y);
 
-    float mR, mG, mB, mAlpha;
-    int mPosX, mPosY;
-    int mWidth, mHeight;
     enum{NODE_IDLE, NODE_HOVER, NODE_PRESS};
     
     int nodeStatus;
 
     int nodeID;
+
+protected:
+    float mR, mG, mB, mAlpha;
+    int mPosX, mPosY;
+    int mWidth, mHeight;
+    char mText[512];
     
 private:
     bool mIsVisible;

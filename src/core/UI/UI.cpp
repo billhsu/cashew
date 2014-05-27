@@ -41,7 +41,7 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
     return button;
 }
 
-UILabel* UI::addLabel(int x, int y, int width, int height, const char* text)
+UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* text)
 {
     UILabel* label = new UILabel(mRootNode);
     label->setPos(x, y);

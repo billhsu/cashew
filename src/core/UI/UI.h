@@ -32,7 +32,7 @@ public:
             GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
             const char* text, void (*callback)(UINode* Sender));
 
-    UILabel* addLabel(int x, int y, int width, int height,const char* text);
+    UILabel* addLabel(int id, int x, int y, int width, int height,const char* text);
 
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);

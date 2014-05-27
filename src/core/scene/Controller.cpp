@@ -28,6 +28,8 @@ UIButton *Controller::btnSelectOneH, *Controller::btnSelectOneV,
          *Controller::btnSelectTwo, 
          *Controller::btnSelectTwoV, *Controller::btnSelectThree;
 
+UILabel  *Controller::lbFPS;
+
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
 
@@ -99,6 +101,9 @@ void Controller::init()
                         TextureID_idle, TextureID_hover, TextureID_press,
                         "", NULL);
     btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
+
+    lbFPS = GUI->addLabel(LBL_FPS, 100, 100, 20, 40, "test");
+    lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
     sidle->stateSelectPlane = sselectPlane;
     sidle->stateDeleteLine  = sDelLine;

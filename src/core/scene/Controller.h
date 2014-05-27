@@ -18,6 +18,7 @@ class State;
 class Camera;
 class UI;
 class UIButton;
+class UILabel;
 
 class Controller
 {
@@ -63,9 +64,11 @@ public:
 
     static UI* GUI;
     static UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
-             *btnSelectTwoV, *btnSelectThree;
+                    *btnSelectTwoV, *btnSelectThree;
+    static UILabel  *lbFPS;
+
     enum {BTN_ID_SELECT_ONE=100, BTN_ID_SELECT_ONE_H, BTN_ID_SELECT_TWO,
-          BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE};
+          BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE, LBL_FPS};
 
     static bool enableLight;
     static Vector3 rotate;

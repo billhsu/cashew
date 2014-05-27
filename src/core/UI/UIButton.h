@@ -17,5 +17,4 @@ public:
     
     GLuint textureID_idle, textureID_hover, textureID_press;
 private:
-
 };
