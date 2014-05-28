@@ -102,7 +102,7 @@ void Controller::init()
                         "", NULL);
     btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
 
-    lbFPS = GUI->addLabel(LBL_FPS, 100, 100, 20, 40, "test");
+    lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
     sidle->stateSelectPlane = sselectPlane;

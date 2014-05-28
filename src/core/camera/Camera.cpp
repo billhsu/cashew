@@ -6,6 +6,7 @@
 #include "../math/Vectors.h"
 #include "../scene/Plane.h"
 #include "../scene/Controller.h"
+#include "../UI/UI.h"
 
 
 Camera::Camera()
@@ -93,32 +94,10 @@ void Camera::drawFPS(float timeDelta)
         lastFPS = FPS;
         FPS = 0;
     }
-    glMatrixMode( GL_PROJECTION ) ;
-    glPushMatrix() ; // save
-    glLoadIdentity();// and clear
-
-    glOrtho(0, Controller::width, 0, Controller::height,-1,1);
-    glMatrixMode( GL_MODELVIEW ) ;
-    glPushMatrix() ;
-    glLoadIdentity() ;
-
-    glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
-    glTranslatef(0.0f, (float)-Controller::height, 0.0f); 
-
-    glDisable(GL_LIGHTING);
-    glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
-    glColor3f(0.3f, 0.3f, 0.3f);
-    glRasterPos2f(10, 20);
+    
     snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d", 
         Controller::width, Controller::height, lastFPS);
-    glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)FPSchar);
-
-    glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
-
-    glMatrixMode( GL_PROJECTION ) ;
-    glPopMatrix(); // revert back to the matrix I had before.
-    glMatrixMode( GL_MODELVIEW ) ;
-    glPopMatrix();
+    Controller::lbFPS->setText(FPSchar);
 }
 
 Ray Camera::getRay()
