@@ -19,6 +19,7 @@ class Camera;
 class UI;
 class UIButton;
 class UILabel;
+class UIRadioButton;
 
 class Controller
 {
@@ -66,9 +67,12 @@ public:
     static UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
                     *btnSelectTwoV, *btnSelectThree;
     static UILabel  *lbFPS;
+    static UIRadioButton *rbtnSelect;
 
     enum {BTN_ID_SELECT_ONE=100, BTN_ID_SELECT_ONE_H, BTN_ID_SELECT_TWO,
-          BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE, LBL_FPS};
+          BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE, 
+          LBL_FPS,
+          RBTN_SELECT};
 
     static bool enableLight;
     static Vector3 rotate;

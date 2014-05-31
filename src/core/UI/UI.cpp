@@ -41,7 +41,7 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
     button->setCallback(callback);
     return button;
 }
-UIButton* UI::addRadioButton(int id, int x, int y, int width, int height)
+UIRadioButton* UI::addRadioButton(int id, int x, int y, int width, int height)
 {
     UIRadioButton* radioBtn = new UIRadioButton(mRootNode);
     radioBtn->nodeID = id;

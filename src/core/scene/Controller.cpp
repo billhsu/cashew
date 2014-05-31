@@ -30,6 +30,8 @@ UIButton *Controller::btnSelectOneH, *Controller::btnSelectOneV,
 
 UILabel  *Controller::lbFPS;
 
+UIRadioButton *Controller::rbtnSelect;
+
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
 
@@ -77,29 +79,31 @@ void Controller::init()
     GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
 
+    rbtnSelect = GUI->addRadioButton(RBTN_SELECT, centerX - btnSize*2, centerY, btnSize * 5, btnSize);
+
     btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, centerX - btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL);
+                        "", NULL, rbtnSelect);
     btnSelectOneH->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectOneV = GUI->addButton(BTN_ID_SELECT_ONE, centerX - btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL);
+                        "", NULL, rbtnSelect);
     btnSelectOneV->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectTwo = GUI->addButton(BTN_ID_SELECT_TWO, centerX, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL);
+                        "", NULL, rbtnSelect);
     btnSelectTwo->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectTwoV = GUI->addButton(BTN_ID_SELECT_TWO_V, centerX + btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL);
+                        "", NULL, rbtnSelect);
     btnSelectTwoV->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectThree = GUI->addButton(BTN_ID_SELECT_THREE, centerX + btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL);
+                        "", NULL, rbtnSelect);
     btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");

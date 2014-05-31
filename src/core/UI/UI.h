@@ -33,7 +33,7 @@ public:
             GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
             const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL);
 
-    UIButton* addRadioButton(int id, int x, int y, int width, int height);
+    UIRadioButton* addRadioButton(int id, int x, int y, int width, int height);
 
     UILabel* addLabel(int id, int x, int y, int width, int height,const char* text);
 
