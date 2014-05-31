@@ -12,6 +12,9 @@ public:
     UIButton(UINode* parent);
     ~UIButton();
     
+    void MouseButton(int button, int state, int x, int y);
+    void PassiveMotion(int x, int y);
+    
     void setText(const char* text);
     void render(float timeDelta);
     

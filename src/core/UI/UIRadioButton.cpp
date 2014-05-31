@@ -70,8 +70,6 @@ void UIRadioButton::PassiveMotion(int x, int y)
             previousHover = NULL;
         }
     }
-    
-
 }
 void UIRadioButton::render(float timeDelta)
 {

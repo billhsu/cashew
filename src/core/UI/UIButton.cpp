@@ -21,6 +21,32 @@ void UIButton::setText(const char* text)
     strcpy(mText, text);
 }
 
+void UIButton::MouseButton(int button, int state, int x, int y)
+{
+    if(state == 0)
+    {
+        nodeStatus = UINode::NODE_PRESS;
+    }
+    else if(state == 1)
+    {
+        if(mCallBackFunc!=NULL) mCallBackFunc(NULL);
+        nodeStatus = UINode::NODE_IDLE;
+        if(insideNode(x, y)) nodeStatus = UINode::NODE_HOVER;
+    }
+}
+
+void UIButton::PassiveMotion(int x, int y)
+{
+    if(insideNode(x, y))
+    {
+        nodeStatus = UINode::NODE_HOVER;
+    }
+    else
+    {
+        nodeStatus=UINode::NODE_IDLE;
+    }
+}
+
 void UIButton::render(float timeDelta)
 {
     glColor4f(mR, mG, mB, mAlpha);
