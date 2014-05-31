@@ -26,18 +26,13 @@ void UIRadioButton::MouseButton(int button, int state, int x, int y)
             {
                 node->nodeStatus = UINode::NODE_PRESS;
                 previousPressed = node;
+                if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
             }
             else
             {
                 previousPressed->nodeStatus = UINode::NODE_IDLE;
                 node->nodeStatus = UINode::NODE_PRESS;
                 previousPressed = node;
-            }
-        }
-        else if(state == 1)
-        {
-            if(node == previousPressed)
-            {
                 if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
             }
         }

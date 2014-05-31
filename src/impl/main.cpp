@@ -36,10 +36,7 @@ void Keyboard(unsigned char key, int x, int y)
 {
     ctrl->Keyboard(key, x, y);
 }
-void testCallback(UINode* sender)
-{
-    std::cout<<"testCallback"<<std::endl;
-}
+
 void render()
 {
     float timeDelta = getMilliSec() - timeMsLast;

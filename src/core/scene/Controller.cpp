@@ -60,6 +60,10 @@ Controller::~Controller()
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
+void testCallback(UINode* sender)
+{
+    std::cout<<"testCallback"<<std::endl;
+}
 
 void Controller::init()
 {
@@ -81,29 +85,33 @@ void Controller::init()
 
     rbtnSelect = GUI->addRadioButton(RBTN_SELECT, centerX - btnSize*2, centerY, btnSize * 5, btnSize);
 
+    UIButton* _btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, 0, centerY, btnSize, btnSize, 
+                        TextureID_idle, TextureID_hover, TextureID_press,
+                        "", testCallback, NULL);
+
     btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, centerX - btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL, rbtnSelect);
+                        "", testCallback, rbtnSelect);
     btnSelectOneH->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectOneV = GUI->addButton(BTN_ID_SELECT_ONE, centerX - btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL, rbtnSelect);
+                        "", testCallback, rbtnSelect);
     btnSelectOneV->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectTwo = GUI->addButton(BTN_ID_SELECT_TWO, centerX, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL, rbtnSelect);
+                        "", testCallback, rbtnSelect);
     btnSelectTwo->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectTwoV = GUI->addButton(BTN_ID_SELECT_TWO_V, centerX + btnSize*1, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL, rbtnSelect);
+                        "", testCallback, rbtnSelect);
     btnSelectTwoV->setColor(1.0f,1.0f,1.0f,0.9f);
 
     btnSelectThree = GUI->addButton(BTN_ID_SELECT_THREE, centerX + btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,
-                        "", NULL, rbtnSelect);
+                        "", testCallback, rbtnSelect);
     btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
@@ -134,8 +142,6 @@ void Controller::MouseButton(int button, int state, int x, int y)
         uiHold = 0;
         State::currState->MouseButton(button, state, x, y);
     }
-
-    //std::cout<<"button: "<<button<<" state:"<<state<<std::endl;
 }
 
 void Controller::MouseMotion(int x, int y)
@@ -222,10 +228,10 @@ void Controller::resize(int _width, int _heigth)
     int btnSize = 150/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = height - btnSize*2;
+    rbtnSelect->setPos(centerX - btnSize*2, centerY);
     btnSelectOneH->setPos(centerX - btnSize*2, centerY);
     btnSelectOneV->setPos(centerX - btnSize*1, centerY);
     btnSelectTwo->setPos(centerX - btnSize*0, centerY);
     btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
     btnSelectThree->setPos(centerX + btnSize*2, centerY);
-    
 }
