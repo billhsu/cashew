@@ -17,19 +17,31 @@ UIRadioButton::~UIRadioButton()
 
 void UIRadioButton::MouseButton(int button, int state, int x, int y)
 {
-    std::cout<<"UIRadioButton::MouseButton: "<<state<<std::endl;
     UINode* node = getNodeByPos(x, y);
-    if(state == 0)
+    if(node != NULL)
     {
-        if(previousPressed!=NULL) previousPressed->nodeStatus = UINode::NODE_IDLE;
-        node->nodeStatus = UINode::NODE_PRESS;
-        previousPressed = node;
+        if(state == 0)
+        {
+            if(previousPressed==NULL)
+            {
+                node->nodeStatus = UINode::NODE_PRESS;
+                previousPressed = node;
+            }
+            else
+            {
+                previousPressed->nodeStatus = UINode::NODE_IDLE;
+                node->nodeStatus = UINode::NODE_PRESS;
+                previousPressed = node;
+            }
+        }
+        else if(state == 1)
+        {
+            if(node == previousPressed)
+            {
+                if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
+            }
+        }
     }
-    if(state == 1 && node!=NULL && node == previousPressed)
-    {
-        if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
-    }
-    
 }
 
 void UIRadioButton::PassiveMotion(int x, int y)
@@ -47,8 +59,10 @@ void UIRadioButton::PassiveMotion(int x, int y)
         }
         else if(previousHover != node)
         {
-            previousHover->nodeStatus = UINode::NODE_IDLE;
-            node->nodeStatus = UINode::NODE_HOVER;
+            if(previousHover->nodeStatus == UINode::NODE_HOVER)
+                previousHover->nodeStatus = UINode::NODE_IDLE;
+            if(node->nodeStatus==UINode::NODE_IDLE)
+                node->nodeStatus = UINode::NODE_HOVER;
             previousHover = node;
         }
     }
@@ -56,7 +70,8 @@ void UIRadioButton::PassiveMotion(int x, int y)
     {
         if(previousHover != NULL)
         {
-            previousHover->nodeStatus = UINode::NODE_IDLE;
+            if(previousHover->nodeStatus == UINode::NODE_HOVER)
+                previousHover->nodeStatus = UINode::NODE_IDLE;
             previousHover = NULL;
         }
     }
