@@ -9,6 +9,7 @@ Thanks to GLUI2
 #include <iostream>
 #include "UINode.h"
 #include "UIButton.h"
+#include "UIRadioButton.h"
 #include "UILabel.h"
 
 class UI
@@ -30,7 +31,9 @@ public:
 
     UIButton* addButton(int id, int x, int y, int width, int height, 
             GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
-            const char* text, void (*callback)(UINode* Sender));
+            const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL);
+
+    UIButton* addRadioButton(int id, int x, int y, int width, int height);
 
     UILabel* addLabel(int id, int x, int y, int width, int height,const char* text);
 
@@ -43,6 +46,4 @@ private:
     ~UI();
     int mWindowWidth, mWindowHeight;
     UINode* mRootNode;
-
-    UINode* mNodePrevious;
 };

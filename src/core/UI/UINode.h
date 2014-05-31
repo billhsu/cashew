@@ -78,19 +78,23 @@ protected:
     int mPosX, mPosY;
     int mWidth, mHeight;
     char mText[512];
-    
-private:
+
+    UINode* previousPressed;
+    UINode* previousHover;
+
     bool mIsVisible;
     bool mIsDisabled;
     void (*mCallBackFunc)(UINode* sender);
 
+    UINode* mParentNode;
+    
+private:
     std::list< UINode* > mChildNodes;
     typedef std::list< UINode* >::iterator mChildIter;
     typedef std::list< UINode* >::reverse_iterator mChildRevIter;
-    
-    UINode* mParentNode;
 
     void _render(float timeDelta);
 
     friend class UI;
+    friend class UIRadioButton;
 };

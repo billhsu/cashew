@@ -16,7 +16,7 @@ UIRadioButton::~UIRadioButton()
 
 void UIRadioButton::MouseButton(int button, int state, int x, int y)
 {
-    Node* node = this->getNodeByPos(x, y);
+    UINode* node = getNodeByPos(x, y);
     if(state == 0)
     {
         if(previousPressed!=NULL) previousPressed->nodeStatus = UINode::NODE_IDLE;
@@ -32,7 +32,34 @@ void UIRadioButton::MouseButton(int button, int state, int x, int y)
 
 void UIRadioButton::PassiveMotion(int x, int y)
 {
+    UINode* node = getNodeByPos(x, y);
+    if(node!=NULL)
+    {
+        if(previousHover == NULL)
+        {
+            if(node->nodeStatus == UINode::NODE_IDLE)
+            {
+                node->nodeStatus = UINode::NODE_HOVER;
+                previousHover = node;
+            }
+        }
+        else if(previousHover != node)
+        {
+            previousHover->nodeStatus = UINode::NODE_IDLE;
+            node->nodeStatus = UINode::NODE_HOVER;
+            previousHover = node;
+        }
+    }
+    else
+    {
+        if(previousHover != NULL)
+        {
+            previousHover->nodeStatus = UINode::NODE_IDLE;
+            previousHover = NULL;
+        }
+    }
     
+
 }
 void UIRadioButton::render(float timeDelta)
 {

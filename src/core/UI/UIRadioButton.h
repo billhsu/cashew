@@ -17,6 +17,5 @@ public:
     void PassiveMotion(int x, int y);
 
 private:
-    UINode* previousPressed;
-    UINode* previousHover;
+    
 };

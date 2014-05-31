@@ -9,7 +9,7 @@ billhsu.x@gmail.com
 UI::UI()
 {
     mRootNode = new UINode(NULL);
-    mNodePrevious = NULL;
+    
     std::cout <<"UI()"<<std::endl;
 }
 
@@ -26,9 +26,11 @@ UINode* UI::getNodeByPos(int x, int y)
 
 UIButton* UI::addButton(int id, int x, int y, int width, int height, 
             GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
-            const char* text, void (*callback)(UINode* Sender))
+            const char* text, void (*callback)(UINode* Sender), UINode* parent)
 {
-    UIButton* button = new UIButton(mRootNode);
+    UIButton* button;
+    if(parent==NULL) button = new UIButton(mRootNode);
+    else button = new UIButton(parent);
     button->nodeID = id;
     button->textureID_idle = textureID_idle;
     button->textureID_hover = textureID_hover;
@@ -39,10 +41,17 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
     button->setCallback(callback);
     return button;
 }
-
+UIButton* UI::addRadioButton(int id, int x, int y, int width, int height)
+{
+    UIRadioButton* radioBtn = new UIRadioButton(mRootNode);
+    radioBtn->nodeID = id;
+    radioBtn->setPos(x, y);
+    radioBtn->setSize(width, height);
+}
 UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* text)
 {
     UILabel* label = new UILabel(mRootNode);
+    label->nodeID = id;
     label->setPos(x, y);
     label->setText(text);
     label->setSize(width, height);
@@ -56,14 +65,14 @@ UINode* UI::MouseButton(int button, int state, int x, int y)
     if(node!=NULL && state == 0)
     {
         node->MouseButton(button, state, x, y);
-        mNodePrevious = node;
+        mRootNode->previousPressed = node;
         return node;
     }
 
-    if(state == 1 && mNodePrevious != NULL)
+    if(state == 1 && mRootNode->previousPressed != NULL)
     {
-        mNodePrevious->MouseButton(button, state, x, y);
-        mNodePrevious = NULL;
+        mRootNode->previousPressed->MouseButton(button, state, x, y);
+        mRootNode->previousPressed = NULL;
     }
 
     return NULL;
@@ -74,24 +83,24 @@ UINode* UI::PassiveMotion(int x, int y)
     UINode* node = getNodeByPos(x, y);
     if(node!=NULL)
     {
-        if(previousHover == NULL)
+        if(mRootNode->previousHover == NULL)
         {
             node->PassiveMotion(x, y);
-            previousHover = node;
+            mRootNode->previousHover = node;
             return node;
         }
-        else if(previousHover != node)
+        else if(mRootNode->previousHover != node)
         {
-            previousHover->PassiveMotion(x, y);
+            mRootNode->previousHover->PassiveMotion(x, y);
             node->PassiveMotion(x, y);
-            previousHover = node;
+            mRootNode->previousHover = node;
             return node;
         }
     }
-    else if(previousHover != NULL)
+    else if(mRootNode->previousHover != NULL)
     {
-        previousHover->PassiveMotion(x, y);
-        previousHover = NULL;
+        mRootNode->previousHover->PassiveMotion(x, y);
+        mRootNode->previousHover = NULL;
     }
     return NULL;
 }
