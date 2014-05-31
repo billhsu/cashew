@@ -53,13 +53,11 @@ UINode* UINode::getNodeByPos(int x, int y)
         {
             if((*Child)->insideNode(x, y)) 
             {
-                findNode = (*Child)->getNodeByPos(x, y);
+                findNode = (*Child);
                 break;
             }
         }
     }
-
-    if(findNode == NULL && insideNode(x, y)) findNode = this;
-
+    
     return findNode;
 }

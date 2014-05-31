@@ -64,6 +64,9 @@ public:
     }
     UINode* getNodeByPos(int x, int y);
 
+    virtual void MouseButton(int button, int state, int x, int y){};
+    virtual void PassiveMotion(int x, int y){};
+
     enum{NODE_IDLE, NODE_HOVER, NODE_PRESS};
     
     int nodeStatus;

@@ -9,8 +9,7 @@ billhsu.x@gmail.com
 UI::UI()
 {
     mRootNode = new UINode(NULL);
-    previousPressed = NULL;
-    previousHover = NULL;
+    mNodePrevious = NULL;
     std::cout <<"UI()"<<std::endl;
 }
 
@@ -53,31 +52,21 @@ UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* t
 UINode* UI::MouseButton(int button, int state, int x, int y)
 {
     UINode* node = getNodeByPos(x, y);
+
     if(node!=NULL && state == 0)
     {
-        if(previousPressed!=NULL) previousPressed->nodeStatus = UINode::NODE_IDLE;
-        node->nodeStatus = UINode::NODE_PRESS;
-        previousPressed = node;
+        node->MouseButton(button, state, x, y);
+        mNodePrevious = node;
         return node;
     }
-    else
+
+    if(state == 1 && mNodePrevious != NULL)
     {
-        if(state == 1 && node!=NULL && node == previousPressed)
-        {
-            if(node->mCallBackFunc!=NULL) node->mCallBackFunc(NULL);
-        }
-
-        if(previousPressed!=NULL)
-        {
-            //if(previousHover!=NULL)
-            //    previousPressed->nodeStatus = UINode::NODE_HOVER;
-            //else
-            //    previousPressed->nodeStatus = UINode::NODE_IDLE;
-
-            //previousPressed = NULL;
-        }
-        return NULL;
+        mNodePrevious->MouseButton(button, state, x, y);
+        mNodePrevious = NULL;
     }
+
+    return NULL;
 }
 
 UINode* UI::PassiveMotion(int x, int y)
@@ -85,33 +74,26 @@ UINode* UI::PassiveMotion(int x, int y)
     UINode* node = getNodeByPos(x, y);
     if(node!=NULL)
     {
-        if(previousHover!=NULL && previousHover!=node)
+        if(previousHover == NULL)
         {
-            if(previousHover->nodeStatus==UINode::NODE_HOVER) 
-            {
-                previousHover->nodeStatus = UINode::NODE_IDLE;
-            }
-            previousHover = NULL;
-        }
-        if(node->nodeStatus==UINode::NODE_IDLE) 
-        {
-            node->nodeStatus = UINode::NODE_HOVER;
+            node->PassiveMotion(x, y);
             previousHover = node;
+            return node;
         }
-        return node;
-    }
-    else
-    {
-        if(previousHover!=NULL)
+        else if(previousHover != node)
         {
-            if(previousHover->nodeStatus==UINode::NODE_HOVER)
-            {
-                previousHover->nodeStatus = UINode::NODE_IDLE;
-            }
-            previousHover = NULL;
+            previousHover->PassiveMotion(x, y);
+            node->PassiveMotion(x, y);
+            previousHover = node;
+            return node;
         }
-        return NULL;
     }
+    else if(previousHover != NULL)
+    {
+        previousHover->PassiveMotion(x, y);
+        previousHover = NULL;
+    }
+    return NULL;
 }
 
 void UI::render(float timeDelta)

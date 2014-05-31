@@ -43,6 +43,6 @@ private:
     ~UI();
     int mWindowWidth, mWindowHeight;
     UINode* mRootNode;
-    UINode* previousPressed;
-    UINode* previousHover;
+
+    UINode* mNodePrevious;
 };
