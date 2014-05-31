@@ -96,6 +96,10 @@ UINode* UI::PassiveMotion(int x, int y)
             mRootNode->previousHover = node;
             return node;
         }
+        else
+        {
+            node->PassiveMotion(x, y);
+        }
     }
     else if(mRootNode->previousHover != NULL)
     {

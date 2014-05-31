@@ -3,6 +3,7 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include "UIRadioButton.h"
+#include <iostream>
 
 UIRadioButton::UIRadioButton(UINode* parent) : UINode(parent)
 {
@@ -16,6 +17,7 @@ UIRadioButton::~UIRadioButton()
 
 void UIRadioButton::MouseButton(int button, int state, int x, int y)
 {
+    std::cout<<"UIRadioButton::MouseButton: "<<state<<std::endl;
     UINode* node = getNodeByPos(x, y);
     if(state == 0)
     {
