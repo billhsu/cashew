@@ -5,6 +5,12 @@
 #include <cmath>
 #include <time.h>
 
+#ifdef __MACH__
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
+
+
 unsigned long getMicroSec();
 unsigned long getMilliSec();
 bool floatEq(float a, float b);
