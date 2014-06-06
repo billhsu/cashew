@@ -97,7 +97,7 @@ typedef char ourGLchar;
 #ifndef APIENTRY
 #define APIENTRY
 #endif
-
+#if 0
 #ifndef GL_ARB_vertex_array_object
 typedef void (APIENTRY *PFNGLGENVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays);
 typedef void (APIENTRY *PFNGLBINDVERTEXARRAYPROC) (GLuint array);
@@ -432,9 +432,10 @@ void keyboard(unsigned char key, int x, int y)
          break;
    }
 }
-
+#endif
 int main(int argc, char** argv)
 {
+  #if 0
    glutInit(&argc, argv);
    glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
    /* add command line argument "classic" for a pre-3.x context */
@@ -451,5 +452,6 @@ int main(int argc, char** argv)
    glutReshapeFunc(reshape);
    glutKeyboardFunc (keyboard);
    glutMainLoop();
+   #endif
    return 0;
 }
