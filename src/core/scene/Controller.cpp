@@ -24,13 +24,13 @@ int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
 
-UIButton *Controller::btnSelectOneH, *Controller::btnSelectOneV,
-         *Controller::btnSelectTwo, 
-         *Controller::btnSelectTwoV, *Controller::btnSelectThree;
+UIButton *Controller::btnSelectOneH = NULL, *Controller::btnSelectOneV = NULL,
+         *Controller::btnSelectTwo = NULL, 
+         *Controller::btnSelectTwoV = NULL, *Controller::btnSelectThree = NULL;
 
-UILabel  *Controller::lbFPS;
+UILabel  *Controller::lbFPS = NULL;
 
-UIRadioButton *Controller::rbtnSelect;
+UIRadioButton *Controller::rbtnSelect = NULL;
 
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
@@ -228,10 +228,10 @@ void Controller::resize(int _width, int _heigth)
     int btnSize = 150/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = height - btnSize*2;
-    rbtnSelect->setPos(centerX - btnSize*2, centerY);
-    btnSelectOneH->setPos(centerX - btnSize*2, centerY);
-    btnSelectOneV->setPos(centerX - btnSize*1, centerY);
-    btnSelectTwo->setPos(centerX - btnSize*0, centerY);
-    btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
-    btnSelectThree->setPos(centerX + btnSize*2, centerY);
+    if(rbtnSelect!=NULL) rbtnSelect->setPos(centerX - btnSize*2, centerY);
+    if(btnSelectOneH!=NULL) btnSelectOneH->setPos(centerX - btnSize*2, centerY);
+    if(btnSelectOneV!=NULL) btnSelectOneV->setPos(centerX - btnSize*1, centerY);
+    if(btnSelectTwo!=NULL) btnSelectTwo->setPos(centerX - btnSize*0, centerY);
+    if(btnSelectTwoV!=NULL) btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
+    if(btnSelectThree!=NULL) btnSelectThree->setPos(centerX + btnSize*2, centerY);
 }

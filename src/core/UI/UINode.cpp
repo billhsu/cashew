@@ -17,6 +17,9 @@ UINode::UINode(UINode* parent)
 
     nodeStatus = NODE_IDLE;
 
+    previousPressed = NULL;
+    previousHover = NULL;
+
     mCallBackFunc = 0;
     
     if(parent != NULL)

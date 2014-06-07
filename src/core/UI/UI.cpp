@@ -47,6 +47,7 @@ UIRadioButton* UI::addRadioButton(int id, int x, int y, int width, int height)
     radioBtn->nodeID = id;
     radioBtn->setPos(x, y);
     radioBtn->setSize(width, height);
+    return radioBtn;
 }
 UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* text)
 {

@@ -7,8 +7,7 @@ billhsu.x@gmail.com
 
 UIRadioButton::UIRadioButton(UINode* parent) : UINode(parent)
 {
-    previousPressed = NULL;
-    previousHover = NULL;
+    std::cout<<"UIRadioButton("<<parent<<")"<<std::endl;
 }
 UIRadioButton::~UIRadioButton()
 {
@@ -17,7 +16,7 @@ UIRadioButton::~UIRadioButton()
 
 void UIRadioButton::MouseButton(int button, int state, int x, int y)
 {
-    UINode* node = getNodeByPos(x, y);
+    UINode* node = this->getNodeByPos(x, y);
     if(node != NULL)
     {
         if(state == 0)
