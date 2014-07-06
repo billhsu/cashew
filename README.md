@@ -1,11 +1,11 @@
 Cashew
 ========
 
-[![Build Status](https://travis-ci.org/billhsu/NeXTSketch.png)](https://travis-ci.org/billhsu/NeXTSketch)
+[![Build Status](https://travis-ci.org/billhsu/cashew.png)](https://travis-ci.org/billhsu/cashew)
 
 3D freestyle sketch tool.
 
-![f22_1](https://github.com/billhsu/NeXTSketch/raw/master/doc/f22_1.png)
+![f22_1](https://github.com/billhsu/cashew/raw/master/doc/f22_1.png)
 
 
 Supported platforms:
