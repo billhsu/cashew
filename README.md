@@ -1,9 +1,9 @@
-NeXTSketch
+Cashew
 ========
 
 [![Build Status](https://travis-ci.org/billhsu/NeXTSketch.png)](https://travis-ci.org/billhsu/NeXTSketch)
 
-Next generation 3D sketch tool.
+3D freestyle sketch tool.
 
 ![f22_1](https://github.com/billhsu/NeXTSketch/raw/master/doc/f22_1.png)
 
