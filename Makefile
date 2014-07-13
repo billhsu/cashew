@@ -19,9 +19,9 @@ endef
 
 .PHONY: all checkdirs clean depend
 
-all: checkdirs nextsketch
+all: checkdirs cashew
 
-nextsketch: $(OBJ)
+cashew: $(OBJ)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LDFLAGS) -o $@
 
 checkdirs: $(BUILD_DIR)
