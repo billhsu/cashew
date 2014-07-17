@@ -53,7 +53,7 @@ int main(int argc, char** argv)
     glutInitWindowSize (ctrl->width, ctrl->height);
     glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
     glutInitWindowPosition (100, 100);
-    glutCreateWindow ("NeXTSketch");
+    glutCreateWindow ("Cashew");
 
     glutDisplayFunc (render);
     glutReshapeFunc (reshape);
