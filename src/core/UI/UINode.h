@@ -53,6 +53,9 @@ public:
     void setDisabled(bool disable){mIsDisabled = disable;}
     bool getDisabled(){return mIsDisabled;}
 
+    void appearIn(float timeMs);
+    void appearOut(float timeMs);
+
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
 
     virtual void render(float timeDelta){}
@@ -81,6 +84,11 @@ protected:
 
     UINode* previousPressed;
     UINode* previousHover;
+
+    float timeMsSinceAni, timeMsTotalForAni; // for animation
+    bool isAnimation;
+    enum{UI_ANIM_IN, UI_ANIM_OUT};
+    int aniStatus;
 
     bool mIsVisible;
     bool mIsDisabled;

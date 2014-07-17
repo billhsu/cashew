@@ -39,7 +39,20 @@ UINode::~UINode()
     }
     
 }
-
+void UINode::appearIn(float timeMs)
+{
+    isAnimation = true;
+    timeMsSinceAni = 0.0f;
+    timeMsTotalForAni = timeMs;
+    aniStatus = UI_ANIM_IN;
+}
+void UINode::appearOut(float timeMs)
+{
+    isAnimation = true;
+    timeMsSinceAni = 0.0f;
+    timeMsTotalForAni = timeMs;
+    aniStatus = UI_ANIM_OUT;
+}
 void UINode::_render(float timeDelta)
 {
     render(timeDelta);
