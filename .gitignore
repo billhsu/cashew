@@ -156,3 +156,8 @@ $RECYCLE.BIN/
 tags
 nextsketch
 cashew
+
+# Lua
+lib/lua-5.2.3/src/liblua.a
+lib/lua-5.2.3/src/lua
+lib/lua-5.2.3/src/luac
