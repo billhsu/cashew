@@ -45,6 +45,16 @@ void UINode::appearIn(float timeMs)
     timeMsSinceAni = 0.0f;
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_IN;
+    if(mChildNodes.size()>0)
+    {
+        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        {
+            (*Child)->isAnimation = isAnimation;
+            (*Child)->timeMsSinceAni = timeMsSinceAni;
+            (*Child)->timeMsTotalForAni = timeMsTotalForAni;
+            (*Child)->aniStatus = aniStatus;
+        }
+    }
 }
 void UINode::appearOut(float timeMs)
 {
@@ -52,12 +62,24 @@ void UINode::appearOut(float timeMs)
     timeMsSinceAni = 0.0f;
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_OUT;
+    if(mChildNodes.size()>0)
+    {
+        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        {
+            (*Child)->isAnimation = isAnimation;
+            (*Child)->timeMsSinceAni = timeMsSinceAni;
+            (*Child)->timeMsTotalForAni = timeMsTotalForAni;
+            (*Child)->aniStatus = aniStatus;
+        }
+    }
 }
 void UINode::_render(float timeDelta)
 {
     render(timeDelta);
     for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
-        (*Child)->_render(timeDelta);
+    {
+        if((*Child)->mIsVisible) (*Child)->_render(timeDelta);
+    }
 }
 
 UINode* UINode::getNodeByPos(int x, int y)
