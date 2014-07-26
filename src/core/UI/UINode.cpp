@@ -4,6 +4,7 @@ billhsu.x@gmail.com
 */
 #include "UINode.h"
 #include <iostream>
+#include "Utility.h"
 
 UINode::UINode(UINode* parent)
 {
@@ -42,24 +43,26 @@ UINode::~UINode()
 void UINode::appearIn(float timeMs)
 {
     isAnimation = true;
-    timeMsSinceAni = 0.0f;
+    timeMsAniStart = getMilliSec();
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_IN;
+    mIsVisible = true;
     if(mChildNodes.size()>0)
     {
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
         {
             (*Child)->isAnimation = isAnimation;
-            (*Child)->timeMsSinceAni = timeMsSinceAni;
+            (*Child)->timeMsAniStart = timeMsAniStart;
             (*Child)->timeMsTotalForAni = timeMsTotalForAni;
             (*Child)->aniStatus = aniStatus;
+            (*Child)->mIsVisible = mIsVisible;
         }
     }
 }
 void UINode::appearOut(float timeMs)
 {
     isAnimation = true;
-    timeMsSinceAni = 0.0f;
+    timeMsAniStart = getMilliSec();
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_OUT;
     if(mChildNodes.size()>0)
@@ -67,7 +70,7 @@ void UINode::appearOut(float timeMs)
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
         {
             (*Child)->isAnimation = isAnimation;
-            (*Child)->timeMsSinceAni = timeMsSinceAni;
+            (*Child)->timeMsAniStart = timeMsAniStart;
             (*Child)->timeMsTotalForAni = timeMsTotalForAni;
             (*Child)->aniStatus = aniStatus;
         }
