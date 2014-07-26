@@ -16,6 +16,8 @@ UINode::UINode(UINode* parent)
     mPosX = mPosY = 0;
     mParentNode = parent;
 
+    isAnimation = false;
+
     nodeStatus = NODE_IDLE;
 
     previousPressed = NULL;
@@ -65,6 +67,7 @@ void UINode::appearOut(float timeMs)
     timeMsAniStart = getMilliSec();
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_OUT;
+    std::cout<<"UINode::appearOut "<<mChildNodes.size()<<std::endl;
     if(mChildNodes.size()>0)
     {
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)

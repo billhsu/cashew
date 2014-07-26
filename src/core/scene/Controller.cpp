@@ -59,9 +59,12 @@ Controller::~Controller()
 
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
-
+bool toggle = true;
 void testCallback(UINode* sender)
 {
+    if(toggle)Controller::btnSelectOneH->appearOut(150);
+    else Controller::btnSelectOneH->appearIn(150);
+    toggle = !toggle;
     std::cout<<"testCallback"<<std::endl;
 }
 
@@ -84,10 +87,6 @@ void Controller::init()
     GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
 
     rbtnSelect = GUI->addRadioButton(RBTN_SELECT, centerX - btnSize*2, centerY, btnSize * 5, btnSize);
-
-    UIButton* _btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, 0, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, NULL);
 
     btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, centerX - btnSize*2, centerY, btnSize, btnSize, 
                         TextureID_idle, TextureID_hover, TextureID_press,

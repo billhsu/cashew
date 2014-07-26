@@ -85,7 +85,7 @@ protected:
     UINode* previousPressed;
     UINode* previousHover;
 
-    float timeMsAniStart, timeMsTotalForAni; // for animation
+    long timeMsAniStart, timeMsTotalForAni; // for animation
     bool isAnimation;
     enum{UI_ANIM_IN, UI_ANIM_OUT};
     int aniStatus;

@@ -6,6 +6,7 @@ billhsu.x@gmail.com
 #include <iostream>
 #include <GL/freeglut.h>
 #include "../math/Vectors.h"
+#include "Utility.h"
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
@@ -49,7 +50,31 @@ void UIButton::PassiveMotion(int x, int y)
 
 void UIButton::render(float timeDelta)
 {
-    glColor4f(mR, mG, mB, mAlpha);
+    float alpha = mAlpha;
+    if(isAnimation)
+    {
+        std::cout<<"isAnimation"<<std::endl;
+        long curTimeMs = getMilliSec();
+        if(aniStatus == UI_ANIM_IN)
+        {
+            alpha = mAlpha * (curTimeMs - timeMsAniStart) / timeMsTotalForAni;
+            if(curTimeMs - timeMsAniStart >= timeMsTotalForAni)
+            {
+                isAnimation = false;
+            }
+        }
+        if(aniStatus == UI_ANIM_OUT)
+        {
+            alpha = mAlpha * (1.0f - ((float)(curTimeMs - timeMsAniStart) / timeMsTotalForAni));
+            if(curTimeMs - timeMsAniStart >= timeMsTotalForAni)
+            {
+                isAnimation = false;
+                mIsVisible = false;
+            }
+        }
+        std::cout<<"alpha: "<<alpha<<curTimeMs<<std::endl;
+    }
+    glColor4f(mR, mG, mB, alpha);
     GLuint textureID = -1;
     if(nodeStatus == UINode::NODE_IDLE) textureID = textureID_idle;
     else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
