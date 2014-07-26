@@ -5,6 +5,7 @@ billhsu.x@gmail.com
 #include "UIButton.h"
 #include <iostream>
 #include <GL/freeglut.h>
+#include <math.h>
 #include "../math/Vectors.h"
 #include "Utility.h"
 
@@ -50,14 +51,19 @@ void UIButton::PassiveMotion(int x, int y)
 
 void UIButton::render(float timeDelta)
 {
-    float alpha = mAlpha;
+    float _alpha = mAlpha;
+    float _height = mHeight;
+    float _width = mWidth;
+
     if(isAnimation)
     {
-        std::cout<<"isAnimation"<<std::endl;
         long curTimeMs = getMilliSec();
+        float factor = (float)(curTimeMs - timeMsAniStart) / timeMsTotalForAni;
         if(aniStatus == UI_ANIM_IN)
         {
-            alpha = mAlpha * (curTimeMs - timeMsAniStart) / timeMsTotalForAni;
+            _alpha = mAlpha * factor;
+            _height = mHeight * sin(factor*90*PI/180);
+            _width = mWidth * sin(factor*90*PI/180);
             if(curTimeMs - timeMsAniStart >= timeMsTotalForAni)
             {
                 isAnimation = false;
@@ -65,16 +71,18 @@ void UIButton::render(float timeDelta)
         }
         if(aniStatus == UI_ANIM_OUT)
         {
-            alpha = mAlpha * (1.0f - ((float)(curTimeMs - timeMsAniStart) / timeMsTotalForAni));
+            factor = 1.0f - factor;
+            _alpha = mAlpha * factor;
+            _height = mHeight * sin(factor*90*PI/180);
+            _width = mWidth * sin(factor*90*PI/180);
             if(curTimeMs - timeMsAniStart >= timeMsTotalForAni)
             {
                 isAnimation = false;
                 mIsVisible = false;
             }
         }
-        std::cout<<"alpha: "<<alpha<<curTimeMs<<std::endl;
     }
-    glColor4f(mR, mG, mB, alpha);
+    glColor4f(mR, mG, mB, _alpha);
     GLuint textureID = -1;
     if(nodeStatus == UINode::NODE_IDLE) textureID = textureID_idle;
     else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
@@ -85,12 +93,13 @@ void UIButton::render(float timeDelta)
         glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, textureID);
     }
-    
+    float offset_x = (mWidth - _width) / 2.0f;
+    float offset_y = (mHeight - _height) / 2.0f;
     glBegin(GL_QUADS);
-        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX,mPosY);
-        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX+mWidth,mPosY);
-        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX+mWidth,mPosY+mHeight);
-        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX,mPosY+mHeight);
+        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX + offset_x,mPosY + offset_y);
+        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX + offset_x +_width,mPosY + offset_y);
+        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX + offset_x +_width,mPosY + offset_y +_height);
+        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX + offset_x,mPosY + offset_y +_height);
     glEnd();
 
     if(textureID!=-1) glDisable(GL_TEXTURE_2D);

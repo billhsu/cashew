@@ -59,12 +59,9 @@ Controller::~Controller()
 
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
-bool toggle = true;
+
 void testCallback(UINode* sender)
 {
-    if(toggle)Controller::btnSelectOneH->appearOut(150);
-    else Controller::btnSelectOneH->appearIn(150);
-    toggle = !toggle;
     std::cout<<"testCallback"<<std::endl;
 }
 

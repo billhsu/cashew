@@ -53,6 +53,7 @@ public:
     void setDisabled(bool disable){mIsDisabled = disable;}
     bool getDisabled(){return mIsDisabled;}
 
+    // timeMs = 120 works prefect
     void appearIn(float timeMs);
     void appearOut(float timeMs);
 
