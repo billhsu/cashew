@@ -47,8 +47,11 @@ void UIButton::PassiveMotion(int x, int y)
 {
     if(insideNode(x, y))
     {
-        nodeStatus = UINode::NODE_HOVER;
-        mTimeAccu = 0.0f;
+        if(UINode::NODE_HOVER != nodeStatus)
+        {
+            nodeStatus = UINode::NODE_HOVER;
+            mTimeAccu = 0.0f;
+        }
     }
     else
     {
