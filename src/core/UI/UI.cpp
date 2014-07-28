@@ -9,7 +9,6 @@ billhsu.x@gmail.com
 UI::UI()
 {
     mRootNode = new UINode(NULL);
-    
     std::cout <<"UI()"<<std::endl;
 }
 

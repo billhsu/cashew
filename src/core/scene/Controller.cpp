@@ -24,9 +24,12 @@ int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
 
-UIButton *Controller::btnSelectOneH = NULL, *Controller::btnSelectOneV = NULL,
-         *Controller::btnSelectTwo = NULL, 
-         *Controller::btnSelectTwoV = NULL, *Controller::btnSelectThree = NULL;
+UIButton *Controller::btnSelectOneH  = NULL, *Controller::btnSelectOneV = NULL,
+         *Controller::btnSelectTwo   = NULL, *Controller::btnSelectTwoV = NULL, 
+         *Controller::btnSelectThree = NULL;
+
+UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
+         *Controller::btnDocSave = NULL;
 
 UILabel  *Controller::lbFPS = NULL;
 
@@ -46,7 +49,6 @@ UI* Controller::GUI = &UI::getInstance();
 
 Controller::Controller()
 {
-
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
@@ -74,14 +76,29 @@ void Controller::init()
     camera = &Camera::getInstance();
     
     GUI->resize(originWidth, originHeight);
-    int btnSize = 150/2;
+    
+    int btnSize = 60/2;
     int centerX = width / 2 - btnSize/2;
-    int centerY = height - btnSize*2;
+    int centerY = 0 + btnSize * 2;
 
     int _w, _h, _ch;
     GLuint TextureID_idle = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, false);
+
+    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
+                        TextureID_new, TextureID_new, TextureID_new, "", testCallback, NULL);
+    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
+                        TextureID_open, TextureID_open, TextureID_open, "", testCallback, NULL);
+    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
+                        TextureID_save, TextureID_save, TextureID_save, "", testCallback, NULL);
+
+    btnSize = 150/2;
+    centerX = width / 2 - btnSize/2;
+    centerY = height - btnSize*2;
 
     rbtnSelect = GUI->addRadioButton(RBTN_SELECT, centerX - btnSize*2, centerY, btnSize * 5, btnSize);
 
@@ -221,13 +238,22 @@ void Controller::resize(int _width, int _heigth)
 
     GUI->resize(width, height);
 
-    int btnSize = 150/2;
+    int btnSize = 60/2;
     int centerX = width / 2 - btnSize/2;
-    int centerY = height - btnSize*2;
-    if(rbtnSelect!=NULL) rbtnSelect->setPos(centerX - btnSize*2, centerY);
-    if(btnSelectOneH!=NULL) btnSelectOneH->setPos(centerX - btnSize*2, centerY);
-    if(btnSelectOneV!=NULL) btnSelectOneV->setPos(centerX - btnSize*1, centerY);
-    if(btnSelectTwo!=NULL) btnSelectTwo->setPos(centerX - btnSize*0, centerY);
-    if(btnSelectTwoV!=NULL) btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
-    if(btnSelectThree!=NULL) btnSelectThree->setPos(centerX + btnSize*2, centerY);
+    int centerY = 0 + btnSize * 2;
+
+    if(btnDocNew != NULL) btnDocNew->setPos(width - btnSize*1, centerY - btnSize*1.2);
+    if(btnDocOpen != NULL) btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
+    if(btnDocSave != NULL) btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
+
+    btnSize = 150/2;
+    centerX = width / 2 - btnSize/2;
+    centerY = height - btnSize*2;
+
+    if(rbtnSelect !=NULL) rbtnSelect->setPos(centerX - btnSize*2, centerY);
+    if(btnSelectOneH != NULL) btnSelectOneH->setPos(centerX - btnSize*2, centerY);
+    if(btnSelectOneV != NULL) btnSelectOneV->setPos(centerX - btnSize*1, centerY);
+    if(btnSelectTwo != NULL) btnSelectTwo->setPos(centerX - btnSize*0, centerY);
+    if(btnSelectTwoV != NULL) btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
+    if(btnSelectThree != NULL) btnSelectThree->setPos(centerX + btnSize*2, centerY);
 }

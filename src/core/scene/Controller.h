@@ -66,11 +66,13 @@ public:
     static UI* GUI;
     static UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
                     *btnSelectTwoV, *btnSelectThree;
+    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
 
     enum {BTN_ID_SELECT_ONE=100, BTN_ID_SELECT_ONE_H, BTN_ID_SELECT_TWO,
           BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE, 
+          BTN_ID_DOC_NEW, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE, 
           LBL_FPS,
           RBTN_SELECT};
 

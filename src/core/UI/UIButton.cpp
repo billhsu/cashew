@@ -94,8 +94,8 @@ void UIButton::render(float timeDelta)
     }
     else if(nodeStatus == NODE_HOVER)
     {
-        _height = mHeight * (0.96f + 0.04f * cos(mTimeAccu/180.0f));
-        _width  = mWidth  * (0.96f + 0.04f * cos(mTimeAccu/180.0f));
+        _height = mHeight * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
+        _width  = mWidth  * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
     }
     glColor4f(mR, mG, mB, _alpha);
     GLuint textureID = -1;
@@ -111,10 +111,10 @@ void UIButton::render(float timeDelta)
     float offset_x = (mWidth  - _width ) / 2.0f;
     float offset_y = (mHeight - _height) / 2.0f;
     glBegin(GL_QUADS);
-        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX + offset_x,mPosY + offset_y);
-        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX + offset_x +_width,mPosY + offset_y);
-        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX + offset_x +_width,mPosY + offset_y +_height);
-        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX + offset_x,mPosY + offset_y +_height);
+        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX + offset_x, mPosY + offset_y);
+        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX + offset_x +_width, mPosY + offset_y);
+        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX + offset_x +_width, mPosY + offset_y +_height);
+        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX + offset_x, mPosY + offset_y +_height);
     glEnd();
 
     if(textureID!=-1) glDisable(GL_TEXTURE_2D);
