@@ -77,7 +77,7 @@ void Controller::init()
     
     GUI->resize(originWidth, originHeight);
     
-    int btnSize = 60/2;
+    int btnSize = 120/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
@@ -238,7 +238,7 @@ void Controller::resize(int _width, int _heigth)
 
     GUI->resize(width, height);
 
-    int btnSize = 60/2;
+    int btnSize = 120/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
