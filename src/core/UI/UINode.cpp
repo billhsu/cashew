@@ -16,6 +16,8 @@ UINode::UINode(UINode* parent)
     mPosX = mPosY = 0;
     mParentNode = parent;
 
+    mTimeAccu = 0.0f;
+
     isAnimation = false;
 
     nodeStatus = NODE_IDLE;

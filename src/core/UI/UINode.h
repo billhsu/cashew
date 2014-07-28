@@ -91,6 +91,8 @@ protected:
     enum{UI_ANIM_IN, UI_ANIM_OUT};
     int aniStatus;
 
+    float mTimeAccu; // total time after changing to current state
+
     bool mIsVisible;
     bool mIsDisabled;
     void (*mCallBackFunc)(UINode* sender);
