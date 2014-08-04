@@ -4,10 +4,14 @@ billhsu.x@gmail.com
 */
 #include "Controller.h"
 #include "State.h"
-#include "../camera/Camera.h"
+#include "StateIdle.h"
+#include "StateDeleteLine.h"
+#include "StateSelectPlane.h"
+#include "StateDraw.h"
+#include "Camera.h"
 #include "Scene.h"
-#include "../UI/UI.h"
-#include "../texture/g2Images.h"
+#include "UI.h"
+#include "g2Images.h"
 
 State* State::currState;
 
@@ -69,6 +73,10 @@ void testCallback(UINode* sender)
 
 void Controller::init()
 {
+    for(int i=0; i < State::STATE_ID_MAX; ++i)
+    {
+        State::statePool[i] = NULL;
+    }
     sidle = new StateIdle();
     sDelLine = new StateDeleteLine();
     sselectPlane = new StateSelectPlane();
@@ -130,11 +138,6 @@ void Controller::init()
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
-    sidle->stateSelectPlane = sselectPlane;
-    sidle->stateDeleteLine  = sDelLine;
-    sDelLine->stateIdle     = sidle;
-    sselectPlane->stateDraw = sdraw;
-    sdraw->stateIdle = sidle;
     State::enterState(sidle);
 
 }

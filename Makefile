@@ -2,7 +2,7 @@ CC        := g++
 LDFLAGS   := -lGL -lGLU -lglut -lrt -llua
 CFLAGS    := -g
 
-MODULES   := src/core/camera src/core/math src/core/scene src/core/UI src/core/texture src/impl 
+MODULES   := src/core/camera src/core/math src/core/scene src/core/scene/states src/core/UI src/core/texture src/impl 
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 
@@ -157,7 +157,7 @@ build/src/core/scene/Controller.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/Controller.o: /usr/include/bits/pthreadtypes.h
 build/src/core/scene/Controller.o: /usr/include/alloca.h
 build/src/core/scene/Controller.o: /usr/include/GL/freeglut_ext.h
-build/src/core/scene/Controller.o: src/core/scene/State.h
+build/src/core/scene/Controller.o: src/core/scene/states/State.h
 build/src/core/scene/Controller.o: src/core/camera/Camera.h
 build/src/core/scene/Controller.o: src/core/scene/Ray.h
 build/src/core/scene/Controller.o: src/core/scene/Plane.h
@@ -271,48 +271,45 @@ build/src/core/scene/Scene.o: /usr/include/sys/sysmacros.h
 build/src/core/scene/Scene.o: /usr/include/bits/pthreadtypes.h
 build/src/core/scene/Scene.o: /usr/include/alloca.h
 build/src/core/scene/Scene.o: /usr/include/GL/freeglut_ext.h
-build/src/core/scene/State.o: src/core/scene/State.h
-build/src/core/scene/State.o: /usr/include/GL/freeglut.h
-build/src/core/scene/State.o: /usr/include/GL/freeglut_std.h
-build/src/core/scene/State.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
-build/src/core/scene/State.o: /usr/include/inttypes.h /usr/include/features.h
-build/src/core/scene/State.o: /usr/include/bits/predefs.h
-build/src/core/scene/State.o: /usr/include/sys/cdefs.h
-build/src/core/scene/State.o: /usr/include/bits/wordsize.h
-build/src/core/scene/State.o: /usr/include/gnu/stubs.h
-build/src/core/scene/State.o: /usr/include/gnu/stubs-64.h
-build/src/core/scene/State.o: /usr/include/stdint.h /usr/include/bits/wchar.h
-build/src/core/scene/State.o: /usr/include/GL/glu.h /usr/include/stdlib.h
-build/src/core/scene/State.o: /usr/include/bits/waitflags.h
-build/src/core/scene/State.o: /usr/include/bits/waitstatus.h
-build/src/core/scene/State.o: /usr/include/endian.h
-build/src/core/scene/State.o: /usr/include/bits/endian.h
-build/src/core/scene/State.o: /usr/include/bits/byteswap.h
-build/src/core/scene/State.o: /usr/include/sys/types.h
-build/src/core/scene/State.o: /usr/include/bits/types.h
-build/src/core/scene/State.o: /usr/include/bits/typesizes.h
-build/src/core/scene/State.o: /usr/include/time.h /usr/include/sys/select.h
-build/src/core/scene/State.o: /usr/include/bits/select.h
-build/src/core/scene/State.o: /usr/include/bits/sigset.h
-build/src/core/scene/State.o: /usr/include/bits/time.h
-build/src/core/scene/State.o: /usr/include/sys/sysmacros.h
-build/src/core/scene/State.o: /usr/include/bits/pthreadtypes.h
-build/src/core/scene/State.o: /usr/include/alloca.h
-build/src/core/scene/State.o: /usr/include/GL/freeglut_ext.h
-build/src/core/scene/State.o: src/core/math/Vectors.h
-build/src/core/scene/State.o: src/core/scene/LineSegment.h
-build/src/core/scene/State.o: src/core/scene/Controller.h
-build/src/core/scene/State.o: src/core/scene/Plane.h src/core/camera/Camera.h
-build/src/core/scene/State.o: src/core/scene/Ray.h src/core/scene/Plane.h
-build/src/core/scene/State.o: src/core/scene/LineSegment.h
-build/src/core/scene/State.o: src/core/math/Quaternion.h
-build/src/core/scene/State.o: src/core/math/Matrices.h
-build/src/core/scene/State.o: src/core/math/Vectors.h src/impl/Utility.h
-build/src/core/scene/State.o: /usr/include/stdio.h /usr/include/libio.h
-build/src/core/scene/State.o: /usr/include/_G_config.h /usr/include/wchar.h
-build/src/core/scene/State.o: /usr/include/bits/stdio_lim.h
-build/src/core/scene/State.o: /usr/include/bits/sys_errlist.h
-build/src/core/scene/State.o: src/core/scene/Scene.h src/core/scene/Ray.h
+build/src/core/scene/states/State.o: src/core/scene/states/State.h
+build/src/core/scene/states/State.o: /usr/include/GL/freeglut.h
+build/src/core/scene/states/State.o: /usr/include/GL/freeglut_std.h
+build/src/core/scene/states/State.o: /usr/include/GL/gl.h
+build/src/core/scene/states/State.o: /usr/include/GL/glext.h
+build/src/core/scene/states/State.o: /usr/include/inttypes.h
+build/src/core/scene/states/State.o: /usr/include/features.h
+build/src/core/scene/states/State.o: /usr/include/bits/predefs.h
+build/src/core/scene/states/State.o: /usr/include/sys/cdefs.h
+build/src/core/scene/states/State.o: /usr/include/bits/wordsize.h
+build/src/core/scene/states/State.o: /usr/include/gnu/stubs.h
+build/src/core/scene/states/State.o: /usr/include/gnu/stubs-64.h
+build/src/core/scene/states/State.o: /usr/include/stdint.h
+build/src/core/scene/states/State.o: /usr/include/bits/wchar.h
+build/src/core/scene/states/State.o: /usr/include/GL/glu.h
+build/src/core/scene/states/State.o: /usr/include/stdlib.h
+build/src/core/scene/states/State.o: /usr/include/bits/waitflags.h
+build/src/core/scene/states/State.o: /usr/include/bits/waitstatus.h
+build/src/core/scene/states/State.o: /usr/include/endian.h
+build/src/core/scene/states/State.o: /usr/include/bits/endian.h
+build/src/core/scene/states/State.o: /usr/include/bits/byteswap.h
+build/src/core/scene/states/State.o: /usr/include/sys/types.h
+build/src/core/scene/states/State.o: /usr/include/bits/types.h
+build/src/core/scene/states/State.o: /usr/include/bits/typesizes.h
+build/src/core/scene/states/State.o: /usr/include/time.h
+build/src/core/scene/states/State.o: /usr/include/sys/select.h
+build/src/core/scene/states/State.o: /usr/include/bits/select.h
+build/src/core/scene/states/State.o: /usr/include/bits/sigset.h
+build/src/core/scene/states/State.o: /usr/include/bits/time.h
+build/src/core/scene/states/State.o: /usr/include/sys/sysmacros.h
+build/src/core/scene/states/State.o: /usr/include/bits/pthreadtypes.h
+build/src/core/scene/states/State.o: /usr/include/alloca.h
+build/src/core/scene/states/State.o: /usr/include/GL/freeglut_ext.h
+build/src/core/scene/states/State.o: src/core/math/Vectors.h
+build/src/core/scene/states/State.o: src/core/scene/LineSegment.h
+build/src/core/scene/states/State.o: src/core/scene/Controller.h
+build/src/core/scene/states/State.o: src/core/scene/Plane.h
+build/src/core/scene/states/State.o: src/core/scene/Scene.h
+build/src/core/scene/states/State.o: src/core/scene/Ray.h
 build/src/core/UI/UIButton.o: src/core/UI/UIButton.h src/core/UI/UINode.h
 build/src/core/UI/UIButton.o: /usr/include/GL/freeglut.h
 build/src/core/UI/UIButton.o: /usr/include/GL/freeglut_std.h
@@ -342,6 +339,13 @@ build/src/core/UI/UIButton.o: /usr/include/bits/pthreadtypes.h
 build/src/core/UI/UIButton.o: /usr/include/alloca.h
 build/src/core/UI/UIButton.o: /usr/include/GL/freeglut_ext.h
 build/src/core/UI/UIButton.o: /usr/include/string.h /usr/include/xlocale.h
+build/src/core/UI/UIButton.o: /usr/include/math.h
+build/src/core/UI/UIButton.o: /usr/include/bits/huge_val.h
+build/src/core/UI/UIButton.o: /usr/include/bits/huge_valf.h
+build/src/core/UI/UIButton.o: /usr/include/bits/huge_vall.h
+build/src/core/UI/UIButton.o: /usr/include/bits/inf.h /usr/include/bits/nan.h
+build/src/core/UI/UIButton.o: /usr/include/bits/mathdef.h
+build/src/core/UI/UIButton.o: /usr/include/bits/mathcalls.h
 build/src/core/UI/UIButton.o: src/core/math/Vectors.h
 build/src/core/UI/UI.o: /usr/include/GL/freeglut.h
 build/src/core/UI/UI.o: /usr/include/GL/freeglut_std.h /usr/include/GL/gl.h
