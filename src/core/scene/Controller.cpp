@@ -28,9 +28,7 @@ int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
 
-UIButton *Controller::btnSelectOneH  = NULL, *Controller::btnSelectOneV = NULL,
-         *Controller::btnSelectTwo   = NULL, *Controller::btnSelectTwoV = NULL, 
-         *Controller::btnSelectThree = NULL;
+UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
@@ -66,9 +64,9 @@ Controller::~Controller()
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
-void testCallback(UINode* sender)
+void Controller::UICallback(UINode* sender)
 {
-    std::cout<<"testCallback"<<std::endl;
+    std::cout<<"UICallback"<<std::endl;
 }
 
 void Controller::init()
@@ -90,50 +88,17 @@ void Controller::init()
     int centerY = 0 + btnSize * 2;
 
     int _w, _h, _ch;
-    GLuint TextureID_idle = g2LoadImage("media/textures/button.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_hover = g2LoadImage("media/textures/button_hover.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_press = g2LoadImage("media/textures/button_press.png", &_w, &_h, &_ch, false, false);
+
     GLuint TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, false);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
-                        TextureID_new, TextureID_new, TextureID_new, "", testCallback, NULL);
+                        TextureID_new, TextureID_new, TextureID_new, "", Controller::UICallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
-                        TextureID_open, TextureID_open, TextureID_open, "", testCallback, NULL);
+                        TextureID_open, TextureID_open, TextureID_open, "", Controller::UICallback, NULL);
     btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
-                        TextureID_save, TextureID_save, TextureID_save, "", testCallback, NULL);
-
-    btnSize = 150/2;
-    centerX = width / 2 - btnSize/2;
-    centerY = height - btnSize*2;
-
-    rbtnSelect = GUI->addRadioButton(RBTN_SELECT, centerX - btnSize*2, centerY, btnSize * 5, btnSize);
-
-    btnSelectOneH = GUI->addButton(BTN_ID_SELECT_ONE_H, centerX - btnSize*2, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, rbtnSelect);
-    btnSelectOneH->setColor(1.0f,1.0f,1.0f,0.9f);
-
-    btnSelectOneV = GUI->addButton(BTN_ID_SELECT_ONE, centerX - btnSize*1, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, rbtnSelect);
-    btnSelectOneV->setColor(1.0f,1.0f,1.0f,0.9f);
-
-    btnSelectTwo = GUI->addButton(BTN_ID_SELECT_TWO, centerX, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, rbtnSelect);
-    btnSelectTwo->setColor(1.0f,1.0f,1.0f,0.9f);
-
-    btnSelectTwoV = GUI->addButton(BTN_ID_SELECT_TWO_V, centerX + btnSize*1, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, rbtnSelect);
-    btnSelectTwoV->setColor(1.0f,1.0f,1.0f,0.9f);
-
-    btnSelectThree = GUI->addButton(BTN_ID_SELECT_THREE, centerX + btnSize*2, centerY, btnSize, btnSize, 
-                        TextureID_idle, TextureID_hover, TextureID_press,
-                        "", testCallback, rbtnSelect);
-    btnSelectThree->setColor(1.0f,1.0f,1.0f,0.9f);
+                        TextureID_save, TextureID_save, TextureID_save, "", Controller::UICallback, NULL);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -249,14 +214,4 @@ void Controller::resize(int _width, int _heigth)
     if(btnDocOpen != NULL) btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
     if(btnDocSave != NULL) btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
 
-    btnSize = 150/2;
-    centerX = width / 2 - btnSize/2;
-    centerY = height - btnSize*2;
-
-    if(rbtnSelect !=NULL) rbtnSelect->setPos(centerX - btnSize*2, centerY);
-    if(btnSelectOneH != NULL) btnSelectOneH->setPos(centerX - btnSize*2, centerY);
-    if(btnSelectOneV != NULL) btnSelectOneV->setPos(centerX - btnSize*1, centerY);
-    if(btnSelectTwo != NULL) btnSelectTwo->setPos(centerX - btnSize*0, centerY);
-    if(btnSelectTwoV != NULL) btnSelectTwoV->setPos(centerX + btnSize*1, centerY);
-    if(btnSelectThree != NULL) btnSelectThree->setPos(centerX + btnSize*2, centerY);
 }

@@ -17,6 +17,7 @@ class StateDeleteLine;
 class State;
 class Camera;
 class UI;
+class UINode;
 class UIButton;
 class UILabel;
 class UIRadioButton;
@@ -40,6 +41,7 @@ public:
     void render(float timeDelta);
 
     static void resize(int _width, int _heigth);
+    static void UICallback(UINode* sender);
 
     static std::vector<LineSegment> sketchLines;
     static Plane currPlane; // Plane to draw
@@ -64,8 +66,7 @@ public:
     Camera * camera;
 
     static UI* GUI;
-    static UIButton *btnSelectOneH, *btnSelectOneV, *btnSelectTwo, 
-                    *btnSelectTwoV, *btnSelectThree;
+    static UIButton *btnSelectVerticalPlane, *btnSelectHorizontalPlane;
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
