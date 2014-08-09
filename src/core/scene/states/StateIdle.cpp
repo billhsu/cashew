@@ -6,10 +6,7 @@
 // State Idle
 void StateIdle::UIEvent(UINode* sender, int event)
 {
-    if(sender->nodeID == Controller::BTN_ID_SELECT_ONE)
-    {
-        
-    }
+    std::cout<<sender->nodeID<<" "<<event<<std::endl;
 }
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {    

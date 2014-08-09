@@ -41,7 +41,7 @@ public:
     void render(float timeDelta);
 
     static void resize(int _width, int _heigth);
-    static void UICallback(UINode* sender);
+    static void UIButtonCallback(UINode* sender);
 
     static std::vector<LineSegment> sketchLines;
     static Plane currPlane; // Plane to draw
@@ -71,12 +71,11 @@ public:
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
 
-    enum {BTN_ID_SELECT_ONE=100, BTN_ID_SELECT_ONE_H, BTN_ID_SELECT_TWO,
-          BTN_ID_SELECT_TWO_V, BTN_ID_SELECT_THREE, 
+    enum {BTN_ID_SELECT_VERTICAL=100, BTN_ID_SELECT_HORIZONTAL,
           BTN_ID_DOC_NEW, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE, 
-          LBL_FPS,
-          RBTN_SELECT};
-
+          LBL_FPS};
+    enum {EVENT_BTN_CLICKED=100};
+    
     static bool enableLight;
     static Vector3 rotate;
 

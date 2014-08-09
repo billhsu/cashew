@@ -64,9 +64,10 @@ Controller::~Controller()
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
-void Controller::UICallback(UINode* sender)
+void Controller::UIButtonCallback(UINode* sender)
 {
-    std::cout<<"UICallback"<<std::endl;
+    std::cout<<"UIButtonCallback"<<std::endl;
+    State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
 
 void Controller::init()
@@ -89,16 +90,29 @@ void Controller::init()
 
     int _w, _h, _ch;
 
-    GLuint TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, true);
+    GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, true);
+    GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, true);
+
+    GLuint TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, false);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
-                        TextureID_new, TextureID_new, TextureID_new, "", Controller::UICallback, NULL);
+                        TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
-                        TextureID_open, TextureID_open, TextureID_open, "", Controller::UICallback, NULL);
+                        TextureID_open, TextureID_open, TextureID_open, "", Controller::UIButtonCallback, NULL);
     btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
-                        TextureID_save, TextureID_save, TextureID_save, "", Controller::UICallback, NULL);
+                        TextureID_save, TextureID_save, TextureID_save, "", Controller::UIButtonCallback, NULL);
+
+    btnSize = 120/2;
+    centerX = width / 2 - btnSize/2;
+    centerY = height - 2 * btnSize;
+
+    btnSelectVerticalPlane = GUI->addButton(BTN_ID_SELECT_VERTICAL, centerX - btnSize*1, centerY, btnSize, btnSize, 
+                                    TextureID_select_vertical, TextureID_select_vertical, TextureID_select_vertical, "", Controller::UIButtonCallback, NULL);
+
+    btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, centerX + btnSize*1, centerY, btnSize, btnSize, 
+                                    TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "", Controller::UIButtonCallback, NULL);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -116,7 +130,6 @@ void Controller::MouseButton(int button, int state, int x, int y)
     if(node!=NULL)
     {
         uiHold = 1;
-        State::currState->UIEvent(node, 1);
     }
     else
     {
@@ -210,8 +223,14 @@ void Controller::resize(int _width, int _heigth)
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
-    if(btnDocNew != NULL) btnDocNew->setPos(width - btnSize*1, centerY - btnSize*1.2);
-    if(btnDocOpen != NULL) btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
-    if(btnDocSave != NULL) btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
+    btnDocNew->setPos(width - btnSize*1, centerY - btnSize*1.2);
+    btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
+    btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
 
+    btnSize = 120/2;
+    centerX = width / 2 - btnSize/2;
+    centerY = height - 2 * btnSize;
+
+    btnSelectVerticalPlane->setPos(centerX - btnSize*1, centerY);
+    btnSelectHorizontalPlane->setPos(centerX + btnSize*1, centerY);
 }
