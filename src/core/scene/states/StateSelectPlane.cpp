@@ -98,6 +98,8 @@ void StateSelectPlane::prepareState()
 {
     Controller::btnSelectVerticalPlane->appearIn();
     Controller::btnSelectHorizontalPlane->appearIn();
+    Controller::btnConfirmPlane->appearIn();
+    Controller::btnCancelPlane->appearIn();
 }
 void StateSelectPlane::render(float timeDelta)
 {

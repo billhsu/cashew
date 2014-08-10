@@ -95,11 +95,11 @@ void Controller::init()
     GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, true);
     GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, true);
+    GLuint TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, false);
-    GLuint TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, false);
+    GLuint TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, true);
+    GLuint TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, true);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
                         TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
@@ -125,8 +125,11 @@ void Controller::init()
     centerY = height - 2 * btnSize;
     btnConfirmPlane = GUI->addButton(BTN_ID_CONFIRM_PLANE, centerX, centerY, btnSize, btnSize, 
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+    btnConfirmPlane->setVisibility(false);
+
     btnCancelPlane  = GUI->addButton(BTN_ID_CANCEL_PLANE, centerX + btnSize*1.2, centerY, btnSize, btnSize, 
                                     TextureID_cancel, TextureID_cancel, TextureID_cancel, "", Controller::UIButtonCallback, NULL);
+    btnCancelPlane->setVisibility(false);
 
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
