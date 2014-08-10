@@ -63,6 +63,7 @@ public:
 
     bool insideNode(int x, int y)
     {
+        if(!getVisibility()) return false;
         return ((x>=mPosX && x<=mPosX+mWidth)
                 &&(y>=mPosY && y<=mPosY+mHeight));
     }

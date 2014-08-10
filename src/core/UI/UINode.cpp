@@ -69,6 +69,7 @@ void UINode::appearOut(float timeMs)
     timeMsAniStart = getMilliSec();
     timeMsTotalForAni = timeMs;
     aniStatus = UI_ANIM_OUT;
+    nodeStatus = NODE_IDLE;
     std::cout<<"UINode::appearOut "<<mChildNodes.size()<<std::endl;
     if(mChildNodes.size()>0)
     {
@@ -78,6 +79,7 @@ void UINode::appearOut(float timeMs)
             (*Child)->timeMsAniStart = timeMsAniStart;
             (*Child)->timeMsTotalForAni = timeMsTotalForAni;
             (*Child)->aniStatus = aniStatus;
+            (*Child)->nodeStatus = NODE_IDLE;
         }
     }
 }

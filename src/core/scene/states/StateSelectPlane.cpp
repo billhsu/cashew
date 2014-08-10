@@ -5,6 +5,34 @@
 #include "UIButton.h"
 
 // State Select Plane
+void StateSelectPlane::UIEvent(UINode* sender, int event)
+{
+    std::cout<<sender->nodeID<<" "<<event<<std::endl;
+    if(sender->nodeID == Controller::BTN_ID_CONFIRM_PLANE && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Vector3 center(0,0,0);
+        for(int i=0;i<selectedPoints.size();++i)
+            center += selectedPoints[i];
+        center /= selectedPoints.size();
+        
+        State::statePool[CTRL_DRAW]->vCenter = center;
+        State::statePool[CTRL_DRAW]->selectedPoints = selectedPoints;
+        Controller::btnSelectVerticalPlane->appearOut();
+        Controller::btnSelectHorizontalPlane->appearOut();
+        Controller::btnConfirmPlane->appearOut();
+        Controller::btnCancelPlane->appearOut();
+        enterState(State::statePool[CTRL_DRAW]);
+    }
+    if(sender->nodeID == Controller::BTN_ID_CANCEL_PLANE && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Controller::btnSelectVerticalPlane->appearOut();
+        Controller::btnSelectHorizontalPlane->appearOut();
+        Controller::btnConfirmPlane->appearOut();
+        Controller::btnCancelPlane->appearOut();
+        enterState(State::statePool[CTRL_IDLE]);
+    }
+}
+
 void StateSelectPlane::MouseButton(int button, int state, int x, int y)
 {
     if(state==GLUT_DOWN)
