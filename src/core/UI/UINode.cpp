@@ -97,7 +97,7 @@ UINode* UINode::getNodeByPos(int x, int y)
     {
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
         {
-            if((*Child)->insideNode(x, y)) 
+            if((*Child)->insideNode(x, y) && (*Child)->getVisibility() == true) 
             {
                 findNode = (*Child);
                 break;

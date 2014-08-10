@@ -110,11 +110,13 @@ void Controller::init()
 
     btnSelectVerticalPlane = GUI->addButton(BTN_ID_SELECT_VERTICAL, centerX - btnSize*1, centerY, btnSize, btnSize, 
                                     TextureID_select_vertical, TextureID_select_vertical, TextureID_select_vertical, "", Controller::UIButtonCallback, NULL);
+    btnSelectVerticalPlane->setVisibility(false);
 
     btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, centerX + btnSize*1, centerY, btnSize, btnSize, 
                                     TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "", Controller::UIButtonCallback, NULL);
+    btnSelectHorizontalPlane->setVisibility(false);
 
-    lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "test");
+    lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
     State::enterState(sidle);

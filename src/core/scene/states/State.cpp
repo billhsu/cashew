@@ -16,8 +16,3 @@ State::State()
     camera = &Camera::getInstance();
     std::cout<<"State State()"<<std::endl;
 }
-
-
-
-
-

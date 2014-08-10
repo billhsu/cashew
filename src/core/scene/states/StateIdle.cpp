@@ -66,11 +66,6 @@ void StateIdle::MouseMotion(int x, int y)
     }
 }
 
-void StateIdle::PassiveMotion(int x, int y)
-{
-
-}
-
 void StateIdle::Keyboard(unsigned char key, int x, int y)
 {
     if(key == 'b')
@@ -83,9 +78,4 @@ void StateIdle::Keyboard(unsigned char key, int x, int y)
     {
         enterState(State::statePool[CTRL_DEL_LINE]);
     }
-}
-
-void StateIdle::render(float timeDelta)
-{
-    
 }

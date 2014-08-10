@@ -82,11 +82,6 @@ void StateDraw::MouseMotion(int x, int y)
     }
 }
 
-void StateDraw::PassiveMotion(int x, int y)
-{
-
-}
-
 void StateDraw::Keyboard(unsigned char key, int x, int y)
 {
     if(key == 'b')

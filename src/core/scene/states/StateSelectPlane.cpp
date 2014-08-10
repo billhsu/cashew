@@ -73,11 +73,6 @@ void StateSelectPlane::MouseMotion(int x, int y)
     }
 }
 
-void StateSelectPlane::PassiveMotion(int x, int y)
-{
-
-}
-
 void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
 {
     if(key == 'x')
