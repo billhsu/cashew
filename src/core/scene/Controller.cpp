@@ -29,6 +29,7 @@ int Controller::lastMouseY = 0;
 int Controller::uiHold = 0;
 
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
+UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
 
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
@@ -97,6 +98,9 @@ void Controller::init()
     GLuint TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, false);
     GLuint TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, false);
 
+    GLuint TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, false);
+    GLuint TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, false);
+
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
                         TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
@@ -115,6 +119,15 @@ void Controller::init()
     btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, centerX + btnSize*1, centerY, btnSize, btnSize, 
                                     TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "", Controller::UIButtonCallback, NULL);
     btnSelectHorizontalPlane->setVisibility(false);
+
+    btnSize = 120/2;
+    centerX = 0 + btnSize/2;
+    centerY = height - 2 * btnSize;
+    btnConfirmPlane = GUI->addButton(BTN_ID_CONFIRM_PLANE, centerX, centerY, btnSize, btnSize, 
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+    btnCancelPlane  = GUI->addButton(BTN_ID_CANCEL_PLANE, centerX + btnSize*1.2, centerY, btnSize, btnSize, 
+                                    TextureID_cancel, TextureID_cancel, TextureID_cancel, "", Controller::UIButtonCallback, NULL);
+
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -235,4 +248,11 @@ void Controller::resize(int _width, int _heigth)
 
     btnSelectVerticalPlane->setPos(centerX - btnSize*1, centerY);
     btnSelectHorizontalPlane->setPos(centerX + btnSize*1, centerY);
+
+    btnSize = 120/2;
+    centerX = 0 + btnSize/2;
+    centerY = height - 2 * btnSize;
+
+    btnConfirmPlane->setPos(centerX, centerY);
+    btnCancelPlane->setPos(centerX + btnSize*1.2, centerY);
 }

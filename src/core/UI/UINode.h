@@ -54,8 +54,8 @@ public:
     bool getDisabled(){return mIsDisabled;}
 
     // timeMs = 120 works prefect
-    void appearIn(float timeMs);
-    void appearOut(float timeMs);
+    void appearIn(float timeMs = 120.0f);
+    void appearOut(float timeMs = 120.0f);
 
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
 

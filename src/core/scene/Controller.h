@@ -67,12 +67,14 @@ public:
 
     static UI* GUI;
     static UIButton *btnSelectVerticalPlane, *btnSelectHorizontalPlane;
+    static UIButton *btnConfirmPlane, *btnCancelPlane;
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
 
     enum {BTN_ID_SELECT_VERTICAL=100, BTN_ID_SELECT_HORIZONTAL,
           BTN_ID_DOC_NEW, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE, 
+          BTN_ID_CONFIRM_PLANE, BTN_ID_CANCEL_PLANE,
           LBL_FPS};
     enum {EVENT_BTN_CLICKED=100};
     

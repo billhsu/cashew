@@ -2,6 +2,7 @@
 #include "Controller.h"
 #include "Camera.h"
 #include "UINode.h"
+#include "UIButton.h"
 
 // State Select Plane
 void StateSelectPlane::MouseButton(int button, int state, int x, int y)
@@ -93,7 +94,11 @@ void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
         camera->rotateCamTo(q);
     }
 }
-
+void StateSelectPlane::prepareState()
+{
+    Controller::btnSelectVerticalPlane->appearIn();
+    Controller::btnSelectHorizontalPlane->appearIn();
+}
 void StateSelectPlane::render(float timeDelta)
 {
     Vector3 center(0,0,0);
