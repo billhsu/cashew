@@ -5,6 +5,22 @@
 #include "UIButton.h"
 
 // State Select Plane
+void StateSelectPlane::buildCurrentPlane()
+{
+    Vector3 planeVec = Vector3(0, 1, 0);
+    if(selectedPoints.size() == 1) 
+    {
+        if(selectPlaneMode == SELECT_VERTICAL_PLANE)
+        {
+            // TODO: planeVec = ..
+        }
+        else if (selectPlaneMode == SELECT_HORIZONTAL_PLANE)
+        {
+            // TODO: planeVec = ..
+        }
+    }
+    Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
+}
 void StateSelectPlane::UIEvent(UINode* sender, int event)
 {
     std::cout<<sender->nodeID<<" "<<event<<std::endl;
@@ -31,6 +47,16 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
         Controller::btnCancelPlane->appearOut();
         enterState(State::statePool[CTRL_IDLE]);
     }
+    if(sender->nodeID == Controller::BTN_ID_SELECT_VERTICAL && event == Controller::EVENT_BTN_CLICKED)
+    {
+        selectPlaneMode = SELECT_VERTICAL_PLANE;
+        buildCurrentPlane();
+    }
+    if(sender->nodeID == Controller::BTN_ID_SELECT_HORIZONTAL && event == Controller::EVENT_BTN_CLICKED)
+    {
+        selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+        buildCurrentPlane();
+    }
 }
 
 void StateSelectPlane::MouseButton(int button, int state, int x, int y)
@@ -48,7 +74,7 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
                 if(v==selectedPoints[i]) return;
             }
             selectedPoints.push_back(v);
-            Plane::buildPlane(selectedPoints, Controller::currPlane);
+            buildCurrentPlane();
             Controller::currPlane.printStatus();
             Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                 Quaternion::Z_NEG_AXIS);

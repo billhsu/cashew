@@ -1,18 +1,18 @@
 #include <GL/freeglut.h>
 #include "Plane.h"
 
-void Plane::buildPlane(Vector3 v1, Plane& plane)
+void Plane::buildPlane(Vector3 v1, Plane& plane, Vector3 normal)
 {
-    plane.N = Vector3(0,1,0);
+    plane.N = normal;
     plane.D = v1.y;
 }
 
-void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane)
+void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane, Vector3 direction)
 {
     Vector3 v12 = v1 - v2;
-    Vector3 normal = v12.cross(Vector3(0,1,0)).normalize();
-    float dist = v1.dot(normal);
-    plane.N = normal;
+    Vector3 _normal = v12.cross(direction).normalize();
+    float dist = v1.dot(_normal);
+    plane.N = _normal;
     plane.D = dist;
 }
 
@@ -26,10 +26,10 @@ void Plane::buildPlane(Vector3 v1, Vector3 v2, Vector3 v3, Plane& plane)
     plane.D = dist;
 }
 
-void Plane::buildPlane(std::vector<Vector3> &v, Plane& plane)
+void Plane::buildPlane(std::vector<Vector3> &v, Plane& plane, Vector3 normal)
 {
-    if(v.size()==1) buildPlane(v[0], plane);
-    else if(v.size()==2) buildPlane(v[0], v[1], plane);
+    if(v.size()==1) buildPlane(v[0], plane, normal);
+    else if(v.size()==2) buildPlane(v[0], v[1], plane, normal);
     else if(v.size()==3) buildPlane(v[0], v[1], v[2], plane);
 }
 void Plane::drawPlane(Vector3 center, float size, float* color)
