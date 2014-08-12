@@ -12,11 +12,13 @@ void StateSelectPlane::buildCurrentPlane()
     {
         if(selectPlaneMode == SELECT_VERTICAL_PLANE)
         {
-            // TODO: planeVec = ..
+            planeVec = camera->getRay().GetDirection();
+            planeVec.y = 0;
+            planeVec.normalize();
         }
         else if (selectPlaneMode == SELECT_HORIZONTAL_PLANE)
         {
-            // TODO: planeVec = ..
+            planeVec = Vector3(0, 1, 0);
         }
     }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
