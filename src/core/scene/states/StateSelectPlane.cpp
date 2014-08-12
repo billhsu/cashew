@@ -22,6 +22,9 @@ void StateSelectPlane::buildCurrentPlane()
         }
     }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
+    Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+                                          Quaternion::Z_NEG_AXIS);
+    camera->rotateCamTo(q);
 }
 void StateSelectPlane::UIEvent(UINode* sender, int event)
 {
@@ -78,15 +81,13 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             selectedPoints.push_back(v);
             buildCurrentPlane();
             Controller::currPlane.printStatus();
-            Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
-                Quaternion::Z_NEG_AXIS);
+            
             Vector3 center(0,0,0);
             for(int i=0;i<selectedPoints.size();++i)
                 center += selectedPoints[i];
             center /= selectedPoints.size();
 
             camera->setCamCenterTo(center);
-            camera->rotateCamTo(q);
             if(selectedPoints.size()==3) 
             {
                 State::statePool[CTRL_DRAW]->vCenter = center;
