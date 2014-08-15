@@ -21,6 +21,17 @@ void StateSelectPlane::buildCurrentPlane()
             planeVec = Vector3(0, 1, 0);
         }
     }
+    else if(selectedPoints.size() == 2)
+    {
+        if(selectPlaneMode == SELECT_VERTICAL_PLANE)
+        {
+            planeVec = Vector3(0, 1, 0);
+        }
+        else if (selectPlaneMode == SELECT_SLOPE)
+        {
+            // TODO
+        }
+    }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
     Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                                           Quaternion::Z_NEG_AXIS);
@@ -59,7 +70,8 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
     }
     if(sender->nodeID == Controller::BTN_ID_SELECT_HORIZONTAL && event == Controller::EVENT_BTN_CLICKED)
     {
-        selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+        if(selectedPoints.size() == 1) selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+        else if(selectedPoints.size() == 2) selectPlaneMode = SELECT_SLOPE;
         buildCurrentPlane();
     }
 }
@@ -79,6 +91,10 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
                 if(v==selectedPoints[i]) return;
             }
             selectedPoints.push_back(v);
+            if(selectedPoints.size() == 2)
+            {
+                selectPlaneMode = SELECT_VERTICAL_PLANE;
+            }
             buildCurrentPlane();
             Controller::currPlane.printStatus();
             

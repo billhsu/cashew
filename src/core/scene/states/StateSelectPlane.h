@@ -21,5 +21,5 @@ public:
 private:
     void buildCurrentPlane();
     int selectPlaneMode;
-    enum{SELECT_VERTICAL_PLANE, SELECT_HORIZONTAL_PLANE};
+    enum{SELECT_VERTICAL_PLANE, SELECT_HORIZONTAL_PLANE, SELECT_SLOPE};
 };
