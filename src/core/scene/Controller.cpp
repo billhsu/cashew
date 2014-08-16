@@ -30,6 +30,7 @@ int Controller::uiHold = 0;
 
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
+UIButton *Controller::btnDrawPlaneDone = NULL;
 
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
@@ -131,6 +132,10 @@ void Controller::init()
                                     TextureID_cancel, TextureID_cancel, TextureID_cancel, "", Controller::UIButtonCallback, NULL);
     btnCancelPlane->setVisibility(false);
 
+    centerX = width - btnSize/2;
+    btnDrawPlaneDone = GUI->addButton(BTN_ID_DRAW_PLANE_DONE, centerX, centerY, btnSize, btnSize, 
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+    btnDrawPlaneDone->setVisibility(false);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -258,4 +263,7 @@ void Controller::resize(int _width, int _heigth)
 
     btnConfirmPlane->setPos(centerX, centerY);
     btnCancelPlane->setPos(centerX + btnSize*1.2, centerY);
+
+    centerX = width - btnSize;
+    btnDrawPlaneDone->setPos(centerX, centerY);
 }

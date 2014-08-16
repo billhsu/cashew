@@ -2,8 +2,18 @@
 #include "Controller.h"
 #include "Camera.h"
 #include "UINode.h"
+#include "UIButton.h"
 
 // State Draw
+void StateDraw::UIEvent(UINode* sender, int event)
+{
+    std::cout<<sender->nodeID<<" "<<event<<std::endl;
+    if(sender->nodeID == Controller::BTN_ID_DRAW_PLANE_DONE && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Controller::btnDrawPlaneDone->appearOut();
+        enterState(State::statePool[CTRL_IDLE]);
+    }
+}
 void StateDraw::MouseButton(int button, int state, int x, int y)
 {
     if(state==GLUT_DOWN)
@@ -90,10 +100,6 @@ void StateDraw::Keyboard(unsigned char key, int x, int y)
         Quaternion::Z_NEG_AXIS);
         camera->rotateCamTo(q);
     }
-    if(key == 'x')
-    {
-        enterState(State::statePool[CTRL_IDLE]);
-    }
 }
 
 void StateDraw::render(float timeDelta)
@@ -140,4 +146,9 @@ void StateDraw::render(float timeDelta)
 
     glLineWidth(1);
 
+}
+
+void StateDraw::prepareState()
+{
+    Controller::btnDrawPlaneDone->appearIn();
 }

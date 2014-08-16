@@ -116,6 +116,12 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             if(selectedPoints.size()==3) 
             {
                 State::statePool[CTRL_DRAW]->vCenter = center;
+                State::statePool[CTRL_DRAW]->selectedPoints = selectedPoints;
+                Controller::btnSelectVerticalPlane->appearOut();
+                Controller::btnSelectHorizontalPlane->appearOut();
+                Controller::btnConfirmPlane->appearOut();
+                Controller::btnCancelPlane->appearOut();
+                enterState(State::statePool[CTRL_DRAW]);
             }
         }
         if(button == GLUT_RIGHT_BUTTON)
@@ -158,17 +164,6 @@ void StateSelectPlane::MouseMotion(int x, int y)
 
 void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
 {
-    if(key == 'x')
-    {
-        Vector3 center(0,0,0);
-        for(int i=0;i<selectedPoints.size();++i)
-            center += selectedPoints[i];
-        center /= selectedPoints.size();
-        
-        State::statePool[CTRL_DRAW]->vCenter = center;
-        State::statePool[CTRL_DRAW]->selectedPoints = selectedPoints;
-        enterState(State::statePool[CTRL_DRAW]);
-    }
     if(key =='b')
     {
         Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
@@ -187,7 +182,9 @@ void StateSelectPlane::render(float timeDelta)
 {
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
+    {
         center += selectedPoints[i];
+    }
     center /= selectedPoints.size();
     float color[4] = {0.3,0.3,0.3,0.3};
     Controller::currPlane.drawPlane(center, 20, color);
