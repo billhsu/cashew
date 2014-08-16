@@ -30,6 +30,7 @@ void StateSelectPlane::buildCurrentPlane()
         else if (selectPlaneMode == SELECT_SLOPE)
         {
             planeVec = camera->getRay().GetDirection();
+            planeVec.y = 0;
             planeVec.normalize();
             planeVec = planeVec.cross(selectedPoints[0] - selectedPoints[1]).normalize();
         }
