@@ -29,13 +29,13 @@ void StateSelectPlane::buildCurrentPlane()
         }
         else if (selectPlaneMode == SELECT_SLOPE)
         {
-            // TODO
+            planeVec = camera->getRay().GetDirection();
+            planeVec.y = 0;
+            planeVec.normalize();
+            planeVec = planeVec.cross(selectedPoints[0] - selectedPoints[1]).normalize();
         }
     }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
-    Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
-                                          Quaternion::Z_NEG_AXIS);
-    camera->rotateCamTo(q);
 }
 void StateSelectPlane::UIEvent(UINode* sender, int event)
 {
@@ -67,12 +67,18 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
     {
         selectPlaneMode = SELECT_VERTICAL_PLANE;
         buildCurrentPlane();
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+                                          Quaternion::Z_NEG_AXIS);
+        camera->rotateCamTo(q);
     }
     if(sender->nodeID == Controller::BTN_ID_SELECT_HORIZONTAL && event == Controller::EVENT_BTN_CLICKED)
     {
         if(selectedPoints.size() == 1) selectPlaneMode = SELECT_HORIZONTAL_PLANE;
         else if(selectedPoints.size() == 2) selectPlaneMode = SELECT_SLOPE;
         buildCurrentPlane();
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+                                          Quaternion::Z_AXIS);
+        camera->rotateCamTo(q);
     }
 }
 
@@ -96,6 +102,9 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
                 selectPlaneMode = SELECT_VERTICAL_PLANE;
             }
             buildCurrentPlane();
+            Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+                                          Quaternion::Z_NEG_AXIS);
+            camera->rotateCamTo(q);
             Controller::currPlane.printStatus();
             
             Vector3 center(0,0,0);
