@@ -68,6 +68,7 @@ public:
     static UI* GUI;
     static UIButton *btnSelectVerticalPlane, *btnSelectHorizontalPlane;
     static UIButton *btnConfirmPlane, *btnCancelPlane;
+    static UIButton *btnDeleteLine, *btnStandardView;
     static UIButton *btnDrawPlaneDone;
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
     static UILabel  *lbFPS;
@@ -76,7 +77,9 @@ public:
     enum {BTN_ID_SELECT_VERTICAL=100, BTN_ID_SELECT_HORIZONTAL,
           BTN_ID_DOC_NEW, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE, 
           BTN_ID_CONFIRM_PLANE, BTN_ID_CANCEL_PLANE,
-          BTN_ID_DRAW_PLANE_DONE, 
+          BTN_ID_DRAW_PLANE_DONE,
+          BTN_ID_DELETE_LINE,
+          BTN_ID_STANDARD_VIEW, 
           LBL_FPS};
     enum {EVENT_BTN_CLICKED=100};
     

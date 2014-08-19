@@ -31,7 +31,7 @@ int Controller::uiHold = 0;
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
 UIButton *Controller::btnDrawPlaneDone = NULL;
-
+UIButton *Controller::btnDeleteLine = NULL, *Controller::btnStandardView = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
 
@@ -102,6 +102,9 @@ void Controller::init()
     GLuint TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, true);
     GLuint TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, true);
 
+    GLuint TextureID_standardView = g2LoadImage("media/textures/button_standard_view.png", &_w, &_h, &_ch, false, true);
+    GLuint TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
+
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
                         TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
@@ -136,6 +139,14 @@ void Controller::init()
     btnDrawPlaneDone = GUI->addButton(BTN_ID_DRAW_PLANE_DONE, centerX, centerY, btnSize, btnSize, 
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
     btnDrawPlaneDone->setVisibility(false);
+
+    centerX = width / 2;
+    centerY = btnSize / 2;
+    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2, centerY, btnSize, btnSize, 
+                                    TextureID_standardView, TextureID_standardView, TextureID_standardView, "", Controller::UIButtonCallback, NULL);
+
+    btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
+                                    TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "", Controller::UIButtonCallback, NULL);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -266,4 +277,9 @@ void Controller::resize(int _width, int _heigth)
 
     centerX = width - btnSize;
     btnDrawPlaneDone->setPos(centerX, centerY);
+
+    centerX = width / 2;
+    centerY = btnSize / 2;
+    btnStandardView->setPos(centerX - btnSize * 1.2, centerY);
+    btnDeleteLine->setPos(centerX + btnSize * 1.2, centerY);
 }
