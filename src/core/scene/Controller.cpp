@@ -88,7 +88,7 @@ void Controller::init()
     
     GUI->resize(originWidth, originHeight);
     
-    int btnSize = 120/2;
+    int btnSize = 80/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
@@ -109,58 +109,58 @@ void Controller::init()
     GLuint TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
-                        TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
+                        TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
-                        TextureID_open, TextureID_open, TextureID_open, "", Controller::UIButtonCallback, NULL);
+                        TextureID_open, TextureID_open, TextureID_open, "Open", Controller::UIButtonCallback, NULL);
     btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
-                        TextureID_save, TextureID_save, TextureID_save, "", Controller::UIButtonCallback, NULL);
+                        TextureID_save, TextureID_save, TextureID_save, "Save", Controller::UIButtonCallback, NULL);
 
     btnSize = 120/2;
     centerX = width / 2 - btnSize/2;
     centerY = height - 2 * btnSize;
 
     btnSelectVerticalPlane = GUI->addButton(BTN_ID_SELECT_VERTICAL, centerX - btnSize*1, centerY, btnSize, btnSize, 
-                                    TextureID_select_vertical, TextureID_select_vertical, TextureID_select_vertical, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_select_vertical, TextureID_select_vertical, TextureID_select_vertical, "Change plane direction", Controller::UIButtonCallback, NULL);
     btnSelectVerticalPlane->setVisibility(false);
 
     btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, centerX + btnSize*1, centerY, btnSize, btnSize, 
-                                    TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "Change plane direction", Controller::UIButtonCallback, NULL);
     btnSelectHorizontalPlane->setVisibility(false);
 
     btnSize = 120/2;
     centerX = 0 + btnSize/2;
     centerY = height - 2 * btnSize;
     btnConfirmPlane = GUI->addButton(BTN_ID_CONFIRM_PLANE, centerX, centerY, btnSize, btnSize, 
-                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "Confirm", Controller::UIButtonCallback, NULL);
     btnConfirmPlane->setVisibility(false);
 
     btnCancelPlane  = GUI->addButton(BTN_ID_CANCEL_PLANE, centerX + btnSize*1.2, centerY, btnSize, btnSize, 
-                                    TextureID_cancel, TextureID_cancel, TextureID_cancel, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_cancel, TextureID_cancel, TextureID_cancel, "Cancel", Controller::UIButtonCallback, NULL);
     btnCancelPlane->setVisibility(false);
 
     centerX = width - btnSize/2;
     btnDrawPlaneDone = GUI->addButton(BTN_ID_DRAW_PLANE_DONE, centerX, centerY, btnSize, btnSize, 
-                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "Done", Controller::UIButtonCallback, NULL);
     btnDrawPlaneDone->setVisibility(false);
 
     btnDeleteLineDone = GUI->addButton(BTN_ID_DELETE_LINE_DONE, centerX, centerY, btnSize, btnSize, 
-                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "Done", Controller::UIButtonCallback, NULL);
     btnDeleteLineDone->setVisibility(false);
 
     centerX = width / 2;
     centerY = btnSize / 2;
     btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2, centerY, btnSize, btnSize, 
-                                    TextureID_standardView, TextureID_standardView, TextureID_standardView, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_standardView, TextureID_standardView, TextureID_standardView, "Standard View", Controller::UIButtonCallback, NULL);
     btnStandardView->setVisibility(false);
 
     btnUndo = GUI->addButton(BTN_ID_UNDO, centerX, centerY, btnSize, btnSize, 
-                                    TextureID_undo, TextureID_undo, TextureID_undo, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_undo, TextureID_undo, TextureID_undo, "Undo", Controller::UIButtonCallback, NULL);
     btnUndo->setVisibility(false);
 
     btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
-                                    TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "", Controller::UIButtonCallback, NULL);
+                                    TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "Delete lines", Controller::UIButtonCallback, NULL);
     btnDeleteLine->setVisibility(false);
-    
+
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
@@ -266,7 +266,7 @@ void Controller::resize(int _width, int _heigth)
 
     GUI->resize(width, height);
 
-    int btnSize = 120/2;
+    int btnSize = 80/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
