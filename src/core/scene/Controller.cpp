@@ -60,9 +60,9 @@ Controller::Controller()
 
 Controller::~Controller()
 {
-    delete sidle;
-    delete sselectPlane;
-    delete sdraw;
+    delete sIdle;
+    delete sSelectPlane;
+    delete sDraw;
     delete sDelLine;
 
     std::cout <<"Controller ~Controller()"<<std::endl;
@@ -80,10 +80,10 @@ void Controller::init()
     {
         State::statePool[i] = NULL;
     }
-    sidle = new StateIdle();
+    sIdle = new StateIdle();
     sDelLine = new StateDeleteLine();
-    sselectPlane = new StateSelectPlane();
-    sdraw = new StateDraw();
+    sSelectPlane = new StateSelectPlane();
+    sDraw = new StateDraw();
     camera = &Camera::getInstance();
     
     GUI->resize(originWidth, originHeight);
@@ -164,7 +164,7 @@ void Controller::init()
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
-    State::enterState(sidle);
+    State::enterState(sIdle);
 
 }
 void Controller::MouseButton(int button, int state, int x, int y)

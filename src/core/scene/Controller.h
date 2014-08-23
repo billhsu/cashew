@@ -59,10 +59,10 @@ public:
     static int uiHold;
 
 
-    StateIdle* sidle;
+    StateIdle* sIdle;
     StateDeleteLine* sDelLine;
-    StateSelectPlane* sselectPlane;
-    StateDraw* sdraw;
+    StateSelectPlane* sSelectPlane;
+    StateDraw* sDraw;
     Camera * camera;
 
     static UI* GUI;

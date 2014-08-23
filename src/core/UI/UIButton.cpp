@@ -8,6 +8,7 @@ billhsu.x@gmail.com
 #include <math.h>
 #include "../math/Vectors.h"
 #include "Utility.h"
+#include "Controller.h"
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
@@ -99,17 +100,6 @@ void UIButton::render(float timeDelta)
     {
         _height = mHeight * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
         _width  = mWidth  * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
-        if(mTimeAccu >= 600)
-        {
-            glBegin(GL_QUADS);
-                //glVertex2f(mPosX + , mPosY + );
-                //glVertex2f(mPosX +  +, mPosY + );
-                //glVertex2f(mPosX +  +, mPosY +  +);
-                //glVertex2f(mPosX + , mPosY +  +);
-            glEnd();
-            glRasterPos2f(mPosX, mPosY);
-            glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)mText);
-        }
     }
 
     glColor4f(mR, mG, mB, _alpha);
@@ -132,6 +122,21 @@ void UIButton::render(float timeDelta)
         glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX + offset_x +_width, mPosY + offset_y +_height);
         glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX + offset_x, mPosY + offset_y +_height);
     glEnd();
-
     if(textureID!=-1) glDisable(GL_TEXTURE_2D);
+
+    if(nodeStatus == NODE_HOVER && mTimeAccu >= 600)
+    {
+        offset_x = 0.0f;
+        offset_y = 0.0f;
+        if(Controller::mouseX>=Controller::width - mWidth - 100) offset_x = - (strlen(mText) * 9);
+        if(Controller::mouseY>=Controller::height - mHeight - 100) offset_y = - (strlen(mText) * 15);
+        glBegin(GL_QUADS);
+            //glVertex2f(mPosX + , mPosY + );
+            //glVertex2f(mPosX +  +, mPosY + );
+            //glVertex2f(mPosX +  +, mPosY +  +);
+            //glVertex2f(mPosX + , mPosY +  +);
+        glEnd();
+        glRasterPos2f(Controller::mouseX + offset_x, Controller::mouseY + offset_y);
+        glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)mText);
+    }
 }
