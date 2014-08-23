@@ -6,6 +6,9 @@ billhsu.x@gmail.com
 #include <iostream>
 #include "UI.h"
 
+char UI::uiHintText[128];
+int UI::hintTextPosX, UI::hintTextPosY;
+
 UI::UI()
 {
     mRootNode = new UINode(NULL);
@@ -111,20 +114,21 @@ UINode* UI::PassiveMotion(int x, int y)
 
 void UI::render(float timeDelta)
 {
-    glMatrixMode( GL_PROJECTION ) ;
-    glPushMatrix() ; // save
+    strcpy(uiHintText, "");
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix(); // save
     glLoadIdentity();// and clear
 
     glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
-    glMatrixMode( GL_MODELVIEW ) ;
-    glPushMatrix() ;
-    glLoadIdentity() ;
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
 
     glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
     glTranslatef(0.0f, (float)-mWindowHeight, 0.0f); 
 
     glDisable(GL_LIGHTING);
-    glDisable( GL_DEPTH_TEST ) ; // also disable the depth test so renders on top
+    glDisable(GL_DEPTH_TEST); // also disable the depth test so renders on top
 
     glEnable(GL_BLEND);
     glDepthMask(GL_FALSE);
@@ -132,13 +136,27 @@ void UI::render(float timeDelta)
 
     mRootNode->_render(timeDelta);
 
+    if(strcmp(uiHintText,"") != 0)
+    {
+        glColor4f(1, 1, 1, 0.7);
+        glBegin(GL_QUADS);
+            glVertex2f(hintTextPosX - 3, hintTextPosY - 15);
+            glVertex2f(hintTextPosX + 3 + strlen(uiHintText) * 9, hintTextPosY - 15);
+            glVertex2f(hintTextPosX + 3 + strlen(uiHintText) * 9, hintTextPosY + 2);
+            glVertex2f(hintTextPosX - 3, hintTextPosY + 2);
+        glEnd();
+        glColor4f(0.5, 0.5, 0.5, 1);
+        glRasterPos2f(hintTextPosX, hintTextPosY);
+        glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)uiHintText);
+    }
+
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
 
-    glEnable( GL_DEPTH_TEST ) ; // Turn depth testing back on
+    glEnable(GL_DEPTH_TEST) ; // Turn depth testing back on
 
-    glMatrixMode( GL_PROJECTION ) ;
+    glMatrixMode(GL_PROJECTION) ;
     glPopMatrix(); // revert back to the matrix I had before.
-    glMatrixMode( GL_MODELVIEW ) ;
+    glMatrixMode(GL_MODELVIEW) ;
     glPopMatrix();
 }

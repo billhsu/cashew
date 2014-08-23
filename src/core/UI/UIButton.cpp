@@ -2,6 +2,7 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
+#include "UI.h"
 #include "UIButton.h"
 #include <iostream>
 #include <GL/freeglut.h>
@@ -129,14 +130,9 @@ void UIButton::render(float timeDelta)
         offset_x = 0.0f;
         offset_y = 0.0f;
         if(Controller::mouseX>=Controller::width - mWidth - 100) offset_x = - (strlen(mText) * 9);
-        if(Controller::mouseY>=Controller::height - mHeight - 100) offset_y = - (strlen(mText) * 15);
-        glBegin(GL_QUADS);
-            //glVertex2f(mPosX + , mPosY + );
-            //glVertex2f(mPosX +  +, mPosY + );
-            //glVertex2f(mPosX +  +, mPosY +  +);
-            //glVertex2f(mPosX + , mPosY +  +);
-        glEnd();
-        glRasterPos2f(Controller::mouseX + offset_x, Controller::mouseY + offset_y);
-        glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)mText);
+        if(Controller::mouseY>=Controller::height - mHeight - 100) offset_y = - 15;
+        strcpy(UI::uiHintText, mText);
+        UI::hintTextPosX = Controller::mouseX + offset_x;
+        UI::hintTextPosY = Controller::mouseY + offset_y;
     }
 }

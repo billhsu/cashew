@@ -58,7 +58,6 @@ public:
 
     static int uiHold;
 
-
     StateIdle* sIdle;
     StateDeleteLine* sDelLine;
     StateSelectPlane* sSelectPlane;

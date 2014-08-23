@@ -253,8 +253,7 @@ void Controller::render(float timeDelta)
     }
 
     GUI->render(timeDelta);
-
-
+    
     glutPostRedisplay();
     glutSwapBuffers();
 }

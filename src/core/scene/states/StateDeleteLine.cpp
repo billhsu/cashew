@@ -24,7 +24,6 @@ void StateDeleteLine::MouseButton(int button, int state, int x, int y)
             {
                 Controller::sketchLines.erase(Controller::sketchLines.begin()+bCurLine);
                 bCurLine = -1;
-                enterState(stateIdle);
             }
         }
         if(button==GLUT_RIGHT_BUTTON)

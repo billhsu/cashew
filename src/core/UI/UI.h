@@ -40,6 +40,9 @@ public:
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);
 
+    static char uiHintText[128];
+    static int hintTextPosX, hintTextPosY;
+
     void render(float timeDelta);
 private:
     UI();
