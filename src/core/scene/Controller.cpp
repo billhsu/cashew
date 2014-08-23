@@ -31,6 +31,7 @@ int Controller::uiHold = 0;
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
 UIButton *Controller::btnDrawPlaneDone = NULL;
+UIButton *Controller::btnUndo = NULL;
 UIButton *Controller::btnDeleteLine = NULL, *Controller::btnStandardView = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
@@ -104,6 +105,7 @@ void Controller::init()
 
     GLuint TextureID_standardView = g2LoadImage("media/textures/button_standard_view.png", &_w, &_h, &_ch, false, true);
     GLuint TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
+    GLuint TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
                         TextureID_new, TextureID_new, TextureID_new, "", Controller::UIButtonCallback, NULL);
@@ -144,6 +146,8 @@ void Controller::init()
     centerY = btnSize / 2;
     btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2, centerY, btnSize, btnSize, 
                                     TextureID_standardView, TextureID_standardView, TextureID_standardView, "", Controller::UIButtonCallback, NULL);
+    btnUndo = GUI->addButton(BTN_ID_UNDO, centerX, centerY, btnSize, btnSize, 
+                                    TextureID_undo, TextureID_undo, TextureID_undo, "", Controller::UIButtonCallback, NULL);
 
     btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
                                     TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "", Controller::UIButtonCallback, NULL);
@@ -278,8 +282,9 @@ void Controller::resize(int _width, int _heigth)
     centerX = width - btnSize;
     btnDrawPlaneDone->setPos(centerX, centerY);
 
-    centerX = width / 2;
+    centerX = width / 2 - btnSize / 2;
     centerY = btnSize / 2;
     btnStandardView->setPos(centerX - btnSize * 1.2, centerY);
+    btnUndo->setPos(centerX - btnSize * 0, centerY);
     btnDeleteLine->setPos(centerX + btnSize * 1.2, centerY);
 }
