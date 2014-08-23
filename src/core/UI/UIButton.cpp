@@ -99,8 +99,21 @@ void UIButton::render(float timeDelta)
     {
         _height = mHeight * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
         _width  = mWidth  * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
+        if(mTimeAccu >= 600)
+        {
+            glBegin(GL_QUADS);
+                //glVertex2f(mPosX + , mPosY + );
+                //glVertex2f(mPosX +  +, mPosY + );
+                //glVertex2f(mPosX +  +, mPosY +  +);
+                //glVertex2f(mPosX + , mPosY +  +);
+            glEnd();
+            glRasterPos2f(mPosX, mPosY);
+            glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)mText);
+        }
     }
+
     glColor4f(mR, mG, mB, _alpha);
+
     GLuint textureID = -1;
     if(nodeStatus == UINode::NODE_IDLE) textureID = textureID_idle;
     else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
