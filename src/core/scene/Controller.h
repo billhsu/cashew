@@ -71,6 +71,7 @@ public:
     static UIButton *btnDeleteLine, *btnStandardView;
     static UIButton *btnUndo;
     static UIButton *btnDrawPlaneDone;
+    static UIButton *btnDeleteLineDone;
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
@@ -80,6 +81,7 @@ public:
           BTN_ID_CONFIRM_PLANE, BTN_ID_CANCEL_PLANE,
           BTN_ID_DRAW_PLANE_DONE,
           BTN_ID_DELETE_LINE,
+          BTN_ID_DELETE_LINE_DONE,
           BTN_ID_STANDARD_VIEW,
           BTN_ID_UNDO,
           LBL_FPS};

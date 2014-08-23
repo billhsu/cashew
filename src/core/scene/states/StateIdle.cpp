@@ -2,11 +2,28 @@
 #include "Controller.h"
 #include "Camera.h"
 #include "UINode.h"
+#include "UIButton.h"
 
 // State Idle
 void StateIdle::UIEvent(UINode* sender, int event)
 {
-    std::cout<<sender->nodeID<<" "<<event<<std::endl;
+    if(sender->nodeID == Controller::BTN_ID_STANDARD_VIEW && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
+        camera->setCamCenter(Vector3(0,0,0));
+        camera->rotateCamTo(q);
+    }
+    if(sender->nodeID == Controller::BTN_ID_DELETE_LINE && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Controller::btnDeleteLine->appearOut();
+        Controller::btnStandardView->appearOut();
+        Controller::btnUndo->appearOut();
+        enterState(State::statePool[CTRL_DEL_LINE]);
+    }
+    if(sender->nodeID == Controller::BTN_ID_UNDO && event == Controller::EVENT_BTN_CLICKED)
+    {
+        // TODO: implement undo
+    }
 }
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {    
@@ -66,16 +83,14 @@ void StateIdle::MouseMotion(int x, int y)
     }
 }
 
+void StateIdle::prepareState()
+{
+    Controller::btnDeleteLine->appearIn();
+    Controller::btnStandardView->appearIn();
+    Controller::btnUndo->appearIn();
+}
+
 void StateIdle::Keyboard(unsigned char key, int x, int y)
 {
-    if(key == 'b')
-    {
-        Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
-        camera->setCamCenter(Vector3(0,0,0));
-        camera->rotateCamTo(q);
-    }
-    if(key == 'd')
-    {
-        enterState(State::statePool[CTRL_DEL_LINE]);
-    }
+
 }

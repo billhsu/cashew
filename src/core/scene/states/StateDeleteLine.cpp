@@ -2,9 +2,17 @@
 #include "Controller.h"
 #include "Camera.h"
 #include "UINode.h"
+#include "UIButton.h"
 
 // State Delete Line
-
+void StateDeleteLine::UIEvent(UINode* sender, int event)
+{
+    if(sender->nodeID == Controller::BTN_ID_DELETE_LINE_DONE && event == Controller::EVENT_BTN_CLICKED)
+    {
+        Controller::btnDeleteLineDone->appearOut();
+        enterState(State::statePool[CTRL_IDLE]);
+    }
+}
 void StateDeleteLine::MouseButton(int button, int state, int x, int y)
 {    
     if(state==GLUT_DOWN)
@@ -88,3 +96,7 @@ void StateDeleteLine::render(float timeDelta)
     }
 }
 
+void StateDeleteLine::prepareState()
+{
+    Controller::btnDeleteLineDone->appearIn();
+}

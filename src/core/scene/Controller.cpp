@@ -35,6 +35,7 @@ UIButton *Controller::btnUndo = NULL;
 UIButton *Controller::btnDeleteLine = NULL, *Controller::btnStandardView = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
+UIButton *Controller::btnDeleteLineDone = NULL;
 
 UILabel  *Controller::lbFPS = NULL;
 
@@ -142,16 +143,24 @@ void Controller::init()
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
     btnDrawPlaneDone->setVisibility(false);
 
+    btnDeleteLineDone = GUI->addButton(BTN_ID_DELETE_LINE_DONE, centerX, centerY, btnSize, btnSize, 
+                                    TextureID_confirm, TextureID_confirm, TextureID_confirm, "", Controller::UIButtonCallback, NULL);
+    btnDeleteLineDone->setVisibility(false);
+
     centerX = width / 2;
     centerY = btnSize / 2;
     btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2, centerY, btnSize, btnSize, 
                                     TextureID_standardView, TextureID_standardView, TextureID_standardView, "", Controller::UIButtonCallback, NULL);
+    btnStandardView->setVisibility(false);
+
     btnUndo = GUI->addButton(BTN_ID_UNDO, centerX, centerY, btnSize, btnSize, 
                                     TextureID_undo, TextureID_undo, TextureID_undo, "", Controller::UIButtonCallback, NULL);
+    btnUndo->setVisibility(false);
 
     btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
                                     TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "", Controller::UIButtonCallback, NULL);
-
+    btnDeleteLine->setVisibility(false);
+    
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
 
@@ -281,6 +290,7 @@ void Controller::resize(int _width, int _heigth)
 
     centerX = width - btnSize;
     btnDrawPlaneDone->setPos(centerX, centerY);
+    btnDeleteLineDone->setPos(centerX, centerY);
 
     centerX = width / 2 - btnSize / 2;
     centerY = btnSize / 2;

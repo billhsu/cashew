@@ -14,7 +14,8 @@ public:
     void MouseMotion(int x, int y);
     void PassiveMotion(int x, int y);
     void Keyboard(unsigned char key, int x, int y);
-
+    void prepareState();
+    void UIEvent(UINode* sender, int event);
     void render(float timeDelta);
     State* stateIdle;
     int bCurLine;

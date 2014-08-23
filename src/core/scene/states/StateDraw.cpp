@@ -7,7 +7,6 @@
 // State Draw
 void StateDraw::UIEvent(UINode* sender, int event)
 {
-    std::cout<<sender->nodeID<<" "<<event<<std::endl;
     if(sender->nodeID == Controller::BTN_ID_DRAW_PLANE_DONE && event == Controller::EVENT_BTN_CLICKED)
     {
         Controller::btnDrawPlaneDone->appearOut();

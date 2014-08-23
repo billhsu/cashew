@@ -13,4 +13,5 @@ public:
     void MouseMotion(int x, int y);
     void Keyboard(unsigned char key, int x, int y);
     void UIEvent(UINode* sender, int event);
+    void prepareState();
 };
