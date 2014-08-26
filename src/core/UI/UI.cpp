@@ -138,7 +138,7 @@ void UI::render(float timeDelta)
 
     if(strcmp(uiHintText,"") != 0)
     {
-        glColor4f(1, 1, 1, 0.7);
+        glColor4f(1, 1, 1, 0.9);
         glBegin(GL_QUADS);
             glVertex2f(hintTextPosX - 3, hintTextPosY - 15);
             glVertex2f(hintTextPosX + 3 + strlen(uiHintText) * 9, hintTextPosY - 15);
