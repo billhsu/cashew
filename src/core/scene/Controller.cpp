@@ -71,7 +71,11 @@ Controller::~Controller()
 void Controller::UIButtonCallback(UINode* sender)
 {
     std::cout<<"UIButtonCallback"<<std::endl;
-    State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
+    if(sender->nodeID == BTN_ID_DOC_NEW)
+    {
+        sketchLines.clear();
+    }
+    else State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
 
 void Controller::init()
