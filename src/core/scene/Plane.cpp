@@ -4,7 +4,7 @@
 void Plane::buildPlane(Vector3 v1, Plane& plane, Vector3 normal)
 {
     plane.N = normal;
-    plane.D = v1.y;
+    plane.D = v1.dot(normal.normalize());
 }
 
 void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane, Vector3 direction)

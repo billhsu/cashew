@@ -128,11 +128,6 @@ void StateDraw::render(float timeDelta)
         glEnd();
     }
     
-
-    Vector3 center(0,0,0);
-    for(int i=0;i<selectedPoints.size();++i)
-        center += selectedPoints[i];
-    center /= selectedPoints.size();
     glPointSize(8);
     glBegin(GL_POINTS);
     glColor3f(0,1,0);
