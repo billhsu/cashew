@@ -72,6 +72,7 @@ public:
     static UIButton *btnDrawPlaneDone;
     static UIButton *btnDeleteLineDone;
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
+    static UIButton *btnMirror;
     static UILabel  *lbFPS;
     static UIRadioButton *rbtnSelect;
 
@@ -83,6 +84,7 @@ public:
           BTN_ID_DELETE_LINE_DONE,
           BTN_ID_STANDARD_VIEW,
           BTN_ID_UNDO,
+          BTN_ID_MIRROR,
           LBL_FPS};
     enum {EVENT_BTN_CLICKED=100};
     

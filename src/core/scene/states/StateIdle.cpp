@@ -18,6 +18,7 @@ void StateIdle::UIEvent(UINode* sender, int event)
         Controller::btnDeleteLine->appearOut();
         Controller::btnStandardView->appearOut();
         Controller::btnUndo->appearOut();
+        Controller::btnMirror->appearOut();
         enterState(State::statePool[CTRL_DEL_LINE]);
     }
     if(sender->nodeID == Controller::BTN_ID_UNDO && event == Controller::EVENT_BTN_CLICKED)
@@ -88,6 +89,7 @@ void StateIdle::prepareState()
     Controller::btnDeleteLine->appearIn();
     Controller::btnStandardView->appearIn();
     Controller::btnUndo->appearIn();
+    Controller::btnMirror->appearIn();
 }
 
 void StateIdle::Keyboard(unsigned char key, int x, int y)

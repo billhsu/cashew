@@ -36,6 +36,7 @@ UIButton *Controller::btnDeleteLine = NULL, *Controller::btnStandardView = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL;
 UIButton *Controller::btnDeleteLineDone = NULL;
+UIButton *Controller::btnMirror = NULL;
 
 UILabel  *Controller::lbFPS = NULL;
 
@@ -112,6 +113,8 @@ void Controller::init()
     GLuint TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
     GLuint TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
 
+    GLuint TextureID_mirror       = g2LoadImage("media/textures/button_mirror.png"         , &_w, &_h, &_ch, false, true);
+
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, width - btnSize*1, centerY - btnSize*1.2, btnSize, btnSize, 
                         TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
@@ -153,17 +156,21 @@ void Controller::init()
 
     centerX = width / 2;
     centerY = btnSize / 2;
-    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2, centerY, btnSize, btnSize, 
+    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2 * 2, centerY, btnSize, btnSize, 
                                     TextureID_standardView, TextureID_standardView, TextureID_standardView, "Standard View", Controller::UIButtonCallback, NULL);
     btnStandardView->setVisibility(false);
 
-    btnUndo = GUI->addButton(BTN_ID_UNDO, centerX, centerY, btnSize, btnSize, 
+    btnUndo = GUI->addButton(BTN_ID_UNDO, centerX - btnSize, centerY, btnSize, btnSize, 
                                     TextureID_undo, TextureID_undo, TextureID_undo, "Undo", Controller::UIButtonCallback, NULL);
     btnUndo->setVisibility(false);
 
-    btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
+    btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 0, centerY, btnSize, btnSize, 
                                     TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "Delete lines", Controller::UIButtonCallback, NULL);
     btnDeleteLine->setVisibility(false);
+
+    btnMirror   = GUI->addButton(BTN_ID_MIRROR, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
+                                    TextureID_mirror, TextureID_mirror, TextureID_mirror, "Mirror Mode", Controller::UIButtonCallback, NULL);
+    btnMirror->setVisibility(false);
 
     lbFPS = GUI->addLabel(LBL_FPS, 0, 20, 20, 40, "");
     lbFPS->setColor(0.5f,0.5f,0.5f,0.9f);
@@ -295,9 +302,10 @@ void Controller::resize(int _width, int _heigth)
     btnDrawPlaneDone->setPos(centerX, centerY);
     btnDeleteLineDone->setPos(centerX, centerY);
 
-    centerX = width / 2 - btnSize / 2;
+    centerX = width / 2;
     centerY = btnSize / 2;
-    btnStandardView->setPos(centerX - btnSize * 1.2, centerY);
-    btnUndo->setPos(centerX - btnSize * 0, centerY);
-    btnDeleteLine->setPos(centerX + btnSize * 1.2, centerY);
+    btnStandardView->setPos(centerX - btnSize * 1.2 * 2, centerY);
+    btnUndo->setPos(centerX - btnSize * 1.2, centerY);
+    btnDeleteLine->setPos(centerX + btnSize * 0, centerY);
+    btnMirror->setPos(centerX + btnSize * 1.2, centerY);
 }
