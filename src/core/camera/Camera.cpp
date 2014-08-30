@@ -78,10 +78,7 @@ void Camera::update(float timeDelta)
         }
         
     }
-
-    
-
-    
+ 
     drawFPS(timeDelta);
 }
 
