@@ -21,6 +21,7 @@ class UINode;
 class UIButton;
 class UILabel;
 class UIRadioButton;
+class lua_State;
 
 class Controller
 {
@@ -90,7 +91,7 @@ public:
     
     static bool enableLight;
     static Vector3 rotate;
-
+    static lua_State *luaState;
 private:
     Controller();
     ~Controller();

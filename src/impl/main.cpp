@@ -4,11 +4,6 @@ billhsu.x@gmail.com
 */
 #include <stdio.h>
 #include <GL/glut.h>
-extern "C" {
-#include <lua.h>
-#include <lualib.h>
-#include <lauxlib.h>
-}
 #include "../core/scene/Ray.h"
 #include "../core/scene/Plane.h"
 #include "../core/scene/Scene.h"

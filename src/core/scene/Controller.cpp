@@ -13,6 +13,12 @@ billhsu.x@gmail.com
 #include "UI.h"
 #include "g2Images.h"
 
+extern "C" {
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+}
+
 State* State::currState;
 
 int Controller::width = 800;
@@ -54,6 +60,8 @@ Vector3 Controller::rotate = Vector3(-30,0,0);
 
 UI* Controller::GUI = &UI::getInstance();
 
+lua_State *Controller::luaState = NULL;
+
 Controller::Controller()
 {
     std::cout <<"Controller Controller()"<<std::endl;
@@ -65,7 +73,7 @@ Controller::~Controller()
     delete sSelectPlane;
     delete sDraw;
     delete sDelLine;
-
+    delete luaState;
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
@@ -81,6 +89,16 @@ void Controller::UIButtonCallback(UINode* sender)
 
 void Controller::init()
 {
+    luaState = luaL_newstate();
+    luaL_openlibs( luaState );
+
+    // Load the program
+    if( luaL_loadfile(luaState, "UILayout.lua") != 0 )
+    {
+        std::cerr << "failed to load lua file" << std::endl;
+        return;
+    }
+
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {
         State::statePool[i] = NULL;
