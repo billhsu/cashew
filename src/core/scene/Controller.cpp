@@ -12,6 +12,7 @@ billhsu.x@gmail.com
 #include "Scene.h"
 #include "UI.h"
 #include "g2Images.h"
+#include "luatables.h"
 
 extern "C" {
 #include <lua.h>
@@ -98,6 +99,8 @@ void Controller::init()
         std::cerr << "failed to load lua file" << std::endl;
         return;
     }
+    // TODO
+    // UILayout = LuaTable::fromLuaState(luaState);
 
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {

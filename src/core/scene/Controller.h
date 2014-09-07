@@ -22,6 +22,7 @@ class UIButton;
 class UILabel;
 class UIRadioButton;
 class lua_State;
+class LuaTable;
 
 class Controller
 {
@@ -97,4 +98,5 @@ private:
     ~Controller();
     Controller(Controller const&);
     void operator=(Controller const&);
+    LuaTable *UILayout;
 };
