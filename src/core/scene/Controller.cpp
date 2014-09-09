@@ -74,7 +74,7 @@ Controller::~Controller()
     delete sSelectPlane;
     delete sDraw;
     delete sDelLine;
-    delete luaState;
+    lua_close(luaState);
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
 
@@ -94,13 +94,8 @@ void Controller::init()
     luaL_openlibs( luaState );
 
     // Load the program
-    if( luaL_loadfile(luaState, "UILayout.lua") != 0 )
-    {
-        std::cerr << "failed to load lua file" << std::endl;
-        return;
-    }
-    // TODO
-    // UILayout = LuaTable::fromLuaState(luaState);
+    UILayout = LuaTable::fromFile("UILayout.lua");
+    std::cout<<"UILayout "<<(*UILayout)["person"]["name"].get<std::string> ()<<std::endl;
 
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {

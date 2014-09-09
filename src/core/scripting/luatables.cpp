@@ -691,20 +691,20 @@ LuaTable& LuaTable::operator= (const LuaTable &luatable) {
 	return *this;
 }
 
-LuaTable LuaTable::fromFile (const char* _filename) {
-	LuaTable result;
-	
-	result.filename = _filename;
-	result.L = luaL_newstate();
-	result.deleteLuaState = true;
-	luaL_openlibs(result.L);
+LuaTable* LuaTable::fromFile (const char* _filename) {
+	LuaTable* result;
+	result = new LuaTable();
+	result->filename = _filename;
+	result->L = luaL_newstate();
+	result->deleteLuaState = true;
+	luaL_openlibs(result->L);
 
 	// Add the directory of _filename to package.path
-	result.addSearchPath(get_file_directory (_filename).c_str());
+	result->addSearchPath(get_file_directory (_filename).c_str());
 
 	// run the file we 
-	if (luaL_dofile (result.L, _filename)) {
-		bail (result.L, "Error running file: ");
+	if (luaL_dofile (result->L, _filename)) {
+		bail (result->L, "Error running file: ");
 	}
 
 	return result;
