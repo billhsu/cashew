@@ -572,6 +572,18 @@ template<> bool LuaTableNode::getDefault<bool>(const bool &default_value) {
 	return result;
 }
 
+template<> int LuaTableNode::getDefault<int>(const int &default_value) {
+	int result = default_value;
+
+	if (stackQueryValue()) {
+		result = static_cast<int>(lua_tonumber (luaTable->L, -1));
+	}
+
+	stackRestore();
+
+	return result;
+}
+
 template<> float LuaTableNode::getDefault<float>(const float &default_value) {
 	float result = default_value;
 
