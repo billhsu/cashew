@@ -208,8 +208,8 @@ struct LuaTable {
 	std::string orderedSerialize ();
 
 	static LuaTable* fromFile (const char *_filename);
-	static LuaTable fromLuaExpression (const char* lua_expr);
-	static LuaTable fromLuaState (lua_State *L);
+	static LuaTable* fromLuaExpression (const char* lua_expr);
+	static LuaTable* fromLuaState (lua_State *L);
 
 	std::string filename;
 	lua_State *L;

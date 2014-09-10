@@ -456,7 +456,7 @@ LuaTable LuaTableNode::stackQueryTable() {
 		abort();
 	}
 
-	return LuaTable::fromLuaState (L);
+	return *LuaTable::fromLuaState (L);
 }
 
 LuaTable LuaTableNode::stackCreateLuaTable() {
@@ -474,7 +474,7 @@ LuaTable LuaTableNode::stackCreateLuaTable() {
 	lua_pushvalue(luaTable->L, -2); // parent, CustomTable, key, CustomTable
 	lua_settable(luaTable->L, -4);
 
-	return LuaTable::fromLuaState (L);
+	return *LuaTable::fromLuaState (L);
 }
 
 void LuaTableNode::stackPushKey() {
@@ -710,29 +710,29 @@ LuaTable* LuaTable::fromFile (const char* _filename) {
 	return result;
 }
 
-LuaTable LuaTable::fromLuaExpression (const char* lua_expr) {
-	LuaTable result;
+LuaTable* LuaTable::fromLuaExpression (const char* lua_expr) {
+	LuaTable* result;
 	
-	result.L = luaL_newstate();
-	result.deleteLuaState = true;
-	luaL_openlibs(result.L);
+	result->L = luaL_newstate();
+	result->deleteLuaState = true;
+	luaL_openlibs(result->L);
 
-	if (luaL_loadstring (result.L, lua_expr)) {
-		bail (result.L, "Error compiling expression!");
+	if (luaL_loadstring (result->L, lua_expr)) {
+		bail (result->L, "Error compiling expression!");
 	}
 
-	if (lua_pcall (result.L, 0, LUA_MULTRET, 0)) {
-		bail (result.L, "Error running expression!");
+	if (lua_pcall (result->L, 0, LUA_MULTRET, 0)) {
+		bail (result->L, "Error running expression!");
 	}
 
 	return result;
 }
 
-LuaTable LuaTable::fromLuaState (lua_State* L) {
-	LuaTable result;
+LuaTable* LuaTable::fromLuaState (lua_State* L) {
+	LuaTable* result;
 	
-	result.L = L;
-	result.deleteLuaState = false;
+	result->L = L;
+	result->deleteLuaState = false;
 
 	return result;
 }
