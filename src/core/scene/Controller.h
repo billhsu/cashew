@@ -99,4 +99,5 @@ private:
     Controller(Controller const&);
     void operator=(Controller const&);
     LuaTable *UILayout;
+    int getNodePosX(const char *nodeName);
 };

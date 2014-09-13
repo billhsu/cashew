@@ -13,12 +13,7 @@ billhsu.x@gmail.com
 #include "UI.h"
 #include "g2Images.h"
 #include "luatables.h"
-
-extern "C" {
-#include <lua.h>
-#include <lualib.h>
-#include <lauxlib.h>
-}
+#include "luaUtility.h"
 
 State* State::currState;
 
@@ -88,13 +83,16 @@ void Controller::UIButtonCallback(UINode* sender)
     else State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
 
-void lua_evaluate_expression(lua_State *L, const char *expr) {
- lua_pushfstring(L, "return %s", expr);
- luaL_loadstring(L, lua_tostring(L,-1));
- lua_remove(L,-2);
- lua_pcall(L,0,1,0);
+int Controller::getNodePosX(const char *nodeName)
+{
+    std::cout<<nodeName<<std::endl;
+    std::string stringValue = (*UILayout)[nodeName]["pos"]["x"].get<std::string> ();
+    std::cout<<"stringValue "<<stringValue<<std::endl;
+    lua_evaluate_expression(UILayout->L, stringValue.c_str());
+    int result = lua_tonumber(UILayout->L, -1);
+    lua_pop(UILayout->L, 1);
+    return result;
 }
-
 void Controller::init()
 {
     luaState = luaL_newstate();
@@ -102,14 +100,10 @@ void Controller::init()
 
     // Load the program
     UILayout = LuaTable::fromFile("UILayout.lua");
-    std::string tmp1 = (*UILayout)["btnDocNew"]["pos"]["x"].get<std::string> ();
-    std::cout<<(*UILayout)["window_width"].get<int> ()<<" UILayout "<<tmp1<<std::endl;
-    lua_evaluate_expression(UILayout->L, tmp1.c_str());
-    std::cout<<lua_tonumber(UILayout->L, -1)<<std::endl;
+    std::cout<<getNodePosX("btnDocNew")<<std::endl;
     lua_pushnumber(UILayout->L, 801);
     lua_setglobal(UILayout->L, "window_width");
-    lua_evaluate_expression(UILayout->L, tmp1.c_str());
-    std::cout<<lua_tonumber(UILayout->L, -1)<<std::endl;
+    std::cout<<getNodePosX("btnDocNew")<<std::endl;
 
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {
