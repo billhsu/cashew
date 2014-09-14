@@ -78,6 +78,8 @@ public:
 
     int nodeID;
 
+    char strID[128];
+
 protected:
     float mR, mG, mB, mAlpha;
     int mPosX, mPosY;

@@ -53,9 +53,11 @@ UIButton* UI::addButton(int id, const char* strID,
     int y = Controller::getNodePosY(strID);
     int width  = Controller::getNodeWidth (strID);
     int height = Controller::getNodeHeight(strID);
-    return addButton(id, x, y, width, height, 
-            textureID_idle, textureID_hover, textureID_press,  
-            text, callback, parent);
+    UIButton* button = addButton(id, x, y, width, height, 
+                        textureID_idle, textureID_hover, textureID_press,  
+                        text, callback, parent);
+    strcpy(button->strID, strID);
+    return button;
 }
 UIRadioButton* UI::addRadioButton(int id, int x, int y, int width, int height)
 {

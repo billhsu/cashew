@@ -24,6 +24,7 @@ public:
 
     void resize(int width, int height)
     {
+        // TODO
         mWindowWidth = width;
         mWindowHeight = height;
     }
