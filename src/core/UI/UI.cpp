@@ -5,6 +5,7 @@ billhsu.x@gmail.com
 #include <GL/freeglut.h>
 #include <iostream>
 #include "UI.h"
+#include "Controller.h"
 
 char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;
@@ -42,6 +43,19 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
     button->setSize(width, height);
     button->setCallback(callback);
     return button;
+}
+
+UIButton* UI::addButton(int id, const char* strID, 
+            GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
+            const char* text, void (*callback)(UINode* Sender), UINode* parent)
+{
+    int x = Controller::getNodePosX(strID);
+    int y = Controller::getNodePosY(strID);
+    int width  = Controller::getNodeWidth (strID);
+    int height = Controller::getNodeHeight(strID);
+    return addButton(id, x, y, width, height, 
+            textureID_idle, textureID_hover, textureID_press,  
+            text, callback, parent);
 }
 UIRadioButton* UI::addRadioButton(int id, int x, int y, int width, int height)
 {
