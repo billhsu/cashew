@@ -6,6 +6,8 @@ billhsu.x@gmail.com
 #include <iostream>
 #include "UI.h"
 #include "Controller.h"
+#include "luaUtility.h"
+#include "luatables.h"
 
 char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;
@@ -13,6 +15,7 @@ int UI::hintTextPosX, UI::hintTextPosY;
 UI::UI()
 {
     mRootNode = new UINode(NULL);
+    UILayout = LuaTable::fromFile("UILayout.lua");
     std::cout <<"UI()"<<std::endl;
 }
 
@@ -21,18 +24,57 @@ UI::~UI()
     delete mRootNode;
     std::cout <<"~UI()"<<std::endl;
 }
+int UI::luaGetNodePosX(const char *nodeName)
+{
+    std::string stringValue = (*UILayout)[nodeName]["pos"]["x"].get<std::string> ();
+    lua_evaluate_expression(UILayout->L, stringValue.c_str());
+    int result = lua_tonumber(UILayout->L, -1);
+    lua_pop(UILayout->L, 1);
+    return result;
+}
+
+int UI::luaGetNodePosY(const char *nodeName)
+{
+    std::string stringValue = (*UILayout)[nodeName]["pos"]["y"].get<std::string> ();
+    lua_evaluate_expression(UILayout->L, stringValue.c_str());
+    int result = lua_tonumber(UILayout->L, -1);
+    lua_pop(UILayout->L, 1);
+    return result;
+}
+
+int UI::luaGetNodeWidth(const char *nodeName)
+{
+    std::string stringValue = (*UILayout)[nodeName]["size"]["width"].get<std::string> ();
+    lua_evaluate_expression(UILayout->L, stringValue.c_str());
+    int result = lua_tonumber(UILayout->L, -1);
+    lua_pop(UILayout->L, 1);
+    return result;
+}
+
+int UI::luaGetNodeHeight(const char *nodeName)
+{
+    std::string stringValue = (*UILayout)[nodeName]["size"]["height"].get<std::string> ();
+    lua_evaluate_expression(UILayout->L, stringValue.c_str());
+    int result = lua_tonumber(UILayout->L, -1);
+    lua_pop(UILayout->L, 1);
+    return result;
+}
 
 void UI::resize(int width, int height)
 {
     mWindowWidth = width;
     mWindowHeight = height;
+    lua_pushnumber(UILayout->L, width);
+    lua_setglobal(UILayout->L, "window_width");
+    lua_pushnumber(UILayout->L, height);
+    lua_setglobal(UILayout->L, "window_height");
     for(int i=0; i<nodeList.size(); ++i)
     {
         if(strcmp(nodeList[i]->strID,"")==0) continue;
-        nodeList[i]->setPos(Controller::getNodePosX(nodeList[i]->strID), 
-            Controller::getNodePosY(nodeList[i]->strID));
-        nodeList[i]->setSize(Controller::getNodeWidth(nodeList[i]->strID), 
-            Controller::getNodeHeight(nodeList[i]->strID));
+        nodeList[i]->setPos(luaGetNodePosX(nodeList[i]->strID), 
+            luaGetNodePosY(nodeList[i]->strID));
+        nodeList[i]->setSize(luaGetNodeWidth(nodeList[i]->strID), 
+            luaGetNodeHeight(nodeList[i]->strID));
     }
 }
 
@@ -64,10 +106,10 @@ UIButton* UI::addButton(int id, const char* strID,
             GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
             const char* text, void (*callback)(UINode* Sender), UINode* parent)
 {
-    int x = Controller::getNodePosX(strID);
-    int y = Controller::getNodePosY(strID);
-    int width  = Controller::getNodeWidth (strID);
-    int height = Controller::getNodeHeight(strID);
+    int x = luaGetNodePosX(strID);
+    int y = luaGetNodePosY(strID);
+    int width  = luaGetNodeWidth (strID);
+    int height = luaGetNodeHeight(strID);
     UIButton* button = addButton(id, x, y, width, height, 
                         textureID_idle, textureID_hover, textureID_press,  
                         text, callback, parent);

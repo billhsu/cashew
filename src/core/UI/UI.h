@@ -13,6 +13,8 @@ Thanks to GLUI2
 #include "UILabel.h"
 #include <vector>
 
+class LuaTable;
+
 class UI
 {
 public:
@@ -51,4 +53,10 @@ private:
     int mWindowWidth, mWindowHeight;
     std::vector <UINode*> nodeList;
     UINode* mRootNode;
+    int luaGetNodePosX(const char *nodeName);
+    int luaGetNodePosY(const char *nodeName);
+    int luaGetNodeWidth(const char *nodeName);
+    int luaGetNodeHeight(const char *nodeName);
+    LuaTable *UILayout;
+
 };

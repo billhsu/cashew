@@ -12,7 +12,6 @@ billhsu.x@gmail.com
 #include "Scene.h"
 #include "UI.h"
 #include "g2Images.h"
-#include "luatables.h"
 #include "luaUtility.h"
 
 State* State::currState;
@@ -29,8 +28,6 @@ int Controller::lastMouseX = 0;
 int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
-
-LuaTable *Controller::UILayout = NULL;
 
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
@@ -85,50 +82,10 @@ void Controller::UIButtonCallback(UINode* sender)
     else State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
 
-int Controller::getNodePosX(const char *nodeName)
-{
-    std::string stringValue = (*UILayout)[nodeName]["pos"]["x"].get<std::string> ();
-    lua_evaluate_expression(UILayout->L, stringValue.c_str());
-    int result = lua_tonumber(UILayout->L, -1);
-    lua_pop(UILayout->L, 1);
-    return result;
-}
-
-int Controller::getNodePosY(const char *nodeName)
-{
-    std::string stringValue = (*UILayout)[nodeName]["pos"]["y"].get<std::string> ();
-    lua_evaluate_expression(UILayout->L, stringValue.c_str());
-    int result = lua_tonumber(UILayout->L, -1);
-    lua_pop(UILayout->L, 1);
-    return result;
-}
-
-int Controller::getNodeWidth(const char *nodeName)
-{
-    std::string stringValue = (*UILayout)[nodeName]["size"]["width"].get<std::string> ();
-    lua_evaluate_expression(UILayout->L, stringValue.c_str());
-    int result = lua_tonumber(UILayout->L, -1);
-    lua_pop(UILayout->L, 1);
-    return result;
-}
-
-int Controller::getNodeHeight(const char *nodeName)
-{
-    std::string stringValue = (*UILayout)[nodeName]["size"]["height"].get<std::string> ();
-    lua_evaluate_expression(UILayout->L, stringValue.c_str());
-    int result = lua_tonumber(UILayout->L, -1);
-    lua_pop(UILayout->L, 1);
-    return result;
-}
 void Controller::init()
 {
     luaState = luaL_newstate();
     luaL_openlibs( luaState );
-
-    // Load the program
-    UILayout = LuaTable::fromFile("UILayout.lua");
-    std::cout<<getNodePosX("BTN_ID_DOC_NEW")<<std::endl;
-    std::cout<<getNodePosX("BTN_ID_DOC_NEW")<<std::endl;
 
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {
@@ -323,18 +280,12 @@ void Controller::resize(int _width, int _heigth)
     width = _width;
     height = _heigth;
 
-    lua_pushnumber(UILayout->L, width);
-    lua_setglobal(UILayout->L, "window_width");
-    lua_pushnumber(UILayout->L, height);
-    lua_setglobal(UILayout->L, "window_height");
-
     GUI->resize(width, height);
 
     int btnSize = 80/2;
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
-    btnDocNew->setPos(width - btnSize*1, centerY - btnSize*1.2);
     btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
     btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
 

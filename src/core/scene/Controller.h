@@ -22,7 +22,6 @@ class UIButton;
 class UILabel;
 class UIRadioButton;
 class lua_State;
-class LuaTable;
 
 class Controller
 {
@@ -93,14 +92,10 @@ public:
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;
-    static int getNodePosX(const char *nodeName);
-    static int getNodePosY(const char *nodeName);
-    static int getNodeWidth(const char *nodeName);
-    static int getNodeHeight(const char *nodeName);
+
 private:
     Controller();
     ~Controller();
     Controller(Controller const&);
     void operator=(Controller const&);
-    static LuaTable *UILayout;
 };

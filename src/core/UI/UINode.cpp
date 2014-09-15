@@ -8,6 +8,7 @@ billhsu.x@gmail.com
 
 UINode::UINode(UINode* parent)
 {
+    strcpy(strID,"");
     mAlpha = 1.0f;
     mR = mG = mB = 1.0f;
     mIsVisible = true;
