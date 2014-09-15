@@ -87,9 +87,7 @@ void Controller::UIButtonCallback(UINode* sender)
 
 int Controller::getNodePosX(const char *nodeName)
 {
-    std::cout<<nodeName<<std::endl;
     std::string stringValue = (*UILayout)[nodeName]["pos"]["x"].get<std::string> ();
-    std::cout<<"stringValue "<<stringValue<<std::endl;
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
@@ -98,9 +96,7 @@ int Controller::getNodePosX(const char *nodeName)
 
 int Controller::getNodePosY(const char *nodeName)
 {
-    std::cout<<nodeName<<std::endl;
     std::string stringValue = (*UILayout)[nodeName]["pos"]["y"].get<std::string> ();
-    std::cout<<"stringValue "<<stringValue<<std::endl;
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
@@ -109,9 +105,7 @@ int Controller::getNodePosY(const char *nodeName)
 
 int Controller::getNodeWidth(const char *nodeName)
 {
-    std::cout<<nodeName<<std::endl;
     std::string stringValue = (*UILayout)[nodeName]["size"]["width"].get<std::string> ();
-    std::cout<<"stringValue "<<stringValue<<std::endl;
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
@@ -120,9 +114,7 @@ int Controller::getNodeWidth(const char *nodeName)
 
 int Controller::getNodeHeight(const char *nodeName)
 {
-    std::cout<<nodeName<<std::endl;
     std::string stringValue = (*UILayout)[nodeName]["size"]["height"].get<std::string> ();
-    std::cout<<"stringValue "<<stringValue<<std::endl;
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);

@@ -22,6 +22,20 @@ UI::~UI()
     std::cout <<"~UI()"<<std::endl;
 }
 
+void UI::resize(int width, int height)
+{
+    mWindowWidth = width;
+    mWindowHeight = height;
+    for(int i=0; i<nodeList.size(); ++i)
+    {
+        if(strcmp(nodeList[i]->strID,"")==0) continue;
+        nodeList[i]->setPos(Controller::getNodePosX(nodeList[i]->strID), 
+            Controller::getNodePosY(nodeList[i]->strID));
+        nodeList[i]->setSize(Controller::getNodeWidth(nodeList[i]->strID), 
+            Controller::getNodeHeight(nodeList[i]->strID));
+    }
+}
+
 UINode* UI::getNodeByPos(int x, int y)
 {
     return mRootNode->getNodeByPos(x, y);
@@ -42,6 +56,7 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
     button->setText(text);
     button->setSize(width, height);
     button->setCallback(callback);
+    nodeList.push_back(button);
     return button;
 }
 
@@ -65,6 +80,7 @@ UIRadioButton* UI::addRadioButton(int id, int x, int y, int width, int height)
     radioBtn->nodeID = id;
     radioBtn->setPos(x, y);
     radioBtn->setSize(width, height);
+    nodeList.push_back(radioBtn);
     return radioBtn;
 }
 UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* text)
@@ -74,6 +90,7 @@ UILabel* UI::addLabel(int id, int x, int y, int width, int height, const char* t
     label->setPos(x, y);
     label->setText(text);
     label->setSize(width, height);
+    nodeList.push_back(label);
     return label;
 }
 

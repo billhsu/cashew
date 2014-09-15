@@ -76,8 +76,8 @@ GLuint g2LoadImage(const char* ImagePath, int* Width, int* Height, int* Channels
         
         // Save to dictionary
         __g2ImageList.insert(std::pair<std::string, __g2Image>(std::string(Image.FileName), Image));
-
-        std::cout<<glGetError()<<std::endl;
+        int err = glGetError();
+        if(err!=0) std::cout<<glGetError()<<std::endl;
         return Image.GlTextureID;
     }
     // Image around found, return that result

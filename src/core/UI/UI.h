@@ -11,6 +11,7 @@ Thanks to GLUI2
 #include "UIButton.h"
 #include "UIRadioButton.h"
 #include "UILabel.h"
+#include <vector>
 
 class UI
 {
@@ -22,12 +23,7 @@ public:
         return instance;
     }
 
-    void resize(int width, int height)
-    {
-        // TODO
-        mWindowWidth = width;
-        mWindowHeight = height;
-    }
+    void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
 
     UIButton* addButton(int id, int x, int y, int width, int height, 
@@ -53,5 +49,6 @@ private:
     UI();
     ~UI();
     int mWindowWidth, mWindowHeight;
+    std::vector <UINode*> nodeList;
     UINode* mRootNode;
 };
