@@ -98,10 +98,6 @@ void Controller::init()
     camera = &Camera::getInstance();
     
     GUI->resize(originWidth, originHeight);
-    
-    int btnSize = 80/2;
-    int centerX = width / 2 - btnSize/2;
-    int centerY = 0 + btnSize * 2;
 
     int _w, _h, _ch;
 
@@ -125,56 +121,46 @@ void Controller::init()
                         TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
     btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", 
                         TextureID_open, TextureID_open, TextureID_open, "Open", Controller::UIButtonCallback, NULL);
-    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
+    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", 
                         TextureID_save, TextureID_save, TextureID_save, "Save", Controller::UIButtonCallback, NULL);
 
-    btnSize = 120/2;
-    centerX = width / 2 - btnSize/2;
-    centerY = height - 2 * btnSize;
-
-    btnSelectVerticalPlane = GUI->addButton(BTN_ID_SELECT_VERTICAL, centerX - btnSize*1, centerY, btnSize, btnSize, 
+    btnSelectVerticalPlane = GUI->addButton(BTN_ID_SELECT_VERTICAL, "BTN_ID_SELECT_VERTICAL", 
                                     TextureID_select_vertical, TextureID_select_vertical, TextureID_select_vertical, "Change plane direction", Controller::UIButtonCallback, NULL);
     btnSelectVerticalPlane->setVisibility(false);
 
-    btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, centerX + btnSize*1, centerY, btnSize, btnSize, 
+    btnSelectHorizontalPlane = GUI->addButton(BTN_ID_SELECT_HORIZONTAL, "BTN_ID_SELECT_HORIZONTAL", 
                                     TextureID_select_horizontal, TextureID_select_horizontal, TextureID_select_horizontal, "Change plane direction", Controller::UIButtonCallback, NULL);
     btnSelectHorizontalPlane->setVisibility(false);
 
-    btnSize = 120/2;
-    centerX = 0 + btnSize/2;
-    centerY = height - 2 * btnSize;
-    btnConfirmPlane = GUI->addButton(BTN_ID_CONFIRM_PLANE, centerX, centerY, btnSize, btnSize, 
+    btnConfirmPlane = GUI->addButton(BTN_ID_CONFIRM_PLANE, "BTN_ID_CONFIRM_PLANE", 
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "Confirm", Controller::UIButtonCallback, NULL);
     btnConfirmPlane->setVisibility(false);
 
-    btnCancelPlane  = GUI->addButton(BTN_ID_CANCEL_PLANE, centerX + btnSize*1.2, centerY, btnSize, btnSize, 
+    btnCancelPlane  = GUI->addButton(BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE", 
                                     TextureID_cancel, TextureID_cancel, TextureID_cancel, "Cancel", Controller::UIButtonCallback, NULL);
     btnCancelPlane->setVisibility(false);
 
-    centerX = width - btnSize/2;
-    btnDrawPlaneDone = GUI->addButton(BTN_ID_DRAW_PLANE_DONE, centerX, centerY, btnSize, btnSize, 
+    btnDrawPlaneDone = GUI->addButton(BTN_ID_DRAW_PLANE_DONE, "BTN_ID_DRAW_PLANE_DONE", 
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "Done", Controller::UIButtonCallback, NULL);
     btnDrawPlaneDone->setVisibility(false);
 
-    btnDeleteLineDone = GUI->addButton(BTN_ID_DELETE_LINE_DONE, centerX, centerY, btnSize, btnSize, 
+    btnDeleteLineDone = GUI->addButton(BTN_ID_DELETE_LINE_DONE, "BTN_ID_DELETE_LINE_DONE", 
                                     TextureID_confirm, TextureID_confirm, TextureID_confirm, "Done", Controller::UIButtonCallback, NULL);
     btnDeleteLineDone->setVisibility(false);
 
-    centerX = width / 2;
-    centerY = btnSize / 2;
-    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, centerX - btnSize * 1.2 * 2, centerY, btnSize, btnSize, 
+    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", 
                                     TextureID_standardView, TextureID_standardView, TextureID_standardView, "Standard View", Controller::UIButtonCallback, NULL);
     btnStandardView->setVisibility(false);
 
-    btnUndo = GUI->addButton(BTN_ID_UNDO, centerX - btnSize, centerY, btnSize, btnSize, 
+    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", 
                                     TextureID_undo, TextureID_undo, TextureID_undo, "Undo", Controller::UIButtonCallback, NULL);
     btnUndo->setVisibility(false);
 
-    btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, centerX + btnSize * 0, centerY, btnSize, btnSize, 
+    btnDeleteLine   = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", 
                                     TextureID_deleteLine, TextureID_deleteLine, TextureID_deleteLine, "Delete lines", Controller::UIButtonCallback, NULL);
     btnDeleteLine->setVisibility(false);
 
-    btnMirror   = GUI->addButton(BTN_ID_MIRROR, centerX + btnSize * 1.2, centerY, btnSize, btnSize, 
+    btnMirror   = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", 
                                     TextureID_mirror, TextureID_mirror, TextureID_mirror, "Mirror Mode", Controller::UIButtonCallback, NULL);
     btnMirror->setVisibility(false);
 
@@ -281,35 +267,4 @@ void Controller::resize(int _width, int _heigth)
     height = _heigth;
 
     GUI->resize(width, height);
-
-    int btnSize = 80/2;
-    int centerX = width / 2 - btnSize/2;
-    int centerY = 0 + btnSize * 2;
-
-    btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
-
-    btnSize = 120/2;
-    centerX = width / 2 - btnSize/2;
-    centerY = height - 2 * btnSize;
-
-    btnSelectVerticalPlane->setPos(centerX - btnSize*1, centerY);
-    btnSelectHorizontalPlane->setPos(centerX + btnSize*1, centerY);
-
-    btnSize = 120/2;
-    centerX = 0 + btnSize/2;
-    centerY = height - 2 * btnSize;
-
-    btnConfirmPlane->setPos(centerX, centerY);
-    btnCancelPlane->setPos(centerX + btnSize*1.2, centerY);
-
-    centerX = width - btnSize;
-    btnDrawPlaneDone->setPos(centerX, centerY);
-    btnDeleteLineDone->setPos(centerX, centerY);
-
-    centerX = width / 2;
-    centerY = btnSize / 2;
-    btnStandardView->setPos(centerX - btnSize * 1.2 * 2, centerY);
-    btnUndo->setPos(centerX - btnSize * 1.2, centerY);
-    btnDeleteLine->setPos(centerX + btnSize * 0, centerY);
-    btnMirror->setPos(centerX + btnSize * 1.2, centerY);
 }
