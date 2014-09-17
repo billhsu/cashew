@@ -123,7 +123,7 @@ void Controller::init()
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", 
                         TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
-    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, width - btnSize*1, centerY - btnSize*0, btnSize, btnSize, 
+    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", 
                         TextureID_open, TextureID_open, TextureID_open, "Open", Controller::UIButtonCallback, NULL);
     btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, width - btnSize*1, centerY + btnSize*1.2, btnSize, btnSize, 
                         TextureID_save, TextureID_save, TextureID_save, "Save", Controller::UIButtonCallback, NULL);
@@ -286,7 +286,6 @@ void Controller::resize(int _width, int _heigth)
     int centerX = width / 2 - btnSize/2;
     int centerY = 0 + btnSize * 2;
 
-    btnDocOpen->setPos(width - btnSize*1, centerY - btnSize*0);
     btnDocSave->setPos(width - btnSize*1, centerY + btnSize*1.2);
 
     btnSize = 120/2;
