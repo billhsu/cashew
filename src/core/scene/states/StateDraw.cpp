@@ -7,6 +7,16 @@
 // State Draw
 void StateDraw::UIEvent(UINode* sender, int event)
 {
+    if(sender->nodeID == Controller::BTN_ID_STANDARD_VIEW && event == Controller::EVENT_BTN_CLICKED)
+    {
+        if(Controller::currPlane.N.dot(camera->getDirection())>0)
+        {
+            Controller::currPlane = - Controller::currPlane;
+        }
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+            Quaternion::Z_NEG_AXIS);
+        camera->rotateCamTo(q);
+    }
     if(sender->nodeID == Controller::BTN_ID_DRAW_PLANE_DONE && event == Controller::EVENT_BTN_CLICKED)
     {
         Controller::btnDrawPlaneDone->appearOut();
@@ -93,12 +103,7 @@ void StateDraw::MouseMotion(int x, int y)
 
 void StateDraw::Keyboard(unsigned char key, int x, int y)
 {
-    if(key == 'b')
-    {
-        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
-        Quaternion::Z_NEG_AXIS);
-        camera->rotateCamTo(q);
-    }
+
 }
 
 void StateDraw::render(float timeDelta)
