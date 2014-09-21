@@ -29,11 +29,10 @@ void StateSelectPlane::buildCurrentPlane()
         }
         else if (selectPlaneMode == SELECT_SLOPE)
         {
-            // TODO: something WRONG here..
-            planeVec = camera->getDirection();
+            planeVec = camera->getRay().GetDirection();
             planeVec.y = 0;
+            planeVec = planeVec.cross(Vector3(0, 1, 0));
             planeVec.normalize();
-            planeVec = planeVec.cross(selectedPoints[0] - selectedPoints[1]).normalize();
         }
     }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
