@@ -29,6 +29,7 @@ void StateSelectPlane::buildCurrentPlane()
         }
         else if (selectPlaneMode == SELECT_SLOPE)
         {
+            // TODO: something WRONG here..
             planeVec = camera->getDirection();
             planeVec.y = 0;
             planeVec.normalize();
@@ -43,7 +44,16 @@ void StateSelectPlane::buildCurrentPlane()
 }
 void StateSelectPlane::UIEvent(UINode* sender, int event)
 {
-    std::cout<<sender->nodeID<<" "<<event<<std::endl;
+    if(sender->nodeID == Controller::BTN_ID_STANDARD_VIEW && event == Controller::EVENT_BTN_CLICKED)
+    {
+        if(Controller::currPlane.N.dot(camera->getDirection())>0)
+        {
+            Controller::currPlane = - Controller::currPlane;
+        }
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+            Quaternion::Z_NEG_AXIS);
+        camera->rotateCamTo(q);
+    }
     if(sender->nodeID == Controller::BTN_ID_CONFIRM_PLANE && event == Controller::EVENT_BTN_CLICKED)
     {
         Vector3 center(0,0,0);
@@ -168,12 +178,7 @@ void StateSelectPlane::MouseMotion(int x, int y)
 
 void StateSelectPlane::Keyboard(unsigned char key, int x, int y)
 {
-    if(key =='b')
-    {
-        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
-        Quaternion::Z_NEG_AXIS);
-        camera->rotateCamTo(q);
-    }
+
 }
 void StateSelectPlane::prepareState()
 {
