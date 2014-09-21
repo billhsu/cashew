@@ -192,6 +192,15 @@ public:
         return rot;
     }
 
+    // convert quaternion to directional vector
+    static Vector3 toVector(const Quaternion &q1)
+    {
+        Vector3 rotEular = toEuler(q1);
+        float elevation = deg2rad(rotEular.x);
+        float heading   = deg2rad(rotEular.y);
+        return Vector3(cos(elevation) * sin(heading), sin(elevation), cos(elevation) * cos(heading));
+    }
+
     // build a quaternion from two vectors
     // this can convert a directional vector to quaternion
     static Quaternion fromVector(Vector3& u, Vector3& v)

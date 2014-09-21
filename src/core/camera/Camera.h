@@ -80,6 +80,7 @@ public:
 
     void update(float timeDelta);
     Ray getRay();
+    Vector3 getDirection();
     enum {GETPOINT_3D, GETPOINT_PLANE};
     bool getPoint(Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
     int getLine(LineSegment& line);

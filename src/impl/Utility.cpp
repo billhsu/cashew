@@ -39,3 +39,13 @@ bool floatEq(float a, float b)
 {
     return fabs(a - b) < 0.000001f;
 }
+
+float deg2rad(float deg)
+{
+    return deg * PI / 180;
+}
+
+float rad2deg(float rad)
+{
+    return rad * 180 / PI; 
+}

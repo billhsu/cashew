@@ -122,6 +122,11 @@ Ray Camera::getRay()
     return selectRay;
 }
 
+Vector3 Camera::getDirection()
+{
+    return Quaternion::toVector(rotate);
+}
+
 bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
 {
     float minDist = 1000.0f;
