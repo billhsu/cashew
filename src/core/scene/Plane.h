@@ -13,6 +13,14 @@ public:
     Plane() : N( 0, 1, 0 ), D( 0 ) {};
     Plane( Vector3 a_Normal, float a_D ) : N( a_Normal ), D( a_D ) {};
 
+    Plane operator-() const
+    {
+        Plane p;
+        p.N = -N;
+        p.D = -D;
+        return p;
+    }
+
     void drawPlane(Vector3 center, float size, float* color = NULL);
     void printStatus()
     {

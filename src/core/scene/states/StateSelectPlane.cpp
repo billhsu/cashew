@@ -36,6 +36,10 @@ void StateSelectPlane::buildCurrentPlane()
         }
     }
     Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
+    if(Controller::currPlane.N.dot(camera->getRay().GetDirection())<0)
+    {
+        Controller::currPlane = - Controller::currPlane;
+    }
 }
 void StateSelectPlane::UIEvent(UINode* sender, int event)
 {
@@ -68,7 +72,7 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
         selectPlaneMode = SELECT_VERTICAL_PLANE;
         buildCurrentPlane();
         Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
-                                          Quaternion::Z_NEG_AXIS);
+                                              Quaternion::Z_AXIS);
         camera->rotateCamTo(q);
     }
     if(sender->nodeID == Controller::BTN_ID_SELECT_HORIZONTAL && event == Controller::EVENT_BTN_CLICKED)
