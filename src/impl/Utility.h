@@ -5,7 +5,7 @@
 #include <cmath>
 #include <time.h>
 
-#ifdef __MACH__
+#ifdef __APPLE__
 #include <mach/clock.h>
 #include <mach/mach.h>
 #endif

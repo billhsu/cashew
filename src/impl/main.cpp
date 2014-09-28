@@ -52,7 +52,8 @@ int main(int argc, char** argv)
     glutInit (&argc, argv);
     glutInitWindowSize (ctrl->width, ctrl->height);
     glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-    glutInitWindowPosition (100, 100);
+    glutInitWindowPosition((glutGet(GLUT_SCREEN_WIDTH)-ctrl->width)/2,
+                       (glutGet(GLUT_SCREEN_HEIGHT)-ctrl->height)/2);
     glutCreateWindow ("Cashew");
 
     glutDisplayFunc (render);
