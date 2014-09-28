@@ -157,7 +157,7 @@ tags
 nextsketch
 cashew
 
-lib/freeglut-2.8.1/autom/
+lib/freeglut-2.8.1/autom4te.cache/
 # Lua
 lib/lua-5.2.3/src/liblua.a
 lib/lua-5.2.3/src/lua
