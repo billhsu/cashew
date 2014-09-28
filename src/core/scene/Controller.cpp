@@ -100,6 +100,27 @@ void Controller::UIButtonCallback(UINode* sender)
         std::cout<<"Open file: "<<result<<std::endl;
 #endif
     }
+    else if(sender->nodeID == BTN_ID_DOC_SAVE)
+    {
+#ifdef WIN32
+#endif
+
+#ifdef __APPLE__
+#endif
+
+#ifdef __linux__
+        FILE* pipe = popen("wish tcl_scripts/save_file.tcl", "r");
+        if (!pipe) return;
+        char buffer[128];
+        std::string result = "";
+        while(!feof(pipe)) {
+            if(fgets(buffer, 128, pipe) != NULL)
+                result += buffer;
+        }
+        pclose(pipe);
+        std::cout<<"Save file: "<<result<<std::endl;
+#endif
+    }
     else State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
 
