@@ -89,9 +89,12 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
         if(selectedPoints.size() == 1) selectPlaneMode = SELECT_HORIZONTAL_PLANE;
         else if(selectedPoints.size() == 2) selectPlaneMode = SELECT_SLOPE;
         buildCurrentPlane();
-        Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
+        if(selectedPoints.size() == 1)
+        {
+            Quaternion q = Quaternion::fromVector(Controller::currPlane.N, 
                                           Quaternion::Z_NEG_AXIS);
-        camera->rotateCamTo(q);
+            camera->rotateCamTo(q);
+        }
     }
 }
 
