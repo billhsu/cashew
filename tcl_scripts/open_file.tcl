@@ -49,4 +49,5 @@ grid .b1 -row 0 -column 0
 grid .b2 -row 1 -column 0
 grid .l -row 0 -column 1
 
+wm title . "Open File"
 center_the_toplevel .
