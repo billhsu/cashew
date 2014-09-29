@@ -99,6 +99,24 @@ void Controller::UIButtonCallback(UINode* sender)
                 result += buffer;
         }
         pclose(pipe);
+
+        size_t pos = result.find_last_of("\n");
+        if(pos == result.length()-1)
+        {
+            result.erase(result.length()-1);
+        }
+        std::ifstream infile;
+        infile.open(result.c_str());
+        int numLines;
+        infile>>numLines;
+        sketchLines.clear();
+        for(int i=0; i<numLines; ++i)
+        {
+            LineSegment line;
+            infile>>line.points[0]>>line.points[1];
+            sketchLines.push_back(line);
+        }
+
         std::cout<<"Open file: "<<result<<std::endl;
 #endif
     }

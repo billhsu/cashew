@@ -107,6 +107,7 @@ struct Vector3
 
     friend Vector3 operator*(const float a, const Vector3 vec);
     friend std::ostream& operator<<(std::ostream& os, const Vector3& vec);
+    friend std::istream& operator>>(std::istream &is, Vector3& vec);
 };
 
 
@@ -405,8 +406,13 @@ inline Vector3 operator*(const float a, const Vector3 vec) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, const Vector3& vec) {
-    os << "(" << vec.x << ", " << vec.y << ", " << vec.z << ")";
+    os << "" << vec.x << " " << vec.y << " " << vec.z << "";
     return os;
+}
+inline std::istream& operator>>(std::istream &is, Vector3& vec) 
+{
+    is >> vec.x >> vec.y >> vec.z;
+    return is;
 }
 // END OF VECTOR3 /////////////////////////////////////////////////////////////
 

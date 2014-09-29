@@ -5,6 +5,7 @@ billhsu.x@gmail.com
 #pragma once
 #include <vector>
 #include "../math/Vectors.h"
+#include <iostream>
 
 class LineSegment
 {
@@ -18,5 +19,4 @@ public:
     void render(float r=0, float g=0, float b=1);
 
     Vector3 points[2];
-
 };
