@@ -13,6 +13,8 @@ billhsu.x@gmail.com
 #include "UI.h"
 #include "g2Images.h"
 #include "luaUtility.h"
+#include <iostream>
+#include <fstream>
 
 State* State::currState;
 
@@ -118,6 +120,19 @@ void Controller::UIButtonCallback(UINode* sender)
                 result += buffer;
         }
         pclose(pipe);
+
+        size_t pos = result.find_last_of("\n");
+        if(pos == result.length()-1)
+        {
+            result.erase(result.length()-1);
+        }
+        std::ofstream outfile;
+        outfile.open(result.c_str());
+        outfile<<sketchLines.size()<<std::endl;
+        for(int i=0; i<sketchLines.size(); ++i)
+        {
+            outfile<<sketchLines[i].points[0]<<" "<<sketchLines[i].points[1]<<std::endl;
+        }
         std::cout<<"Save file: "<<result<<std::endl;
 #endif
     }
