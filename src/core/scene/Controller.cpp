@@ -101,7 +101,7 @@ void Controller::UIButtonCallback(UINode* sender)
                 result += buffer;
         }
         pclose(pipe);
-
+        if(result.empty()) return;
         size_t pos = result.find_last_of("\n");
         if(pos == result.length()-1)
         {
@@ -140,7 +140,7 @@ void Controller::UIButtonCallback(UINode* sender)
                 result += buffer;
         }
         pclose(pipe);
-
+        if(result.empty()) return;
         size_t pos = result.find_last_of("\n");
         if(pos == result.length()-1)
         {
