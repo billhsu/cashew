@@ -49,6 +49,8 @@ Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
 
 std::vector<LineSegment> Controller::sketchLines;
+std::vector<LineSegment> Controller::deletedLines;
+std::vector<Controller::LineOperation> Controller::lineOperations;
 
 Vector3 Controller::currPoint = Vector3(0,0,0);
 bool Controller::bCurrPoint = false;

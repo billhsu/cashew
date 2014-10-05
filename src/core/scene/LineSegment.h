@@ -17,6 +17,6 @@ public:
         points[1] = b;
     };
     void render(float r=0, float g=0, float b=1);
-
+    int ID;
     Vector3 points[2];
 };
