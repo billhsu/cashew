@@ -82,6 +82,8 @@ void Controller::UIButtonCallback(UINode* sender)
     if(sender->nodeID == BTN_ID_DOC_NEW)
     {
         sketchLines.clear();
+        deletedLines.clear();
+        lineOperations.clear();
     }
     else if(sender->nodeID == BTN_ID_DOC_OPEN)
     {
@@ -155,6 +157,37 @@ void Controller::UIButtonCallback(UINode* sender)
         }
         std::cout<<"Save file: "<<result<<std::endl;
 #endif
+    }
+    else if(sender->nodeID == BTN_ID_UNDO)
+    {
+        if(lineOperations.size()>0)
+        {
+            LineOperation lineOp = lineOperations.back();
+            lineOperations.pop_back();
+            if(lineOp.operation == OPERATION_ADD_LINE)
+            {
+                for(int i=0; i<sketchLines.size(); ++i)
+                {
+                    if(lineOp.lineID == sketchLines[i].ID)
+                    {
+                        sketchLines.erase(sketchLines.begin()+i);
+                        break;
+                    }
+                }
+            }
+            else if(lineOp.operation == OPERATION_DELETE_LINE)
+            {
+                for(int i=0; i<deletedLines.size(); ++i)
+                {
+                    if(lineOp.lineID == deletedLines[i].ID)
+                    {
+                        sketchLines.push_back(deletedLines[i]);
+                        deletedLines.erase(deletedLines.begin()+i);
+                        break;
+                    }
+                }
+            }
+        }
     }
     else State::currState->UIEvent(sender, EVENT_BTN_CLICKED);
 }
@@ -293,11 +326,6 @@ void Controller::Keyboard(unsigned char key, int x, int y)
     Controller::mouseY = y;
 
     if(key == 27) exit(1);
-    else if(key == 'r') 
-    {
-        if(sketchLines.size()>0)
-            sketchLines.pop_back();
-    }
     else
         State::currState->Keyboard(key, x, y);
 }

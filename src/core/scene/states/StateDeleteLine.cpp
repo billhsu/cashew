@@ -22,7 +22,7 @@ void StateDeleteLine::MouseButton(int button, int state, int x, int y)
             bCurLine = camera->getLine(line);
             if(bCurLine!=-1)
             {
-                Controller::sketchLines.erase(Controller::sketchLines.begin()+bCurLine);
+                Controller::delLine(Controller::sketchLines[bCurLine]);
                 bCurLine = -1;
             }
         }
