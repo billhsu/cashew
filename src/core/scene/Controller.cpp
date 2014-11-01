@@ -3,16 +3,16 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include "Controller.h"
-#include "State.h"
-#include "StateIdle.h"
-#include "StateDeleteLine.h"
-#include "StateSelectPlane.h"
-#include "StateDraw.h"
-#include "Camera.h"
-#include "Scene.h"
-#include "UI.h"
-#include "g2Images.h"
-#include "luaUtility.h"
+#include "core/scene/states/State.h"
+#include "core/scene/states/StateIdle.h"
+#include "core/scene/states/StateDeleteLine.h"
+#include "core/scene/states/StateSelectPlane.h"
+#include "core/scene/states/StateDraw.h"
+#include "core/camera/Camera.h"
+#include "core/scene/Scene.h"
+#include "core/UI/UI.h"
+#include "core/texture/g2Images.h"
+#include "core/scripting/luaUtility.h"
 #include <iostream>
 #include <fstream>
 

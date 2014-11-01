@@ -15,9 +15,9 @@ BUILD_DIR := $(addprefix build/,$(MODULES))
 SRC       := $(foreach sdir,$(SRC_DIR),$(wildcard $(sdir)/*.cpp))
 OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
 ifeq ($(OS),Darwin)
-	INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ilib/lua-5.2.3/src -Llib/lua-5.2.3/src
+	INCLUDES  := -Isrc/ -Ilib/lua-5.2.3/src -Wno-deprecated-declarations
 else
-	INCLUDES  := $(addprefix -I,$(SRC_DIR)) -Ilib/freeglut-2.8.1/include -Llib/freeglut-2.8.1/src/.libs -Ilib/lua-5.2.3/src -Llib/lua-5.2.3/src
+	INCLUDES  := -Isrc/ -Ilib/freeglut-2.8.1/include -Llib/freeglut-2.8.1/src/.libs -Ilib/lua-5.2.3/src
 endif
 
 vpath %.cpp $(SRC_DIR)
@@ -32,7 +32,7 @@ endef
 all: checkdirs cashew
 
 cashew: $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJ) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -Llib/lua-5.2.3/src $(OBJ) $(LDFLAGS) -o $@
 
 checkdirs: $(BUILD_DIR)
 

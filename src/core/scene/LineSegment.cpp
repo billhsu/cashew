@@ -1,5 +1,5 @@
 #include "LineSegment.h"
-#include "glut.h"
+#include "impl/glut.h"
 
 void LineSegment::render(float r, float g, float b)
 {

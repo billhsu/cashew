@@ -4,7 +4,7 @@ billhsu.x@gmail.com
 */
 #include "UINode.h"
 #include <iostream>
-#include "Utility.h"
+#include "impl/Utility.h"
 
 UINode::UINode(UINode* parent)
 {

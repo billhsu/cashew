@@ -1,8 +1,8 @@
 #include "StateIdle.h"
-#include "Controller.h"
-#include "Camera.h"
-#include "UINode.h"
-#include "UIButton.h"
+#include "core/scene/Controller.h"
+#include "core/camera/Camera.h"
+#include "core/UI/UINode.h"
+#include "core/UI/UIButton.h"
 
 // State Idle
 void StateIdle::UIEvent(UINode* sender, int event)

@@ -5,10 +5,10 @@ billhsu.x@gmail.com
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../math/Vectors.h"
+#include "core/math/Vectors.h"
 #include "Plane.h"
 #include "LineSegment.h"
-#include "glut.h"
+#include "impl/glut.h"
 
 class StateIdle;
 class StateDraw;

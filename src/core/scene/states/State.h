@@ -2,11 +2,11 @@
 // base class for states
 // here is a simple FSM
 #include <iostream>
-#include "glut.h"
+#include "impl/glut.h"
 #include <vector>
 #include <assert.h>
-#include "Vectors.h"
-#include "LineSegment.h"
+#include "core/math/Vectors.h"
+#include "core/scene/LineSegment.h"
 
 class Controller;
 class Camera;

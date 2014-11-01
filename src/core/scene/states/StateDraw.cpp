@@ -1,8 +1,8 @@
 #include "StateDraw.h"
-#include "Controller.h"
-#include "Camera.h"
-#include "UINode.h"
-#include "UIButton.h"
+#include "core/scene/Controller.h"
+#include "core/camera/Camera.h"
+#include "core/UI/UINode.h"
+#include "core/UI/UIButton.h"
 
 // State Draw
 void StateDraw::UIEvent(UINode* sender, int event)

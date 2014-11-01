@@ -4,7 +4,7 @@ billhsu.x@gmail.com
 */
 #ifndef RAY_H
 #define RAY_H
-#include "../math/Vectors.h"
+#include "core/math/Vectors.h"
 class Ray
 {
 public:

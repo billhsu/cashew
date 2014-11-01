@@ -2,12 +2,12 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "glut.h"
-#include <iostream>
 #include "UI.h"
-#include "Controller.h"
-#include "luaUtility.h"
-#include "luatables.h"
+#include "impl/glut.h"
+#include <iostream>
+#include "core/scene/Controller.h"
+#include "core/scripting/luaUtility.h"
+#include "core/scripting/luatables.h"
 
 char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;

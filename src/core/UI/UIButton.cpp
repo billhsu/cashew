@@ -2,14 +2,14 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "UI.h"
+#include "core/UI/UI.h"
 #include "UIButton.h"
 #include <iostream>
-#include "glut.h"
+#include "impl/glut.h"
 #include <math.h>
-#include "../math/Vectors.h"
-#include "Utility.h"
-#include "Controller.h"
+#include "core/math/Vectors.h"
+#include "impl/Utility.h"
+#include "core/scene/Controller.h"
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
