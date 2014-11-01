@@ -1,11 +1,13 @@
 #!/bin/bash
-cd lib/freeglut-2.8.1
-./configure
-make
-cd src/.libs
-ls
-cd ../../
-cd ../../
+if [ "$(uname)" != "Darwin" ]; then
+	cd lib/freeglut-2.8.1
+	./configure
+	make
+	cd src/.libs
+	ls
+	cd ../../
+	cd ../../
+fi
 cd lib/lua-5.2.3
 make ansi
 cd ../..
