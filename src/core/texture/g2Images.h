@@ -33,7 +33,7 @@
 #include "stb_image.h"
 #include <map>
 #include <string>
-#include <GL/freeglut.h>
+#include "glut.h"
 #include <string.h>
 // Image allocation structure
 static const int __g2ImageFileNameLength = 512;

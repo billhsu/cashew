@@ -2,7 +2,7 @@
 // base class for states
 // here is a simple FSM
 #include <iostream>
-#include <GL/freeglut.h>
+#include "glut.h"
 #include <vector>
 #include <assert.h>
 #include "Vectors.h"

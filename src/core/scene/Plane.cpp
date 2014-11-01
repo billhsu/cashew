@@ -1,4 +1,4 @@
-#include <GL/freeglut.h>
+#include "glut.h"
 #include "Plane.h"
 
 void Plane::buildPlane(Vector3 v1, Plane& plane, Vector3 normal)

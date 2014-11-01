@@ -3,6 +3,7 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include "UIRadioButton.h"
+#include "glut.h"
 #include <iostream>
 
 UIRadioButton::UIRadioButton(UINode* parent) : UINode(parent)

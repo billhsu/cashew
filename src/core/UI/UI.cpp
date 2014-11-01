@@ -2,7 +2,7 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include <GL/freeglut.h>
+#include "glut.h"
 #include <iostream>
 #include "UI.h"
 #include "Controller.h"

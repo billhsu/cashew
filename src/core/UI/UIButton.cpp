@@ -5,7 +5,7 @@ billhsu.x@gmail.com
 #include "UI.h"
 #include "UIButton.h"
 #include <iostream>
-#include <GL/freeglut.h>
+#include "glut.h"
 #include <math.h>
 #include "../math/Vectors.h"
 #include "Utility.h"

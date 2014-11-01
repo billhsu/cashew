@@ -3,7 +3,7 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include <stdio.h>
-#include <GL/glut.h>
+#include "glut.h"
 #include "../core/scene/Ray.h"
 #include "../core/scene/Plane.h"
 #include "../core/scene/Scene.h"

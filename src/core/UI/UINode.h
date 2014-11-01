@@ -8,7 +8,7 @@ Thanks to GLUI2
 
 #include <list>
 #include <stddef.h>
-#include <GL/freeglut.h>
+#include "glut.h"
 #include <string.h>
 
 class UINode
