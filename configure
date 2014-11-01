@@ -9,4 +9,4 @@ cd ../../
 cd lib/lua-5.2.3
 make ansi
 cd ../..
-cat Makefile|sed -e '/build\/src/d' -i Makefile
+cat Makefile|sed -e '/build\/src/d' -i'.bak' Makefile
