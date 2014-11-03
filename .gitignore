@@ -163,4 +163,12 @@ lib/lua-5.2.3/src/liblua.a
 lib/lua-5.2.3/src/lua
 lib/lua-5.2.3/src/luac
 
+libcashew/lib/lua-5.2.3/src/liblua.a
+libcashew/lib/lua-5.2.3/src/lua
+libcashew/lib/lua-5.2.3/src/luac
+
 data/
+
+!libcashew/src/cashew
+!libcashew/include/cashew
+
