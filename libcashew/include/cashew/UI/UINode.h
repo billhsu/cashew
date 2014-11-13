@@ -9,6 +9,7 @@ Thanks to GLUI2
 #include <list>
 #include <stddef.h>
 #include <string.h>
+#include <stdint.h>
 
 class UINode
 {

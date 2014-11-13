@@ -6,7 +6,7 @@
 #include "cashew/scene/Plane.h"
 #include "cashew/scene/Controller.h"
 #include "cashew/UI/UI.h"
-
+#include "cashew/math/Graphics.h"
 
 Camera::Camera()
 {
@@ -36,7 +36,7 @@ void Camera::update(float timeDelta)
 {
     if(!anim)
     {
-        gluLookAt (0.0f, 0.0f, 0.0f -distance,
+        cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
         glMultTransposeMatrixf(rotate.getFloat());
         animTime = 0;
@@ -60,7 +60,7 @@ void Camera::update(float timeDelta)
 
             Controller::rotate = Quaternion::toEuler(rotate);
             std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
-            gluLookAt (0.0f, 0.0f, 0.0f -distance,
+            cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             glMultTransposeMatrixf(rotate.getFloat());
             glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
@@ -69,7 +69,7 @@ void Camera::update(float timeDelta)
         {
             float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
-            gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
+            cashew::gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             glMultTransposeMatrixf(quat.getFloat());
             Vector3 camCenterTmp = camCenter*(1-alpha) + camCenterTo*alpha;
