@@ -36,9 +36,9 @@ void Camera::update(float timeDelta)
 {
     if(!anim)
     {
-        cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-            0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-        glMultTransposeMatrixf(rotate.getFloat());
+        Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
+                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+        cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
         animTime = 0;
         glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
     }
@@ -60,18 +60,18 @@ void Camera::update(float timeDelta)
 
             Controller::rotate = Quaternion::toEuler(rotate);
             std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
-            cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-                0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            glMultTransposeMatrixf(rotate.getFloat());
+            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
+                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
             glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
         }
         else
         {
             float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
-            cashew::gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
-                0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            glMultTransposeMatrixf(quat.getFloat());
+            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
+                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
             Vector3 camCenterTmp = camCenter*(1-alpha) + camCenterTo*alpha;
             glTranslatef(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
         }
