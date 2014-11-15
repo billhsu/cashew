@@ -34,13 +34,14 @@ Camera::~Camera()
 
 void Camera::update(float timeDelta)
 {
+    cameraMatrix.identity();
     if(!anim)
     {
         Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
                                              0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-        cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
+        cameraMatrix = lookMat * rotate.getMatrix().transpose();
+        cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         animTime = 0;
-        glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
     }
     else
     {
@@ -61,19 +62,19 @@ void Camera::update(float timeDelta)
             Controller::rotate = Quaternion::toEuler(rotate);
             std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
-            glTranslatef(-camCenter.x, -camCenter.y, -camCenter.z);
+                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            cameraMatrix = lookMat * rotate.getMatrix().transpose();
+            cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         }
         else
         {
             float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
-            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            cashew::glMultTransposeMatrix(lookMat, rotate.getMatrix());
             Vector3 camCenterTmp = camCenter*(1-alpha) + camCenterTo*alpha;
-            glTranslatef(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
+            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
+                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            cameraMatrix = lookMat * quat.getMatrix().transpose();
+            cameraMatrix.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
         }
         
     }
@@ -100,12 +101,12 @@ Ray Camera::getRay()
 {
     int mx = Controller::mouseX;
     int my = Controller::mouseY;
-    GLint viewport[4];
-    GLdouble modelview[16];
-    GLdouble projection[16];
-    GLfloat winX, winY;
-    GLdouble posX1, posY1, posZ1;
-    GLdouble posX2, posY2, posZ2;
+    int32 viewport[4];
+    double modelview[16];
+    double projection[16];
+    float winX, winY;
+    double posX1, posY1, posZ1;
+    double posX2, posY2, posZ2;
     
     glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
     glGetDoublev( GL_PROJECTION_MATRIX, projection );

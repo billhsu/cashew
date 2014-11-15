@@ -3,13 +3,14 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #pragma once
-
+#include <stdint.h>
 #include <iostream>
-#include "../math/Vectors.h"
-#include "../scene/Ray.h"
-#include "../scene/Plane.h"
-#include "../scene/LineSegment.h"
-#include "../math/Quaternion.h"
+#include "cashew/math/Vectors.h"
+#include "cashew/scene/Ray.h"
+#include "cashew/scene/Plane.h"
+#include "cashew/scene/LineSegment.h"
+#include "cashew/math/Quaternion.h"
+#include "cashew/math/Matrices.h"
 
 class Camera
 {
@@ -21,6 +22,10 @@ public:
         return instance;
     }
 
+    Matrix4 getMatrix()
+    {
+        return cameraMatrix;
+    }
     void rotateCam(float rotX, float rotY, float rotZ)
     {
         rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
@@ -95,6 +100,7 @@ private:
     ~Camera();
     Camera(Camera const&);
     void operator=(Camera const&);
+    Matrix4 cameraMatrix;
     float ANIM_TIME_MS;
     float animTime;
     Quaternion rotate, rotateTo;

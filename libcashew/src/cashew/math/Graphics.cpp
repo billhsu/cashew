@@ -82,8 +82,3 @@ Matrix4 cashew::gluLookAt(float eyex, float eyey, float eyez,
 
     return result;    
 }
-
-Matrix4 cashew::glMultTransposeMatrix(Matrix4 m1, Matrix4 m2)
-{
-    return m1 * m2.transpose();
-}
