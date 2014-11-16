@@ -8,12 +8,12 @@ namespace cashew
 namespace Graphics
 {
 Matrix4
-gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 matrix);
+gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 projection);
 
 Matrix4
 gluLookAt(float eyex, float eyey, float eyez, float centerx,
           float centery, float centerz, float upx, float upy,
-          float upz, Matrix4 matrix);
+          float upz, Matrix4 modelView);
 
 int32
 gluProject(float objx, float objy, float objz,

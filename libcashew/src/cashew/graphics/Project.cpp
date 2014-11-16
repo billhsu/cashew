@@ -20,7 +20,7 @@ static void __gluMakeIdentityf(float m[16])
 #define __glPi 3.14159265358979323846
 
 Matrix4
-gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 matrix)
+gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 projection)
 {
     Matrix4 result;
     float m[4][4];
@@ -44,7 +44,7 @@ gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 matrix
     m[3][3] = 0;
     Matrix4 gluMat;
     gluMat.set(m);
-    result = matrix * gluMat;
+    result = projection * gluMat;
     return result;
 }
 
@@ -70,7 +70,7 @@ static void cross(float v1[3], float v2[3], float result[3])
 Matrix4
 gluLookAt(float eyex, float eyey, float eyez, float centerx,
           float centery, float centerz, float upx, float upy,
-          float upz, Matrix4 matrix)
+          float upz, Matrix4 modelView)
 {
     Matrix4 result;
     float forward[3], side[3], up[3];
@@ -108,10 +108,9 @@ gluLookAt(float eyex, float eyey, float eyez, float centerx,
 
     Matrix4 gluMat;
     gluMat.set(m);
-    result = matrix * gluMat;
+    result = modelView * gluMat;
     result.translate(-eyex, -eyey, -eyez);
     return result;
-    glMultMatrixf(&m[0][0]);
 }
 
 static void __gluMultMatrixVecf(const float matrix[16], const float in[4],
