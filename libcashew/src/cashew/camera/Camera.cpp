@@ -6,7 +6,7 @@
 #include "cashew/scene/Plane.h"
 #include "cashew/scene/Controller.h"
 #include "cashew/UI/UI.h"
-#include "cashew/math/Graphics.h"
+#include "cashew/graphics/Project.h"
 
 Camera::Camera()
 {
@@ -14,8 +14,8 @@ Camera::Camera()
     distance = 10.0f;
     distanceTo = distance;
     distanceDelta = 0.0f;
-    rotate = Quaternion::fromEuler(-30,0,0);
-    camCenter = Vector3(0,0,0);
+    rotate = Quaternion::fromEuler(-30, 0, 0);
+    camCenter = Vector3(0, 0, 0);
     lastTimeMS = getMilliSec();
     FPS = 0;
     lastFPS = 0;
@@ -24,21 +24,21 @@ Camera::Camera()
     rotChange = false;
     centerChange = false;
     distChange = false;
-    std::cout <<"Camera Camera()"<<std::endl;
+    std::cout << "Camera Camera()" << std::endl;
 }
 
 Camera::~Camera()
 {
-    std::cout <<"Camera ~Camera()"<<std::endl;
+    std::cout << "Camera ~Camera()" << std::endl;
 }
 
 void Camera::update(float timeDelta)
 {
     cameraMatrix.identity();
-    if(!anim)
+    if (!anim)
     {
-        Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+        Matrix4 lookMat = cashew::Graphics::gluLookAt (0.0f, 0.0f, 0.0f - distance,
+                          0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, Controller::modelView);
         cameraMatrix = lookMat * rotate.getMatrix().transpose();
         cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         animTime = 0;
@@ -46,54 +46,54 @@ void Camera::update(float timeDelta)
     else
     {
         animTime += timeDelta;
-        float alpha = animTime/ANIM_TIME_MS;
-        if(animTime>=ANIM_TIME_MS)
+        float alpha = animTime / ANIM_TIME_MS;
+        if (animTime >= ANIM_TIME_MS)
         {
             animTime = 0;
             anim = false;
-            if(rotChange) rotate = rotateTo;
-            if(distChange) distance = distanceTo;
-            if(centerChange) camCenter = camCenterTo;
-            
+            if (rotChange) rotate = rotateTo;
+            if (distChange) distance = distanceTo;
+            if (centerChange) camCenter = camCenterTo;
+
             rotChange = false;
             centerChange = false;
             distChange = false;
 
             Controller::rotate = Quaternion::toEuler(rotate);
-            std::cout<<"Quaternion::toEuler "<<Controller::rotate<<std::endl;
-            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distance,
-                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            std::cout << "Quaternion::toEuler " << Controller::rotate << std::endl;
+            Matrix4 lookMat = cashew::Graphics::gluLookAt (0.0f, 0.0f, 0.0f - distance,
+                              0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, Controller::modelView);
             cameraMatrix = lookMat * rotate.getMatrix().transpose();
             cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         }
         else
         {
-            float distanceTmp = distance*(1-alpha) + distanceTo*alpha;
+            float distanceTmp = distance * (1 - alpha) + distanceTo * alpha;
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
-            Vector3 camCenterTmp = camCenter*(1-alpha) + camCenterTo*alpha;
-            Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f -distanceTmp,
-                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
+            Vector3 camCenterTmp = camCenter * (1 - alpha) + camCenterTo * alpha;
+            Matrix4 lookMat = cashew::Graphics::gluLookAt (0.0f, 0.0f, 0.0f - distanceTmp,
+                              0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, Controller::modelView);
             cameraMatrix = lookMat * quat.getMatrix().transpose();
             cameraMatrix.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
         }
-        
+
     }
- 
+
     drawFPS(timeDelta);
 }
 
 void Camera::drawFPS(float timeDelta)
 {
     FPS++;
-    if(getMilliSec() - lastTimeMS>=1000)
+    if (getMilliSec() - lastTimeMS >= 1000)
     {
         lastTimeMS = getMilliSec();
         lastFPS = FPS;
         FPS = 0;
     }
-    
-    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d", 
-        Controller::width, Controller::height, lastFPS);
+
+    snprintf(FPSchar, sizeof(FPSchar), "Width:%4d Height:%4d FPS:%3d",
+             Controller::width, Controller::height, lastFPS);
     Controller::lbFPS->setText(FPSchar);
 }
 
@@ -101,24 +101,22 @@ Ray Camera::getRay()
 {
     int mx = Controller::mouseX;
     int my = Controller::mouseY;
-    int32 viewport[4];
-    double modelview[16];
-    double projection[16];
+    int32_t viewport[4];
     float winX, winY;
     double posX1, posY1, posZ1;
     double posX2, posY2, posZ2;
-    
-    glGetDoublev( GL_MODELVIEW_MATRIX, modelview );
-    glGetDoublev( GL_PROJECTION_MATRIX, projection );
-    glGetIntegerv( GL_VIEWPORT, viewport );
+    viewport[0] = 0;
+    viewport[1] = 0;
+    viewport[2] = Controller::width;
+    viewport[3] = Controller::height;
 
     winX = (float)mx;
     winY = (float)viewport[3] - (float)my;
 
-    gluUnProject( winX, winY, 0.0f, modelview, projection, viewport, &posX1, &posY1, &posZ1);
-    gluUnProject( winX, winY, 1.0f, modelview, projection, viewport, &posX2, &posY2, &posZ2);
-    Ray selectRay = Ray(Vector3(posX1,posY1,posZ1), Vector3(posX2-posX1,posY2-posY1,posZ2-posZ1));
-    
+    cashew::Graphics::gluUnProject( winX, winY, 0.0f, Controller::modelView.get(), Controller::projection.get(), viewport, &posX1, &posY1, &posZ1);
+    cashew::Graphics::gluUnProject( winX, winY, 1.0f, Controller::modelView.get(), Controller::projection.get(), viewport, &posX2, &posY2, &posZ2);
+    Ray selectRay = Ray(Vector3(posX1, posY1, posZ1), Vector3(posX2 - posX1, posY2 - posY1, posZ2 - posZ1));
+
     return selectRay;
 }
 
@@ -127,19 +125,19 @@ Vector3 Camera::getDirection()
     return Quaternion::toVector(rotate);
 }
 
-bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
+bool Camera::getPoint(Vector3 &p, const Plane &plane, bool mode)
 {
     float minDist = 1000.0f;
     bool findCurr = false;
     Ray ray = getRay();
 
-    for(int i=0; i<Controller::sketchLines.size(); ++i)
+    for (int i = 0; i < Controller::sketchLines.size(); ++i)
     {
-        for(int j=0; j<2; ++j)
+        for (int j = 0; j < 2; ++j)
         {
-            if(distRayPoint(ray,Controller::sketchLines[i].points[j])<0.1f)
+            if (distRayPoint(ray, Controller::sketchLines[i].points[j]) < 0.1f)
             {
-                if((ray.GetOrigin() - Controller::sketchLines[i].points[j]).length()<minDist)
+                if ((ray.GetOrigin() - Controller::sketchLines[i].points[j]).length() < minDist)
                 {
                     minDist = (ray.GetOrigin() - Controller::sketchLines[i].points[j]).length();
                     p = Controller::sketchLines[i].points[j];
@@ -148,25 +146,25 @@ bool Camera::getPoint(Vector3& p, const Plane& plane, bool mode)
             }
         }
     }
-    if(!findCurr||mode==GETPOINT_PLANE) p = intersect(ray, plane);
+    if (!findCurr || mode == GETPOINT_PLANE) p = intersect(ray, plane);
 
     return findCurr;
 }
 
-int Camera::getLine(LineSegment& line)
+int Camera::getLine(LineSegment &line)
 {
     Ray ray = getRay();
     Vector3 v1 = ray.GetOrigin();
-    Vector3 v2 = v1 + ray.GetDirection()*100.0f;
+    Vector3 v2 = v1 + ray.GetDirection() * 100.0f;
     LineSegment l;
     l.points[0] = v1;
     l.points[1] = v2;
     float minDist = 1000.0f;
-    int linePos=-1;
-    for(int i=0; i<Controller::sketchLines.size(); ++i)
+    int linePos = -1;
+    for (int i = 0; i < Controller::sketchLines.size(); ++i)
     {
-        float dist = distSegmentSegment(Controller::sketchLines[i],l);
-        if(dist<=0.1f)
+        float dist = distSegmentSegment(Controller::sketchLines[i], l);
+        if (dist <= 0.1f)
         {
             minDist = dist;
             line = Controller::sketchLines[i];

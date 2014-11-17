@@ -112,6 +112,8 @@ Ray Camera::getRay()
     glGetDoublev( GL_PROJECTION_MATRIX, projection );
     glGetIntegerv( GL_VIEWPORT, viewport );
 
+    std::cout<<viewport[0]<<" "<<viewport[1]<<" "<<viewport[2]<<" "<<viewport[3]<<std::endl;
+
     winX = (float)mx;
     winY = (float)viewport[3] - (float)my;
 

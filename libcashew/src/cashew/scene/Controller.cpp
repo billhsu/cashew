@@ -2,17 +2,17 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "Controller.h"
-#include "core/scene/states/State.h"
-#include "core/scene/states/StateIdle.h"
-#include "core/scene/states/StateDeleteLine.h"
-#include "core/scene/states/StateSelectPlane.h"
-#include "core/scene/states/StateDraw.h"
-#include "core/camera/Camera.h"
-#include "core/scene/Scene.h"
-#include "core/UI/UI.h"
-#include "core/texture/g2Images.h"
-#include "core/scripting/luaUtility.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/scene/states/State.h"
+#include "cashew/scene/states/StateIdle.h"
+#include "cashew/scene/states/StateDeleteLine.h"
+#include "cashew/scene/states/StateSelectPlane.h"
+#include "cashew/scene/states/StateDraw.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/scene/Scene.h"
+#include "cashew/UI/UI.h"
+#include "cashew/texture/g2Images.h"
+#include "cashew/scripting/luaUtility.h"
 #include <iostream>
 #include <fstream>
 
@@ -20,6 +20,10 @@ State* State::currState;
 
 int Controller::width = 800;
 int Controller::height = 600;
+
+Matrix4 Controller::modelView;
+Matrix4 Controller::projection;
+
 int Controller::originWidth = 800;
 int Controller::originHeight = 600;
 int Controller::mouseX = 0;
@@ -330,11 +334,10 @@ void Controller::Keyboard(unsigned char key, int x, int y)
         State::currState->Keyboard(key, x, y);
 }
 
-void Controller::render(float timeDelta)
+void Controller::update(float timeDelta)
 {
-    glClearColor (0.9f, 0.9f, 0.9f, 0.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
+    modelView.identity();
+    projection.identity();
 
     camera->update(timeDelta);
 

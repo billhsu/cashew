@@ -8,6 +8,7 @@ billhsu.x@gmail.com
 #include "cashew/math/Vectors.h"
 #include "cashew/scene/Plane.h"
 #include "cashew/scene/LineSegment.h"
+#include "cashew/math/Matrices.h"
 
 class StateIdle;
 class StateDraw;
@@ -38,7 +39,7 @@ public:
     void MouseMotion(int x, int y);
     void PassiveMotion(int x, int y);
     void Keyboard(unsigned char key, int x, int y);
-    void render(float timeDelta);
+    void update(float timeDelta);
 
     static void resize(int _width, int _heigth);
     static void UIButtonCallback(UINode* sender);
@@ -87,6 +88,8 @@ public:
     int status;
 
     static int width,height;
+    static Matrix4 modelView;
+    static Matrix4 projection;
     static int originWidth,originHeight;
     static int mouseX,mouseY;
     static int mouseButton,mouseState; // mouse status

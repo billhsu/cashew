@@ -1,4 +1,4 @@
-#include "Quaternion.h"
+#include "cashew/math/Quaternion.h"
 
 Vector3 Quaternion::X_AXIS = Vector3(1,0,0);
 Vector3 Quaternion::Y_AXIS = Vector3(0,1,0);

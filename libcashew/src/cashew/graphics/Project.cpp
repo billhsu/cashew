@@ -200,11 +200,11 @@ static void __gluMultMatricesf(const float a[16], const float b[16],
     }
 }
 
-int32
+int32_t
 gluProject(float objx, float objy, float objz,
            const float modelMatrix[16],
            const float projMatrix[16],
-           const int32 viewport[4],
+           const int32_t viewport[4],
            float *winx, float *winy, float *winz)
 {
     float in[4];
@@ -235,12 +235,12 @@ gluProject(float objx, float objy, float objz,
     return (GL_TRUE);
 }
 
-int32
+int32_t
 gluUnProject(float winx, float winy, float winz,
              const float modelMatrix[16],
              const float projMatrix[16],
-             const int32 viewport[4],
-             float *objx, float *objy, float *objz)
+             const int32_t viewport[4],
+             double *objx, double *objy, double *objz)
 {
     float finalMatrix[16];
     float in[4];
@@ -274,11 +274,11 @@ gluUnProject(float winx, float winy, float winz,
     return (GL_TRUE);
 }
 
-int32
+int32_t
 gluUnProject4(float winx, float winy, float winz, float clipw,
               const float modelMatrix[16],
               const float projMatrix[16],
-              const int32 viewport[4],
+              const int32_t viewport[4],
               float nearVal, float farVal,
               float *objx, float *objy, float *objz,
               float *objw)
