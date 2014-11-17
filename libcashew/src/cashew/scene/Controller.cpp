@@ -15,6 +15,7 @@ billhsu.x@gmail.com
 #include "cashew/scripting/luaUtility.h"
 #include <iostream>
 #include <fstream>
+#include <stdint.h>
 
 State* State::currState;
 
@@ -215,21 +216,21 @@ void Controller::init()
 
     int _w, _h, _ch;
 
-    GLuint TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, true);
-    GLuint TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, true);
-    GLuint TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, true);
-    GLuint TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, true);
-    GLuint TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_standardView = g2LoadImage("media/textures/button_standard_view.png", &_w, &_h, &_ch, false, true);
-    GLuint TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
-    GLuint TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_standardView = g2LoadImage("media/textures/button_standard_view.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
 
-    GLuint TextureID_mirror       = g2LoadImage("media/textures/button_mirror.png"         , &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_mirror       = g2LoadImage("media/textures/button_mirror.png"         , &_w, &_h, &_ch, false, true);
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", 
                         TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
@@ -340,33 +341,6 @@ void Controller::update(float timeDelta)
     projection.identity();
 
     camera->update(timeDelta);
-
-    drawGrid(20.0f,1.0f);
-    drawAxis(2.0f);
-
-    for(int i=0; i<sketchLines.size(); ++i)
-    {
-        sketchLines[i].render();
-    }
-
-    State::currState->render(timeDelta);
-    
-    if(bCurrPoint)
-    {
-        glDisable(GL_DEPTH);
-        glPointSize(5);
-        glBegin(GL_POINTS);
-        glColor3f(1,0,0);
-            glVertex3fv(currPoint.cell);
-        glEnd();
-        glPointSize(1);
-        glEnable(GL_DEPTH);
-    }
-
-    GUI->render(timeDelta);
-    
-    glutPostRedisplay();
-    glutSwapBuffers();
 }
 
 void Controller::resize(int _width, int _heigth)

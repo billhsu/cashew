@@ -1,8 +1,8 @@
-#include "StateDeleteLine.h"
-#include "core/scene/Controller.h"
-#include "core/camera/Camera.h"
-#include "core/UI/UINode.h"
-#include "core/UI/UIButton.h"
+#include "cashew/scene/states/StateDeleteLine.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/UI/UINode.h"
+#include "cashew/UI/UIButton.h"
 
 // State Delete Line
 void StateDeleteLine::UIEvent(UINode* sender, int event)

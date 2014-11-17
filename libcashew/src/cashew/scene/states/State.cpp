@@ -1,12 +1,12 @@
-#include "core/scene/states/State.h"
-#include "core/scene/Controller.h"
-#include "core/camera/Camera.h"
-#include "core/scene/Scene.h"
-#include "core/scene/Plane.h"
-#include "core/math/Quaternion.h"
-#include "core/scene/LineSegment.h"
-#include "core/UI/UI.h"
-#include "core/UI/UIButton.h"
+#include "cashew/scene/states/State.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/scene/Scene.h"
+#include "cashew/scene/Plane.h"
+#include "cashew/math/Quaternion.h"
+#include "cashew/scene/LineSegment.h"
+#include "cashew/UI/UI.h"
+#include "cashew/UI/UIButton.h"
 
 State* State::statePool[STATE_ID_MAX];
 
