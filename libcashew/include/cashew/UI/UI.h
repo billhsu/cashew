@@ -45,7 +45,7 @@ public:
 
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-
+    enum{CASHEW_MOUSE_DOWN, CASHEW_MOUSE_UP, CASHEW_RIGHT_BUTTON, CASHEW_LEFT_BUTTON};
     void render(float timeDelta);
 private:
     UI();

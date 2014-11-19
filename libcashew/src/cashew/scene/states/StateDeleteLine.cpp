@@ -1,6 +1,7 @@
 #include "cashew/scene/states/StateDeleteLine.h"
 #include "cashew/scene/Controller.h"
 #include "cashew/camera/Camera.h"
+#include "cashew/UI/UI.h"
 #include "cashew/UI/UINode.h"
 #include "cashew/UI/UIButton.h"
 
@@ -15,9 +16,9 @@ void StateDeleteLine::UIEvent(UINode* sender, int event)
 }
 void StateDeleteLine::MouseButton(int button, int state, int x, int y)
 {    
-    if(state==GLUT_DOWN)
+    if(state==UI::CASHEW_MOUSE_DOWN)
     {
-        if(button == GLUT_LEFT_BUTTON)
+        if(button == UI::CASHEW_LEFT_BUTTON)
         {
             bCurLine = camera->getLine(line);
             if(bCurLine!=-1)
@@ -26,7 +27,7 @@ void StateDeleteLine::MouseButton(int button, int state, int x, int y)
                 bCurLine = -1;
             }
         }
-        if(button==GLUT_RIGHT_BUTTON)
+        if(button==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::lastMouseX=x;
             Controller::lastMouseY=y;
@@ -53,9 +54,9 @@ void StateDeleteLine::MouseMotion(int x, int y)
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
-    if(Controller::mouseState==GLUT_DOWN)
+    if(Controller::mouseState==UI::CASHEW_MOUSE_DOWN)
     {
-        if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
+        if(Controller::mouseButton==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::rotate.x -=dy;
             Controller::rotate.y +=dx;
@@ -80,18 +81,6 @@ void StateDeleteLine::Keyboard(unsigned char key, int x, int y)
     if(key == 'x')
     {
         enterState(stateIdle);
-    }
-}
-
-void StateDeleteLine::render(float timeDelta)
-{
-    if(bCurLine!=-1)
-    {
-        glLineWidth(10);
-        glBegin(GL_LINES);
-        //line.points[0]*=2.0f;
-        line.render(1,0,0);
-        glLineWidth(1);
     }
 }
 
