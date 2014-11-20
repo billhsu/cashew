@@ -1,8 +1,9 @@
-#include "StateDraw.h"
-#include "core/scene/Controller.h"
-#include "core/camera/Camera.h"
-#include "core/UI/UINode.h"
-#include "core/UI/UIButton.h"
+#include "cashew/scene/states/StateDraw.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/UI/UI.h"
+#include "cashew/UI/UINode.h"
+#include "cashew/UI/UIButton.h"
 
 // State Draw
 void StateDraw::UIEvent(UINode* sender, int event)
@@ -25,9 +26,9 @@ void StateDraw::UIEvent(UINode* sender, int event)
 }
 void StateDraw::MouseButton(int button, int state, int x, int y)
 {
-    if(state==GLUT_DOWN)
+    if(state==UI::CASHEW_MOUSE_DOWN)
     {
-        if(button == GLUT_LEFT_BUTTON)
+        if(button == UI::CASHEW_LEFT_BUTTON)
         {
             if(internalState==IDLE)
             {
@@ -36,7 +37,7 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
                 internalState = START_POINT_SELECTED;
             }
         }
-        if(button == GLUT_RIGHT_BUTTON)
+        if(button == UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::lastMouseX=x;
             Controller::lastMouseY=y;
@@ -52,9 +53,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
             camera->setCamDist(dist+2);
         }
     }
-    if(state==GLUT_UP)
+    if(state==UI::CASHEW_MOUSE_UP)
     {
-        if(button == GLUT_LEFT_BUTTON)
+        if(button == UI::CASHEW_LEFT_BUTTON)
         {
             if(internalState==START_POINT_SELECTED)
             {
@@ -84,14 +85,14 @@ void StateDraw::MouseMotion(int x, int y)
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
-    if(Controller::mouseState==GLUT_DOWN)
+    if(Controller::mouseState==UI::CASHEW_MOUSE_DOWN)
     {
-        if(Controller::mouseButton==GLUT_LEFT_BUTTON)
+        if(Controller::mouseButton==UI::CASHEW_LEFT_BUTTON)
         {
             if(internalState == START_POINT_SELECTED)
                 camera->getPoint(endPoint, Controller::currPlane);
         }
-        if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
+        if(Controller::mouseButton==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::rotate.x -=dy;
             Controller::rotate.y +=dx;
@@ -102,47 +103,6 @@ void StateDraw::MouseMotion(int x, int y)
 
 void StateDraw::Keyboard(unsigned char key, int x, int y)
 {
-
-}
-
-void StateDraw::render(float timeDelta)
-{
-    float color[4] = {0.4,0.4,0.4,0.7};
-    Controller::currPlane.drawPlane(vCenter, 20, color);
-
-    glPointSize(5);
-    glBegin(GL_POINTS);
-    glColor3f(1,1,0);
-        glVertex3fv(vCenter.cell);
-    glEnd();
-
-    if(internalState == START_POINT_SELECTED)
-    {
-        glPointSize(5);
-        glBegin(GL_POINTS);
-        glColor3f(1,0,1);
-            glVertex3fv(startPoint.cell);
-            glVertex3fv(endPoint.cell);
-        glEnd();
-        glLineWidth(3);
-        glColor3f(1,1,0);
-        glBegin(GL_LINES);
-            glVertex3fv(startPoint.cell);
-            glVertex3fv(endPoint.cell);
-        glEnd();
-    }
-    
-    glPointSize(8);
-    glBegin(GL_POINTS);
-    glColor3f(0,1,0);
-    for(int i = 0; i<selectedPoints.size(); ++i)
-    {
-        glVertex3fv(selectedPoints[i].cell);
-    }
-    glEnd();
-    glPointSize(1);
-
-    glLineWidth(1);
 
 }
 

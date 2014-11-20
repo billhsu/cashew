@@ -16,6 +16,5 @@ public:
     void prepareState();
     void UIEvent(UINode* sender, int event);
 
-    void render(float timeDelta);
     enum {IDLE, START_POINT_SELECTED};
 };
