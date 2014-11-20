@@ -1,8 +1,9 @@
-#include "StateIdle.h"
-#include "core/scene/Controller.h"
-#include "core/camera/Camera.h"
-#include "core/UI/UINode.h"
-#include "core/UI/UIButton.h"
+#include "cashew/scene/states/StateIdle.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/UI/UI.h"
+#include "cashew/UI/UINode.h"
+#include "cashew/UI/UIButton.h"
 
 // State Idle
 void StateIdle::UIEvent(UINode* sender, int event)
@@ -28,9 +29,9 @@ void StateIdle::UIEvent(UINode* sender, int event)
 }
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {    
-    if(state==GLUT_DOWN)
+    if(state==UI::CASHEW_MOUSE_DOWN)
     {
-        if(button == GLUT_LEFT_BUTTON)
+        if(button == UI::CASHEW_LEFT_BUTTON)
         {
             State::statePool[CTRL_SELECT_CUR_PLANE]->selectedPoints.clear();
             Vector3 v;
@@ -46,7 +47,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
             enterState(State::statePool[CTRL_SELECT_CUR_PLANE]);
         }
 
-        if(button==GLUT_RIGHT_BUTTON)
+        if(button==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::lastMouseX=x;
             Controller::lastMouseY=y;
@@ -73,9 +74,9 @@ void StateIdle::MouseMotion(int x, int y)
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
-    if(Controller::mouseState==GLUT_DOWN)
+    if(Controller::mouseState==UI::CASHEW_MOUSE_DOWN)
     {
-        if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
+        if(Controller::mouseButton==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::rotate.x -=dy;
             Controller::rotate.y +=dx;
