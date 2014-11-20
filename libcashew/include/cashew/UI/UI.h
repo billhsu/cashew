@@ -12,7 +12,7 @@ Thanks to GLUI2
 #include "UIRadioButton.h"
 #include "UILabel.h"
 #include <vector>
-
+#include <stdint.h>
 class LuaTable;
 
 class UI
@@ -46,7 +46,7 @@ public:
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
     enum{CASHEW_MOUSE_DOWN, CASHEW_MOUSE_UP, CASHEW_RIGHT_BUTTON, CASHEW_LEFT_BUTTON};
-    void render(float timeDelta);
+    virtual void render(float timeDelta){}
 private:
     UI();
     ~UI();

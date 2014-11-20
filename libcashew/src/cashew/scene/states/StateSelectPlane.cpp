@@ -1,8 +1,9 @@
-#include "StateSelectPlane.h"
-#include "core/scene/Controller.h"
-#include "core/camera/Camera.h"
-#include "core/UI/UINode.h"
-#include "core/UI/UIButton.h"
+#include "cashew/scene/states/StateSelectPlane.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/camera/Camera.h"
+#include "cashew/UI/UI.h"
+#include "cashew/UI/UINode.h"
+#include "cashew/UI/UIButton.h"
 
 // State Select Plane
 void StateSelectPlane::buildCurrentPlane()
@@ -100,9 +101,9 @@ void StateSelectPlane::UIEvent(UINode* sender, int event)
 
 void StateSelectPlane::MouseButton(int button, int state, int x, int y)
 {
-    if(state==GLUT_DOWN)
+    if(state==UI::CASHEW_MOUSE_DOWN)
     {
-        if(button == GLUT_LEFT_BUTTON)
+        if(button == UI::CASHEW_LEFT_BUTTON)
         {
             Vector3 v;
             camera->getPoint(v);
@@ -140,7 +141,7 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
                 enterState(State::statePool[CTRL_DRAW]);
             }
         }
-        if(button == GLUT_RIGHT_BUTTON)
+        if(button == UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::lastMouseX=x;
             Controller::lastMouseY=y;
@@ -167,9 +168,9 @@ void StateSelectPlane::MouseMotion(int x, int y)
     Controller::lastMouseX = x;
     Controller::lastMouseY = y;
 
-    if(Controller::mouseState==GLUT_DOWN)
+    if(Controller::mouseState==UI::CASHEW_MOUSE_DOWN)
     {
-        if(Controller::mouseButton==GLUT_RIGHT_BUTTON)
+        if(Controller::mouseButton==UI::CASHEW_RIGHT_BUTTON)
         {
             Controller::rotate.x -=dy;
             Controller::rotate.y +=dx;
@@ -188,24 +189,4 @@ void StateSelectPlane::prepareState()
     Controller::btnSelectHorizontalPlane->appearIn();
     Controller::btnConfirmPlane->appearIn();
     Controller::btnCancelPlane->appearIn();
-}
-void StateSelectPlane::render(float timeDelta)
-{
-    Vector3 center(0,0,0);
-    for(int i=0;i<selectedPoints.size();++i)
-    {
-        center += selectedPoints[i];
-    }
-    center /= selectedPoints.size();
-    float color[4] = {0.3,0.3,0.3,0.3};
-    Controller::currPlane.drawPlane(center, 20, color);
-    glPointSize(8);
-    glBegin(GL_POINTS);
-    glColor3f(0,1,0);
-    for(int i = 0; i<selectedPoints.size(); ++i)
-    {
-        glVertex3fv(selectedPoints[i].cell);
-    }
-    glEnd();
-    glPointSize(1);
 }

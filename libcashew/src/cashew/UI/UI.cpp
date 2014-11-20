@@ -2,12 +2,11 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "UI.h"
-#include "impl/glut.h"
+#include "cashew/UI/UI.h"
 #include <iostream>
-#include "core/scene/Controller.h"
-#include "core/scripting/luaUtility.h"
-#include "core/scripting/luatables.h"
+#include "cashew/scene/Controller.h"
+#include "cashew/scripting/luaUtility.h"
+#include "cashew/scripting/luatables.h"
 
 char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;
@@ -84,7 +83,7 @@ UINode* UI::getNodeByPos(int x, int y)
 }
 
 UIButton* UI::addButton(int id, int x, int y, int width, int height, 
-            GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
+            uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,  
             const char* text, void (*callback)(UINode* Sender), UINode* parent)
 {
     UIButton* button;
@@ -103,7 +102,7 @@ UIButton* UI::addButton(int id, int x, int y, int width, int height,
 }
 
 UIButton* UI::addButton(int id, const char* strID, 
-            GLuint textureID_idle, GLuint textureID_hover, GLuint textureID_press,  
+            uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,  
             const char* text, void (*callback)(UINode* Sender), UINode* parent)
 {
     int x = luaGetNodePosX(strID);
@@ -185,53 +184,4 @@ UINode* UI::PassiveMotion(int x, int y)
         mRootNode->previousHover = NULL;
     }
     return NULL;
-}
-
-void UI::render(float timeDelta)
-{
-    strcpy(uiHintText, "");
-    glMatrixMode(GL_PROJECTION);
-    glPushMatrix(); // save
-    glLoadIdentity();// and clear
-
-    glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-
-    glScalef(1, -1, 1);           // Invert Y axis so increasing Y goes down.
-    glTranslatef(0.0f, (float)-mWindowHeight, 0.0f); 
-
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST); // also disable the depth test so renders on top
-
-    glEnable(GL_BLEND);
-    glDepthMask(GL_FALSE);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-    mRootNode->_render(timeDelta);
-
-    if(strcmp(uiHintText,"") != 0)
-    {
-        glColor4f(1, 1, 1, 0.9);
-        glBegin(GL_QUADS);
-            glVertex2f(hintTextPosX - 3, hintTextPosY - 15);
-            glVertex2f(hintTextPosX + 3 + strlen(uiHintText) * 9, hintTextPosY - 15);
-            glVertex2f(hintTextPosX + 3 + strlen(uiHintText) * 9, hintTextPosY + 2);
-            glVertex2f(hintTextPosX - 3, hintTextPosY + 2);
-        glEnd();
-        glColor4f(0.5, 0.5, 0.5, 1);
-        glRasterPos2f(hintTextPosX, hintTextPosY);
-        glutBitmapString(GLUT_BITMAP_9_BY_15, (unsigned char*)uiHintText);
-    }
-
-    glDepthMask(GL_TRUE);
-    glDisable(GL_BLEND);
-
-    glEnable(GL_DEPTH_TEST) ; // Turn depth testing back on
-
-    glMatrixMode(GL_PROJECTION) ;
-    glPopMatrix(); // revert back to the matrix I had before.
-    glMatrixMode(GL_MODELVIEW) ;
-    glPopMatrix();
 }

@@ -17,7 +17,6 @@ public:
     void prepareState();
     void UIEvent(UINode* sender, int event);
 
-    void render(float timeDelta);
 private:
     void buildCurrentPlane();
     int selectPlaneMode;
