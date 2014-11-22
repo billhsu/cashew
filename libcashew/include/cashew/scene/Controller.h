@@ -9,6 +9,7 @@ billhsu.x@gmail.com
 #include "cashew/scene/Plane.h"
 #include "cashew/scene/LineSegment.h"
 #include "cashew/math/Matrices.h"
+#include "cashew/texture/Texture.h"
 
 class StateIdle;
 class StateDraw;
@@ -22,6 +23,7 @@ class UIButton;
 class UILabel;
 class UIRadioButton;
 class lua_State;
+class Texture;
 
 class Controller
 {
@@ -103,6 +105,7 @@ public:
     StateDraw* sDraw;
     Camera * camera;
 
+    static cashew::Texture* texture;
     static UI* GUI;
     static UIButton *btnSelectVerticalPlane, *btnSelectHorizontalPlane;
     static UIButton *btnConfirmPlane, *btnCancelPlane;

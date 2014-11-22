@@ -11,7 +11,6 @@ billhsu.x@gmail.com
 #include "cashew/camera/Camera.h"
 #include "cashew/scene/Scene.h"
 #include "cashew/UI/UI.h"
-#include "cashew/texture/g2Images.h"
 #include "cashew/scripting/luaUtility.h"
 #include <iostream>
 #include <fstream>
@@ -35,6 +34,8 @@ int Controller::lastMouseX = 0;
 int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
+
+cashew::Texture *Controller::texture = NULL;
 
 UIButton *Controller::btnSelectVerticalPlane  = NULL, *Controller::btnSelectHorizontalPlane = NULL;
 UIButton *Controller::btnConfirmPlane  = NULL, *Controller::btnCancelPlane = NULL;
@@ -216,21 +217,21 @@ void Controller::init()
 
     int _w, _h, _ch;
 
-    uint32_t TextureID_new  = g2LoadImage("media/textures/button_document_new.png", &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_open = g2LoadImage("media/textures/button_document_open.png", &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_save = g2LoadImage("media/textures/button_document_save.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_new  = texture->loadTexture("media/textures/button_document_new.png");
+    uint32_t TextureID_open = texture->loadTexture("media/textures/button_document_open.png");
+    uint32_t TextureID_save = texture->loadTexture("media/textures/button_document_save.png");
 
-    uint32_t TextureID_select_vertical = g2LoadImage("media/textures/button_vertical.png", &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_select_horizontal = g2LoadImage("media/textures/button_horizontal.png", &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_select_vertical = texture->loadTexture("media/textures/button_vertical.png");
+    uint32_t TextureID_select_horizontal = texture->loadTexture("media/textures/button_horizontal.png");
 
-    uint32_t TextureID_confirm = g2LoadImage("media/textures/button_confirm.png", &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_cancel  = g2LoadImage("media/textures/button_cancel.png",  &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_confirm = texture->loadTexture("media/textures/button_confirm.png");
+    uint32_t TextureID_cancel  = texture->loadTexture("media/textures/button_cancel.png");
 
-    uint32_t TextureID_standardView = g2LoadImage("media/textures/button_standard_view.png", &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_deleteLine   = g2LoadImage("media/textures/button_delete.png"       , &_w, &_h, &_ch, false, true);
-    uint32_t TextureID_undo         = g2LoadImage("media/textures/button_undo.png"         , &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_standardView = texture->loadTexture("media/textures/button_standard_view.png");
+    uint32_t TextureID_deleteLine   = texture->loadTexture("media/textures/button_delete.png"       );
+    uint32_t TextureID_undo         = texture->loadTexture("media/textures/button_undo.png"         );
 
-    uint32_t TextureID_mirror       = g2LoadImage("media/textures/button_mirror.png"         , &_w, &_h, &_ch, false, true);
+    uint32_t TextureID_mirror       = texture->loadTexture("media/textures/button_mirror.png"         );
 
     btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", 
                         TextureID_new, TextureID_new, TextureID_new, "New Sketch", Controller::UIButtonCallback, NULL);
