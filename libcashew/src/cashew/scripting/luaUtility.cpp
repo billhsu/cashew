@@ -1,4 +1,4 @@
-#include "luaUtility.h"
+#include "cashew/scripting/luaUtility.h"
 
 static void lua_stack_dump (lua_State *L)
 {

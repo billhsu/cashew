@@ -2,9 +2,9 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "UINode.h"
+#include "cashew/UI/UINode.h"
 #include <iostream>
-#include "impl/Utility.h"
+#include "cashew/util/Utility.h"
 
 UINode::UINode(UINode* parent)
 {

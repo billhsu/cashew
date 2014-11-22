@@ -2,14 +2,13 @@
 Shipeng Xu
 billhsu.x@gmail.com
 */
-#include "core/UI/UI.h"
-#include "UIButton.h"
+#include "cashew/UI/UI.h"
+#include "cashew/UI/UIButton.h"
 #include <iostream>
-#include "impl/glut.h"
 #include <math.h>
-#include "core/math/Vectors.h"
-#include "impl/Utility.h"
-#include "core/scene/Controller.h"
+#include "cashew/math/Vectors.h"
+#include "cashew/util/Utility.h"
+#include "cashew/scene/Controller.h"
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
@@ -62,7 +61,7 @@ void UIButton::PassiveMotion(int x, int y)
     }
 }
 
-void UIButton::render(float timeDelta)
+void UIButton::update(float timeDelta)
 {
     float _alpha = mAlpha;
     float _height = mHeight;
@@ -103,27 +102,15 @@ void UIButton::render(float timeDelta)
         _width  = mWidth  * (0.96f + 0.04f * cos(mTimeAccu/90.0f));
     }
 
-    glColor4f(mR, mG, mB, _alpha);
-
-    GLuint textureID = -1;
+    uint32_t textureID = -1;
     if(nodeStatus == UINode::NODE_IDLE) textureID = textureID_idle;
     else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
     else if(nodeStatus == UINode::NODE_PRESS) textureID = textureID_press;
     
-    if(textureID!=-1)
-    {
-        glEnable(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-    }
+
     float offset_x = (mWidth  - _width ) / 2.0f;
     float offset_y = (mHeight - _height) / 2.0f;
-    glBegin(GL_QUADS);
-        glTexCoord2f(0.0f,0.0f); glVertex2f(mPosX + offset_x, mPosY + offset_y);
-        glTexCoord2f(1.0f,0.0f); glVertex2f(mPosX + offset_x +_width, mPosY + offset_y);
-        glTexCoord2f(1.0f,1.0f); glVertex2f(mPosX + offset_x +_width, mPosY + offset_y +_height);
-        glTexCoord2f(0.0f,1.0f); glVertex2f(mPosX + offset_x, mPosY + offset_y +_height);
-    glEnd();
-    if(textureID!=-1) glDisable(GL_TEXTURE_2D);
+
 
     if(nodeStatus == NODE_HOVER && mTimeAccu >= 600)
     {

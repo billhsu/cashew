@@ -13,7 +13,7 @@ public:
     void setText(const char* text);
     char* getText();
 
-    void render(float timeDelta);
+    virtual void render(float timeDelta){}
 
 private:
 };

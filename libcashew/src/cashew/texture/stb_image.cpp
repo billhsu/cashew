@@ -1,4 +1,4 @@
-#include "stb_image.h"
+#include "cashew/texture/stb_image.h"
 
 #ifndef STBI_HEADER_FILE_ONLY
 

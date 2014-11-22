@@ -16,7 +16,8 @@ public:
     void PassiveMotion(int x, int y);
     
     void setText(const char* text);
-    void render(float timeDelta);
+    void update(float timeDelta);
+    virtual void render(float timeDelta);
     
     uint32_t textureID_idle, textureID_hover, textureID_press;
 private:

@@ -23,7 +23,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include "luatables.h"
+#include "cashew/scripting/luatables.h"
 
 #include <assert.h>
 #include <iostream>
