@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>8ACA06C4-3E8C-4B67-AD2A-F5DF679AE531</string>
+	<key>IDESourceControlProjectName</key>
+	<string>cashew</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>64DAAF8ED5DDC0045849A297872A65DBD4565932</key>
+		<string>github.com:billhsu/cashew.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Xcode/cashew/cashew.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>64DAAF8ED5DDC0045849A297872A65DBD4565932</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:billhsu/cashew.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>64DAAF8ED5DDC0045849A297872A65DBD4565932</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>64DAAF8ED5DDC0045849A297872A65DBD4565932</string>
+			<key>IDESourceControlWCCName</key>
+			<string>cashew</string>
+		</dict>
+	</array>
+</dict>
+</plist>
