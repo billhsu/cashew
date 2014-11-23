@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  CashewAppDelegate.h
 //  cashew
 //
 //  Created by Xu, Shipeng on 22/11/14.
@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface CashewAppDelegate : NSObject <NSApplicationDelegate>
 
 
 @end
