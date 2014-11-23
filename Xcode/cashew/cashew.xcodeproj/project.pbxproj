@@ -12,6 +12,9 @@
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
 		0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44221A218473005421E1 /* CashewShaderController.m */; };
 		0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44241A218473005421E1 /* CashewTextureController.m */; };
+		0C8D442B1A2199B8005421E1 /* CashewApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.m */; };
+		0C8D44311A219BAB005421E1 /* default.vs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44301A219BAB005421E1 /* default.vs */; };
+		0C8D44331A219BD4005421E1 /* default.fs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44321A219BD4005421E1 /* default.fs */; };
 		0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */; };
 		0C916B2B1A20A0AE00676D57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B2A1A20A0AE00676D57 /* main.m */; };
 		0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2C1A20A0AE00676D57 /* Images.xcassets */; };
@@ -40,6 +43,9 @@
 		0C8D44221A218473005421E1 /* CashewShaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewShaderController.m; sourceTree = "<group>"; };
 		0C8D44231A218473005421E1 /* CashewTextureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewTextureController.h; sourceTree = "<group>"; };
 		0C8D44241A218473005421E1 /* CashewTextureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewTextureController.m; sourceTree = "<group>"; };
+		0C8D442A1A2199B8005421E1 /* CashewApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewApp.m; sourceTree = "<group>"; };
+		0C8D44301A219BAB005421E1 /* default.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vs; sourceTree = "<group>"; };
+		0C8D44321A219BD4005421E1 /* default.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.fs; sourceTree = "<group>"; };
 		0C916B221A20A0AE00676D57 /* cashew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cashew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B261A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C916B271A20A0AE00676D57 /* CashewAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CashewAppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +76,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C8D442F1A219BAB005421E1 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44301A219BAB005421E1 /* default.vs */,
+				0C8D44321A219BD4005421E1 /* default.fs */,
+			);
+			path = Shader;
+			sourceTree = "<group>";
+		};
 		0C916B191A20A0AE00676D57 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +106,7 @@
 		0C916B241A20A0AE00676D57 /* cashew */ = {
 			isa = PBXGroup;
 			children = (
+				0C8D442F1A219BAB005421E1 /* Shader */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
 				0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */,
@@ -106,6 +122,7 @@
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
 				0C916B2E1A20A0AE00676D57 /* MainMenu.xib */,
 				0C916B251A20A0AE00676D57 /* Supporting Files */,
+				0C8D442A1A2199B8005421E1 /* CashewApp.m */,
 			);
 			path = cashew;
 			sourceTree = "<group>";
@@ -216,7 +233,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8D44311A219BAB005421E1 /* default.vs in Resources */,
 				0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */,
+				0C8D44331A219BD4005421E1 /* default.fs in Resources */,
 				0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,6 +256,7 @@
 			files = (
 				0C916B2B1A20A0AE00676D57 /* main.m in Sources */,
 				0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */,
+				0C8D442B1A2199B8005421E1 /* CashewApp.m in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,

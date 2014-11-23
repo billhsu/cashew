@@ -157,8 +157,6 @@
     CGFloat x = [theEvent deltaX];
     CGFloat y = [theEvent deltaY];
     [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
-    
-    NSLog(@"mouseMoved: x:%f y:%f", x, y);
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent
