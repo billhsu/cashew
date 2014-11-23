@@ -12,9 +12,18 @@
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
 		0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44221A218473005421E1 /* CashewShaderController.m */; };
 		0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44241A218473005421E1 /* CashewTextureController.m */; };
-		0C8D442B1A2199B8005421E1 /* CashewApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.m */; };
+		0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.mm */; };
 		0C8D44311A219BAB005421E1 /* default.vs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44301A219BAB005421E1 /* default.vs */; };
 		0C8D44331A219BD4005421E1 /* default.fs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44321A219BD4005421E1 /* default.fs */; };
+		0C8D44391A21C334005421E1 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44371A21C334005421E1 /* Camera.cpp */; };
+		0C8D44401A21C43B005421E1 /* Matrices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D443B1A21C43B005421E1 /* Matrices.cpp */; };
+		0C8D44411A21C43B005421E1 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D443D1A21C43B005421E1 /* Quaternion.cpp */; };
+		0C8D44451A21C4A5005421E1 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44431A21C4A5005421E1 /* Utility.cpp */; };
+		0C8D44491A21C77D005421E1 /* Project.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44471A21C77D005421E1 /* Project.cpp */; };
+		0C8D44501A21C899005421E1 /* LineSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D444B1A21C899005421E1 /* LineSegment.cpp */; };
+		0C8D44511A21C899005421E1 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D444D1A21C899005421E1 /* Plane.cpp */; };
+		0C8D44541A21D2E6005421E1 /* Intersect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44531A21D2E6005421E1 /* Intersect.cpp */; };
+		0C8D44591A21D4D4005421E1 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44571A21D4D4005421E1 /* Scene.cpp */; };
 		0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */; };
 		0C916B2B1A20A0AE00676D57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B2A1A20A0AE00676D57 /* main.m */; };
 		0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2C1A20A0AE00676D57 /* Images.xcassets */; };
@@ -43,9 +52,29 @@
 		0C8D44221A218473005421E1 /* CashewShaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewShaderController.m; sourceTree = "<group>"; };
 		0C8D44231A218473005421E1 /* CashewTextureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewTextureController.h; sourceTree = "<group>"; };
 		0C8D44241A218473005421E1 /* CashewTextureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewTextureController.m; sourceTree = "<group>"; };
-		0C8D442A1A2199B8005421E1 /* CashewApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewApp.m; sourceTree = "<group>"; };
+		0C8D442A1A2199B8005421E1 /* CashewApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CashewApp.mm; sourceTree = "<group>"; };
 		0C8D44301A219BAB005421E1 /* default.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vs; sourceTree = "<group>"; };
 		0C8D44321A219BD4005421E1 /* default.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.fs; sourceTree = "<group>"; };
+		0C8D44371A21C334005421E1 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		0C8D44381A21C334005421E1 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		0C8D443B1A21C43B005421E1 /* Matrices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Matrices.cpp; sourceTree = "<group>"; };
+		0C8D443C1A21C43B005421E1 /* Matrices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrices.h; sourceTree = "<group>"; };
+		0C8D443D1A21C43B005421E1 /* Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quaternion.cpp; sourceTree = "<group>"; };
+		0C8D443E1A21C43B005421E1 /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quaternion.h; sourceTree = "<group>"; };
+		0C8D443F1A21C43B005421E1 /* Vectors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vectors.h; sourceTree = "<group>"; };
+		0C8D44431A21C4A5005421E1 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utility.cpp; sourceTree = "<group>"; };
+		0C8D44441A21C4A5005421E1 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		0C8D44471A21C77D005421E1 /* Project.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Project.cpp; sourceTree = "<group>"; };
+		0C8D44481A21C77D005421E1 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project.h; sourceTree = "<group>"; };
+		0C8D444B1A21C899005421E1 /* LineSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineSegment.cpp; sourceTree = "<group>"; };
+		0C8D444C1A21C899005421E1 /* LineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSegment.h; sourceTree = "<group>"; };
+		0C8D444D1A21C899005421E1 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		0C8D444E1A21C899005421E1 /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plane.h; sourceTree = "<group>"; };
+		0C8D444F1A21C899005421E1 /* Ray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ray.h; sourceTree = "<group>"; };
+		0C8D44521A21D259005421E1 /* Intersect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersect.h; sourceTree = "<group>"; };
+		0C8D44531A21D2E6005421E1 /* Intersect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersect.cpp; sourceTree = "<group>"; };
+		0C8D44571A21D4D4005421E1 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
+		0C8D44581A21D4D4005421E1 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0C916B221A20A0AE00676D57 /* cashew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cashew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B261A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C916B271A20A0AE00676D57 /* CashewAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CashewAppDelegate.h; sourceTree = "<group>"; };
@@ -85,6 +114,88 @@
 			path = Shader;
 			sourceTree = "<group>";
 		};
+		0C8D44341A21C2D8005421E1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D444A1A21C899005421E1 /* Basic */,
+				0C8D44461A21C77D005421E1 /* Graphics */,
+				0C8D44421A21C4A5005421E1 /* Util */,
+				0C8D443A1A21C43B005421E1 /* Math */,
+				0C8D44361A21C334005421E1 /* Camera */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0C8D44361A21C334005421E1 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44371A21C334005421E1 /* Camera.cpp */,
+				0C8D44381A21C334005421E1 /* Camera.h */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		0C8D443A1A21C43B005421E1 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D443B1A21C43B005421E1 /* Matrices.cpp */,
+				0C8D443C1A21C43B005421E1 /* Matrices.h */,
+				0C8D443D1A21C43B005421E1 /* Quaternion.cpp */,
+				0C8D443E1A21C43B005421E1 /* Quaternion.h */,
+				0C8D443F1A21C43B005421E1 /* Vectors.h */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		0C8D44421A21C4A5005421E1 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44521A21D259005421E1 /* Intersect.h */,
+				0C8D44531A21D2E6005421E1 /* Intersect.cpp */,
+				0C8D44431A21C4A5005421E1 /* Utility.cpp */,
+				0C8D44441A21C4A5005421E1 /* Utility.h */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		0C8D44461A21C77D005421E1 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44471A21C77D005421E1 /* Project.cpp */,
+				0C8D44481A21C77D005421E1 /* Project.h */,
+			);
+			path = Graphics;
+			sourceTree = "<group>";
+		};
+		0C8D444A1A21C899005421E1 /* Basic */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D444B1A21C899005421E1 /* LineSegment.cpp */,
+				0C8D444C1A21C899005421E1 /* LineSegment.h */,
+				0C8D444D1A21C899005421E1 /* Plane.cpp */,
+				0C8D444E1A21C899005421E1 /* Plane.h */,
+				0C8D444F1A21C899005421E1 /* Ray.h */,
+			);
+			path = Basic;
+			sourceTree = "<group>";
+		};
+		0C8D44551A21D484005421E1 /* Impl */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44561A21D4D4005421E1 /* Scene */,
+			);
+			path = Impl;
+			sourceTree = "<group>";
+		};
+		0C8D44561A21D4D4005421E1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				0C8D44571A21D4D4005421E1 /* Scene.cpp */,
+				0C8D44581A21D4D4005421E1 /* Scene.h */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
 		0C916B191A20A0AE00676D57 = {
 			isa = PBXGroup;
 			children = (
@@ -106,6 +217,8 @@
 		0C916B241A20A0AE00676D57 /* cashew */ = {
 			isa = PBXGroup;
 			children = (
+				0C8D44551A21D484005421E1 /* Impl */,
+				0C8D44341A21C2D8005421E1 /* Core */,
 				0C8D442F1A219BAB005421E1 /* Shader */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
@@ -122,7 +235,7 @@
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
 				0C916B2E1A20A0AE00676D57 /* MainMenu.xib */,
 				0C916B251A20A0AE00676D57 /* Supporting Files */,
-				0C8D442A1A2199B8005421E1 /* CashewApp.m */,
+				0C8D442A1A2199B8005421E1 /* CashewApp.mm */,
 			);
 			path = cashew;
 			sourceTree = "<group>";
@@ -254,14 +367,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8D44451A21C4A5005421E1 /* Utility.cpp in Sources */,
 				0C916B2B1A20A0AE00676D57 /* main.m in Sources */,
 				0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */,
-				0C8D442B1A2199B8005421E1 /* CashewApp.m in Sources */,
+				0C8D44591A21D4D4005421E1 /* Scene.cpp in Sources */,
+				0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
+				0C8D44391A21C334005421E1 /* Camera.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
+				0C8D44491A21C77D005421E1 /* Project.cpp in Sources */,
+				0C8D44501A21C899005421E1 /* LineSegment.cpp in Sources */,
+				0C8D44411A21C43B005421E1 /* Quaternion.cpp in Sources */,
+				0C8D44401A21C43B005421E1 /* Matrices.cpp in Sources */,
+				0C8D44511A21C899005421E1 /* Plane.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */,
+				0C8D44541A21D2E6005421E1 /* Intersect.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +500,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = cashew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = "-I./cashew/";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -389,6 +513,8 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = cashew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				OTHER_CFLAGS = "-I./cashew/";
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

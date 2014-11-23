@@ -10,9 +10,9 @@
 #import "CashewOpenGLView.h"
 #import "CashewShaderController.h"
 #import "CashewTextureController.h"
+#import "Scene.h"
 
 GLuint vertexBuffer;
-//GLuint colorBuffer;
 GLuint uvBuffer;
 GLuint texture;
 GLuint program;
@@ -29,6 +29,7 @@ GLuint vertexArrayObj;
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"default.vs" FragmentShaderFile:@"default.fs"];
     glUseProgram(program);
+    cashew::prepareScene();
     return YES;
 }
 
@@ -40,6 +41,7 @@ GLuint vertexArrayObj;
 - (void)render;
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    cashew::drawAxis(1.0f);
 }
 
 @end
@@ -49,11 +51,9 @@ GLuint vertexArrayObj;
 - (void)prepareOpenGL
 {
     [super prepareOpenGL];
-    
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    
     Set_OpenGLViewDelegate(CashewApp);
 }
 
@@ -63,6 +63,7 @@ GLuint vertexArrayObj;
     glDeleteBuffers(1, &uvBuffer);
     glDeleteTextures(1, &texture);
     glDeleteVertexArrays(1, &vertexArrayObj);
+    cashew::clearScene();
     glDeleteProgram(program);
 
     [super clearGLContext];
