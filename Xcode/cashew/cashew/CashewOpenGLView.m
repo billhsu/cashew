@@ -73,9 +73,9 @@
     
     [[self openGLContext] makeCurrentContext];
     [[self openGLContext] update];
-    
     NSRect rect = [self bounds];
     glViewport(0, 0, rect.size.width, rect.size.height);
+    [self.delegate reshapeWidth:rect.size.width height:rect.size.height];
 }
 
 - (BOOL)acceptsFirstResponder

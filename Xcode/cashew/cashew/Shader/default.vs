@@ -9,7 +9,6 @@ layout (location = 1) in vec3 color;
 out vec4 color_vs;
 
 void main() {
-//    gl_Position =  projection * modelView * vec4(position, 1.0);
-    gl_Position = vec4(position, 1.0);
+    gl_Position =  projection * modelView * vec4(position, 1.0);
     color_vs = vec4(color, 1.0);
 }

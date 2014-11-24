@@ -5,7 +5,8 @@
 
 namespace cashew
 {
-    
+    const int32_t GL_TRUE = 1;
+    const int32_t GL_FALSE = 0;
     /*
      ** Make m an identity matrix
      */
@@ -20,7 +21,7 @@ namespace cashew
 #define __glPi 3.14159265358979323846
     
     Matrix4
-    gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 projection)
+    gluPerspective(float fovy, float aspect, float zNear, float zFar)
     {
         Matrix4 result;
         float m[4][4];
@@ -42,9 +43,7 @@ namespace cashew
         m[2][3] = -1;
         m[3][2] = -2 * zNear * zFar / deltaZ;
         m[3][3] = 0;
-        Matrix4 gluMat;
-        gluMat.set((float*)m);
-        result = projection * gluMat;
+        result.set((float*)m);
         return result;
     }
     
@@ -70,7 +69,7 @@ namespace cashew
     Matrix4
     gluLookAt(float eyex, float eyey, float eyez, float centerx,
               float centery, float centerz, float upx, float upy,
-              float upz, Matrix4 modelView)
+              float upz)
     {
         Matrix4 result;
         float forward[3], side[3], up[3];
@@ -105,11 +104,10 @@ namespace cashew
         m[0][2] = -forward[0];
         m[1][2] = -forward[1];
         m[2][2] = -forward[2];
-        
-        Matrix4 gluMat;
-        gluMat.set((float*)m);
-        result = modelView * gluMat;
-        result.translate(-eyex, -eyey, -eyez);
+        Matrix4 translate;
+        translate.translate(-eyex, -eyey, -eyez);
+        result.set((float*)m);
+        result = result * translate;
         return result;
     }
     

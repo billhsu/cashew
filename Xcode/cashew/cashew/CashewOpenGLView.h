@@ -6,7 +6,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
 @protocol CashewOpenGLViewDelegate;
 
 @interface CashewOpenGLView : NSOpenGLView {
@@ -14,7 +13,6 @@
 }
 
 @property (nonatomic, strong) id<CashewOpenGLViewDelegate> delegate;
-
 - (void)visit:(NSTimer*)theTimer;
 
 @end
@@ -25,7 +23,7 @@
 - (BOOL)prepareRenderData;
 - (void)update:(NSTimeInterval)timeInterval;
 - (void)render;
-
+- (void)reshapeWidth:(int)width height:(int)height;
 
 @end
 

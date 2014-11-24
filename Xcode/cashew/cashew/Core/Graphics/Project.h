@@ -7,12 +7,12 @@ namespace cashew
 {
     
     Matrix4
-    gluPerspective(float fovy, float aspect, float zNear, float zFar, Matrix4 projection);
+    gluPerspective(float fovy, float aspect, float zNear, float zFar);
     
     Matrix4
     gluLookAt(float eyex, float eyey, float eyez, float centerx,
               float centery, float centerz, float upx, float upy,
-              float upz, Matrix4 modelView);
+              float upz);
     
     int32_t
     gluProject(float objx, float objy, float objz,
@@ -36,9 +36,6 @@ namespace cashew
                   float nearVal, float farVal,
                   float *objx, float *objy, float *objz,
                   float *objw);
-    
-    const int32_t GL_TRUE = 1;
-    const int32_t GL_FALSE = 0;
-    
+
 };
 #endif

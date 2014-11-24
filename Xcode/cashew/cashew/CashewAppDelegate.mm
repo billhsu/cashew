@@ -13,6 +13,7 @@
 @interface CashewAppDelegate ()
 
 @property (weak) IBOutlet NSWindow *window;
+@property (strong) NSOpenGLView *view;
 @end
 
 @implementation CashewAppDelegate
@@ -35,9 +36,9 @@
         return;
     }
     
-    NSOpenGLView *view = [[CashewOpenGLView alloc] initWithFrame:self.window.frame pixelFormat:pixelFormat];
+    _view = [[CashewOpenGLView alloc] initWithFrame:self.window.frame pixelFormat:pixelFormat];
     
-    [self.window setContentView:view];
+    [self.window setContentView:_view];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

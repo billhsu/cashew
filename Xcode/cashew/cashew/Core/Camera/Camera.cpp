@@ -39,7 +39,7 @@ void Camera::update(float timeDelta)
     if (!anim)
     {
         Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distance,
-                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, modelView);
+                                             0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
         cameraMatrix = lookMat * rotate.getMatrix().transpose();
         cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         animTime = 0;
@@ -61,7 +61,7 @@ void Camera::update(float timeDelta)
             distChange = false;
             
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distance,
-                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, modelView);
+                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             cameraMatrix = lookMat * rotate.getMatrix().transpose();
             cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
         }
@@ -71,7 +71,7 @@ void Camera::update(float timeDelta)
             Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
             Vector3 camCenterTmp = camCenter * (1 - alpha) + camCenterTo * alpha;
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distanceTmp,
-                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0, modelView);
+                                                 0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             cameraMatrix = lookMat * quat.getMatrix().transpose();
             cameraMatrix.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
         }

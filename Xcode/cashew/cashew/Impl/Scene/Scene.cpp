@@ -23,7 +23,10 @@ namespace cashew{
     };
     static float axisColors[] = {
         1.0f, 0.0f, 0.0f,
+        1.0f, 0.0f, 0.0f,
         0.0f, 1.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f,
         0.0f, 0.0f, 1.0f
     };
     void prepareScene()
