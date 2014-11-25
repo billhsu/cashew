@@ -41,7 +41,7 @@ Matrix4 projection, modelView;
     GLint local_modelView = glGetUniformLocation(program, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, modelView.get());
     
-    cashew::prepareScene();
+    cashew::prepareScene(1.0f);
     return YES;
 }
 
@@ -53,7 +53,7 @@ Matrix4 projection, modelView;
 - (void)render;
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    cashew::drawAxis(1.0f);
+    cashew::drawAxis();
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
