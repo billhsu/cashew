@@ -5,15 +5,101 @@
 #import <OpenGL/gl3.h>
 #include "Core/Math/Vectors.h"
 namespace cashew{
+    static float* gridVertex = NULL;
+    static float* gridColor = NULL;
+    GLuint sceneGridVertexBuffer;
+    GLuint sceneGridColorBuffer;
+    GLuint sceneGridVertexArrayObj;
+    int grid_step_cnt;
+    void prepareSceneGrid(float size, float step)
+    {
+        grid_step_cnt = size / step;
+        gridVertex = new float[8 * 3 * grid_step_cnt];
+        gridColor = new float[8 * 3 * grid_step_cnt];
+        int span = 8 * 3;
+        for(int i = 0; i < grid_step_cnt; ++i)
+        {
+            gridVertex[span * i + 0] = -size;
+            gridVertex[span * i + 1] = 0.0f;
+            gridVertex[span * i + 2] = (float)i * step;
+            
+            gridVertex[span * i + 3] = size;
+            gridVertex[span * i + 4] = 0.0f;
+            gridVertex[span * i + 5] = (float)i * step;
+            
+            gridVertex[span * i + 6] = -size;
+            gridVertex[span * i + 7] = 0.0f;
+            gridVertex[span * i + 8] = -(float)i * step;
+            
+            gridVertex[span * i + 9] = size;
+            gridVertex[span * i + 10] = 0.0f;
+            gridVertex[span * i + 11] = -(float)i * step;
+            
+            //////////////////////////////////////////
+            
+            gridVertex[span * i + 12] = (float)i * step;
+            gridVertex[span * i + 13] = 0.0f;
+            gridVertex[span * i + 14] = -size;
+            
+            gridVertex[span * i + 15] = (float)i * step;
+            gridVertex[span * i + 16] = 0.0f;
+            gridVertex[span * i + 17] = size;
+            
+            gridVertex[span * i + 18] = -(float)i * step;
+            gridVertex[span * i + 19] = 0.0f;
+            gridVertex[span * i + 20] = -size;
+            
+            gridVertex[span * i + 21] = -(float)i * step;
+            gridVertex[span * i + 22] = 0.0f;
+            gridVertex[span * i + 23] = size;
+            
+            
+            gridColor[span * i + 0] = 0.3f; gridColor[span * i + 1] = 0.3f; gridColor[span * i + 2] = 0.3f;
+            gridColor[span * i + 3] = 0.3f; gridColor[span * i + 4] = 0.3f; gridColor[span * i + 5] = 0.3f;
+            gridColor[span * i + 6] = 0.3f; gridColor[span * i + 7] = 0.3f; gridColor[span * i + 8] = 0.3f;
+            gridColor[span * i + 9] = 0.3f; gridColor[span * i + 10] = 0.3f; gridColor[span * i + 11] = 0.3f;
+            
+            gridColor[span * i + 12] = 0.3f; gridColor[span * i + 13] = 0.3f; gridColor[span * i + 14] = 0.3f;
+            gridColor[span * i + 15] = 0.3f; gridColor[span * i + 16] = 0.3f; gridColor[span * i + 17] = 0.3f;
+            gridColor[span * i + 18] = 0.3f; gridColor[span * i + 19] = 0.3f; gridColor[span * i + 20] = 0.3f;
+            gridColor[span * i + 21] = 0.3f; gridColor[span * i + 22] = 0.3f; gridColor[span * i + 23] = 0.3f;        }
+        glGenBuffers(1, &sceneGridVertexBuffer);
+        glGenBuffers(1, &sceneGridColorBuffer);
+        glGenVertexArrays(1, &sceneGridVertexArrayObj);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridVertexBuffer);
+        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridVertex, GL_STATIC_DRAW);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridColorBuffer);
+        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridColor, GL_STATIC_DRAW);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        
+        // create vertex array for shader attributes
+        glBindVertexArray(sceneGridVertexArrayObj);
+        
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridVertexBuffer);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridColorBuffer);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    }
+    void drawGrid()
+    {
+        glBindVertexArray(sceneGridVertexArrayObj);
+        glDrawArrays(GL_LINES, 0, 8 * 3 * grid_step_cnt);
+        glBindVertexArray(0);
+    }
+
     GLuint sceneAxisVertexBuffer;
     GLuint sceneAxisEndVertexBuffer;
     GLuint sceneAxisColorBuffer;
     GLuint sceneAxisEndColorBuffer;
     GLuint sceneAxisVertexArrayObj;
     GLuint sceneAxisEndVertexArrayObj;
-    void drawGrid(float size, float step)
-    {
-    }
     static float axisCoords[] = {
         0.0f, 0.0f, 0.0f,
         1.0f, 0.0f, 0.0f,
@@ -100,6 +186,17 @@ namespace cashew{
         glDeleteBuffers(1, &sceneAxisVertexBuffer);
         glDeleteBuffers(1, &sceneAxisColorBuffer);
         glDeleteVertexArrays(1, &sceneAxisVertexArrayObj);
+        
+        glDeleteBuffers(1, &sceneAxisEndVertexBuffer);
+        glDeleteBuffers(1, &sceneAxisEndColorBuffer);
+        glDeleteVertexArrays(1, &sceneAxisEndVertexArrayObj);
+        
+        glDeleteBuffers(1, &sceneGridVertexBuffer);
+        glDeleteBuffers(1, &sceneGridColorBuffer);
+        glDeleteVertexArrays(1, &sceneGridVertexArrayObj);
+        
+        if(gridVertex!=NULL) delete [] gridVertex;
+        if(gridColor!=NULL) delete [] gridColor;
     }
     void drawAxis()
     {

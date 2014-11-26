@@ -6,6 +6,7 @@
 namespace cashew{
     void prepareSceneAxis(float size);
     void clearScene();
-    void drawGrid(float size, float step);
+    void prepareSceneGrid(float size, float step);
     void drawAxis();
+    void drawGrid();
 };

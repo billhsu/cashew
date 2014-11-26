@@ -37,11 +37,12 @@ Matrix4 projection, modelView;
     program = [shaderController programWithVertexShaderFile:@"default.vs" FragmentShaderFile:@"default.fs"];
     glUseProgram(program);
     
-    modelView = cashew::gluLookAt(4.0, 3.0, 3.0, 0, 0, 0, 0, 1.0, 0);
+    modelView = cashew::gluLookAt(4.0, 3.0, 30.0, 0, 0, 0, 0, 1.0, 0);
     GLint local_modelView = glGetUniformLocation(program, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, modelView.get());
     
     cashew::prepareSceneAxis(1.0f);
+    cashew::prepareSceneGrid(20.0f,1.0f);
     return YES;
 }
 
@@ -54,6 +55,7 @@ Matrix4 projection, modelView;
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     cashew::drawAxis();
+    cashew::drawGrid();
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
