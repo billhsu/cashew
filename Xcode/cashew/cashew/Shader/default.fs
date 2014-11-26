@@ -1,3 +1,6 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #version 330 core
 
 in vec4 color_vs;

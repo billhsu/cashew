@@ -1,3 +1,6 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #include "Quaternion.h"
 
 Vector3 Quaternion::X_AXIS = Vector3(1,0,0);

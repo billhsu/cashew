@@ -1,3 +1,6 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #include "LineSegment.h"
 #define SMALL_NUM 0.001f
 
