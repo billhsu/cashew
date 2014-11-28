@@ -166,8 +166,6 @@
     CGFloat x = [theEvent deltaX];
     CGFloat y = [theEvent deltaY];
     [[CashewInputController sharedInputController] mouseLeftDragWithX:x andY:y];
-    
-    NSLog(@"mouseDragged: x:%f y:%f", x, y);
 }
 
 - (void)rightMouseDragged:(NSEvent *)theEvent
@@ -177,8 +175,6 @@
     CGFloat x = [theEvent deltaX];
     CGFloat y = [theEvent deltaY];
     [[CashewInputController sharedInputController] mouseRightDragWithX:x andY:y];
-    
-    NSLog(@"rightMouseDragged: x:%f y:%f", x, y);
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent
@@ -188,8 +184,6 @@
     CGFloat x = [theEvent scrollingDeltaX];
     CGFloat y = [theEvent scrollingDeltaY];
     [[CashewInputController sharedInputController] mouseScrollWithX:x andY:y];
-    
-    NSLog(@"scrollWheel: x:%f y:%f", x, y);
 }
 
 - (void)mouseEntered:(NSEvent *)theEvent

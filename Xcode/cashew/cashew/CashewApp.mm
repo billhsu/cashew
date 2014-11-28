@@ -10,10 +10,12 @@
 #import "CashewOpenGLView.h"
 #import "CashewShaderController.h"
 #import "CashewTextureController.h"
+#import "CashewInputController.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
 #include "Impl/Scene/Scene.h"
 #include "Core/Graphics/Project.h"
+#include "Core/Camera/Camera.h"
 
 GLuint vertexBuffer;
 GLuint uvBuffer;
@@ -23,8 +25,10 @@ GLuint vertexArrayObj;
 
 int windowWidth, windowHeight;
 Matrix4 projection, modelView;
+Vector3 rotate = Vector3(-30, 0, 0);
+Camera *mCamera = NULL;
 
-@interface CashewApp : NSObject <CashewOpenGLViewDelegate>
+@interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
 
 @end
 
@@ -32,23 +36,30 @@ Matrix4 projection, modelView;
 
 - (BOOL)prepareRenderData
 {
+    [[CashewInputController sharedInputController] addEventDelegate:self];
     NSLog(@"prepareRenderData");
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"default.vs" FragmentShaderFile:@"default.fs"];
     glUseProgram(program);
-    
-    modelView = cashew::gluLookAt(4.0, 3.0, 30.0, 0, 0, 0, 0, 1.0, 0);
-    GLint local_modelView = glGetUniformLocation(program, "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, modelView.get());
     
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
     return YES;
 }
 
+- (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y
+{
+    rotate.x -= y;
+    rotate.y += x;
+}
+
 - (void)update:(NSTimeInterval)timeInterval
 {
-    
+    mCamera->rotateCam(rotate);
+    mCamera->update(timeInterval);
+    modelView = mCamera->getMatrix();
+    GLint local_modelView = glGetUniformLocation(program, "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, modelView.get());
 }
 
 - (void)render;
@@ -78,6 +89,7 @@ Matrix4 projection, modelView;
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glClearColor(0.0, 0.0, 0.0, 1.0);
+    mCamera = &Camera::getInstance();
     Set_OpenGLViewDelegate(CashewApp);
 }
 
