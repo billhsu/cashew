@@ -2,6 +2,7 @@
 // billhsu.x@gmail.com
 
 #include "LineSegment.h"
+#include <stdlib.h>
 #define SMALL_NUM 0.001f
 
 float LineSegment::distSegmentSegment( LineSegment S1, LineSegment S2)
