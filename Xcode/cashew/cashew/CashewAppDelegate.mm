@@ -45,7 +45,10 @@
     // Insert code here to tear down your application
     [_window setReleasedWhenClosed:NO];
 }
-
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
+{
+    return TRUE;
+}
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
 {
     if ( flag ) {

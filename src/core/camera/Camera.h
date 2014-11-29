@@ -1,15 +1,16 @@
-/* 
-Shipeng Xu
-billhsu.x@gmail.com
-*/
+/*
+ Shipeng Xu
+ billhsu.x@gmail.com
+ */
 #pragma once
-
+#include <stdint.h>
 #include <iostream>
-#include "../math/Vectors.h"
-#include "../scene/Ray.h"
-#include "../scene/Plane.h"
-#include "../scene/LineSegment.h"
-#include "../math/Quaternion.h"
+#include "Core/Math/Vectors.h"
+#include "Core/Basic/Ray.h"
+#include "Core/Basic/Plane.h"
+#include "Core/Basic/LineSegment.h"
+#include "Core/Math/Quaternion.h"
+#include "Core/Math/Matrices.h"
 
 class Camera
 {
@@ -20,7 +21,11 @@ public:
         std::cout <<"Camera getInstance()"<<std::endl;
         return instance;
     }
-
+    
+    Matrix4 getMatrix()
+    {
+        return cameraMatrix;
+    }
     void rotateCam(float rotX, float rotY, float rotZ)
     {
         rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
@@ -33,7 +38,7 @@ public:
     {
         rotate = rot;
     }
-
+    
     void setCamDist(float dist)
     {
         if (dist<=0) return;
@@ -41,7 +46,7 @@ public:
         distance = dist;
         distanceTo=dist;
     }
-
+    
     // rotate with animation
     void rotateCamTo(float rotX, float rotY, float rotZ)
     {
@@ -58,7 +63,7 @@ public:
         anim = true;
         rotChange = true;
     }
-
+    
     void setCamDistTo(float dist)
     {
         distanceTo = dist;
@@ -66,7 +71,7 @@ public:
         anim = true;
         distChange =true;
     }
-
+    
     void setCamCenter(Vector3 center)
     {
         camCenter = center;
@@ -77,31 +82,54 @@ public:
         anim = true;
         centerChange = true;
     }
-
+    
+    void setModelView(Matrix4 _modelView)
+    {
+        modelView = _modelView;
+    }
+    
+    void setProjection(Matrix4 _projection)
+    {
+        projection = _projection;
+    }
+    
+    void setWindowHeight(int _height)
+    {
+        windowHeight = _height;
+    }
+    
+    void setWindowWidth(int _width)
+    {
+        windowWidth = _width;
+    }
+    
     void update(float timeDelta);
-    Ray getRay();
+    Ray getRay(int mx, int my);
     Vector3 getDirection();
     enum {GETPOINT_3D, GETPOINT_PLANE};
-    bool getPoint(Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
-    int getLine(LineSegment& line);
+    bool getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
+    int getLine(int mx, int my, const std::vector<LineSegment>& lines, LineSegment& line);
     Quaternion getQuaternion() {return rotate;}
-
+    
     float distance,distanceTo,distanceDelta;
     bool anim;
-    int width,height;
-
+    
 private:
     Camera();
     ~Camera();
     Camera(Camera const&);
     void operator=(Camera const&);
+    Matrix4 cameraMatrix;
     float ANIM_TIME_MS;
     float animTime;
     Quaternion rotate, rotateTo;
     Vector3 camCenter, camCenterTo;
     bool rotChange, centerChange, distChange;
-
-    void drawFPS(float timeDelta);
+    Matrix4 modelView;
+    Matrix4 projection;
+    int windowWidth, windowHeight;
+    
+    void updateFPS(float timeDelta);
     long lastTimeMS;
     int FPS;
     int lastFPS;

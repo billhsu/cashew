@@ -12,7 +12,7 @@ http://lolengine.net/blog/2013/09/18/beautiful-maths-quaternion-from-vectors
 #include "Matrices.h"
 #include "Vectors.h"
 #include <iostream>
-#include "../../impl/Utility.h"
+#include "Core/Util/Utility.h"
 
 class Quaternion
 {

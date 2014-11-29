@@ -1,14 +1,14 @@
 CC        := g++
 OS := $(shell uname)
 ifeq ($(OS),Darwin)
-	LDFLAGS   := -framework OpenGL -framework GLUT -llua
+	LDFLAGS   := -llua
 else
-	LDFLAGS   := -lGL -lGLU -lglut -lrt -llua
+	LDFLAGS   := -lrt -llua
 endif
 
 CFLAGS    := -g
 
-MODULES   := src/core/camera src/core/math src/core/scene src/core/scene/states src/core/UI src/core/texture src/impl src/core/scripting
+MODULES   := src/Core/Camera src/Core/Math src/Core/Basic src/Core/Graphics src/Core/Util
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 
@@ -17,9 +17,10 @@ OBJ       := $(patsubst %.cpp,build/%.o,$(SRC))
 ifeq ($(OS),Darwin)
 	INCLUDES  := -Isrc/ -Ilib/lua-5.2.3/src -Wno-deprecated-declarations
 else
-	INCLUDES  := -Isrc/ -Ilib/freeglut-2.8.1/include -Llib/freeglut-2.8.1/src/.libs -Ilib/lua-5.2.3/src
+	INCLUDES  := -Isrc/ -Ilib/lua-5.2.3/src
 endif
 
+OUT := libcashew.a
 vpath %.cpp $(SRC_DIR)
 
 define make-goal
@@ -29,10 +30,10 @@ endef
 
 .PHONY: all checkdirs clean depend
 
-all: checkdirs cashew
+all: checkdirs $(OUT)
 
-cashew: $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) -Llib/lua-5.2.3/src $(OBJ) $(LDFLAGS) -o $@
+$(OUT): $(OBJ)
+	ar rcs $(OUT) $(OBJ)
 
 checkdirs: $(BUILD_DIR)
 
@@ -44,7 +45,5 @@ clean:
 
 depend:
 	@makedepend -pbuild/ --  $(CFLAGS) -- $(SRC)
-	
-$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
-# DO NOT DELETE
 
+$(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))

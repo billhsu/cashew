@@ -80,7 +80,7 @@ Camera *mCamera = NULL;
 }
 @end
 
-@implementation CashewOpenGLView(Tutorial)
+@implementation CashewOpenGLView(CashewMain)
 
 - (void)prepareOpenGL
 {

@@ -156,6 +156,7 @@ $RECYCLE.BIN/
 tags
 nextsketch
 cashew
+libcashew.a
 
 lib/freeglut-2.8.1/autom4te.cache/
 # Lua
