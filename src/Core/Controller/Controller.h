@@ -10,7 +10,7 @@ billhsu.x@gmail.com
 #include "Core/Basic/LineSegment.h"
 #include "Core/Math/Matrices.h"
 
-class StateIdleImpl;
+class StateIdle;
 class State;
 class Camera;
 class UI;
@@ -37,6 +37,8 @@ public:
     void Keyboard(unsigned char key);
     void update(float timeDelta);
     void render();
+    
+    void init();
 
     static void resize(int _width, int _heigth);
     static void UIButtonCallback(UINode* sender);
@@ -94,7 +96,7 @@ public:
 
     static int uiHold;
 
-    StateIdleImpl* state_idle;
+    static StateIdle* state_idle;
     Camera * camera;
     
     static bool enableLight;
@@ -102,7 +104,6 @@ public:
     static lua_State *luaState;
 
 private:
-    void init();
     Controller();
     ~Controller();
     Controller(Controller const&);

@@ -16,8 +16,7 @@
 #include "Impl/Scene/Scene.h"
 
 #include "Core/Camera/Camera.h"
-#include "Core/State/State.h"
-#include "Core/State/StateIdle.h"
+#include "Impl/State/StateIdleImpl.h"
 #include "Core/Controller/Controller.h"
 GLuint program;
 
@@ -78,7 +77,9 @@ Controller *mController = &Controller::getInstance();
     [super prepareOpenGL];
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.8, 0.8, 0.8, 1.0);
+    mController->state_idle = new StateIdleImpl();
+    mController->init();
     Set_OpenGLViewDelegate(CashewApp);
 }
 
