@@ -4,12 +4,11 @@ billhsu.x@gmail.com
 */
 #include "Controller.h"
 #include "Core/State/State.h"
-#include "Impl/State/StateIdleImpl.h"
+#include "Core/State/StateIdle.h"
 //#include "Core/State/StateDeleteLine.h"
 //#include "Core/State/StateSelectPlane.h"
 //#include "Core/State/StateDraw.h"
 #include "Core/Camera/Camera.h"
-#include "Impl/Scene/Scene.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include <iostream>
@@ -47,9 +46,10 @@ Vector3 Controller::rotate = Vector3(-30,0,0);
 
 lua_State *Controller::luaState = NULL;
 
+StateIdle* Controller::state_idle = NULL;
+
 Controller::Controller()
 {
-    init();
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
@@ -70,7 +70,6 @@ void Controller::init()
     {
         State::statePool[i] = NULL;
     }
-    state_idle = new StateIdleImpl();
     camera = &Camera::getInstance();
     
     State::enterState(state_idle);
