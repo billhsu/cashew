@@ -4,19 +4,20 @@ billhsu.x@gmail.com
 */
 #include "Controller.h"
 #include "Core/State/State.h"
-#include "Core/State/StateIdle.h"
+#include "Impl/State/StateIdleImpl.h"
 //#include "Core/State/StateDeleteLine.h"
 //#include "Core/State/StateSelectPlane.h"
 //#include "Core/State/StateDraw.h"
 #include "Core/Camera/Camera.h"
 #include "Impl/Scene/Scene.h"
 #include "Core/Scripting/luaUtility.h"
+#include "Core/Graphics/Project.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
 
-int Controller::width = 800;
-int Controller::height = 600;
+int Controller::windowWidth = 800;
+int Controller::windowHeight = 600;
 
 Matrix4 Controller::modelView;
 Matrix4 Controller::projection;
@@ -48,6 +49,7 @@ lua_State *Controller::luaState = NULL;
 
 Controller::Controller()
 {
+    init();
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
@@ -68,7 +70,7 @@ void Controller::init()
     {
         State::statePool[i] = NULL;
     }
-    state_idle = new StateIdle();
+    state_idle = new StateIdleImpl();
     camera = &Camera::getInstance();
     
     State::enterState(state_idle);
@@ -119,14 +121,21 @@ void Controller::Keyboard(unsigned char key)
 
 void Controller::update(float timeDelta)
 {
+    State::currState->update(timeDelta);
     modelView.identity();
-    projection.identity();
-
+    camera->rotateCam(rotate);
     camera->update(timeDelta);
+    modelView = camera->getMatrix();
+}
+
+void Controller::render()
+{
+    State::currState->render();
 }
 
 void Controller::resize(int _width, int _heigth)
 {
-    width = _width;
-    height = _heigth;
+    windowWidth = _width;
+    windowHeight = _heigth;
+    projection = cashew::gluPerspective(45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
 }

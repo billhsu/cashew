@@ -10,10 +10,7 @@ billhsu.x@gmail.com
 #include "Core/Basic/LineSegment.h"
 #include "Core/Math/Matrices.h"
 
-class StateIdle;
-class StateDraw;
-class StateSelectPlane;
-class StateDeleteLine;
+class StateIdleImpl;
 class State;
 class Camera;
 class UI;
@@ -34,13 +31,12 @@ public:
         return instance;
     }
 
-    
-    void init();
     void MouseButton(int button, int state, int x, int y);
-    void MouseMotion(int x, int y);
+    void MouseMotion(int dx, int dy);
     void PassiveMotion(int x, int y);
     void Keyboard(unsigned char key);
     void update(float timeDelta);
+    void render();
 
     static void resize(int _width, int _heigth);
     static void UIButtonCallback(UINode* sender);
@@ -88,7 +84,7 @@ public:
 
     int status;
 
-    static int width,height;
+    static int windowWidth,windowHeight;
     static Matrix4 modelView;
     static Matrix4 projection;
     static int originWidth,originHeight;
@@ -98,7 +94,7 @@ public:
 
     static int uiHold;
 
-    StateIdle* state_idle;
+    StateIdleImpl* state_idle;
     Camera * camera;
     
     static bool enableLight;
@@ -106,6 +102,7 @@ public:
     static lua_State *luaState;
 
 private:
+    void init();
     Controller();
     ~Controller();
     Controller(Controller const&);

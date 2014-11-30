@@ -18,12 +18,13 @@ public:
     State();
     virtual ~State(){};
     virtual void MouseButton(int button, int state, int x, int y){};
-    virtual void MouseMotion(int x, int y){};
+    virtual void MouseMotion(int dx, int dy){};
     virtual void PassiveMotion(int x, int y){};
     virtual void Keyboard(unsigned char key){};
     virtual void UIEvent(UINode* sender, int event){};
     virtual void prepareState(){};
     virtual void update(float timeDelta){};
+    virtual void render(){};
     static State* currState;
     static void enterState(State* state)
     {
