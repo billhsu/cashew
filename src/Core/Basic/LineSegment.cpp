@@ -74,7 +74,3 @@ float LineSegment::distSegmentSegment( LineSegment S1, LineSegment S2)
     
     return dP.length();   // return the closest distance
 }
-
-void LineSegment::render(float r, float g, float b)
-{
-}

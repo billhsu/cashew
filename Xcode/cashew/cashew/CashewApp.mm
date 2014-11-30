@@ -17,11 +17,7 @@
 #include "Core/Graphics/Project.h"
 #include "Core/Camera/Camera.h"
 
-GLuint vertexBuffer;
-GLuint uvBuffer;
-GLuint texture;
 GLuint program;
-GLuint vertexArrayObj;
 
 int windowWidth, windowHeight;
 Matrix4 projection, modelView;
@@ -65,8 +61,8 @@ Camera *mCamera = NULL;
 - (void)render;
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    cashew::drawAxis();
     cashew::drawGrid();
+    cashew::drawAxis();
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
@@ -96,10 +92,6 @@ Camera *mCamera = NULL;
 - (void)clearGLContext
 {
     NSLog(@"clearGLContext");
-    glDeleteBuffers(1, &vertexBuffer);
-    glDeleteBuffers(1, &uvBuffer);
-    glDeleteTextures(1, &texture);
-    glDeleteVertexArrays(1, &vertexArrayObj);
     cashew::clearScene();
     glDeleteProgram(program);
 

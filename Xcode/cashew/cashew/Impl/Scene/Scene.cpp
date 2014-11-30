@@ -89,9 +89,11 @@ namespace cashew{
     }
     void drawGrid()
     {
+        glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneGridVertexArrayObj);
         glDrawArrays(GL_LINES, 0, 8 * 3 * grid_step_cnt);
         glBindVertexArray(0);
+        glDepthFunc(GL_LEQUAL);
     }
 
     GLuint sceneAxisVertexBuffer;
@@ -200,6 +202,7 @@ namespace cashew{
     }
     void drawAxis()
     {
+        glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneAxisVertexArrayObj);
         glDrawArrays(GL_LINES, 0, 6*3);
         glPointSize(5);
@@ -207,5 +210,6 @@ namespace cashew{
         glDrawArrays(GL_POINTS, 0, 3*3);
         glPointSize(1);
         glBindVertexArray(0);
+        glDepthFunc(GL_LEQUAL);
     }
 }
