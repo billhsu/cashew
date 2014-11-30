@@ -18,7 +18,8 @@ public:
     State();
     virtual ~State(){};
     virtual void MouseButton(int button, int state, int x, int y){};
-    virtual void MouseMotion(int dx, int dy){};
+    virtual void MouseRightDrag(int dx, int dy){};
+    virtual void MouseLeftDrag(int dx, int dy){};
     virtual void PassiveMotion(int x, int y){};
     virtual void Keyboard(unsigned char key){};
     virtual void UIEvent(UINode* sender, int event){};

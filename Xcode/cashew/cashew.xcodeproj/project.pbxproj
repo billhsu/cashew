@@ -129,6 +129,7 @@
 		0C88896D1A2984C600068098 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0C8889981A2AC0B600068098 /* Scripting */,
 				0C8889941A2ABEDB00068098 /* Controller */,
 				0C88898D1A2AB05300068098 /* State */,
 				0C88896E1A2984C600068098 /* Basic */,
@@ -224,7 +225,7 @@
 				0C88899C1A2AC0B600068098 /* luaUtility.h */,
 			);
 			name = Scripting;
-			path = ../../../src/Core/Scripting;
+			path = ../../../../src/Core/Scripting;
 			sourceTree = "<group>";
 		};
 		0C8889A11A2AECCE00068098 /* State */ = {
@@ -285,7 +286,6 @@
 		0C916B241A20A0AE00676D57 /* cashew */ = {
 			isa = PBXGroup;
 			children = (
-				0C8889981A2AC0B600068098 /* Scripting */,
 				0C88896D1A2984C600068098 /* Core */,
 				0C8D44551A21D484005421E1 /* Impl */,
 				0C8D442F1A219BAB005421E1 /* Shader */,

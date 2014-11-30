@@ -9,7 +9,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
 {
 }
 
-void StateIdle::MouseMotion(int dx, int dy)
+void StateIdle::MouseRightDrag(int dx, int dy)
 {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;

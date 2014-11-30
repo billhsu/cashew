@@ -84,7 +84,7 @@ void Controller::MouseButton(int button, int state, int x, int y)
 //    if(node!=NULL)
     if(false)
     {
-        uiHold = 1;
+//        uiHold = 1;
     }
     else
     {
@@ -93,11 +93,16 @@ void Controller::MouseButton(int button, int state, int x, int y)
     }
 }
 
-void Controller::MouseMotion(int x, int y)
+void Controller::MouseRightDrag(int dx, int dy)
 {
-    Controller::mouseX = x;
-    Controller::mouseY = y;
-    if(uiHold==0) State::currState->MouseMotion(x, y);
+    Controller::mouseX = dx;
+    Controller::mouseY = dy;
+    if(uiHold==0) State::currState->MouseRightDrag(dx, dy);
+}
+
+void Controller::MouseLeftDrag(int dx, int dy)
+{
+    State::currState->MouseLeftDrag(dx, dy);
 }
 void Controller::PassiveMotion(int x, int y)
 {

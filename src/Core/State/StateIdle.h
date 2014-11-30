@@ -13,6 +13,6 @@ public:
         statePool[stateID] = this;
     }
     void MouseButton(int button, int state, int x, int y);
-    void MouseMotion(int dx, int dy);
+    void MouseRightDrag(int dx, int dy);
     void prepareState();
 };

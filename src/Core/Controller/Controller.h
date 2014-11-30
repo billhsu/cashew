@@ -32,7 +32,8 @@ public:
     }
 
     void MouseButton(int button, int state, int x, int y);
-    void MouseMotion(int dx, int dy);
+    void MouseLeftDrag(int dx, int dy);
+    void MouseRightDrag(int dx, int dy);
     void PassiveMotion(int x, int y);
     void Keyboard(unsigned char key);
     void update(float timeDelta);
