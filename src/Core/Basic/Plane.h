@@ -21,7 +21,6 @@ public:
         return p;
     }
 
-    virtual void drawPlane(Vector3 center, float size, float* color = NULL);
     void printStatus()
     {
         std::cout<<"Plane "<<N<<" "<<D<<std::endl;

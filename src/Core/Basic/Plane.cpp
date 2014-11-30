@@ -34,6 +34,3 @@ void Plane::buildPlane(std::vector<Vector3> &v, Plane& plane, Vector3 normal)
     else if(v.size()==2) buildPlane(v[0], v[1], plane, normal);
     else if(v.size()==3) buildPlane(v[0], v[1], v[2], plane);
 }
-void Plane::drawPlane(Vector3 center, float size, float* color)
-{
-}
