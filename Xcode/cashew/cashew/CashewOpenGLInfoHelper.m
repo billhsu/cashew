@@ -1,4 +1,4 @@
-//
+//  Shipeng Xu
 //  GSOpenGLInfoHelper.m
 //
 //  CashewOpenGLInfoHelper.m

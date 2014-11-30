@@ -1,7 +1,5 @@
-/*
- Shipeng Xu
- billhsu.x@gmail.com
- */
+// Shipeng Xu
+// billhsu.x@gmail.com
 
 #include "Camera.h"
 #include "Core/Util/Utility.h"

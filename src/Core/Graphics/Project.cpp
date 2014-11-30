@@ -1,3 +1,5 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
 // http://www.codng.com/2011/02/gluunproject-for-iphoneios.html
 
 #include "Project.h"
