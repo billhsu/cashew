@@ -1,3 +1,6 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #ifndef __GLU_PROJECT_CASHEW
 #define __GLU_PROJECT_CASHEW
 

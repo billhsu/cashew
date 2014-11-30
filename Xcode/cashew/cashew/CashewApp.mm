@@ -16,6 +16,8 @@
 #include "Impl/Scene/Scene.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Camera/Camera.h"
+#include "Core/State/State.h"
+#include "Core/State/StateIdle.h"
 
 GLuint program;
 

@@ -1,7 +1,6 @@
-/* 
-Shipeng Xu
-billhsu.x@gmail.com
-*/
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #ifndef PLANE_H
 #define PLANE_H
 #include <iostream>

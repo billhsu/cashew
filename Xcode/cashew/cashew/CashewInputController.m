@@ -1,7 +1,7 @@
-//
+//  Shipeng Xu
 //  CashewInputController.m
 //
-//  OriginallyCreated by 朱 巍 on 18/2/13.
+//  Originally Created by 朱 巍 on 18/2/13.
 //  Copyright (c) 2013 Juicer. All rights reserved.
 //
 

@@ -1,7 +1,6 @@
-/* 
-Shipeng Xu
-billhsu.x@gmail.com
-*/
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #pragma once
 #include <vector>
 #include "Core/Math/Vectors.h"

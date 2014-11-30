@@ -1,7 +1,6 @@
-/* 
-Shipeng Xu
-billhsu.x@gmail.com
-*/
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #ifndef RAY_H
 #define RAY_H
 #include "Core/Math/Vectors.h"

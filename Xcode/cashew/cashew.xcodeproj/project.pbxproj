@@ -15,6 +15,12 @@
 		0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88897D1A2984C600068098 /* Quaternion.cpp */; };
 		0C88898B1A2984C600068098 /* Intersect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889811A2984C600068098 /* Intersect.cpp */; };
 		0C88898C1A2984C600068098 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889831A2984C600068098 /* Utility.cpp */; };
+		0C8889921A2AB05300068098 /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88898E1A2AB05300068098 /* State.cpp */; };
+		0C8889931A2AB05300068098 /* StateIdle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889901A2AB05300068098 /* StateIdle.cpp */; };
+		0C8889971A2ABF7A00068098 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889961A2ABF7A00068098 /* Controller.cpp */; };
+		0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889991A2AC0B600068098 /* luatables.cpp */; };
+		0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88899B1A2AC0B600068098 /* luaUtility.cpp */; };
+		0C8889A01A2ACB2E00068098 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C88899F1A2ACB2E00068098 /* liblua.a */; };
 		0C8D44251A218473005421E1 /* CashewInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441C1A218473005421E1 /* CashewInputController.m */; };
 		0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */; };
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
@@ -60,6 +66,17 @@
 		0C8889821A2984C600068098 /* Intersect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Intersect.h; sourceTree = "<group>"; };
 		0C8889831A2984C600068098 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utility.cpp; sourceTree = "<group>"; };
 		0C8889841A2984C600068098 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		0C88898E1A2AB05300068098 /* State.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = State.cpp; sourceTree = "<group>"; };
+		0C88898F1A2AB05300068098 /* State.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = State.h; sourceTree = "<group>"; };
+		0C8889901A2AB05300068098 /* StateIdle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateIdle.cpp; sourceTree = "<group>"; };
+		0C8889911A2AB05300068098 /* StateIdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateIdle.h; sourceTree = "<group>"; };
+		0C8889951A2ABEDB00068098 /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		0C8889961A2ABF7A00068098 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
+		0C8889991A2AC0B600068098 /* luatables.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = luatables.cpp; sourceTree = "<group>"; };
+		0C88899A1A2AC0B600068098 /* luatables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luatables.h; sourceTree = "<group>"; };
+		0C88899B1A2AC0B600068098 /* luaUtility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = luaUtility.cpp; sourceTree = "<group>"; };
+		0C88899C1A2AC0B600068098 /* luaUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = luaUtility.h; sourceTree = "<group>"; };
+		0C88899F1A2ACB2E00068098 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = "../../lib/lua-5.2.3/src/liblua.a"; sourceTree = "<group>"; };
 		0C8D441B1A218473005421E1 /* CashewInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewInputController.h; sourceTree = "<group>"; };
 		0C8D441C1A218473005421E1 /* CashewInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewInputController.m; sourceTree = "<group>"; };
 		0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewOpenGLInfoHelper.h; sourceTree = "<group>"; };
@@ -92,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8889A01A2ACB2E00068098 /* liblua.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +126,8 @@
 		0C88896D1A2984C600068098 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0C8889941A2ABEDB00068098 /* Controller */,
+				0C88898D1A2AB05300068098 /* State */,
 				0C88896E1A2984C600068098 /* Basic */,
 				0C8889741A2984C600068098 /* Camera */,
 				0C8889771A2984C600068098 /* Graphics */,
@@ -170,6 +190,40 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		0C88898D1A2AB05300068098 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				0C88898E1A2AB05300068098 /* State.cpp */,
+				0C88898F1A2AB05300068098 /* State.h */,
+				0C8889901A2AB05300068098 /* StateIdle.cpp */,
+				0C8889911A2AB05300068098 /* StateIdle.h */,
+			);
+			name = State;
+			path = ../../../../src/Core/State;
+			sourceTree = "<group>";
+		};
+		0C8889941A2ABEDB00068098 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0C8889961A2ABF7A00068098 /* Controller.cpp */,
+				0C8889951A2ABEDB00068098 /* Controller.h */,
+			);
+			name = Controller;
+			path = ../../../../src/Core/Controller;
+			sourceTree = "<group>";
+		};
+		0C8889981A2AC0B600068098 /* Scripting */ = {
+			isa = PBXGroup;
+			children = (
+				0C8889991A2AC0B600068098 /* luatables.cpp */,
+				0C88899A1A2AC0B600068098 /* luatables.h */,
+				0C88899B1A2AC0B600068098 /* luaUtility.cpp */,
+				0C88899C1A2AC0B600068098 /* luaUtility.h */,
+			);
+			name = Scripting;
+			path = ../../../src/Core/Scripting;
+			sourceTree = "<group>";
+		};
 		0C8D442F1A219BAB005421E1 /* Shader */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +253,7 @@
 		0C916B191A20A0AE00676D57 = {
 			isa = PBXGroup;
 			children = (
+				0C88899F1A2ACB2E00068098 /* liblua.a */,
 				0C916B241A20A0AE00676D57 /* cashew */,
 				0C916B381A20A0AE00676D57 /* cashewTests */,
 				0C916B231A20A0AE00676D57 /* Products */,
@@ -217,6 +272,7 @@
 		0C916B241A20A0AE00676D57 /* cashew */ = {
 			isa = PBXGroup;
 			children = (
+				0C8889981A2AC0B600068098 /* Scripting */,
 				0C88896D1A2984C600068098 /* Core */,
 				0C8D44551A21D484005421E1 /* Impl */,
 				0C8D442F1A219BAB005421E1 /* Shader */,
@@ -372,11 +428,15 @@
 				0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */,
 				0C8D44591A21D4D4005421E1 /* Scene.cpp in Sources */,
 				0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */,
+				0C8889931A2AB05300068098 /* StateIdle.cpp in Sources */,
 				0C8889871A2984C600068098 /* Camera.cpp in Sources */,
+				0C8889971A2ABF7A00068098 /* Controller.cpp in Sources */,
 				0C8889861A2984C600068098 /* Plane.cpp in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
+				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
+				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
@@ -384,6 +444,7 @@
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
+				0C8889921A2AB05300068098 /* State.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +565,12 @@
 				);
 				INFOPLIST_FILE = cashew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_CFLAGS = "-I./cashew/";
+				LIBRARY_SEARCH_PATHS = "../../lib/lua-5.2.3/src/";
+				OTHER_CFLAGS = (
+					"-I./cashew/",
+					"-I./../../lib/lua-5.2.3/src/",
+					"-llua",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./cashew/**";
@@ -522,7 +588,12 @@
 				);
 				INFOPLIST_FILE = cashew/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				OTHER_CFLAGS = "-I./cashew/";
+				LIBRARY_SEARCH_PATHS = "../../lib/lua-5.2.3/src/";
+				OTHER_CFLAGS = (
+					"-I./cashew/",
+					"-I./../../lib/lua-5.2.3/src/",
+					"-llua",
+				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./cashew/**";
