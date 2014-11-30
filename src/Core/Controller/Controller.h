@@ -41,7 +41,7 @@ public:
     
     void init();
 
-    static void resize(int _width, int _heigth);
+    void resize(int _width, int _heigth);
     static void UIButtonCallback(UINode* sender);
 
     enum {OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE};
@@ -93,7 +93,6 @@ public:
     static int originWidth,originHeight;
     static int mouseX,mouseY;
     static int mouseButton,mouseState; // mouse status
-    static int lastMouseX,lastMouseY; // last mouse position
 
     static int uiHold;
 
@@ -103,6 +102,10 @@ public:
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;
+    
+    enum{MOUSE_LEFT, MOUSE_RIGHT, MOUSE_SCROLL};
+    enum{MOUSE_UP, MOUSE_DOWN};
+    enum{MOUSE_SCROLL_UP, MOUSE_SCROLL_DOWN};
 
 private:
     Controller();

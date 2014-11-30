@@ -20,7 +20,6 @@
 #include "Core/Controller/Controller.h"
 GLuint program;
 
-int windowWidth, windowHeight;
 Controller *mController = &Controller::getInstance();
 
 @interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
@@ -42,6 +41,39 @@ Controller *mController = &Controller::getInstance();
     return YES;
 }
 
+- (void)mouseLeftUp:(NSPoint)locationInWindow;
+{
+    int x = (int)locationInWindow.x;
+    int y = mController->windowHeight - (int)locationInWindow.y;
+    mController->MouseButton(Controller::MOUSE_LEFT, Controller::MOUSE_UP, x, y);
+}
+
+- (void)mouseLeftDown:(NSPoint)locationInWindow;
+{
+    int x = (int)locationInWindow.x;
+    int y = mController->windowHeight - (int)locationInWindow.y;
+    mController->MouseButton(Controller::MOUSE_LEFT, Controller::MOUSE_DOWN, x, y);
+}
+
+- (void)mouseRightUp:(NSPoint)locationInWindow;
+{
+    int x = (int)locationInWindow.x;
+    int y = mController->windowHeight - (int)locationInWindow.y;
+    mController->MouseButton(Controller::MOUSE_RIGHT, Controller::MOUSE_UP, x, y);
+}
+
+- (void)mouseRightDown:(NSPoint)locationInWindow;
+{
+    int x = (int)locationInWindow.x;
+    int y = mController->windowHeight - (int)locationInWindow.y;
+    mController->MouseButton(Controller::MOUSE_RIGHT, Controller::MOUSE_DOWN, x, y);
+}
+
+- (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y
+{
+    mController->mouseX = x;
+    mController->mouseY = mController->windowHeight - y;
+}
 - (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y
 {
     mController->MouseRightDrag(x, y);
@@ -52,9 +84,15 @@ Controller *mController = &Controller::getInstance();
     mController->MouseLeftDrag(x, y);
 }
 
+- (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y
+{
+    mController->MouseButton(Controller::MOUSE_SCROLL, (int)y,
+                             mController->mouseX, mController->mouseY);
+    
+}
 - (void)update:(NSTimeInterval)timeInterval
 {
-    mController->update(timeInterval);
+    mController->update(timeInterval * 1000.0f);
     GLint local_modelView = glGetUniformLocation(program, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
 }
@@ -67,7 +105,7 @@ Controller *mController = &Controller::getInstance();
 -(void)reshapeWidth:(int)width height:(int)height
 {
     mController->resize(width, height);
-    NSLog(@"reshape - width: %d height: %d", windowWidth, windowHeight);
+    NSLog(@"reshape - width: %d height: %d", width, height);
     
     GLint local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
@@ -85,6 +123,9 @@ Controller *mController = &Controller::getInstance();
     glClearColor(0.8, 0.8, 0.8, 1.0);
     mController->state_idle = new StateIdleImpl();
     mController->init();
+    GLint range[2];
+    glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
+    glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);
     Set_OpenGLViewDelegate(CashewApp);
 }
 

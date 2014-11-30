@@ -28,6 +28,7 @@ public:
     void rotateCam(float rotX, float rotY, float rotZ)
     {
         rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
+        rotateTo = rotate;
     }
     void rotateCam(Vector3 rot)
     {
@@ -36,11 +37,12 @@ public:
     void rotateCam(Quaternion rot)
     {
         rotate = rot;
+        rotateTo = rotate;
     }
     
     void setCamDist(float dist)
     {
-        if (dist<=0) return;
+        if (dist<=0) dist = 0.0f;;
         if(anim) return;
         distance = dist;
         distanceTo=dist;
@@ -65,6 +67,7 @@ public:
     
     void setCamDistTo(float dist)
     {
+        if (dist<=0) return;
         distanceTo = dist;
         distanceDelta = distanceTo-distance;
         anim = true;

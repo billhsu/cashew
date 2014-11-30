@@ -27,8 +27,6 @@ int Controller::mouseX = 0;
 int Controller::mouseY = 0;
 int Controller::mouseButton;
 int Controller::mouseState;
-int Controller::lastMouseX = 0;
-int Controller::lastMouseY = 0;
 
 int Controller::uiHold = 0;
 
@@ -142,4 +140,7 @@ void Controller::resize(int _width, int _heigth)
     windowWidth = _width;
     windowHeight = _heigth;
     projection = cashew::gluPerspective(45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
+    camera->setWindowWidth(windowWidth);
+    camera->setWindowHeight(windowHeight);
+    camera->setProjection(projection);
 }

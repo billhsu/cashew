@@ -7,6 +7,16 @@
 
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {
+    if(button == Controller::MOUSE_SCROLL)
+    {
+        mCamera->setCamDist(mCamera->distance + 0.1f * state);
+    }
+    else if(button == Controller::MOUSE_LEFT && state == Controller::MOUSE_UP)
+    {
+        Vector3 v;
+        mCamera->getPoint(x, y, Controller::sketchLines, v);
+        std::cout<<v<<std::endl;
+    }
 }
 
 void StateIdle::MouseRightDrag(int dx, int dy)
