@@ -75,7 +75,7 @@ void Camera::update(float timeDelta)
         }
         
     }
-    
+    modelView = cameraMatrix;
     updateFPS(timeDelta);
 }
 
@@ -100,7 +100,7 @@ Ray Camera::getRay(int mx, int my)
     viewport[1] = 0;
     viewport[2] = windowWidth;
     viewport[3] = windowHeight;
-    
+    std::cout<<mx<<" "<<my<<" "<<windowHeight<<std::endl;
     winX = (float)mx;
     winY = (float)viewport[3] - (float)my;
     
