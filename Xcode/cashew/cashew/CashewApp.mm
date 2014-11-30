@@ -42,9 +42,14 @@ Controller *mController = &Controller::getInstance();
     return YES;
 }
 
+- (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y
+{
+    mController->MouseRightDrag(x, y);
+}
+
 - (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y
 {
-    mController->MouseMotion(x, y);
+    mController->MouseLeftDrag(x, y);
 }
 
 - (void)update:(NSTimeInterval)timeInterval
