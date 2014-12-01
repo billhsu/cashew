@@ -98,7 +98,7 @@ public:
 
     static StateIdle* state_idle;
     Camera * camera;
-    
+    bool getCameraPoint(Vector3& p, const Plane& plane, bool mode);
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;

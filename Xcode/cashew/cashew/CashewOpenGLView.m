@@ -154,8 +154,8 @@
 {
     //[super mouseMoved:theEvent];
     
-    CGFloat x = [theEvent deltaX];
-    CGFloat y = [theEvent deltaY];
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
     [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
 }
 

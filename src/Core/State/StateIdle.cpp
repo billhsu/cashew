@@ -1,7 +1,7 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "Core/State/StateIdle.h"
+#include "StateIdle.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 
@@ -15,7 +15,6 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
     {
         Vector3 v;
         mCamera->getPoint(x, y, Controller::sketchLines, v);
-        std::cout<<v<<std::endl;
     }
 }
 

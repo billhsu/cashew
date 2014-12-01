@@ -33,7 +33,7 @@ public:
         currState->prepareState();
         std::cout<<"enterState: "<<state->stateID<<std::endl;
     }
-    enum {STATE_IDLE, STATE_ID_MAX};
+    enum {STATE_IDLE, STATE_DRAW, STATE_ID_MAX};
     static State* statePool[STATE_ID_MAX];
 
 protected:

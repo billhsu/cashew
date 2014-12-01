@@ -71,8 +71,8 @@ Controller *mController = &Controller::getInstance();
 
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y
 {
-    mController->mouseX = x;
-    mController->mouseY = mController->windowHeight - y;
+    y = mController->windowHeight - y;
+    mController->PassiveMotion(x, y);
 }
 - (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y
 {

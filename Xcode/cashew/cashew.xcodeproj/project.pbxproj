@@ -22,6 +22,7 @@
 		0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88899B1A2AC0B600068098 /* luaUtility.cpp */; };
 		0C8889A01A2ACB2E00068098 /* liblua.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C88899F1A2ACB2E00068098 /* liblua.a */; };
 		0C8889A41A2AECCE00068098 /* StateIdleImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889A21A2AECCE00068098 /* StateIdleImpl.cpp */; };
+		0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889A51A2B1AB100068098 /* StateDraw.cpp */; };
 		0C8D44251A218473005421E1 /* CashewInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441C1A218473005421E1 /* CashewInputController.m */; };
 		0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */; };
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
@@ -80,6 +81,8 @@
 		0C88899F1A2ACB2E00068098 /* liblua.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua.a; path = "../../lib/lua-5.2.3/src/liblua.a"; sourceTree = "<group>"; };
 		0C8889A21A2AECCE00068098 /* StateIdleImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateIdleImpl.cpp; sourceTree = "<group>"; };
 		0C8889A31A2AECCE00068098 /* StateIdleImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateIdleImpl.h; sourceTree = "<group>"; };
+		0C8889A51A2B1AB100068098 /* StateDraw.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateDraw.cpp; sourceTree = "<group>"; };
+		0C8889A61A2B1AB100068098 /* StateDraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateDraw.h; sourceTree = "<group>"; };
 		0C8D441B1A218473005421E1 /* CashewInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewInputController.h; sourceTree = "<group>"; };
 		0C8D441C1A218473005421E1 /* CashewInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewInputController.m; sourceTree = "<group>"; };
 		0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewOpenGLInfoHelper.h; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				0C88898F1A2AB05300068098 /* State.h */,
 				0C8889901A2AB05300068098 /* StateIdle.cpp */,
 				0C8889911A2AB05300068098 /* StateIdle.h */,
+				0C8889A61A2B1AB100068098 /* StateDraw.h */,
+				0C8889A51A2B1AB100068098 /* StateDraw.cpp */,
 			);
 			name = State;
 			path = ../../../../src/Core/State;
@@ -457,6 +462,7 @@
 				0C8889A41A2AECCE00068098 /* StateIdleImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */,
+				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
 				0C8889921A2AB05300068098 /* State.cpp in Sources */,
 			);
