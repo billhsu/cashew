@@ -100,7 +100,6 @@ Ray Camera::getRay(int mx, int my)
     viewport[1] = 0;
     viewport[2] = windowWidth;
     viewport[3] = windowHeight;
-    std::cout<<mx<<" "<<my<<" "<<windowHeight<<std::endl;
     winX = (float)mx;
     winY = (float)viewport[3] - (float)my;
     
@@ -138,7 +137,7 @@ bool Camera::getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vec
         }
     }
     if (!findCurr || mode == GETPOINT_PLANE) p = intersect(ray, plane);
-    
+    std::cout<<p<<std::endl;
     return findCurr;
 }
 

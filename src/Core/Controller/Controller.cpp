@@ -104,6 +104,7 @@ void Controller::MouseLeftDrag(int dx, int dy)
 }
 void Controller::PassiveMotion(int x, int y)
 {
+    std::cout<<x<<" "<<y<<std::endl;
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
@@ -143,4 +144,9 @@ void Controller::resize(int _width, int _heigth)
     camera->setWindowWidth(windowWidth);
     camera->setWindowHeight(windowHeight);
     camera->setProjection(projection);
+}
+
+bool Controller::getCameraPoint(Vector3& p, const Plane& plane, bool mode)
+{
+    return camera->getPoint(mouseX, mouseY, sketchLines, p, plane, mode);
 }
