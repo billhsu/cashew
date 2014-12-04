@@ -7,6 +7,7 @@ billhsu.x@gmail.com
 #include <vector>
 #include "Core/Math/Vectors.h"
 #include "Core/Basic/Plane.h"
+#include "Core/Basic/Ray.h"
 #include "Core/Basic/LineSegment.h"
 #include "Core/Math/Matrices.h"
 
@@ -99,6 +100,7 @@ public:
     static StateIdle* state_idle;
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane, bool mode);
+    Ray getCameraRay();
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;

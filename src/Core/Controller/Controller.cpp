@@ -150,3 +150,8 @@ bool Controller::getCameraPoint(Vector3& p, const Plane& plane, bool mode)
 {
     return camera->getPoint(mouseX, mouseY, sketchLines, p, plane, mode);
 }
+
+Ray Controller::getCameraRay()
+{
+    return camera->getRay(mouseX, mouseY);
+}

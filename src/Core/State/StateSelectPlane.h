@@ -1,27 +1,27 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "Core/State/State.h"
+#include "State.h"
 
-class StateDraw : public State
+class StateSelectPlane : public State
 {
 public:
-    StateDraw()
+    StateSelectPlane()
     {
-        stateID = STATE_DRAW;
-        internalState = STATE_DRAW_IDLE;
+        stateID = STATE_SELECT_PLANE;
+        selectedPoints.clear();
         assert(statePool[stateID] == NULL);
         statePool[stateID] = this;
+        selectPlaneMode = SELECT_HORIZONTAL_PLANE;
     }
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
-    void MouseLeftDrag(int dx, int dy);
     void Keyboard(unsigned char key);
     void prepareState();
-    Vector3 vCenter;
     std::vector<Vector3> selectedPoints;
-    Vector3 startPoint, endPoint;
-    
-    int internalState;
-    enum {STATE_DRAW_IDLE, STATE_DRAW_START_POINT_SELECTED};
+
+private:
+    void buildCurrentPlane();
+    int selectPlaneMode;
+    enum{SELECT_VERTICAL_PLANE, SELECT_HORIZONTAL_PLANE, SELECT_SLOPE};
 };
