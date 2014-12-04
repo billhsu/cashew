@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
 		0C8889851A2984C600068098 /* LineSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88896F1A2984C600068098 /* LineSegment.cpp */; };
 		0C8889861A2984C600068098 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889711A2984C600068098 /* Plane.cpp */; };
 		0C8889871A2984C600068098 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889751A2984C600068098 /* Camera.cpp */; };
@@ -50,6 +51,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
+		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
 		0C88896F1A2984C600068098 /* LineSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineSegment.cpp; sourceTree = "<group>"; };
 		0C8889701A2984C600068098 /* LineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSegment.h; sourceTree = "<group>"; };
 		0C8889711A2984C600068098 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
@@ -200,10 +203,12 @@
 		0C88898D1A2AB05300068098 /* State */ = {
 			isa = PBXGroup;
 			children = (
-				0C88898E1A2AB05300068098 /* State.cpp */,
 				0C88898F1A2AB05300068098 /* State.h */,
-				0C8889901A2AB05300068098 /* StateIdle.cpp */,
+				0C88898E1A2AB05300068098 /* State.cpp */,
 				0C8889911A2AB05300068098 /* StateIdle.h */,
+				0C8889901A2AB05300068098 /* StateIdle.cpp */,
+				0C634FD41A30A35A0085E502 /* StateSelectPlane.h */,
+				0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */,
 				0C8889A61A2B1AB100068098 /* StateDraw.h */,
 				0C8889A51A2B1AB100068098 /* StateDraw.cpp */,
 			);
@@ -458,6 +463,7 @@
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
+				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C8889A41A2AECCE00068098 /* StateIdleImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,

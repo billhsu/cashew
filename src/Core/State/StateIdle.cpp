@@ -2,6 +2,7 @@
 // billhsu.x@gmail.com
 
 #include "StateIdle.h"
+#include "StateSelectPlane.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 
