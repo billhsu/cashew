@@ -38,6 +38,7 @@
 		0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2C1A20A0AE00676D57 /* Images.xcassets */; };
 		0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2E1A20A0AE00676D57 /* MainMenu.xib */; };
 		0C916B3C1A20A0AE00676D57 /* cashewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B3B1A20A0AE00676D57 /* cashewTests.m */; };
+		0CE06ED31A34225100B27284 /* StateSelectPlaneImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE06ED11A34225100B27284 /* StateSelectPlaneImpl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +112,8 @@
 		0C916B351A20A0AE00676D57 /* cashewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cashewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B3A1A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C916B3B1A20A0AE00676D57 /* cashewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cashewTests.m; sourceTree = "<group>"; };
+		0CE06ED11A34225100B27284 /* StateSelectPlaneImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlaneImpl.cpp; sourceTree = "<group>"; };
+		0CE06ED21A34225100B27284 /* StateSelectPlaneImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlaneImpl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,6 +246,8 @@
 			children = (
 				0C8889A21A2AECCE00068098 /* StateIdleImpl.cpp */,
 				0C8889A31A2AECCE00068098 /* StateIdleImpl.h */,
+				0CE06ED11A34225100B27284 /* StateSelectPlaneImpl.cpp */,
+				0CE06ED21A34225100B27284 /* StateSelectPlaneImpl.h */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
 				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
+				0CE06ED31A34225100B27284 /* StateSelectPlaneImpl.cpp in Sources */,
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,

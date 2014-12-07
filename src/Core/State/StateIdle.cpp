@@ -5,6 +5,7 @@
 #include "StateSelectPlane.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
+#include "Core/Basic/Plane.h"
 
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {
@@ -16,6 +17,15 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
     {
         Vector3 v;
         mCamera->getPoint(x, y, Controller::sketchLines, v);
+        static_cast<StateSelectPlane*>(State::statePool[STATE_SELECT_PLANE])->selectedPoints.clear();
+        static_cast<StateSelectPlane*>(State::statePool[STATE_SELECT_PLANE])->selectedPoints.push_back(v);
+        Plane::buildPlane(
+                          static_cast<StateSelectPlane*>(State::statePool[STATE_SELECT_PLANE])->selectedPoints, Controller::currPlane);
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
+                                              Quaternion::Z_NEG_AXIS);
+        mCamera->setCamCenterTo(v);
+        mCamera->rotateCamTo(q);
+        enterState(State::statePool[STATE_SELECT_PLANE]);
     }
 }
 
