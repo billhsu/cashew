@@ -11,7 +11,6 @@ billhsu.x@gmail.com
 #include "Core/Basic/LineSegment.h"
 #include "Core/Math/Matrices.h"
 
-class StateIdle;
 class State;
 class Camera;
 class UI;
@@ -97,7 +96,9 @@ public:
 
     static int uiHold;
 
-    static StateIdle* state_idle;
+    static State* state_idle;
+    static State* state_select_plane;
+    
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane, bool mode);
     Ray getCameraRay();

@@ -5,8 +5,8 @@ billhsu.x@gmail.com
 #include "Controller.h"
 #include "Core/State/State.h"
 #include "Core/State/StateIdle.h"
+#include "Core/State/StateSelectPlane.h"
 //#include "Core/State/StateDeleteLine.h"
-//#include "Core/State/StateSelectPlane.h"
 //#include "Core/State/StateDraw.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Scripting/luaUtility.h"
@@ -44,7 +44,8 @@ Vector3 Controller::rotate = Vector3(-30,0,0);
 
 lua_State *Controller::luaState = NULL;
 
-StateIdle* Controller::state_idle = NULL;
+State* Controller::state_idle = NULL;
+State* Controller::state_select_plane = NULL;
 
 Controller::Controller()
 {
@@ -54,6 +55,7 @@ Controller::Controller()
 Controller::~Controller()
 {
     delete state_idle;
+    delete state_select_plane;
     lua_close(luaState);
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
@@ -68,10 +70,8 @@ void Controller::init()
     {
         State::statePool[i] = NULL;
     }
-    camera = &Camera::getInstance();
-    
-    State::enterState(state_idle);
 
+    camera = &Camera::getInstance();
 }
 void Controller::MouseButton(int button, int state, int x, int y)
 {

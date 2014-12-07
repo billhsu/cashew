@@ -31,6 +31,7 @@ public:
     {
         currState = state;
         currState->prepareState();
+        std::cout<<state<<" - ";
         std::cout<<"enterState: "<<state->stateID<<std::endl;
     }
     enum {STATE_IDLE, STATE_SELECT_PLANE, STATE_DRAW, STATE_ID_MAX};

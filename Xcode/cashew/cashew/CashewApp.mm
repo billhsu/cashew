@@ -17,6 +17,7 @@
 
 #include "Core/Camera/Camera.h"
 #include "Impl/State/StateIdleImpl.h"
+#include "Impl/State/StateSelectPlaneImpl.h"
 #include "Core/Controller/Controller.h"
 GLuint program;
 
@@ -121,8 +122,10 @@ Controller *mController = &Controller::getInstance();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glClearColor(0.8, 0.8, 0.8, 1.0);
-    mController->state_idle = new StateIdleImpl();
     mController->init();
+    mController->state_idle = new StateIdleImpl();
+    mController->state_select_plane = new StateSelectPlaneImpl();
+    State::enterState(mController->state_idle);
     GLint range[2];
     glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
     glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);
