@@ -72,6 +72,7 @@ void Controller::init()
     }
 
     camera = &Camera::getInstance();
+    camera->rotateCam(rotate);
 }
 void Controller::MouseButton(int button, int state, int x, int y)
 {
@@ -126,7 +127,6 @@ void Controller::update(float timeDelta)
 {
     State::currState->update(timeDelta);
     modelView.identity();
-    camera->rotateCam(rotate);
     camera->update(timeDelta);
     modelView = camera->getMatrix();
 }

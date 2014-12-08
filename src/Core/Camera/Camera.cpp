@@ -38,8 +38,9 @@ void Camera::update(float timeDelta)
     {
         Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distance,
                                              0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-        cameraMatrix = lookMat * rotate.getMatrix().transpose();
-        cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
+        Matrix4 trans;
+        trans.translate(-camCenter.x, -camCenter.y, -camCenter.z);
+        cameraMatrix = lookMat * rotate.getMatrix() * trans;
         animTime = 0;
     }
     else
@@ -60,8 +61,9 @@ void Camera::update(float timeDelta)
             
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distance,
                                                  0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            cameraMatrix = lookMat * rotate.getMatrix().transpose();
-            cameraMatrix.translate(-camCenter.x, -camCenter.y, -camCenter.z);
+            Matrix4 trans;
+            trans.translate(-camCenter.x, -camCenter.y, -camCenter.z);
+            cameraMatrix = lookMat * rotate.getMatrix() * trans;
         }
         else
         {
@@ -70,8 +72,9 @@ void Camera::update(float timeDelta)
             Vector3 camCenterTmp = camCenter * (1 - alpha) + camCenterTo * alpha;
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distanceTmp,
                                                  0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
-            cameraMatrix = lookMat * quat.getMatrix().transpose();
-            cameraMatrix.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
+            Matrix4 trans;
+            trans.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
+            cameraMatrix = lookMat * quat.getMatrix() * trans;
         }
         
     }
