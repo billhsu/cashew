@@ -52,6 +52,7 @@ public:
     void rotateCamTo(float rotX, float rotY, float rotZ)
     {
         rotateTo = Quaternion::fromEuler(rotX, rotY, rotZ);
+        rotChange = true;
         anim = true;
     }
     void rotateCamTo(Vector3 rot)
