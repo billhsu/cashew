@@ -52,6 +52,7 @@ void StateDraw::MouseRightDrag(int dx, int dy)
 {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
+    mCamera->rotateCam(Controller::rotate);
 }
 
 void StateDraw::Keyboard(unsigned char key)

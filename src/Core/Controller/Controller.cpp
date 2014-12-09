@@ -11,6 +11,7 @@ billhsu.x@gmail.com
 #include "Core/Camera/Camera.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
+#include "Core/Math/Quaternion.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -127,7 +128,12 @@ void Controller::update(float timeDelta)
 {
     State::currState->update(timeDelta);
     modelView.identity();
-    camera->update(timeDelta);
+    int result = camera->update(timeDelta);
+    if(result == Camera::UPDATE_ANIM_DONE)
+    {
+        rotate = Quaternion::toEuler(camera->getRotateQuaternion());
+    }
+    State::currState->update(timeDelta);
     modelView = camera->getMatrix();
 }
 
