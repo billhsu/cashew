@@ -31,8 +31,9 @@ Camera::~Camera()
     std::cout << "Camera ~Camera()" << std::endl;
 }
 
-void Camera::update(float timeDelta)
+int Camera::update(float timeDelta)
 {
+    bool anim_done = false;
     cameraMatrix.identity();
     if (!anim)
     {
@@ -49,6 +50,7 @@ void Camera::update(float timeDelta)
         float alpha = animTime / ANIM_TIME_MS;
         if (animTime >= ANIM_TIME_MS)
         {
+            anim_done = true;
             animTime = 0;
             anim = false;
             if (rotChange) rotate = rotateTo;
@@ -68,18 +70,20 @@ void Camera::update(float timeDelta)
         else
         {
             float distanceTmp = distance * (1 - alpha) + distanceTo * alpha;
-            Quaternion quat = Quaternion::slerp(rotate, rotateTo, alpha);
+            rotate_slerp = Quaternion::slerp(rotate, rotateTo, alpha);
             Vector3 camCenterTmp = camCenter * (1 - alpha) + camCenterTo * alpha;
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distanceTmp,
                                                  0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             Matrix4 trans;
             trans.translate(-camCenterTmp.x, -camCenterTmp.y, -camCenterTmp.z);
-            cameraMatrix = lookMat * quat.getMatrix() * trans;
+            cameraMatrix = lookMat * rotate_slerp.getMatrix() * trans;
         }
         
     }
     modelView = cameraMatrix;
     updateFPS(timeDelta);
+    if(anim_done) return UPDATE_ANIM_DONE;
+    else return UPDATE_OK;
 }
 
 void Camera::updateFPS(float timeDelta)

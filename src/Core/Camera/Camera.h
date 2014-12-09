@@ -39,7 +39,11 @@ public:
         rotate = rot;
         rotateTo = rotate;
     }
-    
+    void rotateCamDelta(Quaternion rotDelta)
+    {
+        rotate = rotate * rotDelta;
+        rotateTo = rotate;
+    }
     void setCamDist(float dist)
     {
         if (dist<=0) dist = 0.0f;;
@@ -106,17 +110,21 @@ public:
         windowWidth = _width;
     }
     
-    void update(float timeDelta);
+    int update(float timeDelta);
     Ray getRay(int mx, int my);
     Vector3 getDirection();
     enum {GETPOINT_3D, GETPOINT_PLANE};
     bool getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
     int getLine(int mx, int my, const std::vector<LineSegment>& lines, LineSegment& line);
-    Quaternion getQuaternion() {return rotate;}
+    Quaternion getRotateQuaternion()
+    {
+        if(!anim) return rotate;
+        else return rotate_slerp;
+    }
     
     float distance,distanceTo,distanceDelta;
     bool anim;
-    
+    enum {UPDATE_OK, UPDATE_ANIM_DONE};
 private:
     Camera();
     ~Camera();
@@ -125,7 +133,7 @@ private:
     Matrix4 cameraMatrix;
     float ANIM_TIME_MS;
     float animTime;
-    Quaternion rotate, rotateTo;
+    Quaternion rotate, rotateTo, rotate_slerp;
     Vector3 camCenter, camCenterTo;
     bool rotChange, centerChange, distChange;
     Matrix4 modelView;
