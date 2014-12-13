@@ -8,7 +8,7 @@ endif
 
 CFLAGS    := -g
 
-MODULES   := src/Core/Camera src/Core/Math src/Core/Basic src/Core/Graphics src/Core/Util src/Core/State src/Core/Scripting src/Core/Controller
+MODULES   := src/Core/Camera src/Core/Math src/Core/Basic src/Core/Graphics src/Core/Util src/Core/State src/Core/Scripting src/Core/Controller src/Core/UI
 SRC_DIR   := $(addprefix ,$(MODULES))
 BUILD_DIR := $(addprefix build/,$(MODULES))
 

@@ -95,8 +95,6 @@ void Controller::MouseButton(int button, int state, int x, int y)
 
 void Controller::MouseRightDrag(int dx, int dy)
 {
-    Controller::mouseX = dx;
-    Controller::mouseY = dy;
     if(uiHold==0) State::currState->MouseRightDrag(dx, dy);
 }
 

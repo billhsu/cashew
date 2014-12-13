@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
+		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
+		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
+		0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7764211A3C7ABE0010E1BB /* UINode.cpp */; };
 		0C8889851A2984C600068098 /* LineSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88896F1A2984C600068098 /* LineSegment.cpp */; };
 		0C8889861A2984C600068098 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889711A2984C600068098 /* Plane.cpp */; };
 		0C8889871A2984C600068098 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889751A2984C600068098 /* Camera.cpp */; };
@@ -54,6 +57,12 @@
 /* Begin PBXFileReference section */
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
+		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
+		0C77641E1A3C7ABE0010E1BB /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIButton.cpp; sourceTree = "<group>"; };
+		0C7764201A3C7ABE0010E1BB /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButton.h; sourceTree = "<group>"; };
+		0C7764211A3C7ABE0010E1BB /* UINode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UINode.cpp; sourceTree = "<group>"; };
+		0C7764221A3C7ABE0010E1BB /* UINode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UINode.h; sourceTree = "<group>"; };
 		0C88896F1A2984C600068098 /* LineSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineSegment.cpp; sourceTree = "<group>"; };
 		0C8889701A2984C600068098 /* LineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSegment.h; sourceTree = "<group>"; };
 		0C8889711A2984C600068098 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
@@ -135,9 +144,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C77641C1A3C7ABE0010E1BB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				0C77641D1A3C7ABE0010E1BB /* UI.cpp */,
+				0C77641E1A3C7ABE0010E1BB /* UI.h */,
+				0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */,
+				0C7764201A3C7ABE0010E1BB /* UIButton.h */,
+				0C7764211A3C7ABE0010E1BB /* UINode.cpp */,
+				0C7764221A3C7ABE0010E1BB /* UINode.h */,
+			);
+			name = UI;
+			path = ../../../../src/Core/UI;
+			sourceTree = "<group>";
+		};
 		0C88896D1A2984C600068098 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				0C77641C1A3C7ABE0010E1BB /* UI */,
 				0C8889981A2AC0B600068098 /* Scripting */,
 				0C8889941A2ABEDB00068098 /* Controller */,
 				0C88898D1A2AB05300068098 /* State */,
@@ -462,17 +486,20 @@
 				0C8889861A2984C600068098 /* Plane.cpp in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
+				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
 				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
 				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
 				0CE06ED31A34225100B27284 /* StateSelectPlaneImpl.cpp in Sources */,
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
+				0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C8889A41A2AECCE00068098 /* StateIdleImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
+				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
