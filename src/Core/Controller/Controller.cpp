@@ -12,6 +12,7 @@ billhsu.x@gmail.com
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
+#include "COre/UI/UI.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -47,6 +48,7 @@ lua_State *Controller::luaState = NULL;
 
 State* Controller::state_idle = NULL;
 State* Controller::state_select_plane = NULL;
+UI* Controller::GUI = NULL;
 
 Controller::Controller()
 {
@@ -64,6 +66,7 @@ Controller::~Controller()
 
 void Controller::init()
 {
+    GUI = &UI::getInstance();
     luaState = luaL_newstate();
     luaL_openlibs( luaState );
 
@@ -71,7 +74,7 @@ void Controller::init()
     {
         State::statePool[i] = NULL;
     }
-
+    GUI->resize(originWidth, originHeight);
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
 }
@@ -81,10 +84,10 @@ void Controller::MouseButton(int button, int state, int x, int y)
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-//    if(node!=NULL)
-    if(false)
+    UINode* node = GUI->MouseButton(button, state, x, y);
+    if(node!=NULL)
     {
-//        uiHold = 1;
+        uiHold = 1;
     }
     else
     {
@@ -100,7 +103,7 @@ void Controller::MouseRightDrag(int dx, int dy)
 
 void Controller::MouseLeftDrag(int dx, int dy)
 {
-    State::currState->MouseLeftDrag(dx, dy);
+    if(uiHold==0) State::currState->MouseLeftDrag(dx, dy);
 }
 void Controller::PassiveMotion(int x, int y)
 {
@@ -108,7 +111,7 @@ void Controller::PassiveMotion(int x, int y)
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
-    
+    GUI->PassiveMotion(x, y);
     if(camera->getPoint(x, y, sketchLines, p))
     {
         currPoint = p;
@@ -140,10 +143,11 @@ void Controller::render()
     State::currState->render();
 }
 
-void Controller::resize(int _width, int _heigth)
+void Controller::resize(int _width, int _height)
 {
     windowWidth = _width;
-    windowHeight = _heigth;
+    windowHeight = _height;
+    GUI->resize(_width, _height);
     projection = cashew::gluPerspective(45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
     camera->setWindowWidth(windowWidth);
     camera->setWindowHeight(windowHeight);

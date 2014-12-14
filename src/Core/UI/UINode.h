@@ -58,8 +58,8 @@ public:
     void appearOut(float timeMs = 120.0f);
     
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
-    
-    virtual void render(float timeDelta){}
+    void update(float timeDelta);
+    virtual void render(){}
     
     bool insideNode(int x, int y)
     {
@@ -106,9 +106,6 @@ private:
     std::list< UINode* > mChildNodes;
     typedef std::list< UINode* >::iterator mChildIter;
     typedef std::list< UINode* >::reverse_iterator mChildRevIter;
-    
-    void _render(float timeDelta);
-    
+
     friend class UI;
-    friend class UIRadioButton;
 };
