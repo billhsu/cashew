@@ -46,12 +46,12 @@ void StateSelectPlane::buildCurrentPlane()
 
 void StateSelectPlane::MouseButton(int button, int state, int x, int y)
 {
+    if(button == Controller::MOUSE_SCROLL)
+    {
+        mCamera->setCamDist(mCamera->distance + 0.1f * state);
+    }
     if(state == Controller::MOUSE_DOWN)
     {
-        if(button == Controller::MOUSE_SCROLL)
-        {
-            mCamera->setCamDist(mCamera->distance + 0.1f * state);
-        }
         if(button == Controller::MOUSE_LEFT)
         {
             Vector3 v;
