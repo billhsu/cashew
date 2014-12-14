@@ -136,7 +136,6 @@ void Controller::update(float timeDelta)
 void Controller::render()
 {
     State::currState->render();
-    GUI->render();
 }
 
 void Controller::resize(int _width, int _height)

@@ -95,12 +95,14 @@ Controller *mController = &Controller::getInstance();
 - (void)update:(NSTimeInterval)timeInterval
 {
     mController->update(timeInterval * 1000.0f);
-    GLint local_modelView = glGetUniformLocation(program, "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
 }
 
 - (void)render;
 {
+    GLint local_modelView = glGetUniformLocation(program, "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    GLint local_projection = glGetUniformLocation(program, "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
 }
 
@@ -108,9 +110,6 @@ Controller *mController = &Controller::getInstance();
 {
     mController->resize(width, height);
     NSLog(@"reshape - width: %d height: %d", width, height);
-    
-    GLint local_projection = glGetUniformLocation(program, "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
 }
 @end
 
