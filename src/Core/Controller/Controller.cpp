@@ -12,7 +12,7 @@ billhsu.x@gmail.com
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
-#include "COre/UI/UI.h"
+#include "Core/UI/UI.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
