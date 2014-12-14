@@ -144,7 +144,7 @@ bool Camera::getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vec
         }
     }
     if (!findCurr || mode == GETPOINT_PLANE) p = intersect(ray, plane);
-    std::cout<<p<<std::endl;
+    //std::cout<<p<<std::endl;
     return findCurr;
 }
 

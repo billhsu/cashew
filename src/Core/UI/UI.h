@@ -26,14 +26,6 @@ public:
     void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
     
-    UIButton* addButton(int id, int x, int y, int width, int height,
-                        uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                        const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL);
-    
-    UIButton* addButton(int id, const char* strID,
-                        uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                        const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL);
-    
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);
     
@@ -41,7 +33,7 @@ public:
     
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-    virtual void render(float timeDelta){}
+    void render();
     static int getWindowWidth()
     {
         return mWindowWidth;
@@ -58,7 +50,7 @@ public:
     {
         return mMouseY;
     }
-private:
+protected:
     UI();
     ~UI();
     static int mWindowWidth, mWindowHeight;

@@ -19,6 +19,8 @@
 #include "Impl/State/StateIdleImpl.h"
 #include "Impl/State/StateSelectPlaneImpl.h"
 #include "Core/Controller/Controller.h"
+#include "Impl/UI/UIImpl.h"
+
 GLuint program;
 
 Controller *mController = &Controller::getInstance();
@@ -34,7 +36,7 @@ Controller *mController = &Controller::getInstance();
     [[CashewInputController sharedInputController] addEventDelegate:self];
     NSLog(@"prepareRenderData");
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
-    program = [shaderController programWithVertexShaderFile:@"default.vs" FragmentShaderFile:@"default.fs"];
+    program = [shaderController programWithVertexShaderFile:@"Shader/default.vs" FragmentShaderFile:@"Shader/default.fs"];
     glUseProgram(program);
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
@@ -124,10 +126,18 @@ Controller *mController = &Controller::getInstance();
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:resourcePath];
     NSLog(@"%@", resourcePath);
-    mController->init();
+
+    mController->GUI = &UIImpl::getInstance();
+    
+    for(int i=0; i < State::STATE_ID_MAX; ++i)
+    {
+        State::statePool[i] = NULL;
+    }
     mController->state_idle = new StateIdleImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
     State::enterState(mController->state_idle);
+    
+    mController->init();
     GLint range[2];
     glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
     glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);

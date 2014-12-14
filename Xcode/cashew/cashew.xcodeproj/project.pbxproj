@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C2247671A3D43DE00349BCC /* UILayout.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247661A3D43DE00349BCC /* UILayout.lua */; };
+		0C22476D1A3D8D7C00349BCC /* UIButtonImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2247691A3D8D7C00349BCC /* UIButtonImpl.cpp */; };
+		0C22476E1A3D8D7C00349BCC /* UIImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C22476B1A3D8D7C00349BCC /* UIImpl.cpp */; };
+		0C2247701A3D925A00349BCC /* lua_scripts in Resources */ = {isa = PBXBuildFile; fileRef = 0C22476F1A3D925A00349BCC /* lua_scripts */; };
+		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
@@ -34,8 +37,6 @@
 		0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44221A218473005421E1 /* CashewShaderController.m */; };
 		0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44241A218473005421E1 /* CashewTextureController.m */; };
 		0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.mm */; };
-		0C8D44311A219BAB005421E1 /* default.vs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44301A219BAB005421E1 /* default.vs */; };
-		0C8D44331A219BD4005421E1 /* default.fs in Resources */ = {isa = PBXBuildFile; fileRef = 0C8D44321A219BD4005421E1 /* default.fs */; };
 		0C8D44591A21D4D4005421E1 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44571A21D4D4005421E1 /* Scene.cpp */; };
 		0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */; };
 		0C916B2B1A20A0AE00676D57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B2A1A20A0AE00676D57 /* main.m */; };
@@ -56,7 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0C2247661A3D43DE00349BCC /* UILayout.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UILayout.lua; sourceTree = "<group>"; };
+		0C2247691A3D8D7C00349BCC /* UIButtonImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIButtonImpl.cpp; sourceTree = "<group>"; };
+		0C22476A1A3D8D7C00349BCC /* UIButtonImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButtonImpl.h; sourceTree = "<group>"; };
+		0C22476B1A3D8D7C00349BCC /* UIImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIImpl.cpp; sourceTree = "<group>"; };
+		0C22476C1A3D8D7C00349BCC /* UIImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImpl.h; sourceTree = "<group>"; };
+		0C22476F1A3D925A00349BCC /* lua_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lua_scripts; sourceTree = "<group>"; };
+		0C2247711A3D92F700349BCC /* Shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shader; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
@@ -109,8 +115,6 @@
 		0C8D44231A218473005421E1 /* CashewTextureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewTextureController.h; sourceTree = "<group>"; };
 		0C8D44241A218473005421E1 /* CashewTextureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewTextureController.m; sourceTree = "<group>"; };
 		0C8D442A1A2199B8005421E1 /* CashewApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CashewApp.mm; sourceTree = "<group>"; };
-		0C8D44301A219BAB005421E1 /* default.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vs; sourceTree = "<group>"; };
-		0C8D44321A219BD4005421E1 /* default.fs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.fs; sourceTree = "<group>"; };
 		0C8D44571A21D4D4005421E1 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		0C8D44581A21D4D4005421E1 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0C916B221A20A0AE00676D57 /* cashew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cashew.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,12 +150,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0C2247651A3D43DE00349BCC /* lua_scripts */ = {
+		0C2247681A3D8D7C00349BCC /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				0C2247661A3D43DE00349BCC /* UILayout.lua */,
+				0C2247691A3D8D7C00349BCC /* UIButtonImpl.cpp */,
+				0C22476A1A3D8D7C00349BCC /* UIButtonImpl.h */,
+				0C22476B1A3D8D7C00349BCC /* UIImpl.cpp */,
+				0C22476C1A3D8D7C00349BCC /* UIImpl.h */,
 			);
-			path = lua_scripts;
+			path = UI;
 			sourceTree = "<group>";
 		};
 		0C77641C1A3C7ABE0010E1BB /* UI */ = {
@@ -286,18 +293,10 @@
 			path = State;
 			sourceTree = "<group>";
 		};
-		0C8D442F1A219BAB005421E1 /* Shader */ = {
-			isa = PBXGroup;
-			children = (
-				0C8D44301A219BAB005421E1 /* default.vs */,
-				0C8D44321A219BD4005421E1 /* default.fs */,
-			);
-			path = Shader;
-			sourceTree = "<group>";
-		};
 		0C8D44551A21D484005421E1 /* Impl */ = {
 			isa = PBXGroup;
 			children = (
+				0C2247681A3D8D7C00349BCC /* UI */,
 				0C8889A11A2AECCE00068098 /* State */,
 				0C8D44561A21D4D4005421E1 /* Scene */,
 			);
@@ -337,8 +336,8 @@
 			children = (
 				0C88896D1A2984C600068098 /* Core */,
 				0C8D44551A21D484005421E1 /* Impl */,
-				0C8D442F1A219BAB005421E1 /* Shader */,
-				0C2247651A3D43DE00349BCC /* lua_scripts */,
+				0C22476F1A3D925A00349BCC /* lua_scripts */,
+				0C2247711A3D92F700349BCC /* Shader */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
 				0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */,
@@ -465,10 +464,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C8D44311A219BAB005421E1 /* default.vs in Resources */,
+				0C2247701A3D925A00349BCC /* lua_scripts in Resources */,
+				0C2247721A3D92F700349BCC /* Shader in Resources */,
 				0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */,
-				0C2247671A3D43DE00349BCC /* UILayout.lua in Resources */,
-				0C8D44331A219BD4005421E1 /* default.fs in Resources */,
 				0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +497,7 @@
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
 				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
+				0C22476E1A3D8D7C00349BCC /* UIImpl.cpp in Sources */,
 				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
 				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
@@ -508,6 +507,7 @@
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
+				0C22476D1A3D8D7C00349BCC /* UIButtonImpl.cpp in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C8889A41A2AECCE00068098 /* StateIdleImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
