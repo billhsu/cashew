@@ -27,19 +27,19 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
             {
                 Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
                 LineSegment line = LineSegment(startPoint, endPoint);
-
+                
                 Vector3 startPointMirror = startPoint;
                 Vector3 endPointMirror = endPoint;
                 startPointMirror.x = -startPointMirror.x;
                 endPointMirror.x   = -endPointMirror.x;
                 LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
-
+                
                 Controller::addLine(line);
                 internalState = STATE_DRAW_IDLE;
             }
         }
     }
-
+    
 }
 
 void StateDraw::MouseLeftDrag(int dx, int dy)
@@ -57,7 +57,7 @@ void StateDraw::MouseRightDrag(int dx, int dy)
 
 void StateDraw::Keyboard(unsigned char key)
 {
-
+    
 }
 
 void StateDraw::prepareState()

@@ -37,9 +37,10 @@ public:
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);
     
+    void update(float timeDelta);
+    
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-    enum{CASHEW_MOUSE_DOWN, CASHEW_MOUSE_UP, CASHEW_RIGHT_BUTTON, CASHEW_LEFT_BUTTON};
     virtual void render(float timeDelta){}
     static int getWindowWidth()
     {
@@ -69,5 +70,4 @@ private:
     int luaGetNodeWidth(const char *nodeName);
     int luaGetNodeHeight(const char *nodeName);
     LuaTable *UILayout;
-    
 };

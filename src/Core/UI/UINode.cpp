@@ -84,12 +84,11 @@ void UINode::appearOut(float timeMs)
         }
     }
 }
-void UINode::_render(float timeDelta)
+void UINode::update(float timeDelta)
 {
-    render(timeDelta);
     for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
     {
-        if((*Child)->mIsVisible) (*Child)->_render(timeDelta);
+        if((*Child)->mIsVisible) (*Child)->update(timeDelta);
     }
 }
 

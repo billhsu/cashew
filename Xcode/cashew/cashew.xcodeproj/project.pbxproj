@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C2247671A3D43DE00349BCC /* UILayout.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247661A3D43DE00349BCC /* UILayout.lua */; };
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2247661A3D43DE00349BCC /* UILayout.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = UILayout.lua; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C2247651A3D43DE00349BCC /* lua_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				0C2247661A3D43DE00349BCC /* UILayout.lua */,
+			);
+			path = lua_scripts;
+			sourceTree = "<group>";
+		};
 		0C77641C1A3C7ABE0010E1BB /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +338,7 @@
 				0C88896D1A2984C600068098 /* Core */,
 				0C8D44551A21D484005421E1 /* Impl */,
 				0C8D442F1A219BAB005421E1 /* Shader */,
+				0C2247651A3D43DE00349BCC /* lua_scripts */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
 				0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */,
@@ -456,6 +467,7 @@
 			files = (
 				0C8D44311A219BAB005421E1 /* default.vs in Resources */,
 				0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */,
+				0C2247671A3D43DE00349BCC /* UILayout.lua in Resources */,
 				0C8D44331A219BD4005421E1 /* default.fs in Resources */,
 				0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */,
 			);

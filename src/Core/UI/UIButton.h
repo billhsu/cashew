@@ -17,7 +17,6 @@ public:
     
     void setText(const char* text);
     void update(float timeDelta);
-    virtual void render(float timeDelta){}
     
     uint32_t textureID_idle, textureID_hover, textureID_press;
 private:

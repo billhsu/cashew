@@ -20,6 +20,7 @@ class UILabel;
 class UIRadioButton;
 class lua_State;
 class Texture;
+class UI;
 
 class Controller
 {
@@ -94,6 +95,7 @@ public:
     static int mouseX,mouseY;
     static int mouseButton,mouseState; // mouse status
 
+    static UI* GUI;
     static int uiHold;
 
     static State* state_idle;

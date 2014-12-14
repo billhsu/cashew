@@ -15,9 +15,11 @@ int UI::hintTextPosX, UI::hintTextPosY;
 int UI::mWindowWidth, UI::mWindowHeight;
 int UI::mMouseX, UI::mMouseY;
 
+
 UI::UI()
 {
     mRootNode = new UINode(NULL);
+    
     UILayout = LuaTable::fromFile("UILayout.lua");
     std::cout <<"UI()"<<std::endl;
 }
@@ -173,4 +175,9 @@ UINode* UI::PassiveMotion(int x, int y)
         mRootNode->previousHover = NULL;
     }
     return NULL;
+}
+
+void UI::update(float timeDelta)
+{
+    mRootNode->update(timeDelta);
 }

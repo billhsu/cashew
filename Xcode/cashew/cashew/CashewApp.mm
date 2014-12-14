@@ -36,7 +36,6 @@ Controller *mController = &Controller::getInstance();
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"default.vs" FragmentShaderFile:@"default.fs"];
     glUseProgram(program);
-    
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
     return YES;
@@ -122,6 +121,9 @@ Controller *mController = &Controller::getInstance();
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
     glClearColor(0.8, 0.8, 0.8, 1.0);
+    NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
+    [[NSFileManager defaultManager] changeCurrentDirectoryPath:resourcePath];
+    NSLog(@"%@", resourcePath);
     mController->init();
     mController->state_idle = new StateIdleImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
