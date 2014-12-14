@@ -66,14 +66,9 @@ Controller::~Controller()
 
 void Controller::init()
 {
-    GUI = &UI::getInstance();
     luaState = luaL_newstate();
     luaL_openlibs( luaState );
 
-    for(int i=0; i < State::STATE_ID_MAX; ++i)
-    {
-        State::statePool[i] = NULL;
-    }
     GUI->resize(originWidth, originHeight);
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
@@ -107,7 +102,7 @@ void Controller::MouseLeftDrag(int dx, int dy)
 }
 void Controller::PassiveMotion(int x, int y)
 {
-    std::cout<<x<<" "<<y<<std::endl;
+    //std::cout<<x<<" "<<y<<std::endl;
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
@@ -141,6 +136,7 @@ void Controller::update(float timeDelta)
 void Controller::render()
 {
     State::currState->render();
+    GUI->render();
 }
 
 void Controller::resize(int _width, int _height)
