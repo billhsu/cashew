@@ -21,7 +21,26 @@ namespace cashew
     }
     
 #define __glPi 3.14159265358979323846
-    
+
+    Matrix4
+    glOrtho(float left, float right, float bottom, float top,
+            float nearVal, float farVal)
+    {
+        Matrix4 result;
+        float m[4][4];
+        __gluMakeIdentityf(&m[0][0]);
+        m[0][0] = 2.f / (right - left);
+        m[1][1] = 2.f / (top - bottom);
+        m[2][2] = -2.f / (farVal - nearVal);
+        m[3][3] = 1.f;
+        
+        m[3][0] = -(right + left) / (right - left);
+        m[3][1] = -(top + bottom) / (top - bottom);
+        m[3][2] = -(farVal + nearVal) / (farVal - nearVal);
+        result.set((float*)m);
+        return result;
+    }
+
     Matrix4
     gluPerspective(float fovy, float aspect, float zNear, float zFar)
     {
