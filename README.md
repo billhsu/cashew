@@ -1,6 +1,8 @@
 Cashew
 ========
 
+[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/billhsu/cashew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://travis-ci.org/billhsu/cashew.png)](https://travis-ci.org/billhsu/cashew)
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/billhsu/cashew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
