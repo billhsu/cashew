@@ -8,6 +8,9 @@
 #include "Core/Math/Matrices.h"
 namespace cashew
 {
+    Matrix4
+    glOrtho(float left, float right, float bottom, float top,
+            float nearVal, float farVal);
     
     Matrix4
     gluPerspective(float fovy, float aspect, float zNear, float zFar);
@@ -39,6 +42,6 @@ namespace cashew
                   float nearVal, float farVal,
                   float *objx, float *objy, float *objz,
                   float *objw);
-
+    
 };
 #endif
