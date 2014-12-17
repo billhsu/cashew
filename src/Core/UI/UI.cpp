@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "UI.h"
+#include "Core/Graphics/Project.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Scripting/luatables.h"
 #include "UINode.h"
@@ -151,4 +152,9 @@ void UI::update(float timeDelta)
 void UI::render()
 {
     mRootNode->render();
+}
+
+Matrix4 UI::getProjection()
+{
+    return cashew::glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
 }

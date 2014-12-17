@@ -9,6 +9,8 @@
 #include <iostream>
 #include <vector>
 #include <stdint.h>
+#include "Core/Math/Matrices.h"
+
 class LuaTable;
 class UIButton;
 class UINode;
@@ -50,6 +52,8 @@ public:
     {
         return mMouseY;
     }
+    static Matrix4 getProjection();
+
 protected:
     UI();
     ~UI();

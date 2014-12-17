@@ -104,6 +104,8 @@ Controller *mController = &Controller::getInstance();
     GLint local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
+    mController->GUI->render();
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
