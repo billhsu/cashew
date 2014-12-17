@@ -139,6 +139,8 @@ Controller *mController = &Controller::getInstance();
     State::enterState(mController->state_idle);
     
     mController->init();
+    mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+                                         0, 0, 0, "New Sketch", NULL, NULL);
     GLint range[2];
     glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
     glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);

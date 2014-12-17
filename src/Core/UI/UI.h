@@ -12,7 +12,7 @@
 #include "Core/Math/Matrices.h"
 
 class LuaTable;
-class UIButton;
+class UIButtonImpl;
 class UINode;
 
 class UI
@@ -32,7 +32,15 @@ public:
     UINode* PassiveMotion(int x, int y);
     
     void update(float timeDelta);
+    virtual UIButtonImpl* addButton(int id, int x, int y, int width, int height,
+                                    uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
+                                    const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL){return NULL;};
     
+    virtual UIButtonImpl* addButton(int id, const char* strID,
+                                    uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
+                                    const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL){return NULL;};
+
+
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
     void render();

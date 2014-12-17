@@ -70,6 +70,7 @@ void Controller::init()
     luaL_openlibs( luaState );
 
     GUI->resize(originWidth, originHeight);
+
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
 }
