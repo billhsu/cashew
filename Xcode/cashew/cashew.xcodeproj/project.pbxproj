@@ -336,8 +336,7 @@
 			children = (
 				0C88896D1A2984C600068098 /* Core */,
 				0C8D44551A21D484005421E1 /* Impl */,
-				0C22476F1A3D925A00349BCC /* lua_scripts */,
-				0C2247711A3D92F700349BCC /* Shader */,
+				0C8D442A1A2199B8005421E1 /* CashewApp.mm */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
 				0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */,
@@ -352,8 +351,9 @@
 				0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */,
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
 				0C916B2E1A20A0AE00676D57 /* MainMenu.xib */,
+				0C22476F1A3D925A00349BCC /* lua_scripts */,
+				0C2247711A3D92F700349BCC /* Shader */,
 				0C916B251A20A0AE00676D57 /* Supporting Files */,
-				0C8D442A1A2199B8005421E1 /* CashewApp.mm */,
 			);
 			path = cashew;
 			sourceTree = "<group>";

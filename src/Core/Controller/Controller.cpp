@@ -132,6 +132,7 @@ void Controller::update(float timeDelta)
     }
     State::currState->update(timeDelta);
     modelView = camera->getMatrix();
+    GUI->update(timeDelta);
 }
 
 void Controller::render()

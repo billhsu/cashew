@@ -18,13 +18,6 @@ class UINode;
 class UI
 {
 public:
-    static UI& getInstance()
-    {
-        static UI instance;
-        std::cout <<"UI getInstance()"<<std::endl;
-        return instance;
-    }
-    
     void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
     
