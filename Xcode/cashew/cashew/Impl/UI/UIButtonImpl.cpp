@@ -5,5 +5,5 @@
 #include <iostream>
 void UIButtonImpl::render()
 {
-    std::cout<<"UIButtonImpl::render"<<std::endl;
+    
 }

@@ -59,7 +59,13 @@ public:
     
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
     void update(float timeDelta);
-    virtual void render(){}
+    virtual void render()
+    {
+        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        {
+            if((*Child)->mIsVisible) (*Child)->render();
+        }
+    }
     
     bool insideNode(int x, int y)
     {
