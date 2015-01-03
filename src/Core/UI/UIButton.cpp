@@ -107,11 +107,14 @@ void UIButton::update(float timeDelta)
     else if(nodeStatus == UINode::NODE_HOVER) textureID = textureID_hover;
     else if(nodeStatus == UINode::NODE_PRESS) textureID = textureID_press;
     
-    
     float offset_x = (mWidth  - _width ) / 2.0f;
     float offset_y = (mHeight - _height) / 2.0f;
     
-    
+    vertices[0].x = mPosX + offset_x;         vertices[0].y = mPosY + offset_y;
+    vertices[1].x = mPosX + offset_x +_width; vertices[1].y = mPosY + offset_y;
+    vertices[2].x = mPosX + offset_x +_width; vertices[2].y = mPosY + offset_y +_height;
+    vertices[3].x = mPosX + offset_x;         vertices[3].y = mPosY + offset_y +_height;
+
     if(nodeStatus == NODE_HOVER && mTimeAccu >= 600)
     {
         offset_x = 0.0f;

@@ -149,11 +149,6 @@ void UI::update(float timeDelta)
     mRootNode->update(timeDelta);
 }
 
-void UI::render()
-{
-    mRootNode->render();
-}
-
 Matrix4 UI::getProjection()
 {
     return cashew::glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);

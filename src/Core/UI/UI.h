@@ -36,7 +36,7 @@ public:
 
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-    void render();
+    virtual void render(){}
     static int getWindowWidth()
     {
         return mWindowWidth;

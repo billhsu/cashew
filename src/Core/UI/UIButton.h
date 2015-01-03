@@ -5,6 +5,7 @@
 #pragma once
 
 #include "UINode.h"
+#include "Core/Math/Vectors.h"
 
 class UIButton : public UINode
 {
@@ -19,5 +20,6 @@ public:
     void update(float timeDelta);
     
     uint32_t textureID_idle, textureID_hover, textureID_press;
+    Vector2 vertices[4];
 private:
 };

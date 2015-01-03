@@ -37,3 +37,13 @@ UIButtonImpl* UIImpl::addButton(int id, const char* strID,
     strcpy(button->strID, strID);
     return button;
 }
+
+void UIImpl::prepareRenderData()
+{
+    mRootNode->prepareRenderData();
+}
+
+void UIImpl::render()
+{
+    mRootNode->render();
+}

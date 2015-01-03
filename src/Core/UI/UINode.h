@@ -46,7 +46,7 @@ public:
         if(a != NULL)
             *a = mAlpha;
     }
-    
+
     void setVisibility(bool visible){mIsVisible = visible;}
     bool getVisibility(){return mIsVisible;}
     
@@ -59,6 +59,13 @@ public:
     
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
     void update(float timeDelta);
+    virtual void prepareRenderData()
+    {
+        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
+        {
+            if((*Child)->mIsVisible) (*Child)->prepareRenderData();
+        }
+    }
     virtual void render()
     {
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
