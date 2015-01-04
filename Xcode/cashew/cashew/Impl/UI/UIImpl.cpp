@@ -19,6 +19,7 @@ UIButtonImpl* UIImpl::addButton(int id, int x, int y, int width, int height,
     button->setText(text);
     button->setSize(width, height);
     button->setCallback(callback);
+    button->prepareRenderData();
     nodeList.push_back(button);
     return button;
 }
@@ -45,5 +46,14 @@ void UIImpl::prepareRenderData()
 
 void UIImpl::render()
 {
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glDepthMask(GL_FALSE);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     mRootNode->render();
+
+    glDepthMask(GL_TRUE);
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST) ;
 }

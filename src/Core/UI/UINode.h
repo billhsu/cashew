@@ -58,19 +58,16 @@ public:
     void appearOut(float timeMs = 120.0f);
     
     void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
-    void update(float timeDelta);
-    virtual void prepareRenderData()
-    {
-        for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
-        {
-            if((*Child)->mIsVisible) (*Child)->prepareRenderData();
-        }
-    }
+    virtual void update(float timeDelta);
+    virtual void prepareRenderData() {}
     virtual void render()
     {
         for(mChildIter Child = mChildNodes.begin(); Child != mChildNodes.end(); Child++)
         {
-            if((*Child)->mIsVisible) (*Child)->render();
+            if((*Child)->mIsVisible)
+            {
+                (*Child)->render();
+            }
         }
     }
     

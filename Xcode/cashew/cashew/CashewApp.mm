@@ -22,7 +22,7 @@
 #include "Impl/UI/UIImpl.h"
 
 GLuint program;
-
+GLuint UIShaderProgram;
 Controller *mController = &Controller::getInstance();
 
 @interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
@@ -37,9 +37,12 @@ Controller *mController = &Controller::getInstance();
     NSLog(@"prepareRenderData");
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"Shader/default.vs" FragmentShaderFile:@"Shader/default.fs"];
+    UIShaderProgram = [shaderController programWithVertexShaderFile:@"Shader/UI.vs" FragmentShaderFile:@"Shader/UI.fs"];
+
     glUseProgram(program);
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
+    glUseProgram(0);
     return YES;
 }
 
@@ -99,11 +102,17 @@ Controller *mController = &Controller::getInstance();
 
 - (void)render;
 {
+    glUseProgram(program);
     GLint local_modelView = glGetUniformLocation(program, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
     GLint local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
+
+    glUseProgram(UIShaderProgram);
+    local_modelView = glGetUniformLocation(program, "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
 }
@@ -129,7 +138,7 @@ Controller *mController = &Controller::getInstance();
     NSLog(@"%@", resourcePath);
 
     mController->GUI = &UIImpl::getInstance();
-    
+    static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {
         State::statePool[i] = NULL;
@@ -152,7 +161,7 @@ Controller *mController = &Controller::getInstance();
     NSLog(@"clearGLContext");
     cashew::clearScene();
     glDeleteProgram(program);
-
+    glDeleteProgram(UIShaderProgram);
     [super clearGLContext];
 }
 
