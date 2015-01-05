@@ -20,6 +20,7 @@ UIButtonImpl* UIImpl::addButton(int id, int x, int y, int width, int height,
     button->setSize(width, height);
     button->setCallback(callback);
     button->prepareRenderData();
+    button->program = shaderProgram;
     nodeList.push_back(button);
     return button;
 }

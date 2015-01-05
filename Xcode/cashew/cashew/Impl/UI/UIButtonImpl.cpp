@@ -3,47 +3,100 @@
 
 #include "UIButtonImpl.h"
 #include <iostream>
+typedef struct kmVec3 {
+    float x;
+    float y;
+    float z;
+} kmVec3;
+
+static const kmVec3 vertexBufferData[] = {
+    {-1.0f,-1.0f,-1.0f},
+    {-1.0f,-1.0f, 1.0f},
+    {-1.0f, 1.0f, 1.0f},
+    {1.0f, 1.0f,-1.0f}
+};
+
+static const kmVec3 colorBufferData[] = {
+    {0.583f,  0.771f,  0.014f},
+    {0.609f,  0.115f,  0.436f},
+    {0.327f,  0.483f,  0.844f},
+    {0.822f,  0.569f,  0.201f}
+};
+
 UIButtonImpl::~UIButtonImpl()
 {
     glDeleteBuffers(1, &vertexBuffer);
-    glDeleteBuffers(1, &uvBuffer);
+//    glDeleteBuffers(1, &uvBuffer);
     glDeleteBuffers(1, &colorBuffer);
     glDeleteBuffers(1, &indexBuffer);
+    glDeleteVertexArrays(1, &vertexArrayObj);
 }
 void UIButtonImpl::render()
 {
-    verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
-    verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
-    verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
-    verticesArray[6] = vertices[3].x; verticesArray[7] = vertices[3].y;
+//    verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
+//    verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
+//    verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
+//    verticesArray[6] = vertices[3].x; verticesArray[7] = vertices[3].y;
+//    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesArray), NULL, GL_DYNAMIC_DRAW);
+//    
+//    float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+//    if(ptr != NULL)
+//    {
+//        memcpy(ptr, verticesArray, sizeof(verticesArray));
+//        glUnmapBuffer(GL_ARRAY_BUFFER);
+//    }
+//    else
+//    {
+//        std::cout<<"UIButtonImpl::prepareRenderData() - glMapBuffer failed"<<std::endl;
+//    }
+//    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    
+    
+//        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+
+    //        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    glBindVertexArray(vertexArrayObj);
+
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesArray), NULL, GL_DYNAMIC_DRAW);
+
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), NULL, GL_DYNAMIC_DRAW);
     
     float* ptr = (float*)glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+    static float accu=0.0f;
+    accu+=0.01f;
     if(ptr != NULL)
     {
-        memcpy(ptr, verticesArray, sizeof(verticesArray));
+        ptr[0] = -1.0f; ptr[1] = -1.0f; ptr[2] = -1.0f;
+        ptr[3] = -1.0f; ptr[4] = -1.0f; ptr[5] =  1.0f;
+        ptr[6] = -1.0f; ptr[7] =  1.0f; ptr[8] =  1.0f;
+        ptr[9] =  1.0f; ptr[10] =  1.0f; ptr[11] =  -1.0f;
         glUnmapBuffer(GL_ARRAY_BUFFER);
     }
     else
     {
         std::cout<<"UIButtonImpl::prepareRenderData() - glMapBuffer failed"<<std::endl;
     }
-    
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-    
-    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-    
+
+//    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+//    glEnableVertexAttribArray(1);
+//    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-    
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+
+//    glDrawArrays(GL_TRIANGLES, 0, 3*3);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, indices);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(1);
+//    glDisableVertexAttribArray(2);
 }
 
 void UIButtonImpl::prepareRenderData()
@@ -52,27 +105,30 @@ void UIButtonImpl::prepareRenderData()
     uvArray[2] = 1.0f; uvArray[3] = 0.0f;
     uvArray[4] = 1.0f; uvArray[5] = 1.0f;
     uvArray[6] = 0.0f; uvArray[7] = 1.0f;
-
+    
     colorArray[ 0] = mR; colorArray[ 1] = mG;  colorArray[ 2] = mB; colorArray[ 3] = mAlpha;
     colorArray[ 4] = mR; colorArray[ 5] = mG;  colorArray[ 6] = mB; colorArray[ 7] = mAlpha;
     colorArray[ 8] = mR; colorArray[ 9] = mG;  colorArray[10] = mB; colorArray[11] = mAlpha;
     colorArray[12] = mR; colorArray[13] = mG;  colorArray[14] = mB; colorArray[15] = mAlpha;
-
+    
     glGenBuffers(1, &vertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verticesArray), verticesArray, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-    glGenBuffers(1, &uvBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(uvArray), uvArray, GL_STATIC_DRAW);
+//    glGenBuffers(1, &uvBuffer);
+//    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(uvArray), uvArray, GL_STATIC_DRAW);
 
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(colorArray), colorArray, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(colorBufferData), colorBufferData, GL_STATIC_DRAW);
 
     glGenBuffers(1, &indexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), 0, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    glGenVertexArrays(1, &vertexArrayObj);
 }

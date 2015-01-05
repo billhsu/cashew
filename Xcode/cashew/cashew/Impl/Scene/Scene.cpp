@@ -204,9 +204,7 @@ namespace cashew{
     {
         glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneAxisVertexArrayObj);
-        glLineWidth(3);
         glDrawArrays(GL_LINES, 0, 6*3);
-        glLineWidth(1);
         glPointSize(5);
         glBindVertexArray(sceneAxisEndVertexArrayObj);
         glDrawArrays(GL_POINTS, 0, 3*3);

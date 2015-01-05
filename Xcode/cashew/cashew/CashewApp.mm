@@ -43,6 +43,20 @@ Controller *mController = &Controller::getInstance();
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
     glUseProgram(0);
+    
+    mController->GUI = &UIImpl::getInstance();
+    static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
+    for(int i=0; i < State::STATE_ID_MAX; ++i)
+    {
+        State::statePool[i] = NULL;
+    }
+    mController->state_idle = new StateIdleImpl();
+    mController->state_select_plane = new StateSelectPlaneImpl();
+    State::enterState(mController->state_idle);
+    
+    mController->init();
+    mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+                                0, 0, 0, "New Sketch", NULL, NULL);
     return YES;
 }
 
@@ -108,13 +122,18 @@ Controller *mController = &Controller::getInstance();
     GLint local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
-
     glUseProgram(UIShaderProgram);
-    local_modelView = glGetUniformLocation(program, "modelView");
+    local_modelView = glGetUniformLocation(UIShaderProgram, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-    local_projection = glGetUniformLocation(program, "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
+//    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
+    local_projection = glGetUniformLocation(UIShaderProgram, "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+//    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        std::cout << "OpenGL error: " << err <<" "<<__FUNCTION__<< " "<<__LINE__<<std::endl;
+    }
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
@@ -131,25 +150,12 @@ Controller *mController = &Controller::getInstance();
     NSLog(@"prepareOpenGL");
     [super prepareOpenGL];
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
     glClearColor(0.8, 0.8, 0.8, 1.0);
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:resourcePath];
     NSLog(@"%@", resourcePath);
 
-    mController->GUI = &UIImpl::getInstance();
-    static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
-    for(int i=0; i < State::STATE_ID_MAX; ++i)
-    {
-        State::statePool[i] = NULL;
-    }
-    mController->state_idle = new StateIdleImpl();
-    mController->state_select_plane = new StateSelectPlaneImpl();
-    State::enterState(mController->state_idle);
-    
-    mController->init();
-    mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
-                                         0, 0, 0, "New Sketch", NULL, NULL);
     GLint range[2];
     glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
     glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);

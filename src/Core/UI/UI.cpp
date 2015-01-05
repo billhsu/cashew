@@ -151,5 +151,16 @@ void UI::update(float timeDelta)
 
 Matrix4 UI::getProjection()
 {
-    return cashew::glOrtho(0, mWindowWidth, 0, mWindowHeight,-1,1);
+    return cashew::glOrtho(0, mWindowWidth, 0, mWindowHeight, -1, 1);
+}
+
+Matrix4 UI::getModelView()
+{
+    Matrix4 result;
+    result.identity();
+    result.scale(1, -1, 1);
+    Matrix4 trans;
+    trans.translate(0.0f, (float)-mWindowHeight, 0.0f);
+    result = result * trans;
+    return result;
 }

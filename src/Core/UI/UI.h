@@ -54,7 +54,7 @@ public:
         return mMouseY;
     }
     static Matrix4 getProjection();
-
+    static Matrix4 getModelView();
 protected:
     UI();
     ~UI();
