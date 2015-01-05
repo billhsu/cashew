@@ -20,9 +20,12 @@
 #include "Impl/State/StateSelectPlaneImpl.h"
 #include "Core/Controller/Controller.h"
 #include "Impl/UI/UIImpl.h"
+#include "Impl/UI/UIButtonImpl.h"
 
 GLuint program;
 GLuint UIShaderProgram;
+GLuint texture;
+
 Controller *mController = &Controller::getInstance();
 
 @interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
@@ -31,6 +34,13 @@ Controller *mController = &Controller::getInstance();
 
 @implementation CashewApp
 
+void checkGlErr(int line)
+{
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        std::cout << "OpenGL error: " << err <<" "<<__FILE__<< " "<<line<<std::endl;
+    }
+}
 - (BOOL)prepareRenderData
 {
     [[CashewInputController sharedInputController] addEventDelegate:self];
@@ -38,12 +48,27 @@ Controller *mController = &Controller::getInstance();
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"Shader/default.vs" FragmentShaderFile:@"Shader/default.fs"];
     UIShaderProgram = [shaderController programWithVertexShaderFile:@"Shader/UI.vs" FragmentShaderFile:@"Shader/UI.fs"];
+    
+    CashewTextureController *textureController = [CashewTextureController sharedTextureController];
+    texture = [textureController textureWithFileName:@"media/textures/button_confirm.png" useMipmap:YES];
 
     glUseProgram(program);
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
+    glUseProgram(UIShaderProgram);
+    GLint local_image0 = glGetUniformLocation(program, "image0");
+    checkGlErr(__LINE__);
+    glActiveTexture(GL_TEXTURE0);
+    checkGlErr(__LINE__);
+    glEnable(GL_TEXTURE_2D);
+    checkGlErr(__LINE__);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    checkGlErr(__LINE__);
+    glUniform1i(local_image0, 0);
+    checkGlErr(__LINE__);
+    glDisable(GL_TEXTURE_2D);
+    checkGlErr(__LINE__);
     glUseProgram(0);
-    
     mController->GUI = &UIImpl::getInstance();
     static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
     for(int i=0; i < State::STATE_ID_MAX; ++i)
@@ -55,8 +80,9 @@ Controller *mController = &Controller::getInstance();
     State::enterState(mController->state_idle);
     
     mController->init();
-    mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
-                                0, 0, 0, "New Sketch", NULL, NULL);
+    UIButtonImpl* button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+                                                       0, 0, 0, "New Sketch", NULL, NULL);
+    button->textureID_idle = texture;
     return YES;
 }
 
@@ -130,10 +156,7 @@ Controller *mController = &Controller::getInstance();
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
 //    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        std::cout << "OpenGL error: " << err <<" "<<__FUNCTION__<< " "<<__LINE__<<std::endl;
-    }
+    checkGlErr(__LINE__);
 }
 
 -(void)reshapeWidth:(int)width height:(int)height

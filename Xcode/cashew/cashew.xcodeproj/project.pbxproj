@@ -11,6 +11,7 @@
 		0C22476E1A3D8D7C00349BCC /* UIImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C22476B1A3D8D7C00349BCC /* UIImpl.cpp */; };
 		0C2247701A3D925A00349BCC /* lua_scripts in Resources */ = {isa = PBXBuildFile; fileRef = 0C22476F1A3D925A00349BCC /* lua_scripts */; };
 		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
+		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
@@ -63,6 +64,7 @@
 		0C22476C1A3D8D7C00349BCC /* UIImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImpl.h; sourceTree = "<group>"; };
 		0C22476F1A3D925A00349BCC /* lua_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lua_scripts; sourceTree = "<group>"; };
 		0C2247711A3D92F700349BCC /* Shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shader; sourceTree = "<group>"; };
+		0C46317E1A5AE62D00D0CEFE /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 				0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */,
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
 				0C916B2E1A20A0AE00676D57 /* MainMenu.xib */,
+				0C46317E1A5AE62D00D0CEFE /* media */,
 				0C22476F1A3D925A00349BCC /* lua_scripts */,
 				0C2247711A3D92F700349BCC /* Shader */,
 				0C916B251A20A0AE00676D57 /* Supporting Files */,
@@ -466,6 +469,7 @@
 			files = (
 				0C2247701A3D925A00349BCC /* lua_scripts in Resources */,
 				0C2247721A3D92F700349BCC /* Shader in Resources */,
+				0C46317F1A5AE62D00D0CEFE /* media in Resources */,
 				0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */,
 				0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */,
 			);

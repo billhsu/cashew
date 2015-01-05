@@ -9,6 +9,11 @@ typedef struct kmVec3 {
     float z;
 } kmVec3;
 
+typedef struct kmVec2 {
+    float x;
+    float y;
+} kmVec2;
+
 static const kmVec3 vertexBufferData[] = {
     {-1.0f,-1.0f,-1.0f},
     {-1.0f,-1.0f, 1.0f},
@@ -21,6 +26,13 @@ static const kmVec3 colorBufferData[] = {
     {0.609f,  0.115f,  0.436f},
     {0.327f,  0.483f,  0.844f},
     {0.822f,  0.569f,  0.201f}
+};
+
+static const kmVec2 uvBufferData[] = {
+    {0.000059f, 0.000004f},
+    {0.000103f, 0.336048f},
+    {0.335973f, 0.335903f},
+    {1.000023f, 0.000013f}
 };
 
 UIButtonImpl::~UIButtonImpl()
@@ -56,7 +68,7 @@ void UIButtonImpl::render()
 //        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
     //        glBindBuffer(GL_ARRAY_BUFFER, 0);
-
+    
     glBindVertexArray(vertexArrayObj);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -82,13 +94,17 @@ void UIButtonImpl::render()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
 
-//    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-//    glEnableVertexAttribArray(1);
-//    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
 
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+    
+    glActiveTexture(GL_TEXTURE0);
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, textureID_idle);
 
 //    glDrawArrays(GL_TRIANGLES, 0, 3*3);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
@@ -96,7 +112,9 @@ void UIButtonImpl::render()
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-//    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(2);
+    
+    glDisable(GL_TEXTURE_2D);
 }
 
 void UIButtonImpl::prepareRenderData()
@@ -115,9 +133,9 @@ void UIButtonImpl::prepareRenderData()
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_STATIC_DRAW);
 
-//    glGenBuffers(1, &uvBuffer);
-//    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(uvArray), uvArray, GL_STATIC_DRAW);
+    glGenBuffers(1, &uvBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(uvBufferData), uvBufferData, GL_STATIC_DRAW);
 
     glGenBuffers(1, &colorBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
