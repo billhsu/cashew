@@ -34,40 +34,29 @@ Controller *mController = &Controller::getInstance();
 
 @implementation CashewApp
 
-void checkGlErr(int line)
-{
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        std::cout << "OpenGL error: " << err <<" "<<__FILE__<< " "<<line<<std::endl;
-    }
-}
 - (BOOL)prepareRenderData
 {
     [[CashewInputController sharedInputController] addEventDelegate:self];
     NSLog(@"prepareRenderData");
+    
+    CashewTextureController *textureController = [CashewTextureController sharedTextureController];
+    texture = [textureController textureWithFileName:@"media/textures/button.png" useMipmap:NO];
+    
+    
     CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
     program = [shaderController programWithVertexShaderFile:@"Shader/default.vs" FragmentShaderFile:@"Shader/default.fs"];
     UIShaderProgram = [shaderController programWithVertexShaderFile:@"Shader/UI.vs" FragmentShaderFile:@"Shader/UI.fs"];
     
-    CashewTextureController *textureController = [CashewTextureController sharedTextureController];
-    texture = [textureController textureWithFileName:@"media/textures/button_confirm.png" useMipmap:YES];
-
     glUseProgram(program);
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
     glUseProgram(UIShaderProgram);
-    GLint local_image0 = glGetUniformLocation(program, "image0");
-    checkGlErr(__LINE__);
+    GLint local_image0 = glGetUniformLocation(UIShaderProgram, "image0");
     glActiveTexture(GL_TEXTURE0);
-    checkGlErr(__LINE__);
     glEnable(GL_TEXTURE_2D);
-    checkGlErr(__LINE__);
     glBindTexture(GL_TEXTURE_2D, texture);
-    checkGlErr(__LINE__);
     glUniform1i(local_image0, 0);
-    checkGlErr(__LINE__);
     glDisable(GL_TEXTURE_2D);
-    checkGlErr(__LINE__);
     glUseProgram(0);
     mController->GUI = &UIImpl::getInstance();
     static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
@@ -151,12 +140,11 @@ void checkGlErr(int line)
     glUseProgram(UIShaderProgram);
     local_modelView = glGetUniformLocation(UIShaderProgram, "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-//    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
+    //    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
     local_projection = glGetUniformLocation(UIShaderProgram, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
-//    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
+    //    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
-    checkGlErr(__LINE__);
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
@@ -178,7 +166,7 @@ void checkGlErr(int line)
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:resourcePath];
     NSLog(@"%@", resourcePath);
-
+    
     GLint range[2];
     glGetIntegerv(GL_ALIASED_LINE_WIDTH_RANGE, range);
     glGetIntegerv(GL_SMOOTH_LINE_WIDTH_RANGE, range);

@@ -3,6 +3,16 @@
 
 #include "UIButtonImpl.h"
 #include <iostream>
+
+
+void _checkGlErr(int line)
+{
+    GLenum err;
+    while ((err = glGetError()) != GL_NO_ERROR) {
+        std::cout << "OpenGL error: " << err <<" "<<__FILE__<< " "<<line<<std::endl;
+    }
+}
+
 typedef struct kmVec3 {
     float x;
     float y;
@@ -90,22 +100,24 @@ void UIButtonImpl::render()
     {
         std::cout<<"UIButtonImpl::prepareRenderData() - glMapBuffer failed"<<std::endl;
     }
-
+    _checkGlErr(__LINE__);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
 
     glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-
+    _checkGlErr(__LINE__);
     glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-    
+    _checkGlErr(__LINE__);
     glActiveTexture(GL_TEXTURE0);
-    glEnable(GL_TEXTURE_2D);
+    _checkGlErr(__LINE__);
+//    glEnable(GL_TEXTURE_2D);
+    _checkGlErr(__LINE__);
     glBindTexture(GL_TEXTURE_2D, textureID_idle);
-
+    _checkGlErr(__LINE__);
 //    glDrawArrays(GL_TRIANGLES, 0, 3*3);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -113,8 +125,9 @@ void UIButtonImpl::render()
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
     glDisableVertexAttribArray(2);
-    
-    glDisable(GL_TEXTURE_2D);
+    _checkGlErr(__LINE__);
+//    glDisable(GL_TEXTURE_2D);
+    _checkGlErr(__LINE__);
 }
 
 void UIButtonImpl::prepareRenderData()

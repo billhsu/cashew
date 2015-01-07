@@ -8,5 +8,5 @@ in vec4 color_vs;
 out vec4 color;
 
 void main() {
-    color = color_vs + texture( image0, uv_vs );
+    color = texture( image0, uv_vs ); // + color_vs;
 }
