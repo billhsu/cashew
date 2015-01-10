@@ -137,13 +137,12 @@ Controller *mController = &Controller::getInstance();
     GLint local_projection = glGetUniformLocation(program, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
+
     glUseProgram(UIShaderProgram);
     local_modelView = glGetUniformLocation(UIShaderProgram, "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-    //    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
     local_projection = glGetUniformLocation(UIShaderProgram, "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
-    //    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
 }
 

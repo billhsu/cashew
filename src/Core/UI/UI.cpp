@@ -82,6 +82,7 @@ void UI::resize(int width, int height)
         nodeList[i]->setSize(luaGetNodeWidth(nodeList[i]->strID),
                              luaGetNodeHeight(nodeList[i]->strID));
     }
+    update(0);
 }
 
 UINode* UI::getNodeByPos(int x, int y)
