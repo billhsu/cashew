@@ -62,7 +62,8 @@ namespace cashew{
             gridColor[span * i + 12] = 0.3f; gridColor[span * i + 13] = 0.3f; gridColor[span * i + 14] = 0.3f;
             gridColor[span * i + 15] = 0.3f; gridColor[span * i + 16] = 0.3f; gridColor[span * i + 17] = 0.3f;
             gridColor[span * i + 18] = 0.3f; gridColor[span * i + 19] = 0.3f; gridColor[span * i + 20] = 0.3f;
-            gridColor[span * i + 21] = 0.3f; gridColor[span * i + 22] = 0.3f; gridColor[span * i + 23] = 0.3f;        }
+            gridColor[span * i + 21] = 0.3f; gridColor[span * i + 22] = 0.3f; gridColor[span * i + 23] = 0.3f;
+        }
         glGenBuffers(1, &sceneGridVertexBuffer);
         glGenBuffers(1, &sceneGridColorBuffer);
         glGenVertexArrays(1, &sceneGridVertexArrayObj);

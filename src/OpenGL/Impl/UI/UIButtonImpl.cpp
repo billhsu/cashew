@@ -4,16 +4,6 @@
 #include "UIButtonImpl.h"
 #include <iostream>
 
-
-void _checkGlErr(int line)
-{
-    GLenum err;
-    while ((err = glGetError()) != GL_NO_ERROR) {
-        std::cout << "OpenGL error: " << err <<" "<<__FILE__<< " "<<line<<std::endl;
-    }
-}
-
-
 UIButtonImpl::~UIButtonImpl()
 {
     glDeleteBuffers(1, &vertexBuffer);

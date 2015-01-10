@@ -13,14 +13,15 @@
 #import "CashewInputController.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
-#include "Impl/Scene/Scene.h"
+#include "OpenGL/Impl/Scene/Scene.h"
 
 #include "Core/Camera/Camera.h"
-#include "Impl/State/StateIdleImpl.h"
-#include "Impl/State/StateSelectPlaneImpl.h"
+#include "OpenGL/Impl/State/StateIdleImpl.h"
+#include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
 #include "Core/Controller/Controller.h"
-#include "Impl/UI/UIImpl.h"
-#include "Impl/UI/UIButtonImpl.h"
+#include "OpenGL/Impl/UI/UIImpl.h"
+#include "OpenGL/Impl/UI/UIButtonImpl.h"
+#include "OpenGL/Util/Utility.h"
 
 GLuint program;
 GLuint UIShaderProgram;
@@ -144,6 +145,9 @@ Controller *mController = &Controller::getInstance();
     local_projection = glGetUniformLocation(UIShaderProgram, "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
+#ifdef DEBUG
+    checkGlErr(__FILE__, __LINE__);
+#endif
 }
 
 -(void)reshapeWidth:(int)width height:(int)height
