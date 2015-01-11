@@ -16,6 +16,7 @@
 		0C5F954E1A614F0100BE91E9 /* UIButtonImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95461A614F0100BE91E9 /* UIButtonImpl.cpp */; };
 		0C5F954F1A614F0100BE91E9 /* UIImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95481A614F0100BE91E9 /* UIImpl.cpp */; };
 		0C5F95521A614FD500BE91E9 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95501A614FD500BE91E9 /* Utility.cpp */; };
+		0C5F95561A6157C700BE91E9 /* GLSLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95541A6157C700BE91E9 /* GLSLShader.cpp */; };
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
@@ -74,6 +75,8 @@
 		0C5F95491A614F0100BE91E9 /* UIImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImpl.h; sourceTree = "<group>"; };
 		0C5F95501A614FD500BE91E9 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utility.cpp; path = ../../../../../src/OpenGL/Util/Utility.cpp; sourceTree = "<group>"; };
 		0C5F95511A614FD500BE91E9 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utility.h; path = ../../../../../src/OpenGL/Util/Utility.h; sourceTree = "<group>"; };
+		0C5F95541A6157C700BE91E9 /* GLSLShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLSLShader.cpp; sourceTree = "<group>"; };
+		0C5F95551A6157C700BE91E9 /* GLSLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSLShader.h; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 		0C5F953B1A614F0100BE91E9 /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				0C5F95531A6157C700BE91E9 /* Shader */,
 				0C5F953C1A614F0100BE91E9 /* Impl */,
 				0C5F954A1A614F0100BE91E9 /* Util */,
 			);
@@ -212,6 +216,16 @@
 				0C5F95511A614FD500BE91E9 /* Utility.h */,
 			);
 			path = Util;
+			sourceTree = "<group>";
+		};
+		0C5F95531A6157C700BE91E9 /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				0C5F95541A6157C700BE91E9 /* GLSLShader.cpp */,
+				0C5F95551A6157C700BE91E9 /* GLSLShader.h */,
+			);
+			name = Shader;
+			path = ../../../../src/OpenGL/Shader;
 			sourceTree = "<group>";
 		};
 		0C77641C1A3C7ABE0010E1BB /* UI */ = {
@@ -519,6 +533,7 @@
 				0C5F954B1A614F0100BE91E9 /* Scene.cpp in Sources */,
 				0C8889971A2ABF7A00068098 /* Controller.cpp in Sources */,
 				0C8889861A2984C600068098 /* Plane.cpp in Sources */,
+				0C5F95561A6157C700BE91E9 /* GLSLShader.cpp in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
 				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,

@@ -1,3 +1,6 @@
+// Shipeng Xu
+// billhsu.x@gmail.com
+
 #include "Utility.h"
 #include <iostream>
 #include <string>

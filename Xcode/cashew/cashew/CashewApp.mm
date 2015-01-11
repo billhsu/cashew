@@ -22,9 +22,12 @@
 #include "OpenGL/Impl/UI/UIImpl.h"
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
 #include "OpenGL/Util/Utility.h"
+#include "OpenGL/Shader/GLSLShader.h"
 
-GLuint program;
-GLuint UIShaderProgram;
+//GLuint program;
+//GLuint UIShaderProgram;
+GLSLShader defaultProgram;
+GLSLShader UIProgram;
 GLuint texture;
 
 Controller *mController = &Controller::getInstance();
@@ -44,23 +47,29 @@ Controller *mController = &Controller::getInstance();
     texture = [textureController textureWithFileName:@"media/textures/button.png" useMipmap:NO];
     
     
-    CashewShaderController *shaderController = [CashewShaderController sharedShaderController];
-    program = [shaderController programWithVertexShaderFile:@"Shader/default.vs" FragmentShaderFile:@"Shader/default.fs"];
-    UIShaderProgram = [shaderController programWithVertexShaderFile:@"Shader/UI.vs" FragmentShaderFile:@"Shader/UI.fs"];
+    defaultProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/default.vs");
+    defaultProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/default.fs");
+    defaultProgram.createProgram();
     
-    glUseProgram(program);
+    UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
+    UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
+    UIProgram.createProgram();
+
+    defaultProgram.bind();
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
-    glUseProgram(UIShaderProgram);
-    GLint local_image0 = glGetUniformLocation(UIShaderProgram, "image0");
+
+    UIProgram.bind();
+    GLint local_image0 = glGetUniformLocation(UIProgram.getProgram(), "image0");
     glActiveTexture(GL_TEXTURE0);
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, texture);
     glUniform1i(local_image0, 0);
     glDisable(GL_TEXTURE_2D);
-    glUseProgram(0);
+    UIProgram.unbind();
     mController->GUI = &UIImpl::getInstance();
-    static_cast<UIImpl*>(mController->GUI)->setShader(UIShaderProgram);
+    static_cast<UIImpl*>(mController->GUI)->setShader(UIProgram.getProgram());
+
     for(int i=0; i < State::STATE_ID_MAX; ++i)
     {
         State::statePool[i] = NULL;
@@ -132,17 +141,17 @@ Controller *mController = &Controller::getInstance();
 
 - (void)render;
 {
-    glUseProgram(program);
-    GLint local_modelView = glGetUniformLocation(program, "modelView");
+    defaultProgram.bind();
+    GLint local_modelView = glGetUniformLocation(defaultProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-    GLint local_projection = glGetUniformLocation(program, "projection");
+    GLint local_projection = glGetUniformLocation(defaultProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
 
-    glUseProgram(UIShaderProgram);
-    local_modelView = glGetUniformLocation(UIShaderProgram, "modelView");
+    UIProgram.bind();
+    local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
-    local_projection = glGetUniformLocation(UIShaderProgram, "projection");
+    local_projection = glGetUniformLocation(UIProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     mController->GUI->render();
 #ifdef DEBUG
@@ -180,8 +189,6 @@ Controller *mController = &Controller::getInstance();
 {
     NSLog(@"clearGLContext");
     cashew::clearScene();
-    glDeleteProgram(program);
-    glDeleteProgram(UIShaderProgram);
     [super clearGLContext];
 }
 
