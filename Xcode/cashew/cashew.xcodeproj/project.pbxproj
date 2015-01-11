@@ -39,7 +39,6 @@
 		0C8D44251A218473005421E1 /* CashewInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441C1A218473005421E1 /* CashewInputController.m */; };
 		0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */; };
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
-		0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44221A218473005421E1 /* CashewShaderController.m */; };
 		0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44241A218473005421E1 /* CashewTextureController.m */; };
 		0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.mm */; };
 		0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */; };
@@ -122,8 +121,6 @@
 		0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewOpenGLInfoHelper.m; sourceTree = "<group>"; };
 		0C8D441F1A218473005421E1 /* CashewOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewOpenGLView.h; sourceTree = "<group>"; };
 		0C8D44201A218473005421E1 /* CashewOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewOpenGLView.m; sourceTree = "<group>"; };
-		0C8D44211A218473005421E1 /* CashewShaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewShaderController.h; sourceTree = "<group>"; };
-		0C8D44221A218473005421E1 /* CashewShaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewShaderController.m; sourceTree = "<group>"; };
 		0C8D44231A218473005421E1 /* CashewTextureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewTextureController.h; sourceTree = "<group>"; };
 		0C8D44241A218473005421E1 /* CashewTextureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewTextureController.m; sourceTree = "<group>"; };
 		0C8D442A1A2199B8005421E1 /* CashewApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CashewApp.mm; sourceTree = "<group>"; };
@@ -380,8 +377,6 @@
 				0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */,
 				0C8D441F1A218473005421E1 /* CashewOpenGLView.h */,
 				0C8D44201A218473005421E1 /* CashewOpenGLView.m */,
-				0C8D44211A218473005421E1 /* CashewShaderController.h */,
-				0C8D44221A218473005421E1 /* CashewShaderController.m */,
 				0C8D44231A218473005421E1 /* CashewTextureController.h */,
 				0C8D44241A218473005421E1 /* CashewTextureController.m */,
 				0C916B271A20A0AE00676D57 /* CashewAppDelegate.h */,
@@ -552,7 +547,6 @@
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
-				0C8D44281A218473005421E1 /* CashewShaderController.m in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
 				0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */,

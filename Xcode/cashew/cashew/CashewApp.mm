@@ -8,7 +8,6 @@
 
 #import <OpenGL/gl3.h>
 #import "CashewOpenGLView.h"
-#import "CashewShaderController.h"
 #import "CashewTextureController.h"
 #import "CashewInputController.h"
 #include "Core/Math/Vectors.h"
