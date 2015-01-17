@@ -19,6 +19,9 @@ void UIButtonImpl::render()
     verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
     verticesArray[6] = vertices[3].x; verticesArray[7] = vertices[3].y;
 
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, textureID_idle);
+
     glBindVertexArray(vertexArrayObj);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -45,8 +48,6 @@ void UIButtonImpl::render()
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, textureID_idle);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

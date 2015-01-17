@@ -21,7 +21,7 @@ public:
     static const unsigned int FLAG_UV_BUFFER     = 0x0002;
     static const unsigned int FLAG_COLOR_BUFFER  = 0x0004;
     static const unsigned int FLAG_INDEX_BUFFER  = 0x0008;
-
+    
     struct VBOStruct
     {
         float* vertexBufferData; int vertexBufferSize;
@@ -30,11 +30,20 @@ public:
         int* indexBufferData;    int indexBufferSize;
     };
     
-    void initVBO(VBOStruct vboStruct);
+    void initVBO(const VBOStruct vboStruct, unsigned int vboFlag);
+    void updateVBO(const VBOStruct vboStruct, unsigned int vboFlag);
+    void render();
+    
+    int VBOLocation[256];
+    int VBOUnitSize[256];
+    
+    void setVBOLocation(unsigned int vboFlag, int location);
+    void setVBOUnitSize(unsigned int vboFlag, int unitSize);
 private:
     template<typename T>
     void bufferGenBind(GLuint& bufferID, int bufferSize, T* bufferData, GLenum bufferType, GLenum bufferUsage);
     unsigned int flags;
+    VBOStruct VBOInfo;
     GLuint vertexBuffer;
     GLuint uvBuffer;
     GLuint colorBuffer;
