@@ -57,7 +57,7 @@ public:
     static Matrix4 getModelView();
 protected:
     UI();
-    ~UI();
+    virtual ~UI();
     static int mWindowWidth, mWindowHeight;
     static int mMouseX, mMouseY;
     std::vector <UINode*> nodeList;

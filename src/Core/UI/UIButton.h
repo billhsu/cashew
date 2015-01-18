@@ -11,7 +11,7 @@ class UIButton : public UINode
 {
 public:
     UIButton(UINode* parent);
-    ~UIButton();
+    virtual ~UIButton();
     
     void MouseButton(int button, int state, int x, int y);
     void PassiveMotion(int x, int y);

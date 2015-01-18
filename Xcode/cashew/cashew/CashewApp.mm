@@ -23,8 +23,6 @@
 #include "OpenGL/Util/Utility.h"
 #include "OpenGL/Shader/GLSLShader.h"
 
-//GLuint program;
-//GLuint UIShaderProgram;
 GLSLShader defaultProgram;
 GLSLShader UIProgram;
 GLuint texture;
@@ -36,6 +34,8 @@ Controller *mController = &Controller::getInstance();
 @end
 
 @implementation CashewApp
+
+UIButtonImpl* button;
 
 - (BOOL)prepareRenderData
 {
@@ -78,7 +78,7 @@ Controller *mController = &Controller::getInstance();
     State::enterState(mController->state_idle);
     
     mController->init();
-    UIButtonImpl* button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+    button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                        0, 0, 0, "New Sketch", NULL, NULL);
     button->textureID_idle = texture;
     return YES;

@@ -37,11 +37,15 @@ UINode::UINode(UINode* parent)
 
 UINode::~UINode()
 {
-    std::cout<<"~UINode()"<<std::endl;
+    std::cout<<"~UINode("<<this<<")"<<std::endl;
     for(mChildIter Child = mChildNodes.begin();
         Child != mChildNodes.end(); Child++)
     {
-        delete *Child;
+        if(*Child != 0)
+        {
+            delete *Child;
+            *Child = 0;
+        }
     }
     
 }

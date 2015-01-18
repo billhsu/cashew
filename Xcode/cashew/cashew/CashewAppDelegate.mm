@@ -42,7 +42,7 @@
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
+    [_view clearGLContext];
     [_window setReleasedWhenClosed:NO];
 }
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication

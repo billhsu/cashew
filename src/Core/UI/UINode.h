@@ -15,7 +15,7 @@ class UINode
 {
 public:
     UINode(UINode* parent);
-    ~UINode();
+    virtual ~UINode();
     
     void setPos(int x, int y){mPosX = x; mPosY = y;}
     void getPos(int* x = NULL, int* y = NULL)

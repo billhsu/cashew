@@ -6,6 +6,7 @@
 
 void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag)
 {
+    
     VBOInfo = vboStruct;
     flags = vboFlag;
     if(vboFlag & FLAG_VERTEX_BUFFER)
@@ -31,44 +32,52 @@ void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag)
         bufferGenBind<int>(indexBuffer, vboStruct.indexBufferSize, vboStruct.indexBufferData,
                            GL_ELEMENT_ARRAY_BUFFER, GL_STATIC_DRAW);
     }
+    
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glGenVertexArrays(1, &vertexArrayObj);
+    
 }
 
 void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
 {
+    
     flags |= vboFlag;
     if(vboFlag & FLAG_VERTEX_BUFFER)
     {
         VBOInfo.vertexBufferData = vboStruct.vertexBufferData;
         VBOInfo.vertexBufferSize = vboStruct.vertexBufferSize;
-        bufferGenBind<float>(vertexBuffer, vboStruct.vertexBufferSize, vboStruct.vertexBufferData,
+        bufferUpdate<float>(vertexBuffer, vboStruct.vertexBufferSize, vboStruct.vertexBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
+    
     if(vboFlag & FLAG_UV_BUFFER)
     {
         VBOInfo.uvBufferData = vboStruct.uvBufferData;
         VBOInfo.uvBufferSize = vboStruct.uvBufferSize;
-        bufferGenBind<float>(uvBuffer, vboStruct.uvBufferSize, vboStruct.uvBufferData,
+        bufferUpdate<float>(uvBuffer, vboStruct.uvBufferSize, vboStruct.uvBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
+    
     if(vboFlag & FLAG_COLOR_BUFFER)
     {
         VBOInfo.colorBufferData = vboStruct.colorBufferData;
         VBOInfo.colorBufferSize = vboStruct.colorBufferSize;
-        bufferGenBind<float>(colorBuffer, vboStruct.colorBufferSize, vboStruct.colorBufferData,
+        bufferUpdate<float>(colorBuffer, vboStruct.colorBufferSize, vboStruct.colorBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
+    
     if(vboFlag & FLAG_INDEX_BUFFER)
     {
         VBOInfo.indexBufferData = vboStruct.indexBufferData;
         VBOInfo.indexBufferSize = vboStruct.indexBufferSize;
-        bufferGenBind<int>(indexBuffer, vboStruct.indexBufferSize, vboStruct.indexBufferData,
+        bufferUpdate<int>(indexBuffer, vboStruct.indexBufferSize, vboStruct.indexBufferData,
                            GL_ELEMENT_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
+    
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    
 }
 
 void HardwareBuffer::setVBOLocation(unsigned int vboFlag, int location)
@@ -83,10 +92,11 @@ void HardwareBuffer::setVBOUnitSize(unsigned int vboFlag, int unitSize)
 
 void HardwareBuffer::render()
 {
+    
     glBindVertexArray(vertexArrayObj);
     int index = 0;
     int tmp_loc[32];
-
+    
     if(flags & FLAG_VERTEX_BUFFER)
     {
         glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
@@ -95,6 +105,7 @@ void HardwareBuffer::render()
         tmp_loc[index] = VBOLocation[FLAG_VERTEX_BUFFER];
         ++index;
     }
+    
     if(flags & FLAG_UV_BUFFER)
     {
         glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
@@ -103,6 +114,7 @@ void HardwareBuffer::render()
         tmp_loc[index] = VBOLocation[FLAG_UV_BUFFER];
         ++index;
     }
+    
     if(flags & FLAG_COLOR_BUFFER)
     {
         glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
@@ -111,6 +123,7 @@ void HardwareBuffer::render()
         tmp_loc[index] = VBOLocation[FLAG_COLOR_BUFFER];
         ++index;
     }
+    
     if(flags & FLAG_INDEX_BUFFER)
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
@@ -132,7 +145,32 @@ void HardwareBuffer::bufferGenBind(GLuint& bufferID, int bufferSize, T* bufferDa
     glGenBuffers(1, &bufferID);
     glBindBuffer(bufferType, bufferID);
     glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
+    
     T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);
+    
+    if(dataBufVertices == 0)
+    {
+        std::cerr<<"glMapBuffer failed: "<<__FILE__<<"["<<__LINE__<<"]"<<std::endl;
+    }
+    else
+    {
+        for(int i=0; i<bufferSize; i++)
+        {
+            dataBufVertices[i] = bufferData[i];
+        }
+        glUnmapBuffer(bufferType);
+    }
+}
+
+template<typename T>
+void HardwareBuffer::bufferUpdate(GLuint& bufferID, int bufferSize, T* bufferData,
+                                   GLenum bufferType, GLenum bufferUsage)
+{
+    glBindBuffer(bufferType, bufferID);
+    glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
+    
+    T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);
+    
     if(dataBufVertices == 0)
     {
         std::cerr<<"glMapBuffer failed: "<<__FILE__<<"["<<__LINE__<<"]"<<std::endl;

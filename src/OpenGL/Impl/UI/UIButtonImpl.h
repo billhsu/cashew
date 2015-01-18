@@ -2,22 +2,26 @@
 // billhsu.x@gmail.com
 
 #include "Core/UI/UIButton.h"
+#include "OpenGL/HardwareBuffer/HardwareBuffer.h"
+#include <iostream>
 #include <OpenGL/gl3.h>
+
 class UIButtonImpl : public UIButton
 {
 public:
-    UIButtonImpl(UINode* parent) : UIButton(parent), indices{0,1,2, 0,2,3}{};
+    UIButtonImpl(UINode* parent) : UIButton(parent), indices{0,1,2, 0,2,3}
+    {
+        std::cout<<"UIButtonImpl("<<this<<")"<<std::endl;
+    };
     ~UIButtonImpl();
     void render();
     void prepareRenderData();
-    GLfloat verticesArray[8];
-    GLfloat uvArray[8];
-    GLfloat colorArray[16];
-    GLuint indices[6];
-    GLuint vertexBuffer;
-    GLuint colorBuffer;
-    GLuint uvBuffer;
-    GLuint indexBuffer;
-    GLuint vertexArrayObj;
     GLuint program;
+private:
+    HardwareBuffer buffer;
+    HardwareBuffer::VBOStruct VBOInfo;
+    float verticesArray[8];
+    float uvArray[8];
+    float colorArray[16];
+    int indices[6];
 };
