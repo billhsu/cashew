@@ -22,6 +22,7 @@
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
 #include "OpenGL/Util/Utility.h"
 #include "OpenGL/Shader/GLSLShader.h"
+#include "OpenGL/Impl/Basic/PlaneRenderer.h"
 
 GLSLShader defaultProgram;
 GLSLShader UIProgram;
@@ -81,6 +82,8 @@ UIButtonImpl* button;
     button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                        0, 0, 0, "New Sketch", NULL, NULL);
     button->textureID_idle = texture;
+
+    PlaneRenderer::prepareRenderData();
     return YES;
 }
 
@@ -146,6 +149,12 @@ UIButtonImpl* button;
     GLint local_projection = glGetUniformLocation(defaultProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
+    
+    PlaneRenderer::getPlaneShader()->bind();
+    local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
 
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");

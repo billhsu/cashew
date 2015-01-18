@@ -4,6 +4,8 @@
 #include "GLSLShader.h"
 #include <iostream>
 #include <fstream>
+int GLSLShader::currentShaderProgramID = 0;
+GLSLShader* GLSLShader::currentShaderProgramObj = 0;
 
 GLSLShader::GLSLShader()
 {
@@ -91,7 +93,11 @@ void GLSLShader::createProgram()
 
 void GLSLShader::bind() {
     glUseProgram(mProgramID);
+    currentShaderProgramID = mProgramID;
+    currentShaderProgramObj = this;
 }
 void GLSLShader::unbind() {
     glUseProgram(0);
+    currentShaderProgramID = 0;
+    currentShaderProgramObj = 0;
 }

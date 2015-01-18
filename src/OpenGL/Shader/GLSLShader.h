@@ -15,6 +15,8 @@ public:
     void bind();
     void unbind();
     GLuint getProgram() {return mProgramID;}
+    static int currentShaderProgramID;
+    static GLSLShader* currentShaderProgramObj;
 private:
     GLuint mProgramID;
     GLuint mShaders[3];
