@@ -63,7 +63,7 @@ public:
     
     void initVBO(const VBOStruct vboStruct, unsigned int vboFlag);
     void updateVBO(const VBOStruct vboStruct, unsigned int vboFlag);
-    void render();
+    void render(GLenum mode = GL_TRIANGLES);
     
     int VBOLocation[256];
     int VBOUnitSize[256];

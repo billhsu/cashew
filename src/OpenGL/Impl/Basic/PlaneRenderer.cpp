@@ -11,6 +11,13 @@ namespace PlaneRenderer
     float colorBufferData[16];
     int indexBufferData[6];
     GLSLShader program_plane;
+    
+    HardwareBuffer gridBuffer;
+    HardwareBuffer::VBOStruct gridVBOInfo;
+    
+    #define MAX_GRID_SIZE 100
+    float gridVertexBufferData[MAX_GRID_SIZE * 4 * 3];
+    float gridColorBufferData[MAX_GRID_SIZE * 4 * 4];
 
     void prepareRenderData()
     {
@@ -43,6 +50,22 @@ namespace PlaneRenderer
         program_plane.loadFromFile(GL_VERTEX_SHADER,   "Shader/plane.vs");
         program_plane.loadFromFile(GL_FRAGMENT_SHADER, "Shader/plane.fs");
         program_plane.createProgram();
+        
+        gridVBOInfo.vertexBufferSize = 3;
+        gridVBOInfo.vertexBufferData = gridVertexBufferData;
+        gridVBOInfo.colorBufferSize = 4;
+        gridVBOInfo.colorBufferData = gridColorBufferData;
+        
+        unsigned int gridFlags = HardwareBuffer::FLAG_VERTEX_BUFFER
+        | HardwareBuffer::FLAG_COLOR_BUFFER;
+        
+        gridBuffer.initVBO(gridVBOInfo, gridFlags);
+        gridBuffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
+        gridBuffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 1);
+        
+        gridBuffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
+        gridBuffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+
     }
     void render(Plane p, Vector3 center, float size, Vector4 color)
     {
@@ -93,6 +116,67 @@ namespace PlaneRenderer
         _VBO.colorBufferSize = sizeof(colorBufferData) / sizeof(float);
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER|HardwareBuffer::FLAG_COLOR_BUFFER);
         buffer.render();
+        
+        // render the grid
+        int grid_size = size*2;
+        if(grid_size > MAX_GRID_SIZE) grid_size = MAX_GRID_SIZE;
+
+        for(int i=0; i<=grid_size; ++i)
+        {
+            Vector3 vXinter1 = p1*((float)i/(float)grid_size) + p2*((float)(grid_size - i)/(float)grid_size);
+            Vector3 vXinter2 = p4*((float)i/(float)grid_size) + p3*((float)(grid_size - i)/(float)grid_size);
+            
+            Vector3 vYinter1 = p1*((float)i/(float)grid_size) + p4*((float)(grid_size - i)/(float)grid_size);
+            Vector3 vYinter2 = p2*((float)i/(float)grid_size) + p3*((float)(grid_size - i)/(float)grid_size);
+            gridVertexBufferData[i * 4 * 3 +  0] = vXinter1.x;
+            gridVertexBufferData[i * 4 * 3 +  1] = vXinter1.y;
+            gridVertexBufferData[i * 4 * 3 +  2] = vXinter1.z;
+            
+            gridVertexBufferData[i * 4 * 3 +  3] = vXinter2.x;
+            gridVertexBufferData[i * 4 * 3 +  4] = vXinter2.y;
+            gridVertexBufferData[i * 4 * 3 +  5] = vXinter2.z;
+            
+            gridVertexBufferData[i * 4 * 3 +  6] = vYinter1.x;
+            gridVertexBufferData[i * 4 * 3 +  7] = vYinter1.y;
+            gridVertexBufferData[i * 4 * 3 +  8] = vYinter1.z;
+            
+            gridVertexBufferData[i * 4 * 3 +  9] = vYinter2.x;
+            gridVertexBufferData[i * 4 * 3 + 10] = vYinter2.y;
+            gridVertexBufferData[i * 4 * 3 + 11] = vYinter2.z;
+            for(int j=0; j<4; ++j)
+            {
+                gridColorBufferData[i * 4 * 4 + j * 4 + 0] = 1.0f;
+                gridColorBufferData[i * 4 * 4 + j * 4 + 1] = 1.0f;
+                gridColorBufferData[i * 4 * 4 + j * 4 + 2] = 1.0f;
+                gridColorBufferData[i * 4 * 4 + j * 4 + 3] = 0.9f;
+            }
+            if(i == grid_size / 2)
+            {
+                for(int j=0; j<2; ++j)
+                {
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 0] = 1.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 1] = 0.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 2] = 0.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 3] = 0.9f;
+                }
+                for(int j=2; j<4; ++j)
+                {
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 0] = 0.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 1] = 0.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 2] = 1.0f;
+                    gridColorBufferData[i * 4 * 4 + j * 4 + 3] = 0.9f;
+                }
+                
+            }
+        }
+        HardwareBuffer::VBOStruct _gridVBO;
+        _gridVBO.vertexBufferData = gridVertexBufferData;
+        _gridVBO.vertexBufferSize = grid_size * 4 * 3;
+        _gridVBO.colorBufferData = gridColorBufferData;
+        _gridVBO.colorBufferSize = grid_size * 4 * 4;
+        gridBuffer.updateVBO(_gridVBO, HardwareBuffer::FLAG_VERTEX_BUFFER|HardwareBuffer::FLAG_COLOR_BUFFER);
+        gridBuffer.render(GL_LINES);
+        
         glDisable(GL_BLEND);
         program_plane.unbind();
         

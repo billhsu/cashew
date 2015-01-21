@@ -3,6 +3,7 @@
 
 #include "HardwareBuffer.h"
 #include <iostream>
+#include "OpenGL/Util/Utility.h"
 
 void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag)
 {
@@ -41,8 +42,9 @@ void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag)
 
 void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
 {
-    
+    checkGlErr(__FILE__, __LINE__);
     flags |= vboFlag;
+
     if(vboFlag & FLAG_VERTEX_BUFFER)
     {
         VBOInfo.vertexBufferData = vboStruct.vertexBufferData;
@@ -77,7 +79,7 @@ void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
     
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    
+    checkGlErr(__FILE__, __LINE__);
 }
 
 void HardwareBuffer::setVBOLocation(unsigned int vboFlag, int location)
@@ -90,9 +92,9 @@ void HardwareBuffer::setVBOUnitSize(unsigned int vboFlag, int unitSize)
     VBOUnitSize[vboFlag] = unitSize;
 }
 
-void HardwareBuffer::render()
+void HardwareBuffer::render(GLenum mode)
 {
-    
+    checkGlErr(__FILE__, __LINE__);
     glBindVertexArray(vertexArrayObj);
     int index = 0;
     int tmp_loc[32];
@@ -127,21 +129,23 @@ void HardwareBuffer::render()
     if(flags & FLAG_INDEX_BUFFER)
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
-        glDrawElements(GL_TRIANGLES, VBOInfo.indexBufferSize, GL_UNSIGNED_INT, 0);
+        glDrawElements(mode, VBOInfo.indexBufferSize, GL_UNSIGNED_INT, 0);
     }
     else
     {
-        glDrawArrays(GL_TRIANGLES, 0, VBOInfo.vertexBufferSize / 3);
+        glDrawArrays(mode, 0, VBOInfo.vertexBufferSize / 3);
     }
     for(int i = 0; i< index; ++i)
     {
         glDisableVertexAttribArray(tmp_loc[i]);
     }
+    checkGlErr(__FILE__, __LINE__);
 }
 template<typename T>
 void HardwareBuffer::bufferGenBind(GLuint& bufferID, int bufferSize, T* bufferData,
                                    GLenum bufferType, GLenum bufferUsage)
 {
+    checkGlErr(__FILE__, __LINE__);
     glGenBuffers(1, &bufferID);
     glBindBuffer(bufferType, bufferID);
     glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
@@ -160,17 +164,20 @@ void HardwareBuffer::bufferGenBind(GLuint& bufferID, int bufferSize, T* bufferDa
         }
         glUnmapBuffer(bufferType);
     }
+    checkGlErr(__FILE__, __LINE__);
 }
 
 template<typename T>
 void HardwareBuffer::bufferUpdate(GLuint& bufferID, int bufferSize, T* bufferData,
                                    GLenum bufferType, GLenum bufferUsage)
 {
+    checkGlErr(__FILE__, __LINE__);
     glBindBuffer(bufferType, bufferID);
+    checkGlErr(__FILE__, __LINE__);
     glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
-    
+    checkGlErr(__FILE__, __LINE__);
     T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);
-    
+    checkGlErr(__FILE__, __LINE__);
     if(dataBufVertices == 0)
     {
         std::cerr<<"glMapBuffer failed: "<<__FILE__<<"["<<__LINE__<<"]"<<std::endl;
@@ -183,4 +190,5 @@ void HardwareBuffer::bufferUpdate(GLuint& bufferID, int bufferSize, T* bufferDat
         }
         glUnmapBuffer(bufferType);
     }
+    checkGlErr(__FILE__, __LINE__);
 }
