@@ -11,18 +11,29 @@
 
 @implementation CashewOpenGLView
 
+- (void)updateTrackingAreas {
+    if (self) {
+        [self removeTrackingArea:trackingArea];
+        trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
+                                                    options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
+                                                      owner:self
+                                                   userInfo:nil];
+        [self addTrackingArea:trackingArea];
+    }
+}
+
 - (id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat*)format
 {
     self = [super initWithFrame:frameRect pixelFormat:format];
     
     if (self) {
-        NSTrackingArea *trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
-                                                                    options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
-                                                                      owner:self
-                                                                   userInfo:nil];
+        trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
+                                                    options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
+                                                      owner:self
+                                                   userInfo:nil];
         [self addTrackingArea:trackingArea];
     }
-
+    
     return self;
 }
 

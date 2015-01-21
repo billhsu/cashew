@@ -10,6 +10,7 @@
 
 @interface CashewOpenGLView : NSOpenGLView {
     NSTimer *_timer;
+    NSTrackingArea *trackingArea;
 }
 
 @property (nonatomic, strong) id<CashewOpenGLViewDelegate> delegate;
