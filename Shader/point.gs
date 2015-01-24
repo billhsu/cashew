@@ -17,39 +17,27 @@ out vec2 vertexUV;
 
 void main (void)
 {
-    mat4 MV = modelView;
+    vec4 P = gl_in[0].gl_Position;
     
-    vec3 right = vec3(MV[0][0],
-                      MV[1][0],
-                      MV[2][0]);
-    
-    vec3 up = vec3(MV[0][1],
-                   MV[1][1],
-                   MV[2][1]);
-    
-    vec3 P = gl_in[0].gl_Position.xyz;
-    
-    mat4 VP = projection * modelView;
-    
-    vec3 va = P - (right + up) * point_size;
-    gl_Position = VP * vec4(va, 1.0);
+    vec2 va = P.xy + vec2(-0.5, -0.5) * pointSize;
+    gl_Position = projection * vec4(va, P.zw);
     vertexUV = vec2(0.0, 0.0);
     EmitVertex();
     
-    vec3 vb = P - (right - up) * point_size;
-    gl_Position = VP * vec4(vb, 1.0);
+    vec2 vb = P.xy + vec2(-0.5, 0.5) * pointSize;
+    gl_Position = projection * vec4(vb, P.zw);
     vertexUV = vec2(0.0, 1.0);
     EmitVertex();
     
-    vec3 vd = P + (right - up) * point_size;
-    gl_Position = VP * vec4(vd, 1.0);
+    vec2 vd = P.xy + vec2(0.5, -0.5) * pointSize;
+    gl_Position = projection * vec4(vd, P.zw);
     vertexUV = vec2(1.0, 0.0);
     EmitVertex();
     
-    vec3 vc = P + (right + up) * point_size;
-    gl_Position = VP * vec4(vc, 1.0);
+    vec2 vc = P.xy + vec2(0.5, 0.5) * pointSize;
+    gl_Position = projection * vec4(vc, P.zw);
     vertexUV = vec2(1.0, 1.0);
     EmitVertex();
     
-    EndPrimitive();  
+    EndPrimitive();
 }

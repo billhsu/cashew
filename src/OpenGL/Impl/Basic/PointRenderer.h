@@ -12,8 +12,7 @@ namespace PointRenderer
 {
     void prepareRenderData();
     void render(uint textureId);
-    void bindPointShader();
-    void unbindPointShader();
     GLSLShader* getPointShader();
     std::vector<Vector3>& getPointList();
+    void release();
 }

@@ -24,6 +24,7 @@
 #include "OpenGL/Util/Utility.h"
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
+#include "OpenGL/Impl/Basic/PointRenderer.h"
 
 GLSLShader defaultProgram;
 GLSLShader UIProgram;
@@ -86,6 +87,15 @@ UIButtonImpl* button;
     button->textureID_idle = texture;
 
     PlaneRenderer::prepareRenderData();
+    PointRenderer::prepareRenderData();
+    PointRenderer::getPointList().push_back(Vector3(1,0,0));
+    PointRenderer::getPointList().push_back(Vector3(0,1,0));
+    PointRenderer::getPointList().push_back(Vector3(0,0,1));
+    
+    PointRenderer::getPointList().push_back(Vector3(-1,0,0));
+    PointRenderer::getPointList().push_back(Vector3(0,-1,0));
+    PointRenderer::getPointList().push_back(Vector3(0,0,-1));
+    
     return YES;
 }
 
@@ -165,13 +175,23 @@ UIButtonImpl* button;
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
     local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+    
+    PointRenderer::getPointShader()->bind();
+    local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+    int local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
+    glUniform1f(local_pointSize, 0.5f);
 
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
     local_projection = glGetUniformLocation(UIProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
+    
     mController->GUI->render();
+    PointRenderer::render(0);
 #ifdef DEBUG
     checkGlErr(__FILE__, __LINE__);
 #endif
@@ -207,6 +227,7 @@ UIButtonImpl* button;
 {
     NSLog(@"clearGLContext");
     cashew::clearScene();
+    PointRenderer::release();
     [super clearGLContext];
 }
 

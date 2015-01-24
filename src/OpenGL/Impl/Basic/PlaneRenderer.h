@@ -12,7 +12,5 @@ namespace PlaneRenderer
 {
     void prepareRenderData();
     void render(Plane p, Vector3 center, float size, Vector4 color);
-    void bindPlaneShader();
-    void unbindPlaneShader();
     GLSLShader* getPlaneShader();
 }

@@ -15,6 +15,12 @@ namespace PointRenderer
     float* mapVectorToArray(const std::vector<Vector3>& list)
     {
         float* result = new float[list.size() * 3];
+        for(int i=0; i < list.size(); ++i)
+        {
+            result[3 * i + 0] = list[i].x;
+            result[3 * i + 1] = list[i].y;
+            result[3 * i + 2] = list[i].z;
+        }
         return result;
     }
     void generateVertexBuffer()
@@ -33,7 +39,7 @@ namespace PointRenderer
         
         generateVertexBuffer();
         
-        VBOInfo.vertexBufferSize = static_cast<int>(pointList.size());
+        VBOInfo.vertexBufferSize = static_cast<int>(pointList.size()) * 3;
         VBOInfo.vertexBufferData = vertexBufferData;
         
         buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
@@ -48,12 +54,25 @@ namespace PointRenderer
     }
     void render(uint textureId)
     {
-    }
-    void bindPointShader()
-    {
-    }
-    void unbindPointShader()
-    {
+        GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
+        pointProgram.bind();
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+        glDepthMask(GL_FALSE);
+        
+        generateVertexBuffer();
+        HardwareBuffer::VBOStruct _VBO;
+        _VBO.vertexBufferData = vertexBufferData;
+        _VBO.vertexBufferSize = static_cast<int>(pointList.size()) * 3;
+        
+        buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
+        buffer.render(GL_POINTS);
+        
+        glDepthMask(GL_TRUE);
+        glDisable(GL_BLEND);
+        pointProgram.unbind();
+        
+        if(preShader != 0) preShader->bind();
     }
     GLSLShader* getPointShader()
     {
@@ -62,5 +81,13 @@ namespace PointRenderer
     std::vector<Vector3>& getPointList()
     {
         return pointList;
+    }
+    void release()
+    {
+        if(vertexBufferData != NULL)
+        {
+            delete[] vertexBufferData;
+            vertexBufferData = NULL;
+        }
     }
 }
