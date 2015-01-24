@@ -97,7 +97,7 @@ void StateSelectPlane::MouseRightDrag(int dx, int dy)
 }
 
 
-void StateSelectPlane::Keyboard(unsigned char key)
+void StateSelectPlane::Keyboard(unsigned char key, unsigned char status)
 {
 
 }

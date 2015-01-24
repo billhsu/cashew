@@ -55,7 +55,7 @@ void StateDraw::MouseRightDrag(int dx, int dy)
     mCamera->rotateCam(Controller::rotate);
 }
 
-void StateDraw::Keyboard(unsigned char key)
+void StateDraw::Keyboard(unsigned char key, unsigned char status)
 {
     
 }

@@ -119,9 +119,9 @@ void Controller::PassiveMotion(int x, int y)
     else bCurrPoint = false;
     if(uiHold==0) State::currState->PassiveMotion(x, y);
 }
-void Controller::Keyboard(unsigned char key)
+void Controller::Keyboard(unsigned char key, unsigned char status)
 {
-    State::currState->Keyboard(key);
+    State::currState->Keyboard(key, status);
 }
 
 void Controller::update(float timeDelta)

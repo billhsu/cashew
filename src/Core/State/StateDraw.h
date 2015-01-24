@@ -16,7 +16,7 @@ public:
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
     void MouseLeftDrag(int dx, int dy);
-    void Keyboard(unsigned char key);
+    void Keyboard(unsigned char key, unsigned char status);
     void prepareState();
     Vector3 vCenter;
     std::vector<Vector3> selectedPoints;

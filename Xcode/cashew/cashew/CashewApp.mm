@@ -138,6 +138,14 @@ UIButtonImpl* button;
                              mController->mouseX, mController->mouseY);
     
 }
+- (void)keyDown:(unichar)key
+{
+    mController->Keyboard(key, Controller::KEY_DOWN);
+}
+- (void)keyUp:(unichar)key
+{
+    mController->Keyboard(key, Controller::KEY_UP);
+}
 - (void)update:(NSTimeInterval)timeInterval
 {
     mController->update(timeInterval * 1000.0f);

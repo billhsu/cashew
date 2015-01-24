@@ -36,7 +36,8 @@ public:
     void MouseLeftDrag(int dx, int dy);
     void MouseRightDrag(int dx, int dy);
     void PassiveMotion(int x, int y);
-    void Keyboard(unsigned char key);
+    enum {KEY_UP, KEY_DOWN};
+    void Keyboard(unsigned char key, unsigned char status);
     void update(float timeDelta);
     void render();
     

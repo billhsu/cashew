@@ -21,7 +21,7 @@ public:
     virtual void MouseRightDrag(int dx, int dy){};
     virtual void MouseLeftDrag(int dx, int dy){};
     virtual void PassiveMotion(int x, int y){};
-    virtual void Keyboard(unsigned char key){};
+    virtual void Keyboard(unsigned char key, unsigned char status){};
     virtual void UIEvent(UINode* sender, int event){};
     virtual void prepareState(){};
     virtual void update(float timeDelta){};
