@@ -17,6 +17,7 @@
 #include "Core/Camera/Camera.h"
 #include "OpenGL/Impl/State/StateIdleImpl.h"
 #include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
+#include "OpenGL/Impl/State/StateDrawImpl.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Impl/UI/UIImpl.h"
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
@@ -76,6 +77,7 @@ UIButtonImpl* button;
     }
     mController->state_idle = new StateIdleImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
+    mController->state_draw = new StateDrawImpl();
     State::enterState(mController->state_idle);
     
     mController->init();

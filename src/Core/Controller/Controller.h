@@ -100,6 +100,7 @@ public:
 
     static State* state_idle;
     static State* state_select_plane;
+    static State* state_draw;
     
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane, bool mode);

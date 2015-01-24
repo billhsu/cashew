@@ -48,6 +48,8 @@ lua_State *Controller::luaState = NULL;
 
 State* Controller::state_idle = NULL;
 State* Controller::state_select_plane = NULL;
+State* Controller::state_draw = NULL;
+
 UI* Controller::GUI = NULL;
 
 Controller::Controller()
@@ -59,6 +61,7 @@ Controller::~Controller()
 {
     delete state_idle;
     delete state_select_plane;
+    delete state_draw;
     lua_close(luaState);
     std::cout <<"Controller ~Controller()"<<std::endl;
 }

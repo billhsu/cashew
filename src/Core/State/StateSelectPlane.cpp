@@ -81,8 +81,8 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
             mCamera->setCamCenterTo(center);
             if(selectedPoints.size()==3) 
             {
-                static_cast<StateDraw*>(State::statePool[STATE_DRAW])->vCenter = center;
-                static_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints = selectedPoints;
+                dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->vCenter = center;
+                dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints = selectedPoints;
                 enterState(State::statePool[STATE_DRAW]);
             }
         }
