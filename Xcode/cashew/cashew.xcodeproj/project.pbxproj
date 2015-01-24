@@ -13,6 +13,7 @@
 		0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */; };
 		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
 		0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */; };
+		0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */; };
 		0C5F954B1A614F0100BE91E9 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F953E1A614F0100BE91E9 /* Scene.cpp */; };
 		0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95411A614F0100BE91E9 /* StateIdleImpl.cpp */; };
 		0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95431A614F0100BE91E9 /* StateSelectPlaneImpl.cpp */; };
@@ -71,6 +72,8 @@
 		0C46317E1A5AE62D00D0CEFE /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDrawImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.cpp; sourceTree = "<group>"; };
 		0C529D291A7364C10034B1E5 /* StateDrawImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDrawImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.h; sourceTree = "<group>"; };
+		0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointRenderer.cpp; sourceTree = "<group>"; };
+		0C529D2C1A7382750034B1E5 /* PointRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointRenderer.h; sourceTree = "<group>"; };
 		0C5F953E1A614F0100BE91E9 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		0C5F953F1A614F0100BE91E9 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0C5F95411A614F0100BE91E9 /* StateIdleImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateIdleImpl.cpp; sourceTree = "<group>"; };
@@ -179,6 +182,8 @@
 			children = (
 				0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */,
 				0C2E4F321A65641D003C6ABF /* PlaneRenderer.h */,
+				0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */,
+				0C529D2C1A7382750034B1E5 /* PointRenderer.h */,
 			);
 			name = Basic;
 			path = ../../../../../src/OpenGL/Impl/Basic;
@@ -575,6 +580,7 @@
 				0C5F95521A614FD500BE91E9 /* Utility.cpp in Sources */,
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
 				0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */,
+				0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
