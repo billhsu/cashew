@@ -56,8 +56,9 @@ namespace PointRenderer
     {
         GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
         pointProgram.bind();
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        
         glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDepthMask(GL_FALSE);
         
         generateVertexBuffer();
