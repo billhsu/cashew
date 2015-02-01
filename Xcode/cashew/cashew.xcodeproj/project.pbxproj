@@ -22,6 +22,7 @@
 		0C5F95521A614FD500BE91E9 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95501A614FD500BE91E9 /* Utility.cpp */; };
 		0C5F95561A6157C700BE91E9 /* GLSLShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95541A6157C700BE91E9 /* GLSLShader.cpp */; };
 		0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */; };
+		0C7201A81A7DFE4700CFA38F /* DepthPeeling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
 		0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7764211A3C7ABE0010E1BB /* UINode.cpp */; };
@@ -90,6 +91,8 @@
 		0C5F95551A6157C700BE91E9 /* GLSLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSLShader.h; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
+		0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DepthPeeling.cpp; sourceTree = "<group>"; };
+		0C7201A71A7DFE4700CFA38F /* DepthPeeling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthPeeling.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
 		0C77641E1A3C7ABE0010E1BB /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
 		0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIButton.cpp; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 		0C5F953B1A614F0100BE91E9 /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				0C7201A51A7DFE4700CFA38F /* DepthPeeling */,
 				0C1EC06B1A6A623B004FA7C2 /* HardwareBuffer */,
 				0C5F95531A6157C700BE91E9 /* Shader */,
 				0C5F953C1A614F0100BE91E9 /* Impl */,
@@ -261,6 +265,16 @@
 			);
 			name = Shader;
 			path = ../../../../src/OpenGL/Shader;
+			sourceTree = "<group>";
+		};
+		0C7201A51A7DFE4700CFA38F /* DepthPeeling */ = {
+			isa = PBXGroup;
+			children = (
+				0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */,
+				0C7201A71A7DFE4700CFA38F /* DepthPeeling.h */,
+			);
+			name = DepthPeeling;
+			path = ../../../../src/OpenGL/DepthPeeling;
 			sourceTree = "<group>";
 		};
 		0C77641C1A3C7ABE0010E1BB /* UI */ = {
@@ -582,6 +596,7 @@
 				0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */,
 				0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
+				0C7201A81A7DFE4700CFA38F /* DepthPeeling.cpp in Sources */,
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,

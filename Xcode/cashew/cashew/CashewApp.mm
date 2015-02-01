@@ -46,7 +46,7 @@ UIButtonImpl* button;
     NSLog(@"prepareRenderData");
     
     CashewTextureController *textureController = [CashewTextureController sharedTextureController];
-    texture = [textureController textureWithFileName:@"media/textures/button.png" useMipmap:NO];
+    texture = [textureController textureWithFileName:@"media/textures/point_4.png" useMipmap:NO];
     
     
     defaultProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/default.vs");
