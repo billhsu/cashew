@@ -102,7 +102,6 @@ void DepthPeeling::clearTextures(GLuint depthTexture, GLuint colorTexture)
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTexture, 0);
     glClearColor(0, 0, 0, 0);
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    glClearDepth(0);
 }
 
 void DepthPeeling::peelingPass(GLuint depthTexture, GLuint colorTexture, GLuint peelDepthTexture)
@@ -138,14 +137,14 @@ void DepthPeeling::render()
     clearTextures(compoDepth1, compoTexture1);
     clearTextures(depthTexture1, colorTexture1);
     
-    for(int i=0; i<passCount; i++){
-        GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
-        GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
-        GLuint outColorTexture = (i%2) ? colorTexture2 : colorTexture1;
-        peelingPass(outDepthTexture, outColorTexture, peelDepthTexture);
-        renderCallback();
-        compoPass(compoDepth1, compoTexture1, outColorTexture);
-    }
+//    for(int i=0; i<passCount; i++){
+//        GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
+//        GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
+//        GLuint outColorTexture = (i%2) ? colorTexture2 : colorTexture1;
+//        peelingPass(outDepthTexture, outColorTexture, peelDepthTexture);
+//        renderCallback();
+//        compoPass(compoDepth1, compoTexture1, outColorTexture);
+//    }
     renderCallback();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_BLEND);

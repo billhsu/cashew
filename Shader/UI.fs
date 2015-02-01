@@ -7,5 +7,6 @@ in vec2 uv_vs;
 out vec4 color;
 
 void main() {
-    color = texture( image0, uv_vs );
+    vec4 _color = texture( image0, uv_vs );
+    color = vec4(_color.x,_color.x,_color.x,1);
 }
