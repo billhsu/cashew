@@ -2,12 +2,24 @@
 // billhsu.x@gmail.com
 
 #include <OpenGL/gl3.h>
+#include "OpenGL/HardwareBuffer/HardwareBuffer.h"
+#include "OpenGL/Shader/GLSLShader.h"
 
 class DepthPeeling
 {
 public:
     DepthPeeling(){}
-    DepthPeeling(int width, int height, int pass): windowWidth(width), windowHeight(height), passCount(pass){}
+    DepthPeeling(int width, int height, int pass): windowWidth(width),
+                                                   windowHeight(height),
+                                                   passCount(pass),
+                                                   indices{0,1,2, 0,2,3}
+    {
+        renderCallback = 0;
+        colorTexture1 = 0; colorTexture2 = 0;
+        depthTexture1 = 0; depthTexture2 = 0;
+        compoDepth1   = 0; compoTexture1 = 0;
+        framebuffer   = 0;
+    }
     ~DepthPeeling();
     typedef void (*RenderCallback)();
     void init(RenderCallback _callback);
@@ -21,6 +33,7 @@ public:
     {
         passCount = pass;
     }
+    void render();
 private:
     void setColorTextureSize(GLuint texture, int width, int height);
     void setDepthTextureSize(GLuint texture, int width, int height);
@@ -28,6 +41,7 @@ private:
     void recreateForResolution(int width, int height);
     void clearTextures(GLuint depthTexture, GLuint colorTexture);
     void peelingPass(GLuint depthTexture, GLuint colorTexture, GLuint peelDepthTexture);
+    void compoPass(GLuint depthTexture, GLuint colorTexture, GLuint compoTexture);
     
     int windowWidth, windowHeight, passCount;
     GLuint colorTexture1, colorTexture2;
@@ -35,5 +49,11 @@ private:
     GLuint compoDepth1;
     GLuint compoTexture1;
     GLuint framebuffer;
-    RenderCallback mRenderCallback;
+    GLSLShader compoProgram;
+    RenderCallback renderCallback;
+    HardwareBuffer buffer;
+    HardwareBuffer::VBOStruct VBOInfo;
+    float verticesArray[12];
+    float uvArray[8];
+    int indices[6];
 };
