@@ -34,6 +34,14 @@ public:
         passCount = pass;
     }
     void render();
+    GLuint getCompoTextureId()
+    {
+        return compoTexture1;
+    }
+    GLuint colorTexture1, colorTexture2;
+    GLuint depthTexture1, depthTexture2;
+    GLuint compoDepth1;
+    GLuint compoTexture1;
 private:
     void setColorTextureSize(GLuint texture, int width, int height);
     void setDepthTextureSize(GLuint texture, int width, int height);
@@ -44,10 +52,7 @@ private:
     void compoPass(GLuint depthTexture, GLuint colorTexture, GLuint compoTexture);
     
     int windowWidth, windowHeight, passCount;
-    GLuint colorTexture1, colorTexture2;
-    GLuint depthTexture1, depthTexture2;
-    GLuint compoDepth1;
-    GLuint compoTexture1;
+    
     GLuint framebuffer;
     GLSLShader compoProgram;
     RenderCallback renderCallback;

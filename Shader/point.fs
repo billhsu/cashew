@@ -3,8 +3,8 @@
 
 #version 330 core
 
-uniform sampler2D image0;
 uniform sampler2D PeelLayerDepthMap;
+uniform sampler2D image0;
 
 in vec2 vertexUV;
 

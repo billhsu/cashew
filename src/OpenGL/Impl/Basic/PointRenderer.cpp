@@ -59,8 +59,10 @@ namespace PointRenderer
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glDepthMask(GL_FALSE);
-        
+        glEnable(GL_DEPTH_TEST);
+//        glDepthMask(GL_FALSE);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textureId);
         generateVertexBuffer();
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = vertexBufferData;
@@ -69,7 +71,7 @@ namespace PointRenderer
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
         buffer.render(GL_POINTS);
         
-        glDepthMask(GL_TRUE);
+//        glDepthMask(GL_TRUE);
         glDisable(GL_BLEND);
         pointProgram.unbind();
         

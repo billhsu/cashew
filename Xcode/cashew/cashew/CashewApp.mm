@@ -25,9 +25,11 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/DepthPeeling/DepthPeeling.h"
 
 GLSLShader defaultProgram;
 GLSLShader UIProgram;
+DepthPeeling depthPeeling;
 GLuint texture;
 
 Controller *mController = &Controller::getInstance();
@@ -85,7 +87,6 @@ UIButtonImpl* button;
     button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                        0, 0, 0, "New Sketch", NULL, NULL);
     button->textureID_idle = texture;
-
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     PointRenderer::getPointList().push_back(Vector3(1,0,0));
@@ -95,6 +96,11 @@ UIButtonImpl* button;
     PointRenderer::getPointList().push_back(Vector3(-1,0,0));
     PointRenderer::getPointList().push_back(Vector3(0,-1,0));
     PointRenderer::getPointList().push_back(Vector3(0,0,-1));
+    
+    depthPeeling.setPassCount(2);
+    depthPeeling.setWindowSize(mController->windowWidth, mController->windowHeight);
+    depthPeeling.init(renderTransparent);
+    
     
     return YES;
 }
@@ -175,6 +181,8 @@ UIButtonImpl* button;
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
     local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+//    PlaneRenderer::render(Plane(Vector3(0, 1, 0),1), Vector3(0,1,0), 4, Vector4(0,0,1,0.8));
+//    PlaneRenderer::render(Plane(Vector3(0, 0, 1),1), Vector3(0,0,1), 4, Vector4(1,0,0,0.8));
     
     PointRenderer::getPointShader()->bind();
     local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
@@ -182,8 +190,14 @@ UIButtonImpl* button;
     local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     int local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.5f);
-
+    glUniform1f(local_pointSize, 5.f);
+//    PointRenderer::render(texture);
+    depthPeeling.render();
+    button->textureID_idle = depthPeeling.colorTexture1;
+    button->setPos(0, 0);
+    button->setSize(80*8, 60*8);
+//    glClearColor(0.8, 0.8, 0.8, 1.0);
+    
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
@@ -191,15 +205,42 @@ UIButtonImpl* button;
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
     
     mController->GUI->render();
-    PointRenderer::render(0);
+    
 #ifdef DEBUG
     checkGlErr(__FILE__, __LINE__);
 #endif
 }
 
+void renderTransparent()
+{
+    GLuint local_modelView, local_projection;
+    
+    PlaneRenderer::getPlaneShader()->bind();
+    local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+    glUniform1i(glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "PeelLayerDepthMap"), 0);
+    
+    PlaneRenderer::render(Plane(Vector3(0, 1, 0),1), Vector3(0,1,0), 4, Vector4(1,0,0,0.8));
+    PlaneRenderer::render(Plane(Vector3(0, 0, 1),1), Vector3(0,0,1), 4, Vector4(0,1,0,0.8));
+    PlaneRenderer::render(Plane(Vector3(1, 0, 0),1), Vector3(1,0,0), 4, Vector4(0,0,1,0.8));
+    
+    PointRenderer::getPointShader()->bind();
+    local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
+    local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+    int local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
+    glUniform1f(local_pointSize, 5.f);
+    glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "PeelLayerDepthMap"), 0);
+    PointRenderer::render(texture);
+}
+
 -(void)reshapeWidth:(int)width height:(int)height
 {
     mController->resize(width, height);
+    depthPeeling.setWindowSize(width, height);
     NSLog(@"reshape - width: %d height: %d", width, height);
 }
 @end
