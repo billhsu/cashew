@@ -114,21 +114,29 @@ void DepthPeeling::peelingPass(GLuint depthTexture, GLuint colorTexture, GLuint 
     glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, peelDepthTexture);
 }
 
-void DepthPeeling::compoPass(GLuint depthTexture, GLuint colorTexture, GLuint compoTexture)
+void DepthPeeling::compoPass(GLuint depthTexture, GLuint colorTexture, GLuint compoTexture, bool firstPass)
 {
     
     compoProgram.bind();
+    glUniform1i(glGetUniformLocation(compoProgram.getProgram(), "image0"), 0);
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorTexture, 0);
     glDisable(GL_DEPTH_TEST);
     glActiveTexture(GL_TEXTURE0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ZERO);
+    
+
+    if(!firstPass)
+    {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE_MINUS_DST_ALPHA, GL_ONE);
+    }
     glBindTexture(GL_TEXTURE_2D, compoTexture);
     buffer.render();
     compoProgram.unbind();
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
 }
 
 void DepthPeeling::render()
@@ -136,8 +144,14 @@ void DepthPeeling::render()
     GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
     clearTextures(compoDepth1, compoTexture1);
     clearTextures(depthTexture1, colorTexture1);
-    
-//    for(int i=0; i<passCount; i++){
+    renderCallback();
+    compoPass(compoDepth1, compoTexture1, colorTexture1, true);
+    peelingPass(depthTexture2, colorTexture2, depthTexture1);
+    renderCallback();
+    compoPass(compoDepth1, compoTexture1, colorTexture2, false);
+//    compoPass(compoDepth1, compoTexture1, colorTexture2);
+//    passCount = 2;
+//    for(int i=1; i<passCount; i++){
 //        GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
 //        GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
 //        GLuint outColorTexture = (i%2) ? colorTexture2 : colorTexture1;
@@ -145,7 +159,6 @@ void DepthPeeling::render()
 //        renderCallback();
 //        compoPass(compoDepth1, compoTexture1, outColorTexture);
 //    }
-    renderCallback();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_BLEND);
     if(preShader != 0) preShader->bind();

@@ -41,6 +41,7 @@ Controller *mController = &Controller::getInstance();
 @implementation CashewApp
 
 UIButtonImpl* button;
+UIButtonImpl* button2;
 
 - (BOOL)prepareRenderData
 {
@@ -87,6 +88,9 @@ UIButtonImpl* button;
     button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                        0, 0, 0, "New Sketch", NULL, NULL);
     button->textureID_idle = texture;
+    button2 = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+                                         0, 0, 0, "New Sketch", NULL, NULL);
+    button2->textureID_idle = texture;
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     PointRenderer::getPointList().push_back(Vector3(1,0,0));
@@ -97,7 +101,7 @@ UIButtonImpl* button;
     PointRenderer::getPointList().push_back(Vector3(0,-1,0));
     PointRenderer::getPointList().push_back(Vector3(0,0,-1));
     
-    depthPeeling.setPassCount(2);
+    depthPeeling.setPassCount(1);
     depthPeeling.setWindowSize(mController->windowWidth, mController->windowHeight);
     depthPeeling.init(renderTransparent);
     
@@ -194,9 +198,14 @@ UIButtonImpl* button;
     glUniform1f(local_pointSize, 0.5f);
     PointRenderer::render(texture);
     depthPeeling.render();
-    button->textureID_idle = depthPeeling.depthTexture2;
+    ///////////
+    button->textureID_idle = depthPeeling.compoTexture1;
     button->setPos(0, 0);
     button->setSize(80*4, 60*4);
+    
+    button2->textureID_idle = depthPeeling.colorTexture2;
+    button2->setPos(0, 80*4);
+    button2->setSize(80*4, 60*4);
     glClearColor(0.8, 0.8, 0.8, 1.0);
     
     UIProgram.bind();
@@ -233,7 +242,7 @@ void renderTransparent()
 //    local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
 //    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
 //    int local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-//    glUniform1f(local_pointSize, 5.f);
+//    glUniform1f(local_pointSize, 1.f);
 //    glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "PeelLayerDepthMap"), 0);
 //    PointRenderer::render(texture);
 }
