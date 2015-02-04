@@ -59,7 +59,7 @@ namespace PointRenderer
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_DEPTH_TEST);
+//        glEnable(GL_DEPTH_TEST);
 //        glDepthMask(GL_FALSE);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, textureId);

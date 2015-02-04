@@ -146,19 +146,14 @@ void DepthPeeling::render()
     clearTextures(depthTexture1, colorTexture1);
     renderCallback();
     compoPass(compoDepth1, compoTexture1, colorTexture1, true);
-    peelingPass(depthTexture2, colorTexture2, depthTexture1);
-    renderCallback();
-    compoPass(compoDepth1, compoTexture1, colorTexture2, false);
-//    compoPass(compoDepth1, compoTexture1, colorTexture2);
-//    passCount = 2;
-//    for(int i=1; i<passCount; i++){
-//        GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
-//        GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
-//        GLuint outColorTexture = (i%2) ? colorTexture2 : colorTexture1;
-//        peelingPass(outDepthTexture, outColorTexture, peelDepthTexture);
-//        renderCallback();
-//        compoPass(compoDepth1, compoTexture1, outColorTexture);
-//    }
+    for(int i=0; i<passCount; i++){
+        GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
+        GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
+        GLuint outColorTexture = (i%2) ? colorTexture1 : colorTexture2;
+        peelingPass(outDepthTexture, outColorTexture, peelDepthTexture);
+        renderCallback();
+        compoPass(compoDepth1, compoTexture1, outColorTexture, false);
+    }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glDisable(GL_BLEND);
     if(preShader != 0) preShader->bind();
