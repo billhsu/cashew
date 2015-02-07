@@ -6,7 +6,12 @@
 #include <OpenGL/gl3.h>
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "Core/Controller/Controller.h"
+#include "OpenGL/DepthPeeling/DepthPeeling.h"
 
+StateSelectPlaneImpl::StateSelectPlaneImpl()
+{
+    depthPeeling = &DepthPeeling::getInstance();
+}
 void StateSelectPlaneImpl::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -19,5 +24,5 @@ void StateSelectPlaneImpl::render()
     }
     center /= selectedPoints.size();
     Vector4 color = Vector4(0.3,0.3,0.3,0.3);
-    PlaneRenderer::render(Controller::currPlane, center, 20, color);
+    depthPeeling->addToRenderCallbackList([=](){PlaneRenderer::render(Controller::currPlane, center, 20, color);});
 }

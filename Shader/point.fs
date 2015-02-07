@@ -4,7 +4,7 @@
 #version 330 core
 
 uniform sampler2D PeelLayerDepthMap;
-uniform sampler2D point_texture;
+uniform sampler2D pointTexture;
 
 in vec2 vertexUV;
 
@@ -15,5 +15,5 @@ void main (void)
     if(gl_FragCoord.z <= z){
         discard;
     }
-    color = texture(point_texture, vertexUV);
+    color = texture(pointTexture, vertexUV);
 }

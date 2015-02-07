@@ -16,7 +16,7 @@ DepthPeeling::~DepthPeeling()
     glDeleteTextures(1, &compoTexture1);
     glDeleteTextures(1, &compoDepth1);
 }
-void DepthPeeling::init(RenderCallback _callback)
+void DepthPeeling::init()
 {
     compoProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/compo.vs");
     compoProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/compo.fs");
@@ -30,7 +30,6 @@ void DepthPeeling::init(RenderCallback _callback)
     compoTexture1 = createTexture();
     compoDepth1 = createTexture();
     recreateForResolution(windowWidth, windowHeight);
-    renderCallback = _callback;
     
     uvArray[0] = 0.0f; uvArray[1] = 0.0f;
     uvArray[2] = 1.0f; uvArray[3] = 0.0f;
@@ -125,7 +124,6 @@ void DepthPeeling::compoPass(GLuint depthTexture, GLuint colorTexture, GLuint co
     glDisable(GL_DEPTH_TEST);
     glActiveTexture(GL_TEXTURE0);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_NONE);
-    
 
     if(!firstPass)
     {
@@ -144,17 +142,24 @@ void DepthPeeling::render()
     GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
     clearTextures(compoDepth1, compoTexture1);
     clearTextures(depthTexture1, colorTexture1);
-    renderCallback();
+    runRenderCallbackList();
     compoPass(compoDepth1, compoTexture1, colorTexture1, true);
     for(int i=0; i<passCount; i++){
         GLuint peelDepthTexture = (i%2) ? depthTexture2 : depthTexture1;
         GLuint outDepthTexture = (i%2) ? depthTexture1 : depthTexture2;
         GLuint outColorTexture = (i%2) ? colorTexture1 : colorTexture2;
         peelingPass(outDepthTexture, outColorTexture, peelDepthTexture);
-        renderCallback();
+        runRenderCallbackList();
         compoPass(compoDepth1, compoTexture1, outColorTexture, false);
     }
+    clearRenderCallbackList();
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    compoProgram.bind();
+    glBindTexture(GL_TEXTURE_2D, compoTexture1);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    buffer.render();
+    compoProgram.unbind();
     glDisable(GL_BLEND);
     if(preShader != 0) preShader->bind();
 }

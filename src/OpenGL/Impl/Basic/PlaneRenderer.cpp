@@ -79,7 +79,6 @@ namespace PlaneRenderer
         program_plane.bind();
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
-//        glDepthMask(GL_FALSE);
         float mR = color.r;
         float mG = color.g;
         float mB = color.b;
@@ -177,7 +176,6 @@ namespace PlaneRenderer
         _gridVBO.colorBufferSize = grid_size * 4 * 4;
         gridBuffer.updateVBO(_gridVBO, HardwareBuffer::FLAG_VERTEX_BUFFER|HardwareBuffer::FLAG_COLOR_BUFFER);
         gridBuffer.render(GL_LINES);
-//        glDepthMask(GL_TRUE);
         glDisable(GL_BLEND);
         program_plane.unbind();
         
