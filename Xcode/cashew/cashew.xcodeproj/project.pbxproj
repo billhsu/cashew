@@ -11,6 +11,8 @@
 		0C2247701A3D925A00349BCC /* lua_scripts in Resources */ = {isa = PBXBuildFile; fileRef = 0C22476F1A3D925A00349BCC /* lua_scripts */; };
 		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
 		0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */; };
+		0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6031A86213300A5424F /* TextureManager.cpp */; };
+		0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6081A86246200A5424F /* stb_image.cpp */; };
 		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
 		0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */; };
 		0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */; };
@@ -44,7 +46,6 @@
 		0C8D44251A218473005421E1 /* CashewInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441C1A218473005421E1 /* CashewInputController.m */; };
 		0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */; };
 		0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44201A218473005421E1 /* CashewOpenGLView.m */; };
-		0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D44241A218473005421E1 /* CashewTextureController.m */; };
 		0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C8D442A1A2199B8005421E1 /* CashewApp.mm */; };
 		0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */; };
 		0C916B2B1A20A0AE00676D57 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B2A1A20A0AE00676D57 /* main.m */; };
@@ -70,6 +71,10 @@
 		0C2247711A3D92F700349BCC /* Shader */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shader; sourceTree = "<group>"; };
 		0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlaneRenderer.cpp; sourceTree = "<group>"; };
 		0C2E4F321A65641D003C6ABF /* PlaneRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneRenderer.h; sourceTree = "<group>"; };
+		0C45C6031A86213300A5424F /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
+		0C45C6041A86213300A5424F /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
+		0C45C6081A86246200A5424F /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
+		0C45C6091A86246200A5424F /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		0C46317E1A5AE62D00D0CEFE /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
 		0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDrawImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.cpp; sourceTree = "<group>"; };
 		0C529D291A7364C10034B1E5 /* StateDrawImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDrawImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.h; sourceTree = "<group>"; };
@@ -136,8 +141,6 @@
 		0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewOpenGLInfoHelper.m; sourceTree = "<group>"; };
 		0C8D441F1A218473005421E1 /* CashewOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewOpenGLView.h; sourceTree = "<group>"; };
 		0C8D44201A218473005421E1 /* CashewOpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewOpenGLView.m; sourceTree = "<group>"; };
-		0C8D44231A218473005421E1 /* CashewTextureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CashewTextureController.h; sourceTree = "<group>"; };
-		0C8D44241A218473005421E1 /* CashewTextureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CashewTextureController.m; sourceTree = "<group>"; };
 		0C8D442A1A2199B8005421E1 /* CashewApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CashewApp.mm; sourceTree = "<group>"; };
 		0C916B221A20A0AE00676D57 /* cashew.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cashew.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B261A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -192,9 +195,22 @@
 			path = ../../../../../src/OpenGL/Impl/Basic;
 			sourceTree = "<group>";
 		};
+		0C45C6021A86213300A5424F /* TextureManager */ = {
+			isa = PBXGroup;
+			children = (
+				0C45C6081A86246200A5424F /* stb_image.cpp */,
+				0C45C6091A86246200A5424F /* stb_image.h */,
+				0C45C6031A86213300A5424F /* TextureManager.cpp */,
+				0C45C6041A86213300A5424F /* TextureManager.h */,
+			);
+			name = TextureManager;
+			path = ../../../../src/OpenGL/TextureManager;
+			sourceTree = "<group>";
+		};
 		0C5F953B1A614F0100BE91E9 /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				0C45C6021A86213300A5424F /* TextureManager */,
 				0C7201A51A7DFE4700CFA38F /* DepthPeeling */,
 				0C1EC06B1A6A623B004FA7C2 /* HardwareBuffer */,
 				0C5F95531A6157C700BE91E9 /* Shader */,
@@ -429,8 +445,6 @@
 				0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */,
 				0C8D441F1A218473005421E1 /* CashewOpenGLView.h */,
 				0C8D44201A218473005421E1 /* CashewOpenGLView.m */,
-				0C8D44231A218473005421E1 /* CashewTextureController.h */,
-				0C8D44241A218473005421E1 /* CashewTextureController.m */,
 				0C916B271A20A0AE00676D57 /* CashewAppDelegate.h */,
 				0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */,
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
@@ -573,7 +587,6 @@
 			files = (
 				0C916B2B1A20A0AE00676D57 /* main.m in Sources */,
 				0C88898C1A2984C600068098 /* Utility.cpp in Sources */,
-				0C8D44291A218473005421E1 /* CashewTextureController.m in Sources */,
 				0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */,
 				0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */,
 				0C8889931A2AB05300068098 /* StateIdle.cpp in Sources */,
@@ -588,6 +601,7 @@
 				0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */,
 				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
 				0C5F954F1A614F0100BE91E9 /* UIImpl.cpp in Sources */,
+				0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */,
 				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
 				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
@@ -606,6 +620,7 @@
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
+				0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */,
 				0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */,
 				0C8889921A2AB05300068098 /* State.cpp in Sources */,
 			);

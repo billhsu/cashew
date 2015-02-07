@@ -8,7 +8,6 @@
 
 #import <OpenGL/gl3.h>
 #import "CashewOpenGLView.h"
-#import "CashewTextureController.h"
 #import "CashewInputController.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
@@ -26,10 +25,12 @@
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
+#include "OpenGL/TextureManager/TextureManager.h"
 
 GLSLShader defaultProgram;
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
+TextureManager* textureManager;
 GLuint texture;
 
 Controller *mController = &Controller::getInstance();
@@ -47,10 +48,8 @@ UIButtonImpl* button;
     [[CashewInputController sharedInputController] addEventDelegate:self];
     NSLog(@"prepareRenderData");
     
-    CashewTextureController *textureController = [CashewTextureController sharedTextureController];
-    texture = [textureController textureWithFileName:@"media/textures/point_4.png" useMipmap:NO];
-    
-    
+    textureManager = &TextureManager::getInstance();
+    texture = textureManager->loadTexture("media/textures/point_4.png", 4);
     defaultProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/default.vs");
     defaultProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/default.fs");
     defaultProgram.createProgram();
@@ -175,7 +174,6 @@ UIButtonImpl* button;
     GLint local_projection = glGetUniformLocation(defaultProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
     mController->render();
-    depthPeeling->addToRenderCallbackList(renderTransparent);
     depthPeeling->render();
     glClearColor(0.8, 0.8, 0.8, 1.0);
     
@@ -190,21 +188,6 @@ UIButtonImpl* button;
 #ifdef DEBUG
     checkGlErr(__FILE__, __LINE__);
 #endif
-}
-
-void renderTransparent()
-{
-    GLuint local_modelView, local_projection;
-    
-    PointRenderer::getPointShader()->bind();
-    local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-    local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
-    int local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.3f);
-    glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
-    PointRenderer::render(texture);
 }
 
 -(void)reshapeWidth:(int)width height:(int)height

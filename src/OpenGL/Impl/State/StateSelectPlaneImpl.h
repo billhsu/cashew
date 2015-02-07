@@ -14,6 +14,7 @@ public:
 private:
     DepthPeeling* depthPeeling;
     static void renderCurrentPlane();
+    static void renderCurrentPoints();
     static Vector3 renderCurrentPlaneCenter;
     static Vector4 renderCurrentPlaneColor;
     static Plane currentPlane;

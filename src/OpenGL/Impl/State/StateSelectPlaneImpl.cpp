@@ -7,6 +7,7 @@
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
+#include "OpenGL/Impl/Basic/PointRenderer.h"
 
 Vector3 StateSelectPlaneImpl::renderCurrentPlaneCenter;
 Vector4 StateSelectPlaneImpl::renderCurrentPlaneColor;
@@ -43,4 +44,17 @@ void StateSelectPlaneImpl::renderCurrentPlane()
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     
     PlaneRenderer::render(currentPlane, renderCurrentPlaneCenter, 20, renderCurrentPlaneColor);
+}
+
+void StateSelectPlaneImpl::renderCurrentPoints()
+{
+    PointRenderer::getPointShader()->bind();
+    GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+    GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+    GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
+    glUniform1f(local_pointSize, 0.3f);
+    glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
+//    PointRenderer::render(texture);
 }
