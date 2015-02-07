@@ -61,7 +61,7 @@ namespace PointRenderer
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 //        glEnable(GL_DEPTH_TEST);
 //        glDepthMask(GL_FALSE);
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, textureId);
         generateVertexBuffer();
         HardwareBuffer::VBOStruct _VBO;
