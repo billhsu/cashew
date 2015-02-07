@@ -15,5 +15,9 @@ void main (void)
     if(gl_FragCoord.z <= z){
         discard;
     }
-    color = texture(pointTexture, vertexUV);
+    vec4 texColor = texture(pointTexture, vertexUV);
+    if (texColor.a<0.1) {
+        discard;
+    }
+    color = texColor;
 }

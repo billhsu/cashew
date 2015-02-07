@@ -15,7 +15,7 @@ public:
         std::cout <<"DepthPeeling getInstance()"<<std::endl;
         return instance;
     }
-    typedef std::function<void ()> RenderCallback;
+    typedef void (*RenderCallback)();
     void init();
     void setWindowSize(int width, int height)
     {

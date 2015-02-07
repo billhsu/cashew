@@ -77,6 +77,7 @@ namespace PlaneRenderer
         // p3  |  p2
         GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
         program_plane.bind();
+        
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_BLEND);
         float mR = color.r;
