@@ -83,13 +83,6 @@ UIButtonImpl* button;
     
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
-    PointRenderer::getPointList().push_back(Vector3(1,0,0));
-    PointRenderer::getPointList().push_back(Vector3(0,1,0));
-    PointRenderer::getPointList().push_back(Vector3(0,0,1));
-    
-    PointRenderer::getPointList().push_back(Vector3(-1,0,0));
-    PointRenderer::getPointList().push_back(Vector3(0,-1,0));
-    PointRenderer::getPointList().push_back(Vector3(0,0,-1));
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);
     depthPeeling->setWindowSize(mController->windowWidth, mController->windowHeight);

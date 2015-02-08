@@ -139,8 +139,10 @@ void DepthPeeling::compoPass(GLuint depthTexture, GLuint colorTexture, GLuint co
 
 void DepthPeeling::render()
 {
+    glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, 0);
     GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
     clearTextures(compoDepth1, compoTexture1);
+    clearTextures(depthTexture2, colorTexture2);
     clearTextures(depthTexture1, colorTexture1);
     runRenderCallbackList();
     compoPass(compoDepth1, compoTexture1, colorTexture1, true);
