@@ -8,14 +8,16 @@
 #include "Core/Controller/Controller.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/TextureManager/TextureManager.h"
 
 Vector3 StateSelectPlaneImpl::renderCurrentPlaneCenter;
 Vector4 StateSelectPlaneImpl::renderCurrentPlaneColor;
 Plane StateSelectPlaneImpl::currentPlane;
-
+TextureManager* StateSelectPlaneImpl::textureManager = NULL;
 StateSelectPlaneImpl::StateSelectPlaneImpl()
 {
     depthPeeling = &DepthPeeling::getInstance();
+    textureManager = &TextureManager::getInstance();
 }
 void StateSelectPlaneImpl::render()
 {
@@ -33,6 +35,7 @@ void StateSelectPlaneImpl::render()
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
+    depthPeeling->addToRenderCallbackList(renderCurrentPoints);
 }
 
 void StateSelectPlaneImpl::renderCurrentPlane()
@@ -56,5 +59,9 @@ void StateSelectPlaneImpl::renderCurrentPoints()
     GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
     glUniform1f(local_pointSize, 0.3f);
     glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
-//    PointRenderer::render(texture);
+    PointRenderer::getPointList().clear();
+    for_each(selectedPoints.begin(), selectedPoints.end(), [](Vector3 v){
+        PointRenderer::getPointList().push_back(v);
+    });
+    PointRenderer::render(textureManager->getTexture("media/textures/point_selected.png").glTextureID);
 }

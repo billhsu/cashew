@@ -31,7 +31,6 @@ GLSLShader defaultProgram;
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
 TextureManager* textureManager;
-GLuint texture;
 
 Controller *mController = &Controller::getInstance();
 
@@ -49,7 +48,10 @@ UIButtonImpl* button;
     NSLog(@"prepareRenderData");
     
     textureManager = &TextureManager::getInstance();
-    texture = textureManager->loadTexture("media/textures/point_4.png", 4);
+    textureManager->loadTexture("media/textures/point_selected.png", 4);
+    textureManager->loadTexture("media/textures/point_current.png", 4);
+    textureManager->loadTexture("media/textures/button.png", 4);
+    
     defaultProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/default.vs");
     defaultProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/default.fs");
     defaultProgram.createProgram();
@@ -62,14 +64,6 @@ UIButtonImpl* button;
     cashew::prepareSceneAxis(1.0f);
     cashew::prepareSceneGrid(20.0f,1.0f);
 
-    UIProgram.bind();
-    GLint local_image0 = glGetUniformLocation(UIProgram.getProgram(), "image0");
-    glActiveTexture(GL_TEXTURE0);
-    glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(local_image0, 0);
-    glDisable(GL_TEXTURE_2D);
-    UIProgram.unbind();
     mController->GUI = &UIImpl::getInstance();
     static_cast<UIImpl*>(mController->GUI)->setShader(UIProgram.getProgram());
 
@@ -85,7 +79,7 @@ UIButtonImpl* button;
     mController->init();
     button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                        0, 0, 0, "New Sketch", NULL, NULL);
-    button->textureID_idle = texture;
+    button->textureID_idle = textureManager->getTexture("media/textures/button.png").glTextureID;
     
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
@@ -182,7 +176,7 @@ UIButtonImpl* button;
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
     local_projection = glGetUniformLocation(UIProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->GUI->getProjection().get());
-    
+    glUniform1i(glGetUniformLocation(UIProgram.getProgram(), "image0"), 0);
     mController->GUI->render();
     
 #ifdef DEBUG

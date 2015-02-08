@@ -5,6 +5,7 @@
 #include "StateDraw.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Camera/Camera.h"
+std::vector<Vector3> StateSelectPlane::selectedPoints;
 
 // State Select Plane
 void StateSelectPlane::buildCurrentPlane()

@@ -18,7 +18,7 @@ public:
     void MouseRightDrag(int dx, int dy);
     void Keyboard(unsigned char key, unsigned char status);
     void prepareState();
-    std::vector<Vector3> selectedPoints;
+    static std::vector<Vector3> selectedPoints;
 
 private:
     void buildCurrentPlane();
