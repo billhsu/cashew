@@ -163,5 +163,7 @@ void DepthPeeling::render()
     buffer.render();
     compoProgram.unbind();
     glDisable(GL_BLEND);
+    glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, 0);
+    glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, 0);
     if(preShader != 0) preShader->bind();
 }

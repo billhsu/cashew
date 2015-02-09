@@ -21,6 +21,7 @@ void UIButtonImpl::render()
     _VBO.vertexBufferSize = sizeof(verticesArray) / sizeof(float);
     buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
     buffer.render();
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void UIButtonImpl::prepareRenderData()

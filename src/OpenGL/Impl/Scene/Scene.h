@@ -2,10 +2,11 @@
 // billhsu.x@gmail.com
 
 #pragma once
-namespace cashew{
+class GLSLShader;
+namespace Scene{
     void prepareSceneAxis(float size);
     void clearScene();
     void prepareSceneGrid(float size, float step);
-    void drawAxis();
-    void drawGrid();
+    void drawScene();
+    GLSLShader* getSceneShader();
 };

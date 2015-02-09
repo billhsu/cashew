@@ -27,7 +27,6 @@
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 
-GLSLShader defaultProgram;
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
 TextureManager* textureManager;
@@ -52,17 +51,12 @@ UIButtonImpl* button;
     textureManager->loadTexture("media/textures/point_current.png", 4);
     textureManager->loadTexture("media/textures/button.png", 4);
     
-    defaultProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/default.vs");
-    defaultProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/default.fs");
-    defaultProgram.createProgram();
-    
     UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
     UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
     UIProgram.createProgram();
 
-    defaultProgram.bind();
-    cashew::prepareSceneAxis(1.0f);
-    cashew::prepareSceneGrid(20.0f,1.0f);
+    Scene::prepareSceneAxis(1.0f);
+    Scene::prepareSceneGrid(20.0f,1.0f);
 
     mController->GUI = &UIImpl::getInstance();
     static_cast<UIImpl*>(mController->GUI)->setShader(UIProgram.getProgram());
@@ -155,11 +149,8 @@ UIButtonImpl* button;
 
 - (void)render;
 {
-    defaultProgram.bind();
-    GLint local_modelView = glGetUniformLocation(defaultProgram.getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->modelView.get());
-    GLint local_projection = glGetUniformLocation(defaultProgram.getProgram(), "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, mController->projection.get());
+    GLuint local_modelView;
+    GLuint local_projection;
     mController->render();
     depthPeeling->render();
     glClearColor(0.8, 0.8, 0.8, 1.0);
@@ -207,7 +198,7 @@ UIButtonImpl* button;
 - (void)clearGLContext
 {
     NSLog(@"clearGLContext");
-    cashew::clearScene();
+    Scene::clearScene();
     PointRenderer::release();
     [super clearGLContext];
 }

@@ -10,8 +10,7 @@
 void StateDrawImpl::render()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    cashew::drawGrid();
-    cashew::drawAxis();
+    Scene::drawScene();
     Vector4 color = Vector4(0.3,0.3,0.3,0.3);
     PlaneRenderer::render(Controller::currPlane, vCenter, 20, color);
 }

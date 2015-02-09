@@ -4,15 +4,29 @@
 #include "Scene.h"
 #import <OpenGL/gl3.h>
 #include "Core/Math/Vectors.h"
-namespace cashew{
+#include "OpenGL/Shader/GLSLShader.h"
+#include "Core/Controller/Controller.h"
+namespace Scene{
     static float* gridVertex = NULL;
     static float* gridColor = NULL;
     GLuint sceneGridVertexBuffer;
     GLuint sceneGridColorBuffer;
     GLuint sceneGridVertexArrayObj;
     int grid_step_cnt;
+    GLSLShader sceneProgram;
+    GLSLShader* getSceneShader()
+    {
+        return &sceneProgram;
+    }
     void prepareSceneGrid(float size, float step)
     {
+        if(sceneProgram.getProgram()==-1)
+        {
+            sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
+            sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
+            sceneProgram.createProgram();
+        }
+        
         grid_step_cnt = size / step;
         gridVertex = new float[8 * 3 * grid_step_cnt];
         gridColor = new float[8 * 3 * grid_step_cnt];
@@ -131,6 +145,12 @@ namespace cashew{
     };
     void prepareSceneAxis(float size)
     {
+        if(sceneProgram.getProgram()==-1)
+        {
+            sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
+            sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
+            sceneProgram.createProgram();
+        }
         axisCoords[3] = size;
         axisCoords[10] = size;
         axisCoords[17] = size;
@@ -212,5 +232,19 @@ namespace cashew{
         glPointSize(1);
         glBindVertexArray(0);
         glDepthFunc(GL_LEQUAL);
+    }
+    
+    void drawScene()
+    {
+        GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
+        sceneProgram.bind();
+        GLint local_modelView = glGetUniformLocation(sceneProgram.getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+        GLint local_projection = glGetUniformLocation(sceneProgram.getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+        drawGrid();
+        drawAxis();
+        sceneProgram.unbind();
+        if(preShader != 0) preShader->bind();
     }
 }
