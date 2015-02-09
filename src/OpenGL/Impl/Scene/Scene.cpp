@@ -236,7 +236,6 @@ namespace Scene{
     
     void drawScene()
     {
-        GLSLShader* preShader = GLSLShader::currentShaderProgramObj;
         sceneProgram.bind();
         GLint local_modelView = glGetUniformLocation(sceneProgram.getProgram(), "modelView");
         glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
@@ -245,6 +244,5 @@ namespace Scene{
         drawGrid();
         drawAxis();
         sceneProgram.unbind();
-        if(preShader != 0) preShader->bind();
     }
 }
