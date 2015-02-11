@@ -21,7 +21,6 @@ StateSelectPlaneImpl::StateSelectPlaneImpl()
 }
 void StateSelectPlaneImpl::render()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
     {

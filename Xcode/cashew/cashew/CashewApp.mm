@@ -149,6 +149,7 @@ UIButtonImpl* button;
 
 - (void)render;
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     GLuint local_modelView;
     GLuint local_projection;
     mController->render();
