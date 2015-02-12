@@ -39,8 +39,6 @@ Controller *mController = &Controller::getInstance();
 
 @implementation CashewApp
 
-UIButtonImpl* button;
-
 - (BOOL)prepareRenderData
 {
     [[CashewInputController sharedInputController] addEventDelegate:self];
@@ -49,7 +47,6 @@ UIButtonImpl* button;
     textureManager = &TextureManager::getInstance();
     textureManager->loadTexture("media/textures/point_selected.png", 4);
     textureManager->loadTexture("media/textures/point_current.png", 4);
-    textureManager->loadTexture("media/textures/button.png", 4);
     
     UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
     UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
@@ -71,10 +68,12 @@ UIButtonImpl* button;
     State::enterState(mController->state_idle);
     
     mController->init();
-    button = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
-                                                       0, 0, 0, "New Sketch", NULL, NULL);
-    button->textureID_idle = textureManager->getTexture("media/textures/button.png").glTextureID;
-    
+    Controller::btnDocNew = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
+                                                        NULL, NULL);
+    Controller::btnDocOpen = mController->GUI->addButton(0, "BTN_ID_DOC_OPEN",
+                                                        NULL, NULL);
+    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
+                                                        NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     depthPeeling = &DepthPeeling::getInstance();

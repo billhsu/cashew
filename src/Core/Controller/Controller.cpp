@@ -7,12 +7,13 @@ billhsu.x@gmail.com
 #include "Core/State/StateIdle.h"
 #include "Core/State/StateSelectPlane.h"
 //#include "Core/State/StateDeleteLine.h"
-//#include "Core/State/StateDraw.h"
+#include "Core/State/StateDraw.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
 #include "Core/UI/UI.h"
+#include "Core/UI/UIButton.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -51,6 +52,9 @@ State* Controller::state_select_plane = NULL;
 State* Controller::state_draw = NULL;
 
 UI* Controller::GUI = NULL;
+UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
+*Controller::btnDocSave = NULL;
+
 
 Controller::Controller()
 {

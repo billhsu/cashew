@@ -30,8 +30,7 @@ public:
                                     const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL){return NULL;};
     
     virtual UIButtonImpl* addButton(int id, const char* strID,
-                                    uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                                    const char* text, void (*callback)(UINode* Sender), UINode* parent = NULL){return NULL;};
+                                    void (*callback)(UINode* Sender), UINode* parent = NULL){return NULL;};
 
 
     static char uiHintText[128];
@@ -66,5 +65,7 @@ protected:
     int luaGetNodePosY(const char *nodeName);
     int luaGetNodeWidth(const char *nodeName);
     int luaGetNodeHeight(const char *nodeName);
+    std::string luaGetTextureName(const char *nodeName, const char *nodeTexture);
+    std::string luaGetNodeText(const char *nodeName);
     LuaTable *UILayout;
 };

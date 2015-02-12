@@ -66,6 +66,18 @@ int UI::luaGetNodeHeight(const char *nodeName)
     return result;
 }
 
+std::string UI::luaGetTextureName(const char *nodeName, const char *nodeTexture)
+{
+    std::string stringValue = (*UILayout)[nodeName]["textures"][nodeTexture].get<std::string> ();
+    return stringValue;
+}
+
+std::string UI::luaGetNodeText(const char *nodeName)
+{
+    std::string stringValue = (*UILayout)[nodeName]["text"].get<std::string> ();
+    return stringValue;
+}
+
 void UI::resize(int width, int height)
 {
     mWindowWidth = width;

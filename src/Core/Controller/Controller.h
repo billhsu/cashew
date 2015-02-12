@@ -21,6 +21,9 @@ class UIRadioButton;
 class lua_State;
 class Texture;
 class UI;
+class UINode;
+class UIButton;
+class UILabel;
 
 class Controller
 {
@@ -113,6 +116,8 @@ public:
     enum{MOUSE_LEFT, MOUSE_RIGHT, MOUSE_SCROLL};
     enum{MOUSE_UP, MOUSE_DOWN};
     enum{MOUSE_SCROLL_UP, MOUSE_SCROLL_DOWN};
+    
+    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
 
 private:
     Controller();
