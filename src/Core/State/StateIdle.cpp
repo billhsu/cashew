@@ -5,15 +5,16 @@
 #include "StateSelectPlane.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
+#include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
 
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {
-    if(button == Controller::MOUSE_SCROLL)
+    if(button == Mouse::MOUSE_SCROLL)
     {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
-    else if(button == Controller::MOUSE_LEFT && state == Controller::MOUSE_UP)
+    else if(button == Mouse::MOUSE_LEFT && state == Mouse::MOUSE_UP)
     {
         Vector3 v;
         mCamera->getPoint(x, y, Controller::sketchLines, v);

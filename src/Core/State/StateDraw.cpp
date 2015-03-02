@@ -4,12 +4,13 @@
 #include "StateDraw.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
+#include "Core/Controller/Mouse.h"
 
 void StateDraw::MouseButton(int button, int state, int x, int y)
 {
-    if(state == Controller::MOUSE_DOWN)
+    if(state == Mouse::MOUSE_DOWN)
     {
-        if(button == Controller::MOUSE_LEFT)
+        if(button == Mouse::MOUSE_LEFT)
         {
             if(internalState==STATE_DRAW_IDLE)
             {
@@ -19,9 +20,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
             }
         }
     }
-    if(state == Controller::MOUSE_UP)
+    if(state == Mouse::MOUSE_UP)
     {
-        if(button == Controller::MOUSE_LEFT)
+        if(button == Mouse::MOUSE_LEFT)
         {
             if(internalState == STATE_DRAW_START_POINT_SELECTED)
             {
