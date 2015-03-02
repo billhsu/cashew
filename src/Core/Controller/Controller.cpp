@@ -130,7 +130,6 @@ void Controller::Keyboard(unsigned char key, unsigned char status)
 
 void Controller::update(float timeDelta)
 {
-    State::currState->update(timeDelta);
     modelView.identity();
     int result = camera->update(timeDelta);
     if(result == Camera::UPDATE_ANIM_DONE)

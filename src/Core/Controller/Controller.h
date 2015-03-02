@@ -113,10 +113,6 @@ public:
     static Vector3 rotate;
     static lua_State *luaState;
     
-    enum{MOUSE_LEFT, MOUSE_RIGHT, MOUSE_SCROLL};
-    enum{MOUSE_UP, MOUSE_DOWN};
-    enum{MOUSE_SCROLL_UP, MOUSE_SCROLL_DOWN};
-    
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
 
 private:

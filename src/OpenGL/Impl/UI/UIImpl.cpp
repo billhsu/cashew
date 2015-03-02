@@ -8,7 +8,7 @@ UIImpl::UIImpl()
 {
     textureManager = &TextureManager::getInstance();
 }
-UIButtonImpl* UIImpl::addButton(int id, int x, int y, int width, int height,
+UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
                         uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
                         const char* text, void (*callback)(UINode* Sender), UINode* parent)
 {
@@ -29,7 +29,7 @@ UIButtonImpl* UIImpl::addButton(int id, int x, int y, int width, int height,
     return button;
 }
 
-UIButtonImpl* UIImpl::addButton(int id, const char* strID,
+UIButton* UIImpl::addButton(int id, const char* strID,
                                 void (*callback)(UINode* Sender), UINode* parent)
 {
     int x = luaGetNodePosX(strID);
@@ -42,9 +42,9 @@ UIButtonImpl* UIImpl::addButton(int id, const char* strID,
     int textureID_press = textureManager->loadTexture(luaGetTextureName(strID, "press"), 4);
     
     std::string text = luaGetNodeText(strID);
-    UIButtonImpl* button = addButton(id, x, y, width, height,
+    UIButtonImpl* button = dynamic_cast<UIButtonImpl*>(addButton(id, x, y, width, height,
                                      textureID_idle,textureID_hover,textureID_press,
-                                     text.c_str(), callback, parent);
+                                     text.c_str(), callback, parent));
     
     strcpy(button->strID, strID);
     return button;

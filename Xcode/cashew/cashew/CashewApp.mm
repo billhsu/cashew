@@ -26,6 +26,7 @@
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
+#include "Core/Controller/Mouse.h"
 
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
@@ -47,6 +48,10 @@ Controller *mController = &Controller::getInstance();
     textureManager = &TextureManager::getInstance();
     textureManager->loadTexture("media/textures/point_selected.png", 4);
     textureManager->loadTexture("media/textures/point_current.png", 4);
+    textureManager->loadTexture("media/textures/button_cancel.png", 4);
+    textureManager->loadTexture("media/textures/button_confirm.png", 4);
+    textureManager->loadTexture("media/textures/button_horizontal.png", 4);
+    textureManager->loadTexture("media/textures/button_vertical.png", 4);
     
     UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
     UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
@@ -88,28 +93,28 @@ Controller *mController = &Controller::getInstance();
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Controller::MOUSE_LEFT, Controller::MOUSE_UP, x, y);
+    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_UP, x, y);
 }
 
 - (void)mouseLeftDown:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Controller::MOUSE_LEFT, Controller::MOUSE_DOWN, x, y);
+    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_DOWN, x, y);
 }
 
 - (void)mouseRightUp:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Controller::MOUSE_RIGHT, Controller::MOUSE_UP, x, y);
+    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_UP, x, y);
 }
 
 - (void)mouseRightDown:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Controller::MOUSE_RIGHT, Controller::MOUSE_DOWN, x, y);
+    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_DOWN, x, y);
 }
 
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y
@@ -129,7 +134,7 @@ Controller *mController = &Controller::getInstance();
 
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y
 {
-    mController->MouseButton(Controller::MOUSE_SCROLL, (int)y,
+    mController->MouseButton(Mouse::MOUSE_SCROLL, (int)y,
                              mController->mouseX, mController->mouseY);
     
 }

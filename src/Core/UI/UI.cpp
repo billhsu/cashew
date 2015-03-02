@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include "UI.h"
+#include "Core/Controller/Mouse.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Scripting/luatables.h"
@@ -108,14 +109,14 @@ UINode* UI::MouseButton(int button, int state, int x, int y)
     mMouseY = y;
     UINode* node = getNodeByPos(x, y);
     
-    if(node!=NULL && state == 0)
+    if(node!=NULL)
     {
         node->MouseButton(button, state, x, y);
-        mRootNode->previousPressed = node;
+        if(state == Mouse::MOUSE_DOWN) mRootNode->previousPressed = node;
         return node;
     }
     
-    if(state == 1 && mRootNode->previousPressed != NULL)
+    if(state == Mouse::MOUSE_UP && mRootNode->previousPressed != NULL)
     {
         mRootNode->previousPressed->MouseButton(button, state, x, y);
         mRootNode->previousPressed = NULL;

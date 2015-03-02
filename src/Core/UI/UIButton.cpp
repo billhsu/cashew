@@ -9,6 +9,7 @@
 #include "UIButton.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Util/Utility.h"
+#include "Core/Controller/Mouse.h"
 
 UIButton::UIButton(UINode* parent) : UINode(parent)
 {
@@ -26,12 +27,12 @@ void UIButton::setText(const char* text)
 
 void UIButton::MouseButton(int button, int state, int x, int y)
 {
-    if(state == 0)
+    if(state == Mouse::MOUSE_DOWN)
     {
         nodeStatus = UINode::NODE_PRESS;
         mTimeAccu = 0.0f;
     }
-    else if(state == 1)
+    else if(state == Mouse::MOUSE_UP)
     {
         if(mCallBackFunc!=NULL) mCallBackFunc(this);
         nodeStatus = UINode::NODE_IDLE;

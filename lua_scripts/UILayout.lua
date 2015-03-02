@@ -24,22 +24,30 @@ BTN_ID_DOC_SAVE = {
 --------------------
 BTN_ID_SELECT_VERTICAL = {
     pos = {x="window_width / 2 - BTN_ID_SELECT_VERTICAL.size.width / 2 - BTN_ID_SELECT_VERTICAL.size.width", y="window_height - 2 * BTN_ID_SELECT_VERTICAL.size.height"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_vertical.png", hover = "media/textures/button_vertical.png", press = "media/textures/button_vertical.png"},
+    size = {width="60", height="60"},
+    text = "Select Vertical Plane"
 }
 
 BTN_ID_SELECT_HORIZONTAL = {
     pos = {x="window_width / 2 - BTN_ID_SELECT_HORIZONTAL.size.width / 2 + BTN_ID_SELECT_HORIZONTAL.size.width", y="window_height - 2 * BTN_ID_SELECT_HORIZONTAL.size.height"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_horizontal.png", hover = "media/textures/button_horizontal.png", press = "media/textures/button_horizontal.png"},
+    size = {width="60", height="60"},
+    text = "Select Horizontal Plane"
 }
 --------------------
 BTN_ID_CONFIRM_PLANE = {
     pos = {x="BTN_ID_CONFIRM_PLANE.size.width / 2", y="window_height - 2 * BTN_ID_CONFIRM_PLANE.size.height"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_confirm.png", hover = "media/textures/button_confirm.png", press = "media/textures/button_confirm.png"},
+    size = {width="60", height="60"},
+    text = "Confirm"
 }
 
 BTN_ID_CANCEL_PLANE = {
     pos = {x="BTN_ID_CANCEL_PLANE.size.width / 2 + BTN_ID_CANCEL_PLANE.size.width * 1.2", y="window_height - 2 * BTN_ID_CANCEL_PLANE.size.height"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_cancel.png", hover = "media/textures/button_cancel.png", press = "media/textures/button_cancel.png"},
+    size = {width="60", height="60"},
+    text = "Cancel"
 }
 --------------------
 BTN_ID_DRAW_PLANE_DONE = {

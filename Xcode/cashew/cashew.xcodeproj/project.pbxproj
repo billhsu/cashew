@@ -96,6 +96,7 @@
 		0C5F95551A6157C700BE91E9 /* GLSLShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSLShader.h; sourceTree = "<group>"; };
 		0C634FD31A30A35A0085E502 /* StateSelectPlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateSelectPlane.cpp; sourceTree = "<group>"; };
 		0C634FD41A30A35A0085E502 /* StateSelectPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StateSelectPlane.h; sourceTree = "<group>"; };
+		0C693EF31AA4BF7700356F22 /* Mouse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mouse.h; sourceTree = "<group>"; };
 		0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DepthPeeling.cpp; sourceTree = "<group>"; };
 		0C7201A71A7DFE4700CFA38F /* DepthPeeling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthPeeling.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
@@ -395,6 +396,7 @@
 		0C8889941A2ABEDB00068098 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0C693EF31AA4BF7700356F22 /* Mouse.h */,
 				0C8889961A2ABF7A00068098 /* Controller.cpp */,
 				0C8889951A2ABEDB00068098 /* Controller.h */,
 			);
