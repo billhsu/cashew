@@ -57,7 +57,8 @@ public:
     void appearIn(float timeMs = 120.0f);
     void appearOut(float timeMs = 120.0f);
     
-    void setCallback(void (*callback)(UINode* sender)){mCallBackFunc = callback;}
+    void setCallback(void (*callback)(void* data)){mCallBackFunc = callback;}
+    void setUserDataObject(void* data){userDataObject = data;}
     virtual void update(float timeDelta);
     virtual void prepareRenderData() {}
     virtual void render()
@@ -108,10 +109,10 @@ protected:
     
     bool mIsVisible;
     bool mIsDisabled;
-    void (*mCallBackFunc)(UINode* sender);
+    void (*mCallBackFunc)(void* data);
     
     UINode* mParentNode;
-    
+    void* userDataObject;
 private:
     std::list< UINode* > mChildNodes;
     typedef std::list< UINode* >::iterator mChildIter;

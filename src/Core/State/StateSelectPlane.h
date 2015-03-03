@@ -26,8 +26,8 @@ private:
 protected:
     UIButton* btnSelectVerticalPlane, *btnSelectHorizontalPlane;
     UIButton *btnConfirmPlane, *btnCancelPlane;
-    static void btnCancelPlaneEvent(UINode* Sender);
-    static void btnConfirmPlaneEvent(UINode* Sender);
-    static void btnSelectVerticalPlaneEvent(UINode* Sender);
-    static void btnSelectHorizontalPlaneEvent(UINode* Sender);
+    static void btnCancelPlaneEvent(void* data);
+    static void btnConfirmPlaneEvent(void* data);
+    static void btnSelectVerticalPlaneEvent(void* data);
+    static void btnSelectHorizontalPlaneEvent(void* data);
 };

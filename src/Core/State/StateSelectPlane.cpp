@@ -18,13 +18,13 @@ StateSelectPlane::StateSelectPlane()
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     selectPlaneMode = SELECT_HORIZONTAL_PLANE;
-    btnCancelPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE", btnCancelPlaneEvent);
+    btnCancelPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE", this->btnCancelPlaneEvent, this);
     btnCancelPlane->setVisibility(false);
-    btnConfirmPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CONFIRM_PLANE, "BTN_ID_CONFIRM_PLANE", btnConfirmPlaneEvent);
+    btnConfirmPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CONFIRM_PLANE, "BTN_ID_CONFIRM_PLANE", btnConfirmPlaneEvent, this);
     btnConfirmPlane->setVisibility(false);
-    btnSelectHorizontalPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_SELECT_HORIZONTAL, "BTN_ID_SELECT_HORIZONTAL", btnSelectHorizontalPlaneEvent);
+    btnSelectHorizontalPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_SELECT_HORIZONTAL, "BTN_ID_SELECT_HORIZONTAL", btnSelectHorizontalPlaneEvent, this);
     btnSelectHorizontalPlane->setVisibility(false);
-    btnSelectVerticalPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_SELECT_VERTICAL, "BTN_ID_SELECT_VERTICAL", btnSelectVerticalPlaneEvent);
+    btnSelectVerticalPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_SELECT_VERTICAL, "BTN_ID_SELECT_VERTICAL", btnSelectVerticalPlaneEvent, this);
     btnSelectVerticalPlane->setVisibility(false);
 }
 
@@ -138,14 +138,12 @@ void StateSelectPlane::postState()
     btnCancelPlane->appearOut();
 }
 
-void StateSelectPlane::btnCancelPlaneEvent(UINode* Sender)
+void StateSelectPlane::btnCancelPlaneEvent(void* data)
 {
-    std::cout<<"btnCancelPlaneEvent"<<std::endl;
     enterState(State::statePool[STATE_IDLE]);
 }
-void StateSelectPlane::btnConfirmPlaneEvent(UINode* Sender)
+void StateSelectPlane::btnConfirmPlaneEvent(void* data)
 {
-    std::cout<<"btnConfirmPlaneEvent"<<std::endl;
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
         center += selectedPoints[i];
@@ -155,11 +153,25 @@ void StateSelectPlane::btnConfirmPlaneEvent(UINode* Sender)
     dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints = selectedPoints;
     enterState(State::statePool[STATE_DRAW]);
 }
-void StateSelectPlane::btnSelectVerticalPlaneEvent(UINode* Sender)
+void StateSelectPlane::btnSelectVerticalPlaneEvent(void* data)
 {
-    std::cout<<"btnSelectVerticalPlaneEvent"<<std::endl;
+    StateSelectPlane *self = static_cast<StateSelectPlane*>(data);
+    self->selectPlaneMode = SELECT_VERTICAL_PLANE;
+    self->buildCurrentPlane();
+    Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
+                                          Quaternion::Z_NEG_AXIS);
+    self->mCamera->rotateCamTo(q);
 }
-void StateSelectPlane::btnSelectHorizontalPlaneEvent(UINode* Sender)
+void StateSelectPlane::btnSelectHorizontalPlaneEvent(void* data)
 {
-    std::cout<<"btnSelectHorizontalPlaneEvent"<<std::endl;
+    StateSelectPlane *self = static_cast<StateSelectPlane*>(data);
+    if(self->selectedPoints.size() == 1) self->selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+    else if(self->selectedPoints.size() == 2) self->selectPlaneMode = SELECT_SLOPE;
+    self->buildCurrentPlane();
+    if(self->selectedPoints.size() == 1)
+    {
+        Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
+                                              Quaternion::Z_NEG_AXIS);
+        self->mCamera->rotateCamTo(q);
+    }
 }

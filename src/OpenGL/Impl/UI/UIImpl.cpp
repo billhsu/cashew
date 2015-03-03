@@ -10,7 +10,7 @@ UIImpl::UIImpl()
 }
 UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
                         uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                        const char* text, void (*callback)(UINode* Sender), UINode* parent)
+                        const char* text, void (*callback)(void* data), void* userData, UINode* parent)
 {
     UIButtonImpl* button;
     if(parent==NULL) button = new UIButtonImpl(mRootNode);
@@ -25,12 +25,13 @@ UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
     button->setCallback(callback);
     button->prepareRenderData();
     button->program = shaderProgram;
+    button->setUserDataObject(userData);
     nodeList.push_back(button);
     return button;
 }
 
 UIButton* UIImpl::addButton(int id, const char* strID,
-                                void (*callback)(UINode* Sender), UINode* parent)
+                                void (*callback)(void* data), void* userData, UINode* parent)
 {
     int x = luaGetNodePosX(strID);
     int y = luaGetNodePosY(strID);
@@ -44,7 +45,7 @@ UIButton* UIImpl::addButton(int id, const char* strID,
     std::string text = luaGetNodeText(strID);
     UIButtonImpl* button = dynamic_cast<UIButtonImpl*>(addButton(id, x, y, width, height,
                                      textureID_idle,textureID_hover,textureID_press,
-                                     text.c_str(), callback, parent));
+                                     text.c_str(), callback, userData, parent));
     
     strcpy(button->strID, strID);
     return button;
