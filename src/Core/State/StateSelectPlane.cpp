@@ -120,20 +120,7 @@ void StateSelectPlane::MouseRightDrag(int dx, int dy)
 
 void StateSelectPlane::Keyboard(unsigned char key, unsigned char status)
 {
-    if(status == Controller::KEY_UP)
-    {
-        if(key == 13)
-        {
-            Vector3 center(0,0,0);
-            for(int i=0;i<selectedPoints.size();++i)
-                center += selectedPoints[i];
-            center /= selectedPoints.size();
-            
-            dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->vCenter = center;
-            dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints = selectedPoints;
-            enterState(State::statePool[STATE_DRAW]);
-        }
-    }
+    
 }
 void StateSelectPlane::prepareState()
 {
@@ -143,13 +130,30 @@ void StateSelectPlane::prepareState()
     btnCancelPlane->appearIn();
 }
 
+void StateSelectPlane::postState()
+{
+    btnSelectVerticalPlane->appearOut();
+    btnSelectHorizontalPlane->appearOut();
+    btnConfirmPlane->appearOut();
+    btnCancelPlane->appearOut();
+}
+
 void StateSelectPlane::btnCancelPlaneEvent(UINode* Sender)
 {
     std::cout<<"btnCancelPlaneEvent"<<std::endl;
+    enterState(State::statePool[STATE_IDLE]);
 }
 void StateSelectPlane::btnConfirmPlaneEvent(UINode* Sender)
 {
     std::cout<<"btnConfirmPlaneEvent"<<std::endl;
+    Vector3 center(0,0,0);
+    for(int i=0;i<selectedPoints.size();++i)
+        center += selectedPoints[i];
+    center /= selectedPoints.size();
+    
+    dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->vCenter = center;
+    dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints = selectedPoints;
+    enterState(State::statePool[STATE_DRAW]);
 }
 void StateSelectPlane::btnSelectVerticalPlaneEvent(UINode* Sender)
 {

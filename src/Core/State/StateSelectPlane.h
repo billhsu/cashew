@@ -14,6 +14,7 @@ public:
     void MouseRightDrag(int dx, int dy);
     void Keyboard(unsigned char key, unsigned char status);
     void prepareState();
+    void postState();
     static std::vector<Vector3> selectedPoints;
     enum{BTN_ID_SELECT_VERTICAL, BTN_ID_SELECT_HORIZONTAL,
         BTN_ID_CONFIRM_PLANE, BTN_ID_CANCEL_PLANE};
