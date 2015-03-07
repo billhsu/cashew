@@ -155,6 +155,7 @@ void StateSelectPlane::btnConfirmPlaneEvent(void* data)
 }
 void StateSelectPlane::btnSelectVerticalPlaneEvent(void* data)
 {
+    std::cout<<"btnSelectVerticalPlaneEvent"<<std::endl;
     StateSelectPlane *self = static_cast<StateSelectPlane*>(data);
     self->selectPlaneMode = SELECT_VERTICAL_PLANE;
     self->buildCurrentPlane();
@@ -164,6 +165,7 @@ void StateSelectPlane::btnSelectVerticalPlaneEvent(void* data)
 }
 void StateSelectPlane::btnSelectHorizontalPlaneEvent(void* data)
 {
+    std::cout<<"btnSelectHorizontalPlaneEvent"<<std::endl;
     StateSelectPlane *self = static_cast<StateSelectPlane*>(data);
     if(self->selectedPoints.size() == 1) self->selectPlaneMode = SELECT_HORIZONTAL_PLANE;
     else if(self->selectedPoints.size() == 2) self->selectPlaneMode = SELECT_SLOPE;

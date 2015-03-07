@@ -48,7 +48,16 @@ public:
 
     // returns the normalized version of this quaternion
     Quaternion normalized() const { return *this/length(); }
-
+    
+    bool operator==(const Quaternion& rhs)
+    {
+        return w==rhs.w && x==rhs.x && y==rhs.y && z==rhs.z;
+    }
+    
+    bool operator!=(const Quaternion& rhs)
+    {
+        return w!=rhs.w || x!=rhs.x || y!=rhs.y || z!=rhs.z;
+    }
     Quaternion operator +(const Quaternion &q) const  
     {
         Quaternion quat;

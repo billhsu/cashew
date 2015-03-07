@@ -6,6 +6,8 @@
 #include "Core/Math/Vectors.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Util/Intersect.h"
+#include "Core/Controller/Controller.h"
+#include <iostream>
 
 Camera::Camera()
 {
@@ -50,6 +52,7 @@ int Camera::update(float timeDelta)
         float alpha = animTime / ANIM_TIME_MS;
         if (animTime >= ANIM_TIME_MS)
         {
+            std::cout<<"anim end"<<std::endl;
             anim_done = true;
             animTime = 0;
             anim = false;
@@ -61,6 +64,8 @@ int Camera::update(float timeDelta)
             centerChange = false;
             distChange = false;
             
+            Controller::rotate = Quaternion::toEuler(rotate);
+            
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distance,
                                                  0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
             Matrix4 trans;
@@ -69,8 +74,10 @@ int Camera::update(float timeDelta)
         }
         else
         {
+            std::cout<<"anim"<<std::endl;
             float distanceTmp = distance * (1 - alpha) + distanceTo * alpha;
-            rotate_slerp = Quaternion::slerp(rotate, rotateTo, alpha);
+            rotate_slerp = Quaternion();
+            if(rotChange) rotate_slerp = Quaternion::slerp(rotate, rotateTo, alpha);
             Vector3 camCenterTmp = camCenter * (1 - alpha) + camCenterTo * alpha;
             Matrix4 lookMat = cashew::gluLookAt (0.0f, 0.0f, 0.0f - distanceTmp,
                                                  0.0f, 0.0f, 0.0f, 0.0, 1.0, 0.0);
