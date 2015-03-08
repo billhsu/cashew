@@ -15,7 +15,12 @@ public:
         std::cout <<"DepthPeeling getInstance()"<<std::endl;
         return instance;
     }
-    typedef void (*RenderCallback)();
+    typedef void (*RenderCallback)(void* data);
+    struct RenderCallbackWithObject
+    {
+        RenderCallback callback;
+        void* data;
+    };
     void init();
     void setWindowSize(int width, int height)
     {
@@ -35,9 +40,12 @@ public:
         return compoTexture1;
     }
     
-    void addToRenderCallbackList(RenderCallback callback)
+    void addToRenderCallbackList(RenderCallback callback, void* data = NULL)
     {
-        renderCallbackList.push_back(callback);
+        RenderCallbackWithObject callbackWithData;
+        callbackWithData.callback = callback;
+        callbackWithData.data = data;
+        renderCallbackList.push_back(callbackWithData);
     }
     
 private:
@@ -81,7 +89,7 @@ private:
     GLuint compoDepth1;
     GLuint compoTexture1;
     
-    std::vector<RenderCallback> renderCallbackList;
+    std::vector<RenderCallbackWithObject> renderCallbackList;
     void clearRenderCallbackList()
     {
         renderCallbackList.clear();
@@ -89,6 +97,6 @@ private:
     void runRenderCallbackList()
     {
         for_each(renderCallbackList.begin(), renderCallbackList.end(),
-                 [](RenderCallback callbackFunc){callbackFunc();});
+                 [](RenderCallbackWithObject callbackWithObj){callbackWithObj.callback(callbackWithObj.data);});
     }
 };

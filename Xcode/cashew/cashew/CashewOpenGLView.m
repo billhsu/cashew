@@ -174,18 +174,23 @@
 {
     //[super mouseDragged:theEvent];
     
-    CGFloat x = [theEvent deltaX];
-    CGFloat y = [theEvent deltaY];
-    [[CashewInputController sharedInputController] mouseLeftDragWithX:x andY:y];
+    CGFloat dx = [theEvent deltaX];
+    CGFloat dy = [theEvent deltaY];
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
+    
+    [[CashewInputController sharedInputController] mouseLeftDragWithDX:dx andDY:dy andX:x andY:y];
 }
 
 - (void)rightMouseDragged:(NSEvent *)theEvent
 {
     //[super rightMouseDragged:theEvent];
     
-    CGFloat x = [theEvent deltaX];
-    CGFloat y = [theEvent deltaY];
-    [[CashewInputController sharedInputController] mouseRightDragWithX:x andY:y];
+    CGFloat dx = [theEvent deltaX];
+    CGFloat dy = [theEvent deltaY];
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
+    [[CashewInputController sharedInputController] mouseRightDragWithDX:dx andDY:dy andX:x andY:y];
 }
 
 - (void)scrollWheel:(NSEvent *)theEvent

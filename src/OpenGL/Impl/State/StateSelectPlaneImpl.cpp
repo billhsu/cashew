@@ -27,16 +27,16 @@ void StateSelectPlaneImpl::render()
         center += selectedPoints[i];
     }
     center /= selectedPoints.size();
-    Vector4 color = Vector4(0.3,0.3,0.3,0.6);
+    Vector4 color = Vector4(0.3,0.3,0.3,0.4);
     currentPlane = Controller::currPlane;
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints);
-    depthPeeling->addToRenderCallbackList(Scene::drawScene);
+    depthPeeling->addToRenderCallbackList(drawSceneWrapper);
 }
 
-void StateSelectPlaneImpl::renderCurrentPlane()
+void StateSelectPlaneImpl::renderCurrentPlane(void* data)
 {
     PlaneRenderer::getPlaneShader()->bind();
     GLuint local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
@@ -47,7 +47,7 @@ void StateSelectPlaneImpl::renderCurrentPlane()
     PlaneRenderer::render(currentPlane, renderCurrentPlaneCenter, 20, renderCurrentPlaneColor);
 }
 
-void StateSelectPlaneImpl::renderCurrentPoints()
+void StateSelectPlaneImpl::renderCurrentPoints(void* data)
 {
     PointRenderer::getPointShader()->bind();
     GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
@@ -55,11 +55,16 @@ void StateSelectPlaneImpl::renderCurrentPoints()
     GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.3f);
+    glUniform1f(local_pointSize, 0.5f);
     glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
     PointRenderer::getPointList().clear();
     for_each(selectedPoints.begin(), selectedPoints.end(), [](Vector3 v){
         PointRenderer::getPointList().push_back(v);
     });
-    PointRenderer::render(textureManager->getTexture("media/textures/point_selected.png").glTextureID);
+    PointRenderer::render(textureManager->getTexture("media/textures/point_3.png").glTextureID);
+}
+
+void StateSelectPlaneImpl::drawSceneWrapper(void* data)
+{
+    Scene::drawScene();
 }

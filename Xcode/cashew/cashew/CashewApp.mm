@@ -52,6 +52,9 @@ Controller *mController = &Controller::getInstance();
     textureManager->loadTexture("media/textures/button_confirm.png", 4);
     textureManager->loadTexture("media/textures/button_horizontal.png", 4);
     textureManager->loadTexture("media/textures/button_vertical.png", 4);
+    textureManager->loadTexture("media/textures/social-icon.png", 4);
+    textureManager->loadTexture("media/textures/point_3.png", 4);
+    textureManager->loadTexture("media/textures/point_4.png", 4);
     
     UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
     UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
@@ -122,14 +125,16 @@ Controller *mController = &Controller::getInstance();
     y = mController->windowHeight - y;
     mController->PassiveMotion(x, y);
 }
-- (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y
+- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
 {
-    mController->MouseRightDrag(x, y);
+    y = mController->windowHeight - y;
+    mController->MouseRightDrag(x, y, dx, dy);
 }
 
-- (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y
+- (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
 {
-    mController->MouseLeftDrag(x, y);
+    y = mController->windowHeight - y;
+    mController->MouseLeftDrag(x, y, dx, dy);
 }
 
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y

@@ -99,13 +99,17 @@ void Controller::MouseButton(int button, int state, int x, int y)
     }
 }
 
-void Controller::MouseRightDrag(int dx, int dy)
+void Controller::MouseRightDrag(int x, int y, int dx, int dy)
 {
+    Controller::mouseX = x;
+    Controller::mouseY = y;
     if(uiHold==0) State::currState->MouseRightDrag(dx, dy);
 }
 
-void Controller::MouseLeftDrag(int dx, int dy)
+void Controller::MouseLeftDrag(int x, int y, int dx, int dy)
 {
+    Controller::mouseX = x;
+    Controller::mouseY = y;
     if(uiHold==0) State::currState->MouseLeftDrag(dx, dy);
 }
 void Controller::PassiveMotion(int x, int y)

@@ -147,20 +147,20 @@
     }
 }
 
-- (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y
+- (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
 {
     for (id<CashewInputDelegate> obj in _objsForKeyEvent) {
-        if ([obj respondsToSelector:@selector(mouseLeftDragWithX:andY:)]) {
-            [obj mouseLeftDragWithX:x andY:y];
+        if ([obj respondsToSelector:@selector(mouseLeftDragWithDX:andDY:andX:andY:)]) {
+            [obj mouseLeftDragWithDX:dx andDY:dy andX:x andY:y];
         }
     }
 }
 
-- (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y
+- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
 {
     for (id<CashewInputDelegate> obj in _objsForKeyEvent) {
-        if ([obj respondsToSelector:@selector(mouseRightDragWithX:andY:)]) {
-            [obj mouseRightDragWithX:x andY:y];
+        if ([obj respondsToSelector:@selector(mouseRightDragWithDX:andDY:andX:andY:)]) {
+            [obj mouseRightDragWithDX:dx andDY:dy andX:x andY:y];
         }
     }
 }

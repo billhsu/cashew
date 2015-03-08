@@ -18,8 +18,8 @@
 - (void)mouseRightDown:(NSPoint)locationInWindow;
 - (void)mouseRightUp:(NSPoint)locationInWindow;
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y;
-- (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y;
-- (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y;
 
 @end
@@ -42,8 +42,8 @@
 - (void)mouseRightDown:(NSPoint)locationInWindow;
 - (void)mouseRightUp:(NSPoint)locationInWindow;
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y;
-- (void)mouseLeftDragWithX:(CGFloat)x andY:(CGFloat)y;
-- (void)mouseRightDragWithX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseLeftDragWithDX:(CGFloat)x andDY:(CGFloat)y andX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y;
 
 @end

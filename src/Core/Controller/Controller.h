@@ -31,13 +31,12 @@ public:
     static Controller& getInstance()
     {
         static Controller instance;
-        std::cout <<"Controller getInstance()"<<std::endl;
         return instance;
     }
 
     void MouseButton(int button, int state, int x, int y);
-    void MouseLeftDrag(int dx, int dy);
-    void MouseRightDrag(int dx, int dy);
+    void MouseLeftDrag(int x, int y, int dx, int dy);
+    void MouseRightDrag(int x, int y, int dx, int dy);
     void PassiveMotion(int x, int y);
     enum {KEY_UP, KEY_DOWN};
     void Keyboard(unsigned char key, unsigned char status);

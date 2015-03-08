@@ -16,11 +16,12 @@ public:
     void render();
 private:
     DepthPeeling* depthPeeling;
-    static void renderCurrentPlane();
-    static void renderCurrentPoints();
-    static Vector3 renderCurrentPlaneCenter;
-    static Vector4 renderCurrentPlaneColor;
-    static Plane currentPlane;
-    static std::vector<Vector3> referencePoints;
-    static TextureManager* textureManager;
+    static void renderCurrentPlane(void* data);
+    static void renderCurrentPoints(void* data);
+    static void drawSceneWrapper(void* data);
+
+    Vector3 renderCurrentPlaneCenter;
+    Vector4 renderCurrentPlaneColor;
+    Plane currentPlane;
+    TextureManager* textureManager;
 };

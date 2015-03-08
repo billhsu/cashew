@@ -10,11 +10,6 @@
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 
-Vector3 StateDrawImpl::renderCurrentPlaneCenter;
-Vector4 StateDrawImpl::renderCurrentPlaneColor;
-Plane StateDrawImpl::currentPlane;
-TextureManager* StateDrawImpl::textureManager = NULL;
-std::vector<Vector3> StateDrawImpl::referencePoints;
 StateDrawImpl::StateDrawImpl()
 {
     depthPeeling = &DepthPeeling::getInstance();
@@ -26,7 +21,7 @@ StateDrawImpl::~StateDrawImpl()
 
 void StateDrawImpl::render()
 {
-    Vector4 color = Vector4(0.3,0.3,0.3,0.6);
+    Vector4 color = Vector4(0.3,0.3,0.3,0.4);
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
     {
@@ -36,14 +31,15 @@ void StateDrawImpl::render()
     currentPlane = Controller::currPlane;
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
-    referencePoints = selectedPoints;
-    depthPeeling->addToRenderCallbackList(renderCurrentPlane);
-    depthPeeling->addToRenderCallbackList(renderCurrentPoints);
-    depthPeeling->addToRenderCallbackList(Scene::drawScene);
+
+    depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
+    depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
+    depthPeeling->addToRenderCallbackList(drawSceneWrapper, this);
 }
 
-void StateDrawImpl::renderCurrentPlane()
+void StateDrawImpl::renderCurrentPlane(void* data)
 {
+    StateDrawImpl* self = static_cast<StateDrawImpl*>(data);
     PlaneRenderer::getPlaneShader()->bind();
     
     GLuint local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
@@ -51,22 +47,35 @@ void StateDrawImpl::renderCurrentPlane()
     GLuint local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     
-    PlaneRenderer::render(currentPlane, renderCurrentPlaneCenter, 20, renderCurrentPlaneColor);
+    PlaneRenderer::render(self->currentPlane, self->renderCurrentPlaneCenter, 20, self->renderCurrentPlaneColor);
 }
 
-void StateDrawImpl::renderCurrentPoints()
+void StateDrawImpl::renderCurrentPoints(void* data)
 {
+    StateDrawImpl* self = static_cast<StateDrawImpl*>(data);
     PointRenderer::getPointShader()->bind();
     GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
     GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.3f);
+    glUniform1f(local_pointSize, 0.5f);
     glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
     PointRenderer::getPointList().clear();
-    for_each(referencePoints.begin(), referencePoints.end(), [](Vector3 v){
+    for_each(self->selectedPoints.begin(), self->selectedPoints.end(), [](Vector3 v){
         PointRenderer::getPointList().push_back(v);
     });
-    PointRenderer::render(textureManager->getTexture("media/textures/point_selected.png").glTextureID);
+    PointRenderer::render(self->textureManager->getTexture("media/textures/point_3.png").glTextureID);
+    if(self->internalState == STATE_DRAW_START_POINT_SELECTED)
+    {
+        PointRenderer::getPointList().clear();
+        PointRenderer::getPointList().push_back(self->startPoint);
+        PointRenderer::getPointList().push_back(self->endPoint);
+        PointRenderer::render(self->textureManager->getTexture("media/textures/point_4.png").glTextureID);
+    }
+}
+
+void StateDrawImpl::drawSceneWrapper(void* data)
+{
+    Scene::drawScene();
 }

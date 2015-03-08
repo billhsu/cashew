@@ -62,7 +62,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
 void StateDraw::MouseLeftDrag(int dx, int dy)
 {
     if(internalState == STATE_DRAW_START_POINT_SELECTED)
-        Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_3D);
+    {
+        Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
+    }
 }
 
 void StateDraw::MouseRightDrag(int dx, int dy)

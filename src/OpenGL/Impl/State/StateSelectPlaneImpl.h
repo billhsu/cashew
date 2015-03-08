@@ -14,8 +14,9 @@ public:
     void render();
 private:
     DepthPeeling* depthPeeling;
-    static void renderCurrentPlane();
-    static void renderCurrentPoints();
+    static void renderCurrentPlane(void* data);
+    static void renderCurrentPoints(void* data);
+    static void drawSceneWrapper(void* data);
     static Vector3 renderCurrentPlaneCenter;
     static Vector4 renderCurrentPlaneColor;
     static Plane currentPlane;
