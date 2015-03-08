@@ -52,7 +52,6 @@ int Camera::update(float timeDelta)
         float alpha = animTime / ANIM_TIME_MS;
         if (animTime >= ANIM_TIME_MS)
         {
-            std::cout<<"anim end"<<std::endl;
             anim_done = true;
             animTime = 0;
             anim = false;
@@ -74,7 +73,6 @@ int Camera::update(float timeDelta)
         }
         else
         {
-            std::cout<<"anim"<<std::endl;
             float distanceTmp = distance * (1 - alpha) + distanceTo * alpha;
             rotate_slerp = Quaternion();
             if(rotChange) rotate_slerp = Quaternion::slerp(rotate, rotateTo, alpha);
