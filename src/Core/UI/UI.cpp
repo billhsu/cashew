@@ -112,7 +112,6 @@ UINode* UI::MouseButton(int button, int state, int x, int y)
     {
         node->MouseButton(button, state, x, y);
         mRootNode->previousPressed = node;
-        return node;
     }
     
     if(state == Mouse::MOUSE_UP && mRootNode->previousPressed != NULL)
@@ -121,7 +120,7 @@ UINode* UI::MouseButton(int button, int state, int x, int y)
         mRootNode->previousPressed = NULL;
     }
     
-    return NULL;
+    return node;
 }
 
 UINode* UI::PassiveMotion(int x, int y)

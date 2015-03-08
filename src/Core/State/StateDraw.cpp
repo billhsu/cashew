@@ -5,9 +5,25 @@
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
+#include "Core/UI/UI.h"
+#include "Core/UI/UIButton.h"
+
+StateDraw::StateDraw()
+{
+    stateID = STATE_DRAW;
+    internalState = STATE_DRAW_IDLE;
+    assert(statePool[stateID] == NULL);
+    statePool[stateID] = this;
+    btnDrawPlaneDone = Controller::GUI->addButton(stateID*100 + BTN_ID_DRAW_PLANE_DONE, "BTN_ID_DRAW_PLANE_DONE", btnDrawPlaneDoneEvent, this);
+    btnDrawPlaneDone->setVisibility(false);
+}
 
 void StateDraw::MouseButton(int button, int state, int x, int y)
 {
+    if(button == Mouse::MOUSE_SCROLL)
+    {
+        mCamera->setCamDist(mCamera->distance + 0.1f * state);
+    }
     if(state == Mouse::MOUSE_DOWN)
     {
         if(button == Mouse::MOUSE_LEFT)
@@ -63,4 +79,16 @@ void StateDraw::Keyboard(unsigned char key, unsigned char status)
 
 void StateDraw::prepareState()
 {
+    btnDrawPlaneDone->appearIn();
+}
+
+void StateDraw::postState()
+{
+    btnDrawPlaneDone->appearOut();
+}
+
+void StateDraw::btnDrawPlaneDoneEvent(void* data)
+{
+    std::cout<<"btnDrawPlaneDoneEvent"<<std::endl;
+    enterState(State::statePool[STATE_IDLE]);
 }

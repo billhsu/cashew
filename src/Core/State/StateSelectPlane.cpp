@@ -18,7 +18,7 @@ StateSelectPlane::StateSelectPlane()
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     selectPlaneMode = SELECT_HORIZONTAL_PLANE;
-    btnCancelPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE", this->btnCancelPlaneEvent, this);
+    btnCancelPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE", btnCancelPlaneEvent, this);
     btnCancelPlane->setVisibility(false);
     btnConfirmPlane = Controller::GUI->addButton(stateID*100 + BTN_ID_CONFIRM_PLANE, "BTN_ID_CONFIRM_PLANE", btnConfirmPlaneEvent, this);
     btnConfirmPlane->setVisibility(false);
