@@ -6,18 +6,17 @@
 uniform sampler2D PeelLayerDepthMap;
 uniform sampler2D pointTexture;
 
-in vec2 vertexUV;
+in vec4 colorGs;
 
 out vec4 color;
 void main (void)
 {
     float z = texelFetch(PeelLayerDepthMap, ivec2(gl_FragCoord.xy), 0).x;
-    if(gl_FragCoord.z <= z){
+    if(gl_FragCoord.z <= z) {
         discard;
     }
-    vec4 texColor = texture(pointTexture, vertexUV);
-    if (texColor.a<0.1) {
+    if (colorGs.a<0.1) {
         discard;
     }
-    color = texColor;
+    color = colorGs;
 }

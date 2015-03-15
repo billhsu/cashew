@@ -4,39 +4,42 @@
 
 #version 330 core
 
-layout (points) in;
+varying in vec4 vPosition[2];
 layout (triangle_strip) out;
 layout (max_vertices = 4) out;
 
 uniform mat4 modelView;
 uniform mat4 projection;
 
-uniform float pointSize;
-
-out vec2 vertexUV;
+uniform float thickness;
+uniform vec4 lineColor;
+out vec4 colorGs;
 
 void main (void)
 {
-    vec4 P = gl_in[0].gl_Position;
+    vec4 P = vPosition[0];
+    vec4 Q = vPosition[1];
+    vec2 PQ = Q.xy - P.xy;
+    vec2 normal = normalize(vec2(-PQ.y, PQ.x));
     
-    vec2 va = P.xy + vec2(-0.5, -0.5) * pointSize;
+    vec2 va = P.xy - normal * thickness;
     gl_Position = projection * vec4(va, P.zw);
-    vertexUV = vec2(0.0, 0.0);
+    colorGs = lineColor;
     EmitVertex();
     
-    vec2 vb = P.xy + vec2(-0.5, 0.5) * pointSize;
+    vec2 vb = P.xy + normal * thickness;
     gl_Position = projection * vec4(vb, P.zw);
-    vertexUV = vec2(0.0, 1.0);
+    colorGs = lineColor;
     EmitVertex();
     
-    vec2 vd = P.xy + vec2(0.5, -0.5) * pointSize;
-    gl_Position = projection * vec4(vd, P.zw);
-    vertexUV = vec2(1.0, 0.0);
+    vec2 vd = Q.xy - normal * thickness;
+    gl_Position = projection * vec4(vd, Q.zw);
+    colorGs = lineColor;
     EmitVertex();
     
-    vec2 vc = P.xy + vec2(0.5, 0.5) * pointSize;
-    gl_Position = projection * vec4(vc, P.zw);
-    vertexUV = vec2(1.0, 1.0);
+    vec2 vc = Q.xy + normal * thickness;
+    gl_Position = projection * vec4(vc, Q.zw);
+    colorGs = lineColor;
     EmitVertex();
     
     EndPrimitive();
