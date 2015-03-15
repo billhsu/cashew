@@ -14,6 +14,7 @@
 		0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6031A86213300A5424F /* TextureManager.cpp */; };
 		0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6081A86246200A5424F /* stb_image.cpp */; };
 		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
+		0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5077481AB56F7E00145A41 /* LineSegmentRenderer.cpp */; };
 		0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */; };
 		0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */; };
 		0C5F954B1A614F0100BE91E9 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F953E1A614F0100BE91E9 /* Scene.cpp */; };
@@ -76,6 +77,8 @@
 		0C45C6081A86246200A5424F /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
 		0C45C6091A86246200A5424F /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		0C46317E1A5AE62D00D0CEFE /* media */ = {isa = PBXFileReference; lastKnownFileType = folder; path = media; sourceTree = "<group>"; };
+		0C5077481AB56F7E00145A41 /* LineSegmentRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineSegmentRenderer.cpp; sourceTree = "<group>"; };
+		0C5077491AB56F7E00145A41 /* LineSegmentRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSegmentRenderer.h; sourceTree = "<group>"; };
 		0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDrawImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.cpp; sourceTree = "<group>"; };
 		0C529D291A7364C10034B1E5 /* StateDrawImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDrawImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDrawImpl.h; sourceTree = "<group>"; };
 		0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointRenderer.cpp; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 		0C2E4F2E1A65641D003C6ABF /* Basic */ = {
 			isa = PBXGroup;
 			children = (
+				0C5077481AB56F7E00145A41 /* LineSegmentRenderer.cpp */,
+				0C5077491AB56F7E00145A41 /* LineSegmentRenderer.h */,
 				0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */,
 				0C2E4F321A65641D003C6ABF /* PlaneRenderer.h */,
 				0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */,
@@ -618,6 +623,7 @@
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C5F954E1A614F0100BE91E9 /* UIButtonImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
+				0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */,
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
