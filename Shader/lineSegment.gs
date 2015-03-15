@@ -4,7 +4,7 @@
 
 #version 330 core
 
-varying in vec4 vPosition[2];
+layout (lines) in;
 layout (triangle_strip) out;
 layout (max_vertices = 4) out;
 
@@ -17,8 +17,8 @@ out vec4 colorGs;
 
 void main (void)
 {
-    vec4 P = vPosition[0];
-    vec4 Q = vPosition[1];
+    vec4 P = gl_in[0].gl_Position;
+    vec4 Q = gl_in[1].gl_Position;
     vec2 PQ = Q.xy - P.xy;
     vec2 normal = normalize(vec2(-PQ.y, PQ.x));
     
