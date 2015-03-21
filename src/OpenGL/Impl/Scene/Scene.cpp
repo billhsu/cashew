@@ -245,4 +245,8 @@ namespace Scene{
         drawAxis();
         sceneProgram.unbind();
     }
+    void drawSceneWrapper(void* data)
+    {
+        drawScene();
+    }
 }

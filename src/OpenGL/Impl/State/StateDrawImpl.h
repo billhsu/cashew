@@ -19,7 +19,6 @@ private:
     static void renderCurrentPlane(void* data);
     static void renderCurrentPoints(void* data);
     static void renderCurrentLine(void* data);
-    static void drawSceneWrapper(void* data);
     Vector3 renderCurrentPlaneCenter;
     Vector4 renderCurrentPlaneColor;
     Plane currentPlane;

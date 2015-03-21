@@ -8,5 +8,6 @@ namespace Scene{
     void clearScene();
     void prepareSceneGrid(float size, float step);
     void drawScene();
+    void drawSceneWrapper(void* data);
     GLSLShader* getSceneShader();
 };

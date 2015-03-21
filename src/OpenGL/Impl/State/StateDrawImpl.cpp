@@ -37,7 +37,7 @@ void StateDrawImpl::render()
     depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
     depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines, this);
-    depthPeeling->addToRenderCallbackList(drawSceneWrapper, this);
+    depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper, this);
 }
 
 void StateDrawImpl::renderCurrentPlane(void* data)
@@ -97,9 +97,4 @@ void StateDrawImpl::renderCurrentLine(void* data)
     LineSegment line = LineSegment(self->startPoint, self->endPoint);
     LineSegmentRenderer::getLineSegmentList().push_back(line);
     LineSegmentRenderer::render(0);
-}
-
-void StateDrawImpl::drawSceneWrapper(void* data)
-{
-    Scene::drawScene();
 }

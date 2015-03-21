@@ -35,7 +35,7 @@ void StateSelectPlaneImpl::render()
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines);
-    depthPeeling->addToRenderCallbackList(drawSceneWrapper);
+    depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
 }
 
 void StateSelectPlaneImpl::renderCurrentPlane(void* data)
@@ -64,9 +64,4 @@ void StateSelectPlaneImpl::renderCurrentPoints(void* data)
         PointRenderer::getPointList().push_back(v);
     });
     PointRenderer::render(textureManager->getTexture("media/textures/point_3.png").glTextureID);
-}
-
-void StateSelectPlaneImpl::drawSceneWrapper(void* data)
-{
-    Scene::drawScene();
 }
