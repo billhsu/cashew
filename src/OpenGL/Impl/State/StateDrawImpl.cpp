@@ -10,7 +10,7 @@
 #include "Core/Controller/Controller.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
-
+#include "OpenGL/Impl/Scene/LineSketches.h"
 StateDrawImpl::StateDrawImpl()
 {
     depthPeeling = &DepthPeeling::getInstance();
@@ -36,7 +36,7 @@ void StateDrawImpl::render()
     depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
     depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
-    depthPeeling->addToRenderCallbackList(renderSketchLines, this);
+    depthPeeling->addToRenderCallbackList(Scene::renderSketchLines, this);
     depthPeeling->addToRenderCallbackList(drawSceneWrapper, this);
 }
 
@@ -97,29 +97,6 @@ void StateDrawImpl::renderCurrentLine(void* data)
     LineSegment line = LineSegment(self->startPoint, self->endPoint);
     LineSegmentRenderer::getLineSegmentList().push_back(line);
     LineSegmentRenderer::render(0);
-}
-
-void StateDrawImpl::renderSketchLines(void* data)
-{
-    LineSegmentRenderer::getLineSegmentShader()->bind();
-    
-    GLuint local_modelView = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
-    GLuint local_projection = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
-    GLuint local_thickness = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
-    glUniform1f(local_thickness, 0.25f);
-    GLuint local_lineColor = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
-    glUniform4f(local_lineColor, 0.443, 0.129, 1.0, 0.9f);
-    LineSegmentRenderer::getLineSegmentList().clear();
-    for(int i=0; i<Controller::sketchLines.size(); ++i)
-    {
-        LineSegmentRenderer::getLineSegmentList().push_back(Controller::sketchLines[i]);
-    }
-    if(LineSegmentRenderer::getLineSegmentList().size() > 0)
-    {
-        LineSegmentRenderer::render(0);
-    }
 }
 
 void StateDrawImpl::drawSceneWrapper(void* data)
