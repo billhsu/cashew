@@ -8,11 +8,12 @@
 #include <OpenGL/gl3.h>
 
 class GLSLShader;
+class LineSegment;
 namespace LineSegmentRenderer
 {
     void prepareRenderData();
     void render(uint textureId);
     GLSLShader* getLineSegmentShader();
-    std::vector<Vector3>& getLineSegmentList();
+    std::vector<LineSegment>& getLineSegmentList();
     void release();
 }

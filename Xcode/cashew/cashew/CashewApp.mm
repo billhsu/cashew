@@ -24,6 +24,8 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
+
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Mouse.h"
@@ -84,6 +86,8 @@ Controller *mController = &Controller::getInstance();
                                                         NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
+    LineSegmentRenderer::prepareRenderData();
+
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);
     depthPeeling->setWindowSize(mController->windowWidth, mController->windowHeight);
@@ -210,6 +214,7 @@ Controller *mController = &Controller::getInstance();
     NSLog(@"clearGLContext");
     Scene::clearScene();
     PointRenderer::release();
+    LineSegmentRenderer::release();
     [super clearGLContext];
 }
 

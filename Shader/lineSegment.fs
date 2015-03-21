@@ -4,7 +4,6 @@
 #version 330 core
 
 uniform sampler2D PeelLayerDepthMap;
-uniform sampler2D pointTexture;
 
 in vec4 colorGs;
 

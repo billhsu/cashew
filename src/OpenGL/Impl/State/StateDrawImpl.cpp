@@ -6,6 +6,7 @@
 #include <OpenGL/gl3.h>
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
@@ -34,6 +35,7 @@ void StateDrawImpl::render()
 
     depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
+    depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
     depthPeeling->addToRenderCallbackList(drawSceneWrapper, this);
 }
 
@@ -73,6 +75,29 @@ void StateDrawImpl::renderCurrentPoints(void* data)
         PointRenderer::getPointList().push_back(self->endPoint);
         PointRenderer::render(self->textureManager->getTexture("media/textures/point_4.png").glTextureID);
     }
+}
+
+void StateDrawImpl::renderCurrentLine(void* data)
+{
+    StateDrawImpl* self = static_cast<StateDrawImpl*>(data);
+    LineSegmentRenderer::getLineSegmentShader()->bind();
+    
+    GLuint local_modelView = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+    GLuint local_projection = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+    GLuint local_thickness = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
+    glUniform1f(local_thickness, 0.25f);
+    GLuint local_lineColor = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
+    glUniform4f(local_lineColor, 0.635, 0.8, 0, 0.9f);
+    LineSegmentRenderer::getLineSegmentList().clear();
+    LineSegment line = LineSegment(self->startPoint, self->endPoint);
+    LineSegmentRenderer::getLineSegmentList().push_back(line);
+    if(self->internalState == STATE_DRAW_START_POINT_SELECTED)
+    {
+        LineSegmentRenderer::render(0);
+    }
+    
 }
 
 void StateDrawImpl::drawSceneWrapper(void* data)

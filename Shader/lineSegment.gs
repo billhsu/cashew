@@ -1,6 +1,5 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
-// http://www.geeks3d.com/20140815/particle-billboarding-with-the-geometry-shader-glsl/
 
 #version 330 core
 

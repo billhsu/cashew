@@ -3,23 +3,28 @@
 
 #include "LineSegmentRenderer.h"
 #include "OpenGL/Shader/GLSLShader.h"
+#include "Core/Basic/LineSegment.h"
 
 namespace LineSegmentRenderer
 {
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
-    std::vector<Vector3> lineSegmentList;
+    std::vector<LineSegment> lineSegmentList;
     float* vertexBufferData = NULL;
     
     GLSLShader lineSegmentProgram;
-    float* mapVectorToArray(const std::vector<Vector3>& list)
+    float* mapVectorToArray(const std::vector<LineSegment>& list)
     {
-        float* result = new float[list.size() * 3];
+        float* result = new float[list.size() * 3 * 2];
         for(int i=0; i < list.size(); ++i)
         {
-            result[3 * i + 0] = list[i].x;
-            result[3 * i + 1] = list[i].y;
-            result[3 * i + 2] = list[i].z;
+            result[3 * i + 0] = list[i].points[0].x;
+            result[3 * i + 1] = list[i].points[0].y;
+            result[3 * i + 2] = list[i].points[0].z;
+            
+            result[3 * i + 3] = list[i].points[1].x;
+            result[3 * i + 4] = list[i].points[1].y;
+            result[3 * i + 5] = list[i].points[1].z;
         }
         return result;
     }
@@ -35,11 +40,11 @@ namespace LineSegmentRenderer
     void prepareRenderData()
     {
         lineSegmentList.clear();
-        lineSegmentList.push_back(Vector3(0,0,0));
+        lineSegmentList.push_back(LineSegment(Vector3(0,0,0),Vector3(0,0,0)));
         
         generateVertexBuffer();
         
-        VBOInfo.vertexBufferSize = static_cast<int>(lineSegmentList.size()) * 3;
+        VBOInfo.vertexBufferSize = static_cast<int>(lineSegmentList.size()) * 3 * 2;
         VBOInfo.vertexBufferData = vertexBufferData;
         
         buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
@@ -58,15 +63,15 @@ namespace LineSegmentRenderer
         
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, textureId);
+//        glActiveTexture(GL_TEXTURE1);
+//        glBindTexture(GL_TEXTURE_2D, textureId);
         generateVertexBuffer();
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = vertexBufferData;
-        _VBO.vertexBufferSize = static_cast<int>(lineSegmentList.size()) * 3;
+        _VBO.vertexBufferSize = static_cast<int>(lineSegmentList.size()) * 3 * 2;
         
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
-        buffer.render(GL_POINTS);
+        buffer.render(GL_LINES);
         
         glDisable(GL_BLEND);
         lineSegmentProgram.unbind();
@@ -78,7 +83,7 @@ namespace LineSegmentRenderer
     {
         return &lineSegmentProgram;
     }
-    std::vector<Vector3>& getLineSegmentList()
+    std::vector<LineSegment>& getLineSegmentList()
     {
         return lineSegmentList;
     }
