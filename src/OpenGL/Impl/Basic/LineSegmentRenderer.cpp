@@ -18,13 +18,13 @@ namespace LineSegmentRenderer
         float* result = new float[list.size() * 3 * 2];
         for(int i=0; i < list.size(); ++i)
         {
-            result[3 * i + 0] = list[i].points[0].x;
-            result[3 * i + 1] = list[i].points[0].y;
-            result[3 * i + 2] = list[i].points[0].z;
+            result[6 * i + 0] = list[i].points[0].x;
+            result[6 * i + 1] = list[i].points[0].y;
+            result[6 * i + 2] = list[i].points[0].z;
             
-            result[3 * i + 3] = list[i].points[1].x;
-            result[3 * i + 4] = list[i].points[1].y;
-            result[3 * i + 5] = list[i].points[1].z;
+            result[6 * i + 3] = list[i].points[1].x;
+            result[6 * i + 4] = list[i].points[1].y;
+            result[6 * i + 5] = list[i].points[1].z;
         }
         return result;
     }
