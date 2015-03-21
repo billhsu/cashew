@@ -63,7 +63,7 @@ void StateDrawImpl::renderCurrentPoints(void* data)
     GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.5f);
+    glUniform1f(local_pointSize, 0.2f);
     glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
     PointRenderer::getPointList().clear();
     for_each(self->selectedPoints.begin(), self->selectedPoints.end(), [](Vector3 v){
@@ -91,7 +91,7 @@ void StateDrawImpl::renderCurrentLine(void* data)
     GLuint local_projection = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     GLuint local_thickness = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
-    glUniform1f(local_thickness, 0.25f);
+    glUniform1f(local_thickness, 0.03f);
     GLuint local_lineColor = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
     glUniform4f(local_lineColor, 0.635, 0.8, 0, 0.9f);
     LineSegmentRenderer::getLineSegmentList().clear();

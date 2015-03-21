@@ -11,7 +11,6 @@ public:
     static TextureManager& getInstance()
     {
         static TextureManager instance;
-        std::cout <<"TextureManager getInstance()"<<std::endl;
         return instance;
     }
     int loadTexture(std::string filename, int channels);

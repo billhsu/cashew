@@ -12,7 +12,7 @@ out vec4 color;
 void main (void)
 {
     float z = texelFetch(PeelLayerDepthMap, ivec2(gl_FragCoord.xy), 0).x;
-    if(gl_FragCoord.z <= z){
+    if(gl_FragCoord.z <= z - 0.01){
         discard;
     }
     vec4 texColor = texture(pointTexture, vertexUV);

@@ -49,9 +49,10 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
                 Vector3 endPointMirror = endPoint;
                 startPointMirror.x = -startPointMirror.x;
                 endPointMirror.x   = -endPointMirror.x;
-//                LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+                LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
                 
                 Controller::addLine(line);
+                Controller::addLine(lineMirror);
                 internalState = STATE_DRAW_IDLE;
             }
         }
