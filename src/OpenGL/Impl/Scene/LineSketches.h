@@ -4,4 +4,5 @@
 #pragma once
 namespace Scene{
     void renderSketchLines(void* data);
+    void renderSketchLinesEndpoints(void* data);
 }

@@ -37,6 +37,7 @@ void StateDrawImpl::render()
     depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
     depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines, this);
+    depthPeeling->addToRenderCallbackList(Scene::renderSketchLinesEndpoints);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper, this);
 }
 
