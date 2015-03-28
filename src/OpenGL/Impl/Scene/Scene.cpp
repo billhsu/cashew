@@ -6,6 +6,9 @@
 #include "Core/Math/Vectors.h"
 #include "OpenGL/Shader/GLSLShader.h"
 #include "Core/Controller/Controller.h"
+#include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/TextureManager/TextureManager.h"
+
 namespace Scene{
     static float* gridVertex = NULL;
     static float* gridColor = NULL;
@@ -248,5 +251,23 @@ namespace Scene{
     void drawSceneWrapper(void* data)
     {
         drawScene();
+    }
+    
+    void renderCurrentPoint(void* data)
+    {
+        if(Controller::bCurrPoint)
+        {
+            PointRenderer::getPointShader()->bind();
+            GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
+            glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+            GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
+            glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+            GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
+            glUniform1f(local_pointSize, 0.2f);
+            glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
+            PointRenderer::getPointList().clear();
+            PointRenderer::getPointList().push_back(Controller::currPoint);
+            PointRenderer::render(TextureManager::getInstance().getTexture("media/textures/point_4.png").glTextureID);
+        }
     }
 }

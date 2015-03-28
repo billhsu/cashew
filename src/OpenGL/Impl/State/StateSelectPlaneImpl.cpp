@@ -35,8 +35,8 @@ void StateSelectPlaneImpl::render()
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines);
-    depthPeeling->addToRenderCallbackList(Scene::renderSketchLinesEndpoints);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
+    depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
 }
 
 void StateSelectPlaneImpl::renderCurrentPlane(void* data)
