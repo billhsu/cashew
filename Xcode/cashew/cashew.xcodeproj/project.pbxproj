@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C0118161AC6F64A0042E1CC /* FileOperations.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C0118151AC6F64A0042E1CC /* FileOperations.mm */; };
 		0C1EC06E1A6A623B004FA7C2 /* HardwareBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1EC06C1A6A623B004FA7C2 /* HardwareBuffer.cpp */; };
 		0C2247701A3D925A00349BCC /* lua_scripts in Resources */ = {isa = PBXBuildFile; fileRef = 0C22476F1A3D925A00349BCC /* lua_scripts */; };
 		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
@@ -67,6 +68,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C0118151AC6F64A0042E1CC /* FileOperations.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileOperations.mm; sourceTree = "<group>"; };
+		0C0118171AC6F68E0042E1CC /* FileOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
+		0C0118181AC6F6CC0042E1CC /* FileOperationsCppWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileOperationsCppWrapper.h; sourceTree = "<group>"; };
 		0C1EC06C1A6A623B004FA7C2 /* HardwareBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HardwareBuffer.cpp; sourceTree = "<group>"; };
 		0C1EC06D1A6A623B004FA7C2 /* HardwareBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HardwareBuffer.h; sourceTree = "<group>"; };
 		0C22476F1A3D925A00349BCC /* lua_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lua_scripts; sourceTree = "<group>"; };
@@ -180,6 +184,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C0118141AC6F5CF0042E1CC /* FileOperations */ = {
+			isa = PBXGroup;
+			children = (
+				0C0118151AC6F64A0042E1CC /* FileOperations.mm */,
+				0C0118171AC6F68E0042E1CC /* FileOperations.h */,
+				0C0118181AC6F6CC0042E1CC /* FileOperationsCppWrapper.h */,
+			);
+			name = FileOperations;
+			sourceTree = "<group>";
+		};
 		0C1EC06B1A6A623B004FA7C2 /* HardwareBuffer */ = {
 			isa = PBXGroup;
 			children = (
@@ -450,6 +464,7 @@
 			children = (
 				0C88896D1A2984C600068098 /* Core */,
 				0C5F953B1A614F0100BE91E9 /* OpenGL */,
+				0C0118141AC6F5CF0042E1CC /* FileOperations */,
 				0C8D442A1A2199B8005421E1 /* CashewApp.mm */,
 				0C8D441B1A218473005421E1 /* CashewInputController.h */,
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
@@ -626,6 +641,7 @@
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C3B904D1ABD60AE00F7C594 /* LineSketches.cpp in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
+				0C0118161AC6F64A0042E1CC /* FileOperations.mm in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C5F954E1A614F0100BE91E9 /* UIButtonImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,

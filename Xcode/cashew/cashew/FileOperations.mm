@@ -1,0 +1,32 @@
+//
+//  FileOperations.m
+//  cashew
+//
+//  Created by Xu, Shipeng on 28/3/15.
+//  Copyright (c) 2015 Xu, Shipeng. All rights reserved.
+//
+#import <Foundation/Foundation.h>
+#import "FileOperations.h"
+#import <AppKit/AppKit.h>
+#include <iostream>
+
+@implementation FileOperations
+std::string showSaveFileDialogWrapper (void *self) {
+    return [(__bridge id) self showSaveFileDialog];
+}
+-(std::string) showSaveFileDialog {
+    // create the save panel
+    NSSavePanel *panel = [NSSavePanel savePanel];
+    
+    // set a new file name
+    [panel setNameFieldStringValue:@"NewFile.cashew"];
+    std::string filePath = "";
+    // display the panel
+    NSInteger result = [panel runModal];
+    if(result == NSOKButton) {
+        NSString *saveURL = [[panel URL] path];
+        filePath = std::string([saveURL UTF8String]);
+    }
+    return filePath;
+}
+@end

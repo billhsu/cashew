@@ -29,12 +29,15 @@
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Mouse.h"
+#include "FileOperations.h"
+#include "FileOperationsCppWrapper.h"
 
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
 TextureManager* textureManager;
 
 Controller *mController = &Controller::getInstance();
+FileOperations *fileOperations = [FileOperations alloc];
 
 @interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
 
@@ -83,7 +86,7 @@ Controller *mController = &Controller::getInstance();
     Controller::btnDocOpen = mController->GUI->addButton(0, "BTN_ID_DOC_OPEN",
                                                         NULL, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
-                                                        NULL, NULL);
+                                                        saveFile, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
@@ -94,6 +97,11 @@ Controller *mController = &Controller::getInstance();
     depthPeeling->init();
     
     return YES;
+}
+
+void saveFile(void* data)
+{
+    std::cout<<showSaveFileDialogWrapper((__bridge void*)fileOperations)<<std::endl;
 }
 
 - (void)mouseLeftUp:(NSPoint)locationInWindow;
