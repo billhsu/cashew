@@ -30,8 +30,8 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
         {
             if(internalState==STATE_DRAW_IDLE)
             {
-                Controller::getInstance().getCameraPoint(startPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
-                Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
+                Controller::getInstance().getCameraPoint(startPoint, Controller::currPlane);
+                Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
                 internalState = STATE_DRAW_START_POINT_SELECTED;
             }
         }
@@ -42,7 +42,7 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
         {
             if(internalState == STATE_DRAW_START_POINT_SELECTED)
             {
-                Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
+                Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
                 LineSegment line = LineSegment(startPoint, endPoint);
                 
                 Vector3 startPointMirror = startPoint;
@@ -64,7 +64,7 @@ void StateDraw::MouseLeftDrag(int dx, int dy)
 {
     if(internalState == STATE_DRAW_START_POINT_SELECTED)
     {
-        Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane, Camera::GETPOINT_PLANE);
+        Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
     }
 }
 

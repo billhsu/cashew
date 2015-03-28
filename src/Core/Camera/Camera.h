@@ -113,8 +113,7 @@ public:
     int update(float timeDelta);
     Ray getRay(int mx, int my);
     Vector3 getDirection();
-    enum {GETPOINT_3D, GETPOINT_PLANE};
-    bool getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0), bool mode=GETPOINT_3D);
+    bool getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0));
     int getLine(int mx, int my, const std::vector<LineSegment>& lines, LineSegment& line);
     Quaternion getRotateQuaternion()
     {

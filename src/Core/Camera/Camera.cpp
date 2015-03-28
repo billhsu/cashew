@@ -127,7 +127,7 @@ Vector3 Camera::getDirection()
     return Quaternion::toVector(rotate);
 }
 
-bool Camera::getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3 &p, const Plane &plane, bool mode)
+bool Camera::getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3 &p, const Plane &plane)
 {
     float minDist = 1000.0f;
     bool findCurr = false;
@@ -148,7 +148,7 @@ bool Camera::getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vec
             }
         }
     }
-    if (!findCurr || mode == GETPOINT_PLANE) p = intersect(ray, plane);
+    if (!findCurr) p = intersect(ray, plane);
     //std::cout<<p<<std::endl;
     return findCurr;
 }

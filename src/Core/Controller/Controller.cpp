@@ -161,9 +161,9 @@ void Controller::resize(int _width, int _height)
     camera->setProjection(projection);
 }
 
-bool Controller::getCameraPoint(Vector3& p, const Plane& plane, bool mode)
+bool Controller::getCameraPoint(Vector3& p, const Plane& plane)
 {
-    return camera->getPoint(mouseX, mouseY, sketchLines, p, plane, mode);
+    return camera->getPoint(mouseX, mouseY, sketchLines, p, plane);
 }
 
 Ray Controller::getCameraRay()

@@ -76,7 +76,7 @@ void StateSelectPlane::MouseButton(int button, int state, int x, int y)
         if(button == Mouse::MOUSE_LEFT)
         {
             Vector3 v;
-            Controller::getInstance().getCameraPoint(v, Controller::currPlane, Camera::GETPOINT_PLANE);
+            Controller::getInstance().getCameraPoint(v, Controller::currPlane);
             std::cout<<v<<std::endl;
             // three selected points should be different 
             for(int i=0; i<selectedPoints.size();++i) 

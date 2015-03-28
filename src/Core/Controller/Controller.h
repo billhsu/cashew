@@ -106,7 +106,7 @@ public:
     static State* state_draw;
     
     Camera * camera;
-    bool getCameraPoint(Vector3& p, const Plane& plane, bool mode);
+    bool getCameraPoint(Vector3& p, const Plane& plane);
     Ray getCameraRay();
     static bool enableLight;
     static Vector3 rotate;
