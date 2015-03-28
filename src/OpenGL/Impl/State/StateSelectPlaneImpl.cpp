@@ -22,6 +22,7 @@ StateSelectPlaneImpl::StateSelectPlaneImpl()
 }
 void StateSelectPlaneImpl::render()
 {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
     {
@@ -33,10 +34,11 @@ void StateSelectPlaneImpl::render()
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
-    depthPeeling->addToRenderCallbackList(renderCurrentPoints);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
+    depthPeeling->addToRenderCallbackList(renderCurrentPoints);
+
 }
 
 void StateSelectPlaneImpl::renderCurrentPlane(void* data)
@@ -58,7 +60,7 @@ void StateSelectPlaneImpl::renderCurrentPoints(void* data)
     GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
     GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
-    glUniform1f(local_pointSize, 0.5f);
+    glUniform1f(local_pointSize, 0.3f);
     glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
     PointRenderer::getPointList().clear();
     for_each(selectedPoints.begin(), selectedPoints.end(), [](Vector3 v){

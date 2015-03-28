@@ -34,11 +34,11 @@ void StateDrawImpl::render()
     renderCurrentPlaneCenter = center;
 
     depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
-    depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
     depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines, this);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper, this);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
+    depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
 }
 
 void StateDrawImpl::renderCurrentPlane(void* data)
@@ -93,7 +93,7 @@ void StateDrawImpl::renderCurrentLine(void* data)
     GLuint local_thickness = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
     glUniform1f(local_thickness, 0.03f);
     GLuint local_lineColor = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
-    glUniform4f(local_lineColor, 0.635, 0.8, 0, 0.9f);
+    glUniform4f(local_lineColor, 0.5, 1, 0, 0.9f);
     LineSegmentRenderer::getLineSegmentList().clear();
     LineSegment line = LineSegment(self->startPoint, self->endPoint);
     LineSegmentRenderer::getLineSegmentList().push_back(line);
