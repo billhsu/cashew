@@ -14,5 +14,6 @@
 }
 -(std::string) showSaveFileDialog;
 -(std::string) showOpenFileDialog;
+-(std::string) showNewFileDialog;
 @end
 #endif

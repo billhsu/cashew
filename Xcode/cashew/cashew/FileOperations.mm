@@ -49,4 +49,27 @@ std::string showOpenFileDialogWrapper (void *self) {
     return filePath;
 }
 
+std::string showNewFileDialogWrapper (void *self) {
+    return [(__bridge id) self showNewFileDialog];
+}
+
+-(std::string) showNewFileDialog {
+    NSAlert *alert = [[NSAlert alloc] init];
+    
+    [alert addButtonWithTitle:@"OK"];
+    
+    [alert addButtonWithTitle:@"Cancel"];
+    
+    [alert setMessageText:@"Create a new sketch?"];
+    
+    [alert setInformativeText:@"Current sktech will be discarded."];
+    
+    [alert setAlertStyle:NSWarningAlertStyle];
+    if ([alert runModal] == NSAlertFirstButtonReturn) {
+        return "OK";
+    } else {
+        return "CANCEL";
+    }
+    
+}
 @end

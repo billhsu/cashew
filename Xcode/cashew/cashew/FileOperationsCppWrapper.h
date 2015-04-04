@@ -11,4 +11,5 @@
 #include <iostream>
 std::string showSaveFileDialogWrapper (void *self);
 std::string showOpenFileDialogWrapper (void *self);
+std::string showNewFileDialogWrapper (void *self);
 #endif

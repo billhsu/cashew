@@ -83,7 +83,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     
     mController->init();
     Controller::btnDocNew = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
-                                                        NULL, NULL);
+                                                        newFile, NULL);
     Controller::btnDocOpen = mController->GUI->addButton(0, "BTN_ID_DOC_OPEN",
                                                         openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
@@ -98,6 +98,15 @@ FileOperations *fileOperations = [FileOperations alloc];
     depthPeeling->init();
     
     return YES;
+}
+void newFile(void* data)
+{
+    std::string option = showNewFileDialogWrapper((__bridge void*)fileOperations);
+    if(option=="OK")
+    {
+        Controller::sketchLines.clear();
+        Controller::lineOperations.clear();
+    }
 }
 
 void saveFile(void* data)
@@ -137,6 +146,7 @@ void openFile(void* data)
         LineSegment line = LineSegment(point1, point2);
         Controller::addLine(line);
     }
+    Controller::lineOperations.clear();
     fileStream.close();
 }
 
