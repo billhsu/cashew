@@ -88,6 +88,15 @@ FileOperations *fileOperations = [FileOperations alloc];
                                                         openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
                                                         saveFile, NULL);
+
+    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_STANDARD_VIEW",
+                                                         NULL, NULL);
+    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_UNDO",
+                                                         NULL, NULL);
+    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DELETE_LINE",
+                                                         NULL, NULL);
+    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_MIRROR",
+                                                         NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
@@ -116,7 +125,7 @@ void saveFile(void* data)
     std::cout<<"Saving to "<<filename<<std::endl;
     std::ofstream fileStream;
     fileStream.open(filename);
-    fileStream<<"cashew v1"<<std::endl;
+    fileStream<<"cashew_v1"<<std::endl;
     fileStream<<Controller::sketchLines.size()<<std::endl;
     for(int i=0; i<Controller::sketchLines.size(); ++i)
     {

@@ -64,20 +64,28 @@ BTN_ID_DELETE_LINE_DONE = {
 --------------------
 BTN_ID_STANDARD_VIEW = {
     pos = {x="window_width / 2 - BTN_ID_STANDARD_VIEW.size.width * 2 * 1.2", y="BTN_ID_STANDARD_VIEW.size.height / 2"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_standard_view.png", hover = "media/textures/button_standard_view.png", press = "media/textures/button_standard_view.png"},
+    size = {width="60", height="60"},
+    text = "Standard view"
 }
 
 BTN_ID_UNDO = {
     pos = {x="window_width / 2 - BTN_ID_UNDO.size.width * 1.2", y="BTN_ID_UNDO.size.height / 2"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_undo.png", hover = "media/textures/button_undo.png", press = "media/textures/button_undo.png"},
+    size = {width="60", height="60"},
+    text = "Undo"
 }
 
 BTN_ID_DELETE_LINE = {
     pos = {x="window_width / 2", y="BTN_ID_DELETE_LINE.size.height / 2"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_delete.png", hover = "media/textures/button_delete.png", press = "media/textures/button_delete.png"},
+    size = {width="60", height="60"},
+    text = "Delete line"
 }
 
 BTN_ID_MIRROR = {
     pos = {x="window_width / 2 + BTN_ID_STANDARD_VIEW.size.width * 1.2", y="BTN_ID_MIRROR.size.height / 2"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_mirror.png", hover = "media/textures/button_mirror.png", press = "media/textures/button_mirror.png"},
+    size = {width="60", height="60"},
+    text = "Mirror mode"
 }
