@@ -88,15 +88,6 @@ FileOperations *fileOperations = [FileOperations alloc];
                                                         openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
                                                         saveFile, NULL);
-
-    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_STANDARD_VIEW",
-                                                         NULL, NULL);
-    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_UNDO",
-                                                         NULL, NULL);
-    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DELETE_LINE",
-                                                         NULL, NULL);
-    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_MIRROR",
-                                                         NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
@@ -107,6 +98,10 @@ FileOperations *fileOperations = [FileOperations alloc];
     depthPeeling->init();
     
     return YES;
+}
+void standardView(void* data)
+{
+    
 }
 void newFile(void* data)
 {

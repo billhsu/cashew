@@ -7,7 +7,21 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
+#include "Core/UI/UI.h"
+#include "Core/UI/UIButton.h"
 
+StateIdle::StateIdle()
+{
+    stateID = STATE_IDLE;
+    assert(statePool[stateID] == NULL);
+    statePool[stateID] = this;
+    btnStandardView = Controller::GUI->addButton(stateID*100 + BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", btnStandardViewEvent, this);
+    btnStandardView->setVisibility(false);
+    btnUndo = Controller::GUI->addButton(stateID*100 + BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, this);
+    btnUndo->setVisibility(false);
+    btnDeleteLine = Controller::GUI->addButton(stateID*100 + BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, this);
+    btnDeleteLine->setVisibility(false);
+}
 void StateIdle::MouseButton(int button, int state, int x, int y)
 {
     if(button == Mouse::MOUSE_SCROLL)
@@ -38,5 +52,28 @@ void StateIdle::MouseRightDrag(int dx, int dy)
 }
 
 void StateIdle::prepareState()
+{
+    btnStandardView->setVisibility(true);
+    btnUndo->setVisibility(true);
+    btnDeleteLine->setVisibility(true);
+}
+
+void StateIdle::postState()
+{
+    btnStandardView->setVisibility(false);
+    btnUndo->setVisibility(false);
+    btnDeleteLine->setVisibility(false);
+}
+void StateIdle::btnStandardViewEvent(void* data)
+{
+    StateIdle* self = static_cast<StateIdle*>(data);
+    Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
+    self->mCamera->setCamCenter(Vector3(0,0,0));
+    self->mCamera->rotateCamTo(q);
+}
+void StateIdle::btnUndoEvent(void* data)
+{
+}
+void StateIdle::btnDeleteLineEvent(void* data)
 {
 }

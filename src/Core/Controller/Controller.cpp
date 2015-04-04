@@ -55,8 +55,7 @@ State* Controller::state_draw = NULL;
 
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
-*Controller::btnDocSave = NULL;
-
+         *Controller::btnDocSave = NULL;
 
 Controller::Controller()
 {
