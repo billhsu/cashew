@@ -90,7 +90,9 @@ private:
     }
     void runUICallbackList()
     {
-        for_each(uiCallbackList.begin(), uiCallbackList.end(),
-                 [](UICallbackWithObject callbackWithObj){callbackWithObj.callback(callbackWithObj.data);});
+        for(int i=0; i<uiCallbackList.size(); ++i)
+        {
+            uiCallbackList[i].callback(uiCallbackList[i].data);
+        }
     }
 };
