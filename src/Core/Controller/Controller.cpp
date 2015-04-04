@@ -93,6 +93,7 @@ void Controller::MouseButton(int button, int state, int x, int y)
     if(node!=NULL)
     {
         uiHold = 1;
+        if(state==Mouse::MOUSE_UP) uiHold = 0;
     }
     else
     {
