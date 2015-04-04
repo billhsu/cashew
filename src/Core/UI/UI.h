@@ -54,6 +54,19 @@ public:
     }
     static Matrix4 getProjection();
     static Matrix4 getModelView();
+    typedef void (*UICallback)(void* data);
+    struct UICallbackWithObject
+    {
+        UICallback callback;
+        void* data;
+    };
+    static void addToUICallbackList(UICallback callback, void* data = NULL)
+    {
+        UICallbackWithObject callbackWithData;
+        callbackWithData.callback = callback;
+        callbackWithData.data = data;
+        uiCallbackList.push_back(callbackWithData);
+    }
 protected:
     UI();
     virtual ~UI();
@@ -68,4 +81,16 @@ protected:
     std::string luaGetTextureName(const char *nodeName, const char *nodeTexture);
     std::string luaGetNodeText(const char *nodeName);
     LuaTable *UILayout;
+
+private:
+    static std::vector<UICallbackWithObject> uiCallbackList;
+    void clearUICallbackList()
+    {
+        uiCallbackList.clear();
+    }
+    void runUICallbackList()
+    {
+        for_each(uiCallbackList.begin(), uiCallbackList.end(),
+                 [](UICallbackWithObject callbackWithObj){callbackWithObj.callback(callbackWithObj.data);});
+    }
 };

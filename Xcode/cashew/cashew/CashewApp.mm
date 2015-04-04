@@ -31,6 +31,7 @@
 #include "Core/Controller/Mouse.h"
 #include "FileOperations.h"
 #include "FileOperationsCppWrapper.h"
+#include <fstream>
 
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
@@ -101,7 +102,17 @@ FileOperations *fileOperations = [FileOperations alloc];
 
 void saveFile(void* data)
 {
-    std::cout<<showSaveFileDialogWrapper((__bridge void*)fileOperations)<<std::endl;
+    std::string filename = showSaveFileDialogWrapper((__bridge void*)fileOperations);
+    std::cout<<"Saving to "<<filename<<std::endl;
+    std::ofstream fileStream;
+    fileStream.open(filename);
+    fileStream<<"cashew"<<std::endl;
+    fileStream<<Controller::sketchLines.size()<<std::endl;
+    for(int i=0; i<Controller::sketchLines.size(); ++i)
+    {
+        fileStream<<Controller::sketchLines[i].points[0]<<" "<<Controller::sketchLines[i].points[1]<<std::endl;
+    }
+    fileStream.close();
 }
 
 - (void)mouseLeftUp:(NSPoint)locationInWindow;

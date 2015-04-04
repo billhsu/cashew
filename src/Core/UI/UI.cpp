@@ -16,7 +16,7 @@ char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;
 int UI::mWindowWidth, UI::mWindowHeight;
 int UI::mMouseX, UI::mMouseY;
-
+std::vector<UI::UICallbackWithObject> UI::uiCallbackList;
 
 UI::UI()
 {
@@ -159,6 +159,8 @@ UINode* UI::PassiveMotion(int x, int y)
 void UI::update(float timeDelta)
 {
     mRootNode->update(timeDelta);
+    runUICallbackList();
+    clearUICallbackList();
 }
 
 Matrix4 UI::getProjection()

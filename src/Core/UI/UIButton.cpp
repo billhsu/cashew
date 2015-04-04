@@ -34,7 +34,10 @@ void UIButton::MouseButton(int button, int state, int x, int y)
     }
     else if(state == Mouse::MOUSE_UP)
     {
-        if(mCallBackFunc!=NULL && insideNode(x, y)) mCallBackFunc(userDataObject);
+        if(mCallBackFunc!=NULL && insideNode(x, y))
+        {
+            UI::addToUICallbackList(mCallBackFunc, userDataObject);
+        }
         nodeStatus = UINode::NODE_IDLE;
         mTimeAccu = 0.0f;
         if(insideNode(x, y))

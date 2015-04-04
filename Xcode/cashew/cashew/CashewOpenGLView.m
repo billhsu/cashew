@@ -221,6 +221,9 @@
     //[super cursorUpdate:theEvent];
     
     NSLog(@"cursorUpdate");
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
+    [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
 }
 
 @end

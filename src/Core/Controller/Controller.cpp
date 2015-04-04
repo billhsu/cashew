@@ -3,6 +3,8 @@ Shipeng Xu
 billhsu.x@gmail.com
 */
 #include "Controller.h"
+#include "Mouse.h"
+
 #include "Core/State/State.h"
 #include "Core/State/StateIdle.h"
 #include "Core/State/StateSelectPlane.h"
@@ -94,8 +96,8 @@ void Controller::MouseButton(int button, int state, int x, int y)
     }
     else
     {
+        if(uiHold==0) State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
-        State::currState->MouseButton(button, state, x, y);
     }
 }
 
