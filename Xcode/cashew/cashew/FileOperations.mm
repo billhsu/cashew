@@ -14,6 +14,7 @@
 std::string showSaveFileDialogWrapper (void *self) {
     return [(__bridge id) self showSaveFileDialog];
 }
+
 -(std::string) showSaveFileDialog {
     // create the save panel
     NSSavePanel *panel = [NSSavePanel savePanel];
@@ -29,4 +30,23 @@ std::string showSaveFileDialogWrapper (void *self) {
     }
     return filePath;
 }
+
+std::string showOpenFileDialogWrapper (void *self) {
+    return [(__bridge id) self showOpenFileDialog];
+}
+
+-(std::string) showOpenFileDialog {
+    // create the open panel
+    NSOpenPanel *panel = [NSOpenPanel openPanel];
+    
+    std::string filePath = "";
+    // display the panel
+    NSInteger result = [panel runModal];
+    if(result == NSOKButton) {
+        NSString *openURL = [[panel URL] path];
+        filePath = std::string([openURL UTF8String]);
+    }
+    return filePath;
+}
+
 @end

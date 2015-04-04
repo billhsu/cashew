@@ -85,7 +85,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     Controller::btnDocNew = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
                                                         NULL, NULL);
     Controller::btnDocOpen = mController->GUI->addButton(0, "BTN_ID_DOC_OPEN",
-                                                        NULL, NULL);
+                                                        openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
                                                         saveFile, NULL);
     PlaneRenderer::prepareRenderData();
@@ -103,14 +103,39 @@ FileOperations *fileOperations = [FileOperations alloc];
 void saveFile(void* data)
 {
     std::string filename = showSaveFileDialogWrapper((__bridge void*)fileOperations);
+    if(filename=="") return;
     std::cout<<"Saving to "<<filename<<std::endl;
     std::ofstream fileStream;
     fileStream.open(filename);
-    fileStream<<"cashew"<<std::endl;
+    fileStream<<"cashew v1"<<std::endl;
     fileStream<<Controller::sketchLines.size()<<std::endl;
     for(int i=0; i<Controller::sketchLines.size(); ++i)
     {
         fileStream<<Controller::sketchLines[i].points[0]<<" "<<Controller::sketchLines[i].points[1]<<std::endl;
+    }
+    fileStream.close();
+}
+
+void openFile(void* data)
+{
+    std::string filename = showOpenFileDialogWrapper((__bridge void*)fileOperations);
+    if(filename=="") return;
+    std::cout<<"Opening "<<filename<<std::endl;
+    Controller::sketchLines.clear();
+    std::ifstream fileStream;
+    fileStream.open(filename);
+    std::string versionStr;
+    fileStream>>versionStr;
+    std::cout<<"Cashew version: "<<versionStr<<std::endl;
+    int sketchSize;
+    fileStream>>sketchSize;
+    std::cout<<"Sketches: "<<sketchSize<<std::endl;
+    for(int i=0; i<sketchSize; ++i)
+    {
+        Vector3 point1, point2;
+        fileStream>>point1>>point2;
+        LineSegment line = LineSegment(point1, point2);
+        Controller::addLine(line);
     }
     fileStream.close();
 }

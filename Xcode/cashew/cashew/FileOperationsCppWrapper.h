@@ -10,4 +10,5 @@
 #define cashew_FileOperationsCppWrapper_h
 #include <iostream>
 std::string showSaveFileDialogWrapper (void *self);
+std::string showOpenFileDialogWrapper (void *self);
 #endif

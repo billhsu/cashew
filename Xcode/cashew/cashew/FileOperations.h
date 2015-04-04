@@ -13,5 +13,6 @@
 @interface FileOperations : NSObject {
 }
 -(std::string) showSaveFileDialog;
+-(std::string) showOpenFileDialog;
 @end
 #endif
