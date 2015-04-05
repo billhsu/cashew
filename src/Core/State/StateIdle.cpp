@@ -53,26 +53,27 @@ void StateIdle::MouseRightDrag(int dx, int dy)
 
 void StateIdle::prepareState()
 {
-    btnStandardView->setVisibility(true);
-    btnUndo->setVisibility(true);
-    btnDeleteLine->setVisibility(true);
+    btnStandardView->appearIn();
+    btnUndo->appearIn();
+    btnDeleteLine->appearIn();
 }
 
 void StateIdle::postState()
 {
-    btnStandardView->setVisibility(false);
-    btnUndo->setVisibility(false);
-    btnDeleteLine->setVisibility(false);
+    btnStandardView->appearOut();
+    btnUndo->appearOut();
+    btnDeleteLine->appearOut();
 }
 void StateIdle::btnStandardViewEvent(void* data)
 {
     StateIdle* self = static_cast<StateIdle*>(data);
     Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
-    self->mCamera->setCamCenter(Vector3(0,0,0));
+    self->mCamera->setCamCenterTo(Vector3(0,0,0));
     self->mCamera->rotateCamTo(q);
 }
 void StateIdle::btnUndoEvent(void* data)
 {
+    Controller::undoLastOperation();
 }
 void StateIdle::btnDeleteLineEvent(void* data)
 {

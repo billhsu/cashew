@@ -172,3 +172,35 @@ Ray Controller::getCameraRay()
 {
     return camera->getRay(mouseX, mouseY);
 }
+
+void Controller::undoLastOperation()
+{
+    if(lineOperations.size()>0)
+    {
+        LineOperation lineOp = lineOperations.back();
+        lineOperations.pop_back();
+        if(lineOp.operation == OPERATION_ADD_LINE)
+        {
+            for(int i=0; i<sketchLines.size(); ++i)
+            {
+                if(lineOp.lineID == sketchLines[i].ID)
+                {
+                    sketchLines.erase(sketchLines.begin()+i);
+                    break;
+                }
+            }
+        }
+        else if(lineOp.operation == OPERATION_DELETE_LINE)
+        {
+            for(int i=0; i<deletedLines.size(); ++i)
+            {
+                if(lineOp.lineID == deletedLines[i].ID)
+                {
+                    sketchLines.push_back(deletedLines[i]);
+                    deletedLines.erase(deletedLines.begin()+i);
+                    break;
+                }
+            }
+        }
+    }
+}
