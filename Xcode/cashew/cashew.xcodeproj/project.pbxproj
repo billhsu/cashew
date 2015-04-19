@@ -13,6 +13,7 @@
 		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
 		0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */; };
 		0C3B904D1ABD60AE00F7C594 /* LineSketches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B904B1ABD60AE00F7C594 /* LineSketches.cpp */; };
+		0C40ACB71AE35F52001CAC31 /* fontstash.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C40ACB41AE35F52001CAC31 /* fontstash.c */; };
 		0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6031A86213300A5424F /* TextureManager.cpp */; };
 		0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6081A86246200A5424F /* stb_image.cpp */; };
 		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
@@ -79,6 +80,9 @@
 		0C2E4F321A65641D003C6ABF /* PlaneRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaneRenderer.h; sourceTree = "<group>"; };
 		0C3B904B1ABD60AE00F7C594 /* LineSketches.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LineSketches.cpp; path = ../../../../../../src/OpenGL/Impl/Scene/LineSketches.cpp; sourceTree = "<group>"; };
 		0C3B904C1ABD60AE00F7C594 /* LineSketches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineSketches.h; path = ../../../../../../src/OpenGL/Impl/Scene/LineSketches.h; sourceTree = "<group>"; };
+		0C40ACB41AE35F52001CAC31 /* fontstash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fontstash.c; sourceTree = "<group>"; };
+		0C40ACB51AE35F52001CAC31 /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
+		0C40ACB61AE35F52001CAC31 /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
 		0C45C6031A86213300A5424F /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
 		0C45C6041A86213300A5424F /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
 		0C45C6081A86246200A5424F /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
@@ -218,6 +222,17 @@
 			path = ../../../../../src/OpenGL/Impl/Basic;
 			sourceTree = "<group>";
 		};
+		0C40ACB31AE35F52001CAC31 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0C40ACB41AE35F52001CAC31 /* fontstash.c */,
+				0C40ACB51AE35F52001CAC31 /* fontstash.h */,
+				0C40ACB61AE35F52001CAC31 /* stb_truetype.h */,
+			);
+			name = Fonts;
+			path = ../../../../src/OpenGL/Fonts;
+			sourceTree = "<group>";
+		};
 		0C45C6021A86213300A5424F /* TextureManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +248,7 @@
 		0C5F953B1A614F0100BE91E9 /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				0C40ACB31AE35F52001CAC31 /* Fonts */,
 				0C45C6021A86213300A5424F /* TextureManager */,
 				0C7201A51A7DFE4700CFA38F /* DepthPeeling */,
 				0C1EC06B1A6A623B004FA7C2 /* HardwareBuffer */,
@@ -616,6 +632,7 @@
 				0C88898C1A2984C600068098 /* Utility.cpp in Sources */,
 				0C8D442B1A2199B8005421E1 /* CashewApp.mm in Sources */,
 				0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */,
+				0C40ACB71AE35F52001CAC31 /* fontstash.c in Sources */,
 				0C8889931A2AB05300068098 /* StateIdle.cpp in Sources */,
 				0C1EC06E1A6A623B004FA7C2 /* HardwareBuffer.cpp in Sources */,
 				0C8889871A2984C600068098 /* Camera.cpp in Sources */,
