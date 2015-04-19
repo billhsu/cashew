@@ -22,6 +22,8 @@
 #include <string.h>
 #include <math.h> /* @rlyeh: floorf() */
 
+#define STB_TRUETYPE_IMPLEMENTATION  // force following include to generate implementation
+
 #ifdef __APPLE__
 #include <OpenGL/gl3.h>
 #else
@@ -597,14 +599,14 @@ static void flush_draw(struct sth_stash* stash)
 		{			
 			glBindTexture(GL_TEXTURE_2D, texture->id);
 			glEnable(GL_TEXTURE_2D);
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-			glVertexPointer(2, GL_FLOAT, VERT_STRIDE, texture->verts);
-			glTexCoordPointer(2, GL_FLOAT, VERT_STRIDE, texture->verts+2);
-			glDrawArrays(GL_QUADS, 0, texture->nverts);
-			glDisable(GL_TEXTURE_2D);
-			glDisableClientState(GL_VERTEX_ARRAY);
-			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//			glEnableClientState(GL_VERTEX_ARRAY);
+//			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//			glVertexPointer(2, GL_FLOAT, VERT_STRIDE, texture->verts);
+//			glTexCoordPointer(2, GL_FLOAT, VERT_STRIDE, texture->verts+2);
+//			glDrawArrays(GL_QUADS, 0, texture->nverts);
+//			glDisable(GL_TEXTURE_2D);
+//			glDisableClientState(GL_VERTEX_ARRAY);
+//			glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 			texture->nverts = 0;
 		}
 		texture = texture->next;
