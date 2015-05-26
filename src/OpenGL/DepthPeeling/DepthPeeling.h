@@ -1,5 +1,6 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
+#pragma once
 
 #include <OpenGL/gl3.h>
 #include <vector>

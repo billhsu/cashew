@@ -1,5 +1,7 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
+#pragma once
+
 #include <iostream>
 #include <string>
 #include <map>

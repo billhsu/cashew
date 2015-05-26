@@ -56,6 +56,7 @@
 		0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2C1A20A0AE00676D57 /* Images.xcassets */; };
 		0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2E1A20A0AE00676D57 /* MainMenu.xib */; };
 		0C916B3C1A20A0AE00676D57 /* cashewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B3B1A20A0AE00676D57 /* cashewTests.m */; };
+		0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE732541B14928D0049D5FD /* FontRenderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,8 @@
 		0C916B351A20A0AE00676D57 /* cashewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cashewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B3A1A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C916B3B1A20A0AE00676D57 /* cashewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cashewTests.m; sourceTree = "<group>"; };
+		0CE732541B14928D0049D5FD /* FontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontRenderer.cpp; sourceTree = "<group>"; };
+		0CE732551B14928D0049D5FD /* FontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontRenderer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +228,8 @@
 		0C40ACB31AE35F52001CAC31 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				0CE732541B14928D0049D5FD /* FontRenderer.cpp */,
+				0CE732551B14928D0049D5FD /* FontRenderer.h */,
 				0C40ACB41AE35F52001CAC31 /* fontstash.c */,
 				0C40ACB51AE35F52001CAC31 /* fontstash.h */,
 				0C40ACB61AE35F52001CAC31 /* stb_truetype.h */,
@@ -670,6 +675,7 @@
 				0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */,
 				0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */,
 				0C8889921A2AB05300068098 /* State.cpp in Sources */,
+				0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
