@@ -397,7 +397,7 @@ inline int sth_add_glyph_for_char(struct sth_stash* stash,
                                   int x, int y, int w, int h,
                                   float xoffset, float yoffset, float xadvance)
 {
-    unsigned int codepoint;
+    unsigned int codepoint = 0;
 	unsigned int state = 0;
     
     for (; *s; ++s)
