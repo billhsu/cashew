@@ -17,12 +17,12 @@ public:
     }
     struct TextRenderInfo {
         int fontId;
-        int fontSize;
-        int x;
-        int y;
+        float fontSize;
+        float x;
+        float y;
         std::string content;
     };
-    void addText(int fontId, int fontSize, int x, int y, std::string content);
+    void addText(int fontId, float fontSize, float x, float y, std::string content);
     void render(float timeDelta);
 private:
     FontRenderer();
