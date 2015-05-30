@@ -5,8 +5,10 @@
 FontRenderer::FontRenderer() {
     fontList.clear();
     stash = sth_create(512, 512);
-    int font = sth_add_font(stash, "/Library/Fonts/Arial Black.ttf");
-    fontList["Arial Black"] = font;
+    int font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans.ttf");
+    fontList["DroidSans"] = font;
+    font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans-Bold");
+    fontList["DroidSans-Bold"] = font;
 }
 
 void FontRenderer::addText(int fontId, float fontSize, float x, float y, std::string content) {
