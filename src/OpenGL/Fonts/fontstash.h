@@ -39,6 +39,12 @@
 #define TTFONT_MEM  2
 #define BMFONT      3
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#else
+#include <GL/gl.h>
+#endif
+
 /* @rlyeh: removed STB_TRUETYPE_IMPLENTATION. We link it externally */
 #include "stb_truetype.h"
 
