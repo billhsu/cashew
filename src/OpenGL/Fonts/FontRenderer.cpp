@@ -9,6 +9,7 @@
 namespace FontRenderer {
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
+    GLSLShader fontProgram;
     
     float vertexBufferData[MAX_BUFFER_SIZE];
     float uvBufferData[MAX_BUFFER_SIZE];
@@ -40,6 +41,10 @@ namespace FontRenderer {
         
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
+        
+        fontProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/font.vs");
+        fontProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/font.fs");
+        fontProgram.createProgram();
     }
     
     void addText(int fontId, float fontSize, float x, float y, std::string content) {
@@ -58,6 +63,7 @@ namespace FontRenderer {
     }
 
     void render() {
+        fontProgram.bind();
         sth_begin_draw(stash);
         for(int i=0; i<textRenderInfoList.size(); ++i) {
             sth_draw_text(stash, textRenderInfoList[i].fontId,
@@ -69,6 +75,7 @@ namespace FontRenderer {
         }
         sth_end_draw(stash);
         textRenderInfoList.clear();
+        fontProgram.unbind();
     }
     
     void flushDraw(sth_texture* texture) {
@@ -89,8 +96,12 @@ namespace FontRenderer {
         _VBO.uvBufferData = uvBufferData;
         _VBO.uvBufferSize = nvert;
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER | HardwareBuffer::FLAG_UV_BUFFER);
-        buffer.render(GL_QUADS, 2);
+        buffer.render(GL_TRIANGLE_STRIP, 2);
         glBindTexture(GL_TEXTURE_2D, 0);
+    }
+    
+    GLSLShader* getFontShader() {
+        return &fontProgram;
     }
     
     void release() {

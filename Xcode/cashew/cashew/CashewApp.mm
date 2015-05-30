@@ -90,11 +90,13 @@ FileOperations *fileOperations = [FileOperations alloc];
                                                         openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
                                                         saveFile, NULL);
+    mController->GUI->addButton(0,500,0,512,512,
+                                15,15,15,"",NULL,NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
     FontRenderer::prepareRenderData();
-
+    
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);
     depthPeeling->setWindowSize(mController->windowWidth, mController->windowHeight);

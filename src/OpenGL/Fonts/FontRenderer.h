@@ -9,6 +9,8 @@
 extern "C" {
     #include "fontstash.h"
 }
+class GLSLShader;
+
 namespace FontRenderer {
     struct TextRenderInfo {
         int fontId;
@@ -23,4 +25,5 @@ namespace FontRenderer {
     void render();
     void flushDraw(sth_texture* texture);
     void release();
+    GLSLShader* getFontShader();
 };

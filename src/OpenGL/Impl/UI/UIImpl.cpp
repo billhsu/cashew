@@ -5,6 +5,8 @@
 #include "UIButtonImpl.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "OpenGL/Fonts/FontRenderer.h"
+#include "OpenGL/Shader/GLSLShader.h"
+#include "Core/Controller/Controller.h"
 
 UIImpl::UIImpl()
 {
@@ -66,7 +68,16 @@ void UIImpl::render()
     glEnable(GL_BLEND);
 
     mRootNode->render();
+    
+    // Render Font
+    FontRenderer::getFontShader()->bind();
+    GLuint local_modelView = glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "modelView");
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+    GLuint local_projection = glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "projection");
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+    glUniform1i(glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "image0"), 0);
     FontRenderer::render();
+        
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST) ;
