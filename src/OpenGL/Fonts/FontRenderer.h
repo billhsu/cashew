@@ -9,12 +9,7 @@
 extern "C" {
     #include "fontstash.h"
 }
-class FontRenderer {
-public:
-    static FontRenderer& getInstance() {
-        static FontRenderer instance;
-        return instance;
-    }
+namespace FontRenderer {
     struct TextRenderInfo {
         int fontId;
         float fontSize;
@@ -22,11 +17,9 @@ public:
         float y;
         std::string content;
     };
+    void prepareRenderData();
     void addText(int fontId, float fontSize, float x, float y, std::string content);
     void render(float timeDelta);
-private:
-    FontRenderer();
-    struct sth_stash* stash;
-    std::map <std::string, int> fontList;
-    std::vector<TextRenderInfo> textRenderInfoList;
+    void flushDraw(sth_texture* texture);
+    void release();
 };
