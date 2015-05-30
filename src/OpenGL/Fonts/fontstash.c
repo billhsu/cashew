@@ -30,19 +30,8 @@
 #include <GL/gl.h>
 #endif
 
-/* @rlyeh: removed STB_TRUETYPE_IMPLENTATION. We link it externally */
-#include "stb_truetype.h"
-
 #include "fontstash.h"
 
-#define HASH_LUT_SIZE 256
-#define MAX_ROWS 128
-#define VERT_COUNT (6*128)
-#define VERT_STRIDE (sizeof(float)*4)
-
-#define TTFONT_FILE 1
-#define TTFONT_MEM  2
-#define BMFONT      3
 
 static int idx = 1;
 
@@ -58,63 +47,7 @@ static unsigned int hashint(unsigned int a)
 }
 
 
-struct sth_quad
-{
-	float x0,y0,s0,t0;
-	float x1,y1,s1,t1;
-};
 
-struct sth_row
-{
-	short x,y,h;
-};
-
-struct sth_glyph
-{
-	unsigned int codepoint;
-	short size;
-	struct sth_texture* texture;
-	int x0,y0,x1,y1;
-	float xadv,xoff,yoff;
-	int next;
-};
-
-struct sth_font
-{
-	int idx;
-	int type;
-	stbtt_fontinfo font;
-	unsigned char* data;
-	struct sth_glyph* glyphs;
-	int lut[HASH_LUT_SIZE];
-	int nglyphs;
-	float ascender;
-	float descender;
-	float lineh;
-	struct sth_font* next;
-};
-
-struct sth_texture
-{
-	GLuint id;
-	// TODO: replace rows with pointer
-	struct sth_row rows[MAX_ROWS];
-	int nrows;
-	float verts[4*VERT_COUNT];
-	int nverts;
-	struct sth_texture* next;
-};
-
-struct sth_stash
-{
-	int tw,th;
-	float itw,ith;
-	GLubyte *empty_data;
-	struct sth_texture* tt_textures;
-	struct sth_texture* bm_textures;
-	struct sth_font* fonts;
-	int drawing;
-};
 
 
 

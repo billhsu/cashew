@@ -30,6 +30,78 @@
 // not enough memory
 #define STH_ENOMEM -4
 
+#define HASH_LUT_SIZE 256
+#define MAX_ROWS 128
+#define VERT_COUNT (6*128)
+#define VERT_STRIDE (sizeof(float)*4)
+
+#define TTFONT_FILE 1
+#define TTFONT_MEM  2
+#define BMFONT      3
+
+/* @rlyeh: removed STB_TRUETYPE_IMPLENTATION. We link it externally */
+#include "stb_truetype.h"
+
+
+struct sth_quad
+{
+    float x0,y0,s0,t0;
+    float x1,y1,s1,t1;
+};
+
+struct sth_row
+{
+    short x,y,h;
+};
+
+struct sth_glyph
+{
+    unsigned int codepoint;
+    short size;
+    struct sth_texture* texture;
+    int x0,y0,x1,y1;
+    float xadv,xoff,yoff;
+    int next;
+};
+
+struct sth_font
+{
+    int idx;
+    int type;
+    stbtt_fontinfo font;
+    unsigned char* data;
+    struct sth_glyph* glyphs;
+    int lut[HASH_LUT_SIZE];
+    int nglyphs;
+    float ascender;
+    float descender;
+    float lineh;
+    struct sth_font* next;
+};
+
+struct sth_texture
+{
+    GLuint id;
+    // TODO: replace rows with pointer
+    struct sth_row rows[MAX_ROWS];
+    int nrows;
+    float verts[4*VERT_COUNT];
+    int nverts;
+    struct sth_texture* next;
+};
+
+struct sth_stash
+{
+    int tw,th;
+    float itw,ith;
+    GLubyte *empty_data;
+    struct sth_texture* tt_textures;
+    struct sth_texture* bm_textures;
+    struct sth_font* fonts;
+    int drawing;
+};
+
+
 struct sth_stash* sth_create(int cachew, int cacheh);
 
 int sth_add_font(struct sth_stash* stash, const char* path);
