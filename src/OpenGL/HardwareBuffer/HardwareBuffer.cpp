@@ -92,7 +92,7 @@ void HardwareBuffer::setVBOUnitSize(unsigned int vboFlag, int unitSize)
     VBOUnitSize[vboFlag] = unitSize;
 }
 
-void HardwareBuffer::render(GLenum mode)
+void HardwareBuffer::render(GLenum mode, int unitSize)
 {
     checkGlErr(__FILE__, __LINE__);
     glBindVertexArray(vertexArrayObj);
@@ -133,7 +133,7 @@ void HardwareBuffer::render(GLenum mode)
     }
     else
     {
-        glDrawArrays(mode, 0, VBOInfo.vertexBufferSize / 3);
+        glDrawArrays(mode, 0, VBOInfo.vertexBufferSize / unitSize);
     }
     for(int i = 0; i< index; ++i)
     {

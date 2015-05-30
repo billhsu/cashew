@@ -2,14 +2,18 @@
 // billhsu.x@gmail.com
 
 #include "Utility.h"
-#include <iostream>
-#include <string>
-void checkGlErr(const std::string& file, int line)
+#include <stdio.h>
+
+void checkGlErr(const char* file, int line)
 {
 #ifdef DEBUG
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {
-        std::cout << "OpenGL error: " << err <<" "<<file<< " "<<line<<std::endl;
+        printf("OpenGL error: %d - %s %d\n", err, file, line);
     }
 #endif
+}
+
+void check_gl_err(const char* file, int line) {
+    checkGlErr(file, line);
 }

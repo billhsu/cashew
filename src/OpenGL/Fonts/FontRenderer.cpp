@@ -5,6 +5,7 @@
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "OpenGL/Shader/GLSLShader.h"
 #define MAX_BUFFER_SIZE 2048
+
 namespace FontRenderer {
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
@@ -28,7 +29,7 @@ namespace FontRenderer {
         
         VBOInfo.vertexBufferSize = 2;
         VBOInfo.vertexBufferData = vertexBufferData;
-        VBOInfo.uvBufferSize = 1;
+        VBOInfo.uvBufferSize = 2;
         VBOInfo.uvBufferData = uvBufferData;
         unsigned int flags = HardwareBuffer::FLAG_VERTEX_BUFFER
         | HardwareBuffer::FLAG_UV_BUFFER;
@@ -51,6 +52,11 @@ namespace FontRenderer {
         textRenderInfoList.push_back(textRenderInfo);
     }
     
+    void addText(std::string fontName, float fontSize, float x, float y, std::string content) {
+        int fontId = fontList[fontName];
+        addText(fontId, fontSize, x, y, content);
+    }
+
     void render() {
         sth_begin_draw(stash);
         for(int i=0; i<textRenderInfoList.size(); ++i) {
@@ -67,22 +73,23 @@ namespace FontRenderer {
     
     void flushDraw(sth_texture* texture) {
         int nvert = texture->nverts;
+        int vertexIndex = 0;
+        int uvIndex = 0;
         for(int i=0; i<nvert; ++i) {
-            if(i%4 == 0 || i%4 ==1) {
-                vertexBufferData[i/4 + i%4] = texture->verts[i];
-            } else {
-                uvBufferData[i/4 + i%4 - 2] = texture->verts[i];
-            }
+            vertexBufferData[vertexIndex++] = texture->verts[4*i    ];
+            vertexBufferData[vertexIndex++] = texture->verts[4*i + 1];
+            uvBufferData[uvIndex++] = texture->verts[4*i + 2];
+            uvBufferData[uvIndex++] = texture->verts[4*i + 3];
         }
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture->id);
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = vertexBufferData;
-        _VBO.vertexBufferSize = nvert/2;
+        _VBO.vertexBufferSize = nvert;
         _VBO.uvBufferData = uvBufferData;
-        _VBO.uvBufferSize = nvert/2;
+        _VBO.uvBufferSize = nvert;
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER | HardwareBuffer::FLAG_UV_BUFFER);
-        buffer.render();
+        buffer.render(GL_QUADS, 2);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     

@@ -3,6 +3,12 @@
 #pragma once
 
 #import <OpenGL/gl3.h>
-#include <string>
 
-void checkGlErr(const std::string& file, int line);
+void checkGlErr(const char* file, int line);
+#ifdef __cplusplus
+extern "C" {
+#endif
+    void check_gl_err(const char* file, int line);
+#ifdef __cplusplus
+}
+#endif
