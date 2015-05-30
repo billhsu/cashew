@@ -1,7 +1,7 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
-
 #pragma once
+
 class GLSLShader;
 namespace Scene{
     void prepareSceneAxis(float size);

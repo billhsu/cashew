@@ -4,6 +4,8 @@
 #include "UIImpl.h"
 #include "UIButtonImpl.h"
 #include "OpenGL/TextureManager/TextureManager.h"
+#include "OpenGL/Fonts/FontRenderer.h"
+
 UIImpl::UIImpl()
 {
     textureManager = &TextureManager::getInstance();
@@ -64,7 +66,7 @@ void UIImpl::render()
     glEnable(GL_BLEND);
 
     mRootNode->render();
-
+    FontRenderer::render();
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
     glEnable(GL_DEPTH_TEST) ;

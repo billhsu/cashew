@@ -1,5 +1,6 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
+#pragma once
 
 #include "Core/UI/UIButton.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"

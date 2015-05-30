@@ -19,7 +19,7 @@ namespace FontRenderer {
     };
     void prepareRenderData();
     void addText(int fontId, float fontSize, float x, float y, std::string content);
-    void render(float timeDelta);
+    void render();
     void flushDraw(sth_texture* texture);
     void release();
 };

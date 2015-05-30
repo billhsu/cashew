@@ -26,6 +26,8 @@
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
 
+#include "OpenGL/Fonts/FontRenderer.h"
+
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Mouse.h"
@@ -91,6 +93,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
+    FontRenderer::prepareRenderData();
 
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);
@@ -275,6 +278,7 @@ void openFile(void* data)
     Scene::clearScene();
     PointRenderer::release();
     LineSegmentRenderer::release();
+    FontRenderer::release();
     [super clearGLContext];
 }
 

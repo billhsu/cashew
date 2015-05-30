@@ -18,10 +18,13 @@ namespace FontRenderer {
     void prepareRenderData() {
         fontList.clear();
         stash = sth_create(512, 512);
+        std::cout<<"Loading fonts.."<<std::endl;
         int font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans.ttf");
         fontList["DroidSans"] = font;
-        font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans-Bold");
+        std::cout<<"DroidSans "<<font<<std::endl;
+        font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans-Bold.ttf");
         fontList["DroidSans-Bold"] = font;
+        std::cout<<"DroidSans-Bold "<<font<<std::endl;
         
         VBOInfo.vertexBufferSize = 2;
         VBOInfo.vertexBufferData = vertexBufferData;
@@ -48,7 +51,7 @@ namespace FontRenderer {
         textRenderInfoList.push_back(textRenderInfo);
     }
     
-    void render(float timeDelta) {
+    void render() {
         sth_begin_draw(stash);
         for(int i=0; i<textRenderInfoList.size(); ++i) {
             sth_draw_text(stash, textRenderInfoList[i].fontId,
