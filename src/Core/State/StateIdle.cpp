@@ -10,8 +10,7 @@
 #include "Core/UI/UI.h"
 #include "Core/UI/UIButton.h"
 
-StateIdle::StateIdle()
-{
+StateIdle::StateIdle() {
     stateID = STATE_IDLE;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
@@ -21,15 +20,14 @@ StateIdle::StateIdle()
     btnUndo->setVisibility(false);
     btnDeleteLine = Controller::GUI->addButton(stateID*100 + BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, this);
     btnDeleteLine->setVisibility(false);
+    btnMirror = Controller::GUI->addButton(stateID*100 + BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, this);
+    btnMirror->setVisibility(false);
 }
-void StateIdle::MouseButton(int button, int state, int x, int y)
-{
-    if(button == Mouse::MOUSE_SCROLL)
-    {
+void StateIdle::MouseButton(int button, int state, int x, int y) {
+    if(button == Mouse::MOUSE_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
-    else if(button == Mouse::MOUSE_LEFT && state == Mouse::MOUSE_UP)
-    {
+    else if(button == Mouse::MOUSE_LEFT && state == Mouse::MOUSE_UP) {
         Vector3 v;
         mCamera->getPoint(x, y, Controller::sketchLines, v);
         static_cast<StateSelectPlane*>(State::statePool[STATE_SELECT_PLANE])->selectedPoints.clear();
@@ -44,37 +42,36 @@ void StateIdle::MouseButton(int button, int state, int x, int y)
     }
 }
 
-void StateIdle::MouseRightDrag(int dx, int dy)
-{
+void StateIdle::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
     mCamera->rotateCam(Controller::rotate);
 }
 
-void StateIdle::prepareState()
-{
+void StateIdle::prepareState() {
     btnStandardView->appearIn();
     btnUndo->appearIn();
     btnDeleteLine->appearIn();
+    btnMirror->appearIn();
 }
 
-void StateIdle::postState()
-{
+void StateIdle::postState() {
     btnStandardView->appearOut();
     btnUndo->appearOut();
     btnDeleteLine->appearOut();
 }
-void StateIdle::btnStandardViewEvent(void* data)
-{
+void StateIdle::btnStandardViewEvent(void* data) {
     StateIdle* self = static_cast<StateIdle*>(data);
     Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
     self->mCamera->setCamCenterTo(Vector3(0,0,0));
     self->mCamera->rotateCamTo(q);
 }
-void StateIdle::btnUndoEvent(void* data)
-{
+void StateIdle::btnUndoEvent(void* data) {
     Controller::undoLastOperation();
 }
-void StateIdle::btnDeleteLineEvent(void* data)
-{
+void StateIdle::btnDeleteLineEvent(void* data) {
+}
+
+void StateIdle::btnMirrorEvent(void* data) {
+    
 }

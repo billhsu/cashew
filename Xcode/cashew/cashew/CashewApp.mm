@@ -90,8 +90,6 @@ FileOperations *fileOperations = [FileOperations alloc];
                                                         openFile, NULL);
     Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
                                                         saveFile, NULL);
-    mController->GUI->addButton(0,500,0,512,512,
-                                15,15,15,"",NULL,NULL, NULL);
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
@@ -233,7 +231,6 @@ void openFile(void* data)
     mController->render();
     depthPeeling->render();
     glClearColor(0.8, 0.8, 0.8, 1.0);
-    FontRenderer::addText("WenQuanYiMicroHei", 50, 0, 0, "雯佳美少女♥");
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
