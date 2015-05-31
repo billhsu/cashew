@@ -87,16 +87,27 @@ namespace FontRenderer {
             vertexBufferData[vertexIndex++] = texture->verts[4*i + 1];
             uvBufferData[uvIndex++] = texture->verts[4*i + 2];
             uvBufferData[uvIndex++] = texture->verts[4*i + 3];
+            // convert GL_QAUDS to
+            if(i%4==3) {
+                vertexBufferData[vertexIndex++] = texture->verts[4*(i-3)    ];
+                vertexBufferData[vertexIndex++] = texture->verts[4*(i-3) + 1];
+                vertexBufferData[vertexIndex++] = texture->verts[4*(i-1)    ];
+                vertexBufferData[vertexIndex++] = texture->verts[4*(i-1) + 1];
+                uvBufferData[uvIndex++] = texture->verts[4*(i-3) + 2];
+                uvBufferData[uvIndex++] = texture->verts[4*(i-3) + 3];
+                uvBufferData[uvIndex++] = texture->verts[4*(i-1) + 2];
+                uvBufferData[uvIndex++] = texture->verts[4*(i-1) + 3];
+            }
         }
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture->id);
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = vertexBufferData;
-        _VBO.vertexBufferSize = nvert;
+        _VBO.vertexBufferSize = nvert * 6 / 2;
         _VBO.uvBufferData = uvBufferData;
-        _VBO.uvBufferSize = nvert;
+        _VBO.uvBufferSize = nvert * 6 / 2;
         buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER | HardwareBuffer::FLAG_UV_BUFFER);
-        buffer.render(GL_TRIANGLE_STRIP, 2);
+        buffer.render(GL_TRIANGLES, 2);
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     
