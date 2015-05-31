@@ -617,10 +617,10 @@ void sth_draw_text(struct sth_stash* stash,
 		
 		v = &texture->verts[texture->nverts*4];
 		
-		v = setv(v, q.x0, q.y0, q.s0, q.t0);
-		v = setv(v, q.x1, q.y0, q.s1, q.t0);
-		v = setv(v, q.x1, q.y1, q.s1, q.t1);
-		v = setv(v, q.x0, q.y1, q.s0, q.t1);
+		v = setv(v, q.x0, q.y0, q.s0, q.t1);
+		v = setv(v, q.x1, q.y0, q.s1, q.t1);
+		v = setv(v, q.x1, q.y1, q.s1, q.t0);
+		v = setv(v, q.x0, q.y1, q.s0, q.t0);
 		
 		texture->nverts += 4;
 	}
