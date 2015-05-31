@@ -24,9 +24,9 @@ namespace FontRenderer {
         int font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans.ttf");
         fontList["DroidSans"] = font;
         std::cout<<"DroidSans "<<font<<std::endl;
-        font = sth_add_font(stash, "media/fonts/droid-sans/DroidSans-Bold.ttf");
-        fontList["DroidSans-Bold"] = font;
-        std::cout<<"DroidSans-Bold "<<font<<std::endl;
+        font = sth_add_font(stash, "media/fonts/wqy-microhei/WenQuanYiMicroHei.ttf");
+        fontList["WenQuanYiMicroHei"] = font;
+        std::cout<<"WenQuanYiMicroHei "<<font<<std::endl;
         
         VBOInfo.vertexBufferSize = 2;
         VBOInfo.vertexBufferData = vertexBufferData;

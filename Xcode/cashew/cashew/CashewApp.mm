@@ -233,7 +233,7 @@ void openFile(void* data)
     mController->render();
     depthPeeling->render();
     glClearColor(0.8, 0.8, 0.8, 1.0);
-    FontRenderer::addText("DroidSans", 50, 0, 0, "Hello!");
+    FontRenderer::addText("WenQuanYiMicroHei", 50, 0, 0, "雯佳美少女♥");
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
