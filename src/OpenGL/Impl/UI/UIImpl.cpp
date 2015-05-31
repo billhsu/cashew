@@ -72,9 +72,9 @@ void UIImpl::render()
     // Render Font
     FontRenderer::getFontShader()->bind();
     GLuint local_modelView = glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::GUI->getModelView().get());
     GLuint local_projection = glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+    glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::GUI->getProjection().get());
     glUniform1i(glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "image0"), 0);
     FontRenderer::render();
         
