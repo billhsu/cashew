@@ -84,12 +84,10 @@ FileOperations *fileOperations = [FileOperations alloc];
     State::enterState(mController->state_idle);
     
     mController->init();
-    Controller::btnDocNew = mController->GUI->addButton(0, "BTN_ID_DOC_NEW",
-                                                        newFile, NULL);
-    Controller::btnDocOpen = mController->GUI->addButton(0, "BTN_ID_DOC_OPEN",
-                                                        openFile, NULL);
-    Controller::btnDocSave = mController->GUI->addButton(0, "BTN_ID_DOC_SAVE",
-                                                        saveFile, NULL);
+    Controller::btnDocNew->setCallback(newFile);
+    Controller::btnDocOpen->setCallback(openFile);
+    Controller::btnDocSave->setCallback(saveFile);
+    
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();

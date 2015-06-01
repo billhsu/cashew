@@ -111,8 +111,14 @@ public:
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;
-    
-    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
+    enum {BTN_ID_DOC_NEW=500, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE,
+        BTN_ID_STANDARD_VIEW, BTN_ID_UNDO, BTN_ID_DELETE_LINE, BTN_ID_MIRROR};
+    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave,
+                    *btnStandardView, *btnUndo, *btnDeleteLine, *btnMirror;
+    static void btnStandardViewEvent(void* data);
+    static void btnUndoEvent(void* data);
+    static void btnDeleteLineEvent(void* data);
+    static void btnMirrorEvent(void* data);
 
 private:
     Controller();

@@ -55,7 +55,9 @@ State* Controller::state_draw = NULL;
 
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
-         *Controller::btnDocSave = NULL;
+         *Controller::btnDocSave = NULL,
+         *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL,
+         *Controller::btnDeleteLine = NULL, *Controller::btnMirror = NULL;
 
 Controller::Controller()
 {
@@ -81,6 +83,19 @@ void Controller::init()
 
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
+    
+    // Add buttons
+    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW",
+                               NULL, NULL);
+    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN",
+                                NULL, NULL);
+    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE",
+                                NULL, NULL);
+    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", btnStandardViewEvent, NULL);
+    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
+    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, NULL);
+    btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
+    
 }
 void Controller::MouseButton(int button, int state, int x, int y)
 {
@@ -203,4 +218,18 @@ void Controller::undoLastOperation()
             }
         }
     }
+}
+
+void Controller::btnStandardViewEvent(void* data) {
+    State::currState->UIEvent(btnStandardView, 0);
+}
+void Controller::btnUndoEvent(void* data) {
+    undoLastOperation();
+}
+void Controller::btnDeleteLineEvent(void* data) {
+    
+}
+
+void Controller::btnMirrorEvent(void* data) {
+    
 }

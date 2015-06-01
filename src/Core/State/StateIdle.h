@@ -11,12 +11,5 @@ public:
     void MouseRightDrag(int dx, int dy);
     void prepareState();
     void postState();
-    enum{BTN_ID_STANDARD_VIEW, BTN_ID_UNDO, BTN_ID_DELETE_LINE, BTN_ID_MIRROR};
-protected:
-    UIButton *btnStandardView, *btnUndo, *btnDeleteLine, *btnMirror;
-private:
-    static void btnStandardViewEvent(void* data);
-    static void btnUndoEvent(void* data);
-    static void btnDeleteLineEvent(void* data);
-    static void btnMirrorEvent(void* data);
+    void UIEvent(UINode* sender, int event);
 };
