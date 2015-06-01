@@ -20,7 +20,7 @@ class UI
 public:
     void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
-    
+    UINode* getNodeById(int id);
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);
     
