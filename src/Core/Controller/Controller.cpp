@@ -59,13 +59,11 @@ UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL,
          *Controller::btnDeleteLine = NULL, *Controller::btnMirror = NULL;
 
-Controller::Controller()
-{
+Controller::Controller() {
     std::cout <<"Controller Controller()"<<std::endl;
 }
 
-Controller::~Controller()
-{
+Controller::~Controller() {
     delete state_idle;
     delete state_select_plane;
     delete state_draw;
@@ -74,8 +72,7 @@ Controller::~Controller()
 }
 
 
-void Controller::init()
-{
+void Controller::init() {
     luaState = luaL_newstate();
     luaL_openlibs( luaState );
 
@@ -97,64 +94,52 @@ void Controller::init()
     btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
     
 }
-void Controller::MouseButton(int button, int state, int x, int y)
-{
+void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
     UINode* node = GUI->MouseButton(button, state, x, y);
-    if(node!=NULL)
-    {
+    if(node!=NULL) {
         uiHold = 1;
         if(state==Mouse::MOUSE_UP) uiHold = 0;
-    }
-    else
-    {
+    } else {
         if(uiHold==0) State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
     }
 }
 
-void Controller::MouseRightDrag(int x, int y, int dx, int dy)
-{
+void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
     if(uiHold==0) State::currState->MouseRightDrag(dx, dy);
 }
 
-void Controller::MouseLeftDrag(int x, int y, int dx, int dy)
-{
+void Controller::MouseLeftDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
     if(uiHold==0) State::currState->MouseLeftDrag(dx, dy);
 }
-void Controller::PassiveMotion(int x, int y)
-{
+void Controller::PassiveMotion(int x, int y) {
     //std::cout<<x<<" "<<y<<std::endl;
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
     GUI->PassiveMotion(x, y);
-    if(camera->getPoint(x, y, sketchLines, p))
-    {
+    if(camera->getPoint(x, y, sketchLines, p)) {
         currPoint = p;
         bCurrPoint = true;
-    }
-    else bCurrPoint = false;
+    } else bCurrPoint = false;
     if(uiHold==0) State::currState->PassiveMotion(x, y);
 }
-void Controller::Keyboard(unsigned char key, unsigned char status)
-{
+void Controller::Keyboard(unsigned char key, unsigned char status) {
     State::currState->Keyboard(key, status);
 }
 
-void Controller::update(float timeDelta)
-{
+void Controller::update(float timeDelta) {
     modelView.identity();
     int result = camera->update(timeDelta);
-    if(result == Camera::UPDATE_ANIM_DONE)
-    {
+    if(result == Camera::UPDATE_ANIM_DONE) {
         rotate = Quaternion::toEuler(camera->getRotateQuaternion());
     }
     State::currState->update(timeDelta);
@@ -162,13 +147,11 @@ void Controller::update(float timeDelta)
     GUI->update(timeDelta);
 }
 
-void Controller::render()
-{
+void Controller::render() {
     State::currState->render();
 }
 
-void Controller::resize(int _width, int _height)
-{
+void Controller::resize(int _width, int _height) {
     windowWidth = _width;
     windowHeight = _height;
     GUI->resize(_width, _height);
@@ -178,39 +161,28 @@ void Controller::resize(int _width, int _height)
     camera->setProjection(projection);
 }
 
-bool Controller::getCameraPoint(Vector3& p, const Plane& plane)
-{
+bool Controller::getCameraPoint(Vector3& p, const Plane& plane) {
     return camera->getPoint(mouseX, mouseY, sketchLines, p, plane);
 }
 
-Ray Controller::getCameraRay()
-{
+Ray Controller::getCameraRay() {
     return camera->getRay(mouseX, mouseY);
 }
 
-void Controller::undoLastOperation()
-{
-    if(lineOperations.size()>0)
-    {
+void Controller::undoLastOperation() {
+    if(lineOperations.size()>0) {
         LineOperation lineOp = lineOperations.back();
         lineOperations.pop_back();
-        if(lineOp.operation == OPERATION_ADD_LINE)
-        {
-            for(int i=0; i<sketchLines.size(); ++i)
-            {
-                if(lineOp.lineID == sketchLines[i].ID)
-                {
+        if(lineOp.operation == OPERATION_ADD_LINE) {
+            for(int i=0; i<sketchLines.size(); ++i) {
+                if(lineOp.lineID == sketchLines[i].ID) {
                     sketchLines.erase(sketchLines.begin()+i);
                     break;
                 }
             }
-        }
-        else if(lineOp.operation == OPERATION_DELETE_LINE)
-        {
-            for(int i=0; i<deletedLines.size(); ++i)
-            {
-                if(lineOp.lineID == deletedLines[i].ID)
-                {
+        } else if(lineOp.operation == OPERATION_DELETE_LINE) {
+            for(int i=0; i<deletedLines.size(); ++i) {
+                if(lineOp.lineID == deletedLines[i].ID) {
                     sketchLines.push_back(deletedLines[i]);
                     deletedLines.erase(deletedLines.begin()+i);
                     break;
