@@ -36,7 +36,7 @@ public:
         std::cout<<state<<" - ";
         std::cout<<"enterState: "<<state->stateID<<std::endl;
     }
-    enum {STATE_IDLE, STATE_SELECT_PLANE, STATE_DRAW, STATE_ID_MAX};
+    enum {STATE_IDLE, STATE_SELECT_PLANE, STATE_DRAW, STATE_DELETE, STATE_ID_MAX};
     static State* statePool[STATE_ID_MAX];
 
 protected:
