@@ -50,5 +50,7 @@ void StateIdle::UIEvent(UINode* sender, int event) {
         Quaternion q = Quaternion::fromEuler(Vector3(-90,0,0));
         mCamera->setCamCenterTo(Vector3(0,0,0));
         mCamera->rotateCamTo(q);
+    } else if(sender->nodeID == Controller::BTN_ID_DELETE_LINE) {
+        enterState(State::statePool[STATE_DELETE]);
     }
 }

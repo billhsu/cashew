@@ -13,7 +13,7 @@ StateDelete::StateDelete() {
     stateID = STATE_DELETE;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
-    btnDeleteDone = Controller::GUI->addButton(stateID*100 + BTN_ID_DELETE_LINE_DONE, "BTN_ID_DELETE_LINE_DONE", btnDeleteDoneEvent, this);
+    btnDeleteDone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_DELETE_LINE_DONE, "BTN_ID_DELETE_LINE_DONE", btnDeleteDoneEvent, this);
     btnDeleteDone->setVisibility(false);
 }
 void StateDelete::MouseButton(int button, int state, int x, int y) {

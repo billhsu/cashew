@@ -14,7 +14,7 @@ StateDraw::StateDraw()
     internalState = STATE_DRAW_IDLE;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
-    btnDrawPlaneDone = Controller::GUI->addButton(stateID*100 + BTN_ID_DRAW_PLANE_DONE, "BTN_ID_DRAW_PLANE_DONE", btnDrawPlaneDoneEvent, this);
+    btnDrawPlaneDone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_DRAW_PLANE_DONE, "BTN_ID_DRAW_PLANE_DONE", btnDrawPlaneDoneEvent, this);
     btnDrawPlaneDone->setVisibility(false);
 }
 

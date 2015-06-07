@@ -200,7 +200,7 @@ void Controller::btnUndoEvent(void* data) {
     undoLastOperation();
 }
 void Controller::btnDeleteLineEvent(void* data) {
-    
+    State::currState->UIEvent(btnDeleteLine, 0);
 }
 
 void Controller::btnMirrorEvent(void* data) {
