@@ -17,6 +17,7 @@
 #include "OpenGL/Impl/State/StateIdleImpl.h"
 #include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
 #include "OpenGL/Impl/State/StateDrawImpl.h"
+#include "OpenGL/Impl/State/StateDeleteImpl.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Impl/UI/UIImpl.h"
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
@@ -81,6 +82,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     mController->state_idle = new StateIdleImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
     mController->state_draw = new StateDrawImpl();
+    mController->state_delete = new StateDeleteImpl();
     State::enterState(mController->state_idle);
     
     mController->init();

@@ -8,7 +8,7 @@ billhsu.x@gmail.com
 #include "Core/State/State.h"
 #include "Core/State/StateIdle.h"
 #include "Core/State/StateSelectPlane.h"
-//#include "Core/State/StateDeleteLine.h"
+#include "Core/State/StateDelete.h"
 #include "Core/State/StateDraw.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Scripting/luaUtility.h"
@@ -52,7 +52,7 @@ lua_State *Controller::luaState = NULL;
 State* Controller::state_idle = NULL;
 State* Controller::state_select_plane = NULL;
 State* Controller::state_draw = NULL;
-
+State* Controller::state_delete = NULL;
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
          *Controller::btnDocSave = NULL,
@@ -67,6 +67,7 @@ Controller::~Controller() {
     delete state_idle;
     delete state_select_plane;
     delete state_draw;
+    delete state_delete;
     lua_close(luaState);
     std::cout <<"Controller ~Controller()"<<std::endl;
 }

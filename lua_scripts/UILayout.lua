@@ -59,7 +59,9 @@ BTN_ID_DRAW_PLANE_DONE = {
 
 BTN_ID_DELETE_LINE_DONE = {
     pos = {x="window_width - BTN_ID_DELETE_LINE_DONE.size.width", y="window_height - 2 * BTN_ID_DELETE_LINE_DONE.size.height"},
-    size = {width="60", height="60"}
+    textures = {idle = "media/textures/button_confirm.png", hover = "media/textures/button_confirm.png", press = "media/textures/button_confirm.png"},
+    size = {width="60", height="60"},
+    text = "Done"
 }
 --------------------
 BTN_ID_STANDARD_VIEW = {

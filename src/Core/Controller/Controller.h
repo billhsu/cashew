@@ -104,6 +104,7 @@ public:
     static State* state_idle;
     static State* state_select_plane;
     static State* state_draw;
+    static State* state_delete;
     
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane);
@@ -111,7 +112,7 @@ public:
     static bool enableLight;
     static Vector3 rotate;
     static lua_State *luaState;
-    enum {BTN_ID_DOC_NEW=500, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE,
+    enum {BTN_ID_DOC_NEW=10, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE,
         BTN_ID_STANDARD_VIEW, BTN_ID_UNDO, BTN_ID_DELETE_LINE, BTN_ID_MIRROR};
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave,
                     *btnStandardView, *btnUndo, *btnDeleteLine, *btnMirror;
