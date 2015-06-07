@@ -20,7 +20,7 @@ namespace Scene{
         GLuint local_thickness = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
         glUniform1f(local_thickness, 0.03f);
         GLuint local_lineColor = glGetUniformLocation(LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
-        glUniform4f(local_lineColor, 0.545, 0, 1, 0.9f);
+        glUniform4f(local_lineColor, 0.545, 0.2, 1, 0.9f);
         LineSegmentRenderer::getLineSegmentList().clear();
         for(int i=0; i<Controller::sketchLines.size(); ++i)
         {

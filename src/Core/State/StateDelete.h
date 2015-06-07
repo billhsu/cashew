@@ -8,6 +8,7 @@ public:
     StateDelete();
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
+    void PassiveMotion(int x, int y);
     void prepareState();
     void postState();
     void UIEvent(UINode* sender, int event);
@@ -15,4 +16,6 @@ public:
 protected:
     UIButton *btnDeleteDone;
     static void btnDeleteDoneEvent(void* data);
+    LineSegment currentLine;
+    bool isCurrentLineSelected;
 };

@@ -15,13 +15,25 @@ StateDelete::StateDelete() {
     statePool[stateID] = this;
     btnDeleteDone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_DELETE_LINE_DONE, "BTN_ID_DELETE_LINE_DONE", btnDeleteDoneEvent, this);
     btnDeleteDone->setVisibility(false);
+    isCurrentLineSelected = false;
 }
 void StateDelete::MouseButton(int button, int state, int x, int y) {
     if(button == Mouse::MOUSE_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
+    if(button == Mouse::MOUSE_LEFT) {
+        if(mCamera->getLine(Controller::mouseX, Controller::mouseY, Controller::sketchLines, currentLine) >= 0) {
+            Controller::delLine(currentLine);
+        }
+    }
 }
-
+void StateDelete::PassiveMotion(int x, int y) {
+    if(mCamera->getLine(Controller::mouseX, Controller::mouseY, Controller::sketchLines, currentLine) >= 0) {
+        isCurrentLineSelected = true;
+    } else {
+        isCurrentLineSelected = false;
+    }
+}
 void StateDelete::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
@@ -44,5 +56,5 @@ void StateDelete::UIEvent(UINode* sender, int event) {
 }
 
 void StateDelete::btnDeleteDoneEvent(void* data) {
-    
+    enterState(State::statePool[STATE_IDLE]);
 }

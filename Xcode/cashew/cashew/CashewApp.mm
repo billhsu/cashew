@@ -230,7 +230,7 @@ void openFile(void* data)
     GLuint local_projection;
     mController->render();
     depthPeeling->render();
-    glClearColor(0.8, 0.8, 0.8, 1.0);
+    glClearColor(0.5, 0.5, 0.5, 1.0);
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
