@@ -49,6 +49,13 @@ public:
         renderCallbackList.push_back(callbackWithData);
     }
     
+    void setBackgroundColor(float r, float g, float b, float a) {
+        backgroundColor[0] = r;
+        backgroundColor[1] = g;
+        backgroundColor[2] = b;
+        backgroundColor[3] = a;
+    }
+    
 private:
     DepthPeeling()
     {
@@ -65,6 +72,10 @@ private:
         windowWidth  = 0;
         windowHeight = 0;
         passCount    = 0;
+        backgroundColor[0] = 0;
+        backgroundColor[1] = 0;
+        backgroundColor[2] = 0;
+        backgroundColor[3] = 1;
     }
     ~DepthPeeling();
     void setColorTextureSize(GLuint texture, int width, int height);
@@ -100,4 +111,5 @@ private:
         for_each(renderCallbackList.begin(), renderCallbackList.end(),
                  [](RenderCallbackWithObject callbackWithObj){callbackWithObj.callback(callbackWithObj.data);});
     }
+    float backgroundColor[4];
 };

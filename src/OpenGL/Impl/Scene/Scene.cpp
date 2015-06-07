@@ -71,15 +71,15 @@ namespace Scene{
             gridVertex[span * i + 23] = size;
             
             
-            gridColor[span * i + 0] = 0.3f; gridColor[span * i + 1] = 0.3f; gridColor[span * i + 2] = 0.3f;
-            gridColor[span * i + 3] = 0.3f; gridColor[span * i + 4] = 0.3f; gridColor[span * i + 5] = 0.3f;
-            gridColor[span * i + 6] = 0.3f; gridColor[span * i + 7] = 0.3f; gridColor[span * i + 8] = 0.3f;
-            gridColor[span * i + 9] = 0.3f; gridColor[span * i + 10] = 0.3f; gridColor[span * i + 11] = 0.3f;
+            gridColor[span * i + 0] = 0.5f; gridColor[span * i + 1] = 0.5f; gridColor[span * i + 2] = 0.5f;
+            gridColor[span * i + 3] = 0.5f; gridColor[span * i + 4] = 0.5f; gridColor[span * i + 5] = 0.5f;
+            gridColor[span * i + 6] = 0.5f; gridColor[span * i + 7] = 0.5f; gridColor[span * i + 8] = 0.5f;
+            gridColor[span * i + 9] = 0.5f; gridColor[span * i + 10] = 0.5f; gridColor[span * i + 11] = 0.5f;
             
-            gridColor[span * i + 12] = 0.3f; gridColor[span * i + 13] = 0.3f; gridColor[span * i + 14] = 0.3f;
-            gridColor[span * i + 15] = 0.3f; gridColor[span * i + 16] = 0.3f; gridColor[span * i + 17] = 0.3f;
-            gridColor[span * i + 18] = 0.3f; gridColor[span * i + 19] = 0.3f; gridColor[span * i + 20] = 0.3f;
-            gridColor[span * i + 21] = 0.3f; gridColor[span * i + 22] = 0.3f; gridColor[span * i + 23] = 0.3f;
+            gridColor[span * i + 12] = 0.5f; gridColor[span * i + 13] = 0.5f; gridColor[span * i + 14] = 0.5f;
+            gridColor[span * i + 15] = 0.5f; gridColor[span * i + 16] = 0.5f; gridColor[span * i + 17] = 0.5f;
+            gridColor[span * i + 18] = 0.5f; gridColor[span * i + 19] = 0.5f; gridColor[span * i + 20] = 0.5f;
+            gridColor[span * i + 21] = 0.5f; gridColor[span * i + 22] = 0.5f; gridColor[span * i + 23] = 0.5f;
         }
         glGenBuffers(1, &sceneGridVertexBuffer);
         glGenBuffers(1, &sceneGridColorBuffer);

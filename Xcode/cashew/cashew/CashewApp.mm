@@ -43,6 +43,8 @@ TextureManager* textureManager;
 Controller *mController = &Controller::getInstance();
 FileOperations *fileOperations = [FileOperations alloc];
 
+#define BACKGROUND_COLOR 0.2f, 0.2f, 0.2f, 1
+
 @interface CashewApp : NSObject <CashewOpenGLViewDelegate, CashewInputDelegate>
 
 @end
@@ -99,6 +101,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     depthPeeling->setPassCount(2);
     depthPeeling->setWindowSize(mController->windowWidth, mController->windowHeight);
     depthPeeling->init();
+    depthPeeling->setBackgroundColor(BACKGROUND_COLOR);
     
     return YES;
 }
@@ -230,7 +233,7 @@ void openFile(void* data)
     GLuint local_projection;
     mController->render();
     depthPeeling->render();
-    glClearColor(0.5, 0.5, 0.5, 1.0);
+    glClearColor(BACKGROUND_COLOR);
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE, mController->GUI->getModelView().get());
@@ -260,7 +263,7 @@ void openFile(void* data)
     [super prepareOpenGL];
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
-    glClearColor(0.8, 0.8, 0.8, 1.0);
+    glClearColor(BACKGROUND_COLOR);
     NSString *resourcePath = [[NSBundle mainBundle] resourcePath];
     [[NSFileManager defaultManager] changeCurrentDirectoryPath:resourcePath];
     NSLog(@"%@", resourcePath);
