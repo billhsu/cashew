@@ -22,7 +22,7 @@ StateDrawImpl::~StateDrawImpl()
 
 void StateDrawImpl::render()
 {
-    Vector4 color = Vector4(0.3,0.3,0.3,0.4);
+    Vector4 color = Vector4(0.1,0.1,0.1,0.9);
     Vector3 center(0,0,0);
     for(int i=0;i<selectedPoints.size();++i)
     {
