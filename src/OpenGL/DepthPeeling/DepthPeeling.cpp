@@ -139,6 +139,7 @@ void DepthPeeling::compoPass(GLuint depthTexture, GLuint colorTexture, GLuint co
 
 void DepthPeeling::render()
 {
+    glBlendEquation(GL_MAX);
     glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, 0);
     clearTextures(compoDepth1, compoTexture1);
     clearTextures(depthTexture2, colorTexture2);
@@ -161,6 +162,7 @@ void DepthPeeling::render()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     buffer.render();
     compoProgram.unbind();
+    glBlendEquation(GL_FUNC_ADD);
     glDisable(GL_BLEND);
     glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, 0);
     glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, 0);

@@ -29,7 +29,7 @@ void StateSelectPlaneImpl::render()
         center += selectedPoints[i];
     }
     center /= selectedPoints.size();
-    Vector4 color = Vector4(0.1,0.1,0.1,0.9);
+    Vector4 color = Vector4(0.3,0.3,0.3,0.1);
     currentPlane = Controller::currPlane;
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
