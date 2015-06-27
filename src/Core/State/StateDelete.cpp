@@ -24,6 +24,7 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     if(button == Mouse::MOUSE_LEFT) {
         if(mCamera->getLine(Controller::mouseX, Controller::mouseY, Controller::sketchLines, currentLine) >= 0) {
             Controller::delLine(currentLine);
+            isCurrentLineSelected = false;
         }
     }
 }

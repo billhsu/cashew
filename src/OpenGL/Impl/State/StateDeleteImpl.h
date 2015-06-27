@@ -16,4 +16,5 @@ public:
 private:
     DepthPeeling* depthPeeling;
     TextureManager* textureManager;
+    static void renderCurrentLine(void* data);
 };
