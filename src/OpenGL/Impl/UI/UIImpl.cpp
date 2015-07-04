@@ -69,6 +69,10 @@ void UIImpl::render()
 
     mRootNode->render();
     
+    if(strcmp(uiHintText,"") != 0) {
+        FontRenderer::addText("WenQuanYiMicroHei", 20, hintTextPosX, hintTextPosY, uiHintText);
+    }
+    
     // Render Font
     FontRenderer::getFontShader()->bind();
     GLuint local_modelView = glGetUniformLocation(FontRenderer::getFontShader()->getProgram(), "modelView");
@@ -80,5 +84,7 @@ void UIImpl::render()
         
     glDepthMask(GL_TRUE);
     glDisable(GL_BLEND);
-    glEnable(GL_DEPTH_TEST) ;
+    glEnable(GL_DEPTH_TEST);
+    // Clear the UI hint text
+    strcpy(uiHintText, "");
 }
