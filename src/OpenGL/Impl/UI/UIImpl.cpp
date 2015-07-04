@@ -70,7 +70,7 @@ void UIImpl::render()
     mRootNode->render();
     
     if(strcmp(uiHintText,"") != 0) {
-        FontRenderer::addText("WenQuanYiMicroHei", 20, hintTextPosX, hintTextPosY, Vector3(0.1,0.2,0.3), uiHintText);
+        FontRenderer::addText("WenQuanYiMicroHei", 20, hintTextPosX, hintTextPosY, Vector3(0.545, 0.2, 1), uiHintText);
     }
     
     // Render Font
