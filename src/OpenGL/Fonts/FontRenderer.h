@@ -10,6 +10,7 @@ extern "C" {
     #include "fontstash.h"
 }
 class GLSLShader;
+class Vector3;
 
 namespace FontRenderer {
     struct TextRenderInfo {
@@ -17,11 +18,12 @@ namespace FontRenderer {
         float fontSize;
         float x;
         float y;
+        float color[3];
         std::string content;
     };
     void prepareRenderData();
-    void addText(int fontId, float fontSize, float x, float y, std::string content);
-    void addText(std::string fontName, float fontSize, float x, float y, std::string content);
+    void addText(int fontId, float fontSize, float x, float y, Vector3 color, std::string content);
+    void addText(std::string fontName, float fontSize, float x, float y, Vector3 color, std::string content);
     void render();
     void flushDraw(sth_texture* texture);
     void release();

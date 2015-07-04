@@ -580,6 +580,7 @@ void sth_end_draw(struct sth_stash* stash)
 void sth_draw_text(struct sth_stash* stash,
 				   int idx, float size,
 				   float x, float y,
+                   float r, float g, float b,
 				   const char* s, float* dx)
 {
 	unsigned int codepoint;
@@ -621,6 +622,23 @@ void sth_draw_text(struct sth_stash* stash,
         v = setv(v, q.x1, q.y0, q.s1, q.t0);
         v = setv(v, q.x1, q.y1, q.s1, q.t1);
         v = setv(v, q.x0, q.y1, q.s0, q.t1);
+        
+        v = &texture->colors[texture->nverts*3];
+        v[0] = r;
+        v[1] = g;
+        v[2] = b;
+        
+        v[3] = r;
+        v[4] = g;
+        v[5] = b;
+        
+        v[6] = r;
+        v[7] = g;
+        v[8] = b;
+        
+        v[ 9] = r;
+        v[10] = g;
+        v[11] = b;
 		
 		texture->nverts += 4;
 	}

@@ -91,7 +91,13 @@ struct sth_texture
     // TODO: replace rows with pointer
     struct sth_row rows[MAX_ROWS];
     int nrows;
+    // verts[0 + 4*i] & verts[1 + 4*i]: x, y position
+    // verts[2 + 4*i] & verts[3 + 4*i]: u, v of texture
     float verts[4*VERT_COUNT];
+
+    // for each 3 float pairs in colors
+    // [r, g, b]
+    float colors[3 * VERT_COUNT];
     int nverts;
     struct sth_texture* next;
 };
@@ -126,7 +132,9 @@ void sth_end_draw(struct sth_stash* stash);
 
 void sth_draw_text(struct sth_stash* stash,
 				   int idx, float size,
-				   float x, float y, const char* string, float* dx);
+				   float x, float y,
+                   float r, float g, float b,
+                   const char* string, float* dx);
 
 void sth_dim_text(struct sth_stash* stash, int idx, float size, const char* string,
 				  float* minx, float* miny, float* maxx, float* maxy);

@@ -52,7 +52,7 @@ void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
         bufferUpdate<float>(vertexBuffer, vboStruct.vertexBufferSize, vboStruct.vertexBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
-    
+
     if(vboFlag & FLAG_UV_BUFFER)
     {
         VBOInfo.uvBufferData = vboStruct.uvBufferData;
@@ -60,7 +60,7 @@ void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
         bufferUpdate<float>(uvBuffer, vboStruct.uvBufferSize, vboStruct.uvBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
-    
+
     if(vboFlag & FLAG_COLOR_BUFFER)
     {
         VBOInfo.colorBufferData = vboStruct.colorBufferData;
@@ -68,7 +68,7 @@ void HardwareBuffer::updateVBO(const VBOStruct vboStruct, unsigned int vboFlag)
         bufferUpdate<float>(colorBuffer, vboStruct.colorBufferSize, vboStruct.colorBufferData,
                              GL_ARRAY_BUFFER, GL_DYNAMIC_DRAW);
     }
-    
+
     if(vboFlag & FLAG_INDEX_BUFFER)
     {
         VBOInfo.indexBufferData = vboStruct.indexBufferData;
