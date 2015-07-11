@@ -60,6 +60,8 @@
 		0C916B3C1A20A0AE00676D57 /* cashewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B3B1A20A0AE00676D57 /* cashewTests.m */; };
 		0C925C751B197D6B00B304F9 /* FlushDrawWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C925C731B197D6B00B304F9 /* FlushDrawWrapper.cpp */; };
 		0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE732541B14928D0049D5FD /* FontRenderer.cpp */; };
+		0CE999331B510C1D003378BF /* UILabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999311B510C1D003378BF /* UILabel.cpp */; };
+		0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999341B510C65003378BF /* UILabelImpl.cpp */; };
 		0CEC95121B2414260069AAEC /* StateDeleteImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +181,10 @@
 		0C925C741B197D6B00B304F9 /* FlushDrawWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlushDrawWrapper.h; sourceTree = "<group>"; };
 		0CE732541B14928D0049D5FD /* FontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontRenderer.cpp; sourceTree = "<group>"; };
 		0CE732551B14928D0049D5FD /* FontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontRenderer.h; sourceTree = "<group>"; };
+		0CE999311B510C1D003378BF /* UILabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UILabel.cpp; sourceTree = "<group>"; };
+		0CE999321B510C1D003378BF /* UILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabel.h; sourceTree = "<group>"; };
+		0CE999341B510C65003378BF /* UILabelImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UILabelImpl.cpp; path = ../../../../../../src/OpenGL/Impl/UI/UILabelImpl.cpp; sourceTree = "<group>"; };
+		0CE999351B510C65003378BF /* UILabelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UILabelImpl.h; path = ../../../../../../src/OpenGL/Impl/UI/UILabelImpl.h; sourceTree = "<group>"; };
 		0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDeleteImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.cpp; sourceTree = "<group>"; };
 		0CEC95111B2414260069AAEC /* StateDeleteImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDeleteImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -317,6 +323,8 @@
 		0C5F95451A614F0100BE91E9 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				0CE999341B510C65003378BF /* UILabelImpl.cpp */,
+				0CE999351B510C65003378BF /* UILabelImpl.h */,
 				0C5F95461A614F0100BE91E9 /* UIButtonImpl.cpp */,
 				0C5F95471A614F0100BE91E9 /* UIButtonImpl.h */,
 				0C5F95481A614F0100BE91E9 /* UIImpl.cpp */,
@@ -359,6 +367,8 @@
 			children = (
 				0C77641D1A3C7ABE0010E1BB /* UI.cpp */,
 				0C77641E1A3C7ABE0010E1BB /* UI.h */,
+				0CE999311B510C1D003378BF /* UILabel.cpp */,
+				0CE999321B510C1D003378BF /* UILabel.h */,
 				0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */,
 				0C7764201A3C7ABE0010E1BB /* UIButton.h */,
 				0C7764211A3C7ABE0010E1BB /* UINode.cpp */,
@@ -684,11 +694,13 @@
 				0C916B291A20A0AE00676D57 /* CashewAppDelegate.mm in Sources */,
 				0C3B904D1ABD60AE00F7C594 /* LineSketches.cpp in Sources */,
 				0C634FD51A30A35A0085E502 /* StateSelectPlane.cpp in Sources */,
+				0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */,
 				0C0118161AC6F64A0042E1CC /* FileOperations.mm in Sources */,
 				0C8D44271A218473005421E1 /* CashewOpenGLView.m in Sources */,
 				0C5F954E1A614F0100BE91E9 /* UIButtonImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */,
+				0CE999331B510C1D003378BF /* UILabel.cpp in Sources */,
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
