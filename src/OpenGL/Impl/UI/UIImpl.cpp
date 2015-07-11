@@ -3,19 +3,18 @@
 
 #include "UIImpl.h"
 #include "UIButtonImpl.h"
+#include "UILabelImpl.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "OpenGL/Fonts/FontRenderer.h"
 #include "OpenGL/Shader/GLSLShader.h"
 #include "Core/Controller/Controller.h"
 
-UIImpl::UIImpl()
-{
+UIImpl::UIImpl() {
     textureManager = &TextureManager::getInstance();
 }
 UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
                         uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                        const char* text, void (*callback)(void* data), void* userData, UINode* parent)
-{
+                        const char* text, void (*callback)(void* data), void* userData, UINode* parent) {
     UIButtonImpl* button;
     if(parent==NULL) button = new UIButtonImpl(mRootNode);
     else button = new UIButtonImpl(parent);
@@ -35,8 +34,7 @@ UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
 }
 
 UIButton* UIImpl::addButton(int id, const char* strID,
-                                void (*callback)(void* data), void* userData, UINode* parent)
-{
+                                void (*callback)(void* data), void* userData, UINode* parent) {
     int x = luaGetNodePosX(strID);
     int y = luaGetNodePosY(strID);
     int width  = luaGetNodeWidth (strID);
@@ -55,13 +53,24 @@ UIButton* UIImpl::addButton(int id, const char* strID,
     return button;
 }
 
-void UIImpl::prepareRenderData()
-{
+UILabel* UIImpl::addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color) {
+    UILabelImpl* label;
+    if(parent==NULL) label = new UILabelImpl(mRootNode);
+    else label = new UILabelImpl(parent);
+    
+    label->setText(text);
+    label->setSize(width, height);
+    label->setPos(x, y);
+    label->setColor(color);
+    nodeList.push_back(label);
+    return label;
+}
+
+void UIImpl::prepareRenderData() {
     mRootNode->prepareRenderData();
 }
 
-void UIImpl::render()
-{
+void UIImpl::render() {
     glDisable(GL_DEPTH_TEST);
     glDepthMask(GL_FALSE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

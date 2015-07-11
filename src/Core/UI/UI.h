@@ -13,10 +13,10 @@
 
 class LuaTable;
 class UIButton;
+class UILabel;
 class UINode;
 
-class UI
-{
+class UI {
 public:
     void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
@@ -27,41 +27,36 @@ public:
     void update(float timeDelta);
     virtual UIButton* addButton(int id, int x, int y, int width, int height,
                                     uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                                    const char* text, void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL){return NULL;};
+                                    const char* text, void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL) {return NULL;}
     
     virtual UIButton* addButton(int id, const char* strID,
-                                    void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL){return NULL;};
-
+                                    void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL) {return NULL;}
+    
+    virtual UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color) {return NULL;}
 
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-    virtual void render(){}
-    static int getWindowWidth()
-    {
+    virtual void render() {}
+    static int getWindowWidth() {
         return mWindowWidth;
     }
-    static int getWindowHeight()
-    {
+    static int getWindowHeight() {
         return mWindowHeight;
     }
-    static int getMouseX()
-    {
+    static int getMouseX() {
         return mMouseX;
     }
-    static int getMouseY()
-    {
+    static int getMouseY() {
         return mMouseY;
     }
     static Matrix4 getProjection();
     static Matrix4 getModelView();
     typedef void (*UICallback)(void* data);
-    struct UICallbackWithObject
-    {
+    struct UICallbackWithObject {
         UICallback callback;
         void* data;
     };
-    static void addToUICallbackList(UICallback callback, void* data = NULL)
-    {
+    static void addToUICallbackList(UICallback callback, void* data = NULL) {
         UICallbackWithObject callbackWithData;
         callbackWithData.callback = callback;
         callbackWithData.data = data;
@@ -84,14 +79,11 @@ protected:
 
 private:
     static std::vector<UICallbackWithObject> uiCallbackList;
-    void clearUICallbackList()
-    {
+    void clearUICallbackList() {
         uiCallbackList.clear();
     }
-    void runUICallbackList()
-    {
-        for(int i=0; i<uiCallbackList.size(); ++i)
-        {
+    void runUICallbackList() {
+        for(int i=0; i<uiCallbackList.size(); ++i) {
             uiCallbackList[i].callback(uiCallbackList[i].data);
         }
     }
