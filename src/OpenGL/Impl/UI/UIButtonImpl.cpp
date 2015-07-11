@@ -3,12 +3,10 @@
 
 #include "UIButtonImpl.h"
 
-UIButtonImpl::~UIButtonImpl()
-{
+UIButtonImpl::~UIButtonImpl() {
     std::cout<<"~UIButtonImpl("<<this<<")"<<std::endl;
 }
-void UIButtonImpl::render()
-{
+void UIButtonImpl::render() {
     verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
     verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
     verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
@@ -24,8 +22,7 @@ void UIButtonImpl::render()
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void UIButtonImpl::prepareRenderData()
-{
+void UIButtonImpl::prepareRenderData() {
     uvArray[0] = 0.0f; uvArray[1] = 0.0f;
     uvArray[2] = 1.0f; uvArray[3] = 0.0f;
     uvArray[4] = 1.0f; uvArray[5] = 1.0f;
@@ -39,16 +36,21 @@ void UIButtonImpl::prepareRenderData()
     VBOInfo.vertexBufferData = verticesArray;
     VBOInfo.uvBufferSize = sizeof(uvArray) / sizeof(float);
     VBOInfo.uvBufferData = uvArray;
+    VBOInfo.colorBufferSize = sizeof(colorArray) / sizeof(float);
+    VBOInfo.colorBufferData = colorArray;
     VBOInfo.indexBufferSize = sizeof(indices) / sizeof(int);
     VBOInfo.indexBufferData = indices;
     unsigned int flags = HardwareBuffer::FLAG_VERTEX_BUFFER
     | HardwareBuffer::FLAG_UV_BUFFER
+    | HardwareBuffer::FLAG_COLOR_BUFFER
     | HardwareBuffer::FLAG_INDEX_BUFFER;
 
     buffer.initVBO(VBOInfo, flags);
     buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
     buffer.setVBOLocation(HardwareBuffer::FLAG_UV_BUFFER, 1);
+    buffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 2);
     
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
+    buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
 }

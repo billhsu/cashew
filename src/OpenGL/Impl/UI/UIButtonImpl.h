@@ -7,11 +7,9 @@
 #include <iostream>
 #include <OpenGL/gl3.h>
 
-class UIButtonImpl : public UIButton
-{
+class UIButtonImpl : public UIButton {
 public:
-    UIButtonImpl(UINode* parent) : UIButton(parent), indices{0,1,2, 0,2,3}
-    {
+    UIButtonImpl(UINode* parent) : UIButton(parent), indices{0,1,2, 0,2,3} {
         std::cout<<"UIButtonImpl("<<this<<")"<<std::endl;
     };
     ~UIButtonImpl();
