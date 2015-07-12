@@ -9,8 +9,12 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "Core/Controller/Controller.h"
 
+#define UI_HINT_LABEL_ID 321
+
 UIImpl::UIImpl() {
     textureManager = &TextureManager::getInstance();
+    UIHintLabel = addLabel(UI_HINT_LABEL_ID, 0, 0, 100, 100, "Test", Vector4(0.5,0.5,0.5,0.5));
+//    UIHintLabel->setVisibility(false);
 }
 UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
                         uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
@@ -53,7 +57,7 @@ UIButton* UIImpl::addButton(int id, const char* strID,
     return button;
 }
 
-UILabel* UIImpl::addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color) {
+UILabel* UIImpl::addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color, UINode* parent) {
     UILabelImpl* label;
     if(parent==NULL) label = new UILabelImpl(mRootNode);
     else label = new UILabelImpl(parent);
@@ -62,6 +66,7 @@ UILabel* UIImpl::addLabel(int id, int x, int y, int width, int height, const cha
     label->setSize(width, height);
     label->setPos(x, y);
     label->setColor(color);
+    label->prepareRenderData();
     nodeList.push_back(label);
     return label;
 }

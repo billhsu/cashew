@@ -20,6 +20,7 @@ private:
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
     float verticesArray[8];
+    float uvArray[8];
     float colorArray[16];
     int indices[6];
 };

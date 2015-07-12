@@ -11,16 +11,17 @@
 #include "Core/Scripting/luatables.h"
 #include "UINode.h"
 #include "UIButton.h"
+#include "UILabel.h"
 
 char UI::uiHintText[128];
 int UI::hintTextPosX, UI::hintTextPosY;
 int UI::mWindowWidth, UI::mWindowHeight;
 int UI::mMouseX, UI::mMouseY;
+
 std::vector<UI::UICallbackWithObject> UI::uiCallbackList;
 
 UI::UI() {
     mRootNode = new UINode(NULL);
-    
     UILayout = LuaTable::fromFile("lua_scripts/UILayout.lua");
     std::cout <<"UI()"<<std::endl;
 }

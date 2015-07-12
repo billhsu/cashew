@@ -23,7 +23,7 @@ public:
     
     UIButton* addButton(int id, const char* strID,
                         void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL);
-    UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color);
+    UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color, UINode* parent = NULL);
     void setShader(GLuint shader) {shaderProgram = shader;}
     void render();
 
@@ -31,4 +31,5 @@ private:
     UIImpl();
     GLuint shaderProgram;
     TextureManager* textureManager;
+    UILabel* UIHintLabel;
 };

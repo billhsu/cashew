@@ -32,7 +32,7 @@ public:
     virtual UIButton* addButton(int id, const char* strID,
                                     void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL) {return NULL;}
     
-    virtual UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color) {return NULL;}
+    virtual UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color, UINode* parent = NULL) {return NULL;}
 
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
