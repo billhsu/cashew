@@ -83,7 +83,9 @@ void UIImpl::render() {
     if(strcmp(uiHintText,"") != 0) {
         UIHintLabel->setText(uiHintText);
         UIHintLabel->setPos(hintTextPosX, hintTextPosY + 20);
-        UIHintLabel->setSize(100, 100);
+        float fontW = 0, fontH = 0;
+        FontRenderer::getTextBoundingBox("WenQuanYiMicroHei", 20, uiHintText, &fontW, &fontH);
+        UIHintLabel->setSize(fontW + 10, fontH + 10);
     } else {
         UIHintLabel->setText("");
         UIHintLabel->setPos(0, 0);

@@ -70,6 +70,11 @@ namespace FontRenderer {
         int fontId = fontList[fontName];
         addText(fontId, fontSize, x, y, color, content);
     }
+    
+    void getTextBoundingBox(std::string fontName, float fontSize, std::string content, float* width, float* height) {
+        int fontId = fontList[fontName];
+        sth_get_text_bounding_box(stash, fontId, fontSize, content.c_str(), width, height);
+    }
 
     void render() {
         fontProgram.bind();

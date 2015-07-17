@@ -576,7 +576,55 @@ void sth_end_draw(struct sth_stash* stash)
 	flush_draw(stash);
 	stash->drawing = 0;
 }
-
+void sth_get_text_bounding_box(struct sth_stash* stash,
+                               int idx, float size,
+                               const char* s,
+                               float *width, float *height) {
+    float x = 0;
+    float y = 0;
+    unsigned int codepoint;
+    struct sth_glyph* glyph = NULL;
+    struct sth_texture* texture = NULL;
+    unsigned int state = 0;
+    struct sth_quad q;
+    short isize = (short)(size*10.0f);
+    struct sth_font* fnt = NULL;
+    
+    if (stash == NULL)
+        return;
+    
+    fnt = stash->fonts;
+    while(fnt != NULL && fnt->idx != idx) fnt = fnt->next;
+    if (fnt == NULL)
+        return;
+    if (fnt->type != BMFONT && !fnt->data)
+        return;
+    int xMin = 0, xMax = 0;
+    int yMin = 0, yMax = 0;
+    for (; *s; ++s)
+    {
+        if (decutf8(&state, &codepoint, *(unsigned char*)s))
+            continue;
+        glyph = get_glyph(stash, fnt, codepoint, isize);
+        if (!glyph)
+            continue;
+        texture = glyph->texture;
+        if (!get_quad(stash, fnt, glyph, isize, &x, &y, &q))
+            continue;
+        if (q.x0<xMin) xMin = q.x0;
+        if (q.x0>xMax) xMax = q.x0;
+        if (q.x1<xMin) xMin = q.x1;
+        if (q.x1>xMax) xMax = q.x1;
+        
+        if (q.y0<yMin) yMin = q.y0;
+        if (q.y0>yMax) yMax = q.y0;
+        if (q.y1<yMin) yMin = q.y1;
+        if (q.y1>yMax) yMax = q.y1;
+    }
+    
+    *width = xMax - xMin;
+    *height = yMax - yMin;
+}
 void sth_draw_text(struct sth_stash* stash,
 				   int idx, float size,
 				   float x, float y,
