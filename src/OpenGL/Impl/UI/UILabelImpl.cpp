@@ -3,24 +3,26 @@
 
 #include "UILabelImpl.h"
 #include "OpenGL/Fonts/FontRenderer.h"
+#include "OpenGL/TextureManager/TextureManager.h"
 
 UILabelImpl::~UILabelImpl() {
     std::cout<<"~UILabelImpl("<<this<<")"<<std::endl;
 }
 void UILabelImpl::render() {
-    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX, mPosY, Vector3(0.545, 0.2, 1), "hello");
+    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX, mPosY + 20, Vector3(0.545, 0.2, 1), "hello");
     verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
     verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
     verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
     verticesArray[6] = vertices[3].x; verticesArray[7] = vertices[3].y;
     
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindTexture(GL_TEXTURE_2D, textureId);
     HardwareBuffer::VBOStruct _VBO;
     _VBO.vertexBufferData = verticesArray;
     _VBO.vertexBufferSize = sizeof(verticesArray) / sizeof(float);
     buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
     buffer.render();
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void UILabelImpl::prepareRenderData() {
@@ -54,4 +56,6 @@ void UILabelImpl::prepareRenderData() {
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+    textureManager = &TextureManager::getInstance();
+    textureId = textureManager->getTexture("media/textures/FFFFFF-0.5.png").glTextureID;
 }

@@ -66,6 +66,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     textureManager->loadTexture("media/textures/social-icon.png", 4);
     textureManager->loadTexture("media/textures/point_3.png", 4);
     textureManager->loadTexture("media/textures/point_4.png", 4);
+    textureManager->loadTexture("media/textures/FFFFFF-0.5.png", 4);
     
     UIProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/UI.vs");
     UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");

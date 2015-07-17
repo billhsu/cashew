@@ -6,6 +6,7 @@
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include <iostream>
 #include <OpenGL/gl3.h>
+class TextureManager;
 
 class UILabelImpl : public UILabel {
 public:
@@ -23,4 +24,6 @@ private:
     float uvArray[8];
     float colorArray[16];
     int indices[6];
+    int textureId;
+    TextureManager* textureManager;
 };
