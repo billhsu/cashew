@@ -18,6 +18,5 @@ public:
     void update(float timeDelta);
     
     Vector2 vertices[4];
-    Vector4 backgroundColor;
 private:
 };

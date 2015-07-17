@@ -13,7 +13,7 @@
 
 UIImpl::UIImpl() {
     textureManager = &TextureManager::getInstance();
-    UIHintLabel = addLabel(UI_HINT_LABEL_ID, 0, 0, 100, 100, "Test", Vector4(0.5,0.5,0.5,0.1));
+    UIHintLabel = addLabel(UI_HINT_LABEL_ID, 0, 0, 100, 100, "Test", Vector4(1,1,1,0.5));
 //    UIHintLabel->setVisibility(false);
 }
 UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,

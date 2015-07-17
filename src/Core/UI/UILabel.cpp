@@ -21,7 +21,10 @@ void UILabel::setText(const char* text) {
 }
 
 void UILabel::setColor(Vector4 color) {
-    backgroundColor = color;
+    mR = color.r;
+    mG = color.g;
+    mB = color.b;
+    mAlpha = color.a;
 }
 
 void UILabel::update(float timeDelta) {

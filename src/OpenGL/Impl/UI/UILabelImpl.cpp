@@ -57,5 +57,5 @@ void UILabelImpl::prepareRenderData() {
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
     buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
     textureManager = &TextureManager::getInstance();
-    textureId = textureManager->getTexture("media/textures/FFFFFF-0.5.png").glTextureID;
+    textureId = textureManager->getTexture("media/textures/FFFFFF-1.png").glTextureID;
 }
