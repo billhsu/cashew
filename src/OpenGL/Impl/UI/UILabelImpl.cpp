@@ -9,7 +9,7 @@ UILabelImpl::~UILabelImpl() {
     std::cout<<"~UILabelImpl("<<this<<")"<<std::endl;
 }
 void UILabelImpl::render() {
-    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX, mPosY + 20, Vector3(0.545, 0.2, 1), "hello");
+    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX, mPosY + 20, Vector3(0.545, 0.2, 1), mText);
     verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
     verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
     verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;

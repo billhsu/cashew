@@ -13,8 +13,7 @@
 
 UIImpl::UIImpl() {
     textureManager = &TextureManager::getInstance();
-    UIHintLabel = addLabel(UI_HINT_LABEL_ID, 0, 0, 100, 100, "Test", Vector4(1,1,1,0.5));
-//    UIHintLabel->setVisibility(false);
+    UIHintLabel = addLabel(UI_HINT_LABEL_ID, 0, 0, 0, 0, "UIHint", Vector4(1,1,1,0.5));
 }
 UIButton* UIImpl::addButton(int id, int x, int y, int width, int height,
                         uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
@@ -80,12 +79,18 @@ void UIImpl::render() {
     glDepthMask(GL_FALSE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
-
-    mRootNode->render();
     
     if(strcmp(uiHintText,"") != 0) {
-        FontRenderer::addText("WenQuanYiMicroHei", 20, hintTextPosX, hintTextPosY, Vector3(0.545, 0.2, 1), uiHintText);
+        UIHintLabel->setText(uiHintText);
+        UIHintLabel->setPos(hintTextPosX, hintTextPosY + 20);
+        UIHintLabel->setSize(100, 100);
+    } else {
+        UIHintLabel->setText("");
+        UIHintLabel->setPos(0, 0);
+        UIHintLabel->setSize(0, 0);
     }
+
+    mRootNode->render();
     
     // Render Font
     FontRenderer::getFontShader()->bind();
