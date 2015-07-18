@@ -54,9 +54,8 @@ State* Controller::state_select_plane = NULL;
 State* Controller::state_draw = NULL;
 State* Controller::state_delete = NULL;
 UI* Controller::GUI = NULL;
-UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL,
-         *Controller::btnDocSave = NULL,
-         *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL,
+UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL, *Controller::btnDocSave = NULL,
+         *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
          *Controller::btnDeleteLine = NULL, *Controller::btnMirror = NULL;
 
 Controller::Controller() {
@@ -91,6 +90,7 @@ void Controller::init() {
                                 NULL, NULL);
     btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", btnStandardViewEvent, NULL);
     btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
+    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", NULL, NULL);
     btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, NULL);
     btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
     

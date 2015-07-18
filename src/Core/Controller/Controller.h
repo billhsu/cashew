@@ -115,7 +115,7 @@ public:
     enum {BTN_ID_DOC_NEW=10, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE,
         BTN_ID_STANDARD_VIEW, BTN_ID_UNDO, BTN_ID_DELETE_LINE, BTN_ID_MIRROR};
     static UIButton *btnDocNew, *btnDocOpen, *btnDocSave,
-                    *btnStandardView, *btnUndo, *btnDeleteLine, *btnMirror;
+                    *btnStandardView, *btnUndo, *btnRedo, *btnDeleteLine, *btnMirror;
     static void btnStandardViewEvent(void* data);
     static void btnUndoEvent(void* data);
     static void btnDeleteLineEvent(void* data);

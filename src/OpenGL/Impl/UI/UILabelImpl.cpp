@@ -13,7 +13,7 @@ void UILabelImpl::render() {
     FontRenderer::getTextBoundingBox("WenQuanYiMicroHei", 20, mText, &fontW, &fontH);
     float offsetX = (mWidth - fontW) / 2.f;
     float offsetY = (mHeight - fontH) / 2.f;
-    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX + offsetX, mPosY + fontH + offsetY, Vector3(0.545, 0.2, 1), mText);
+    FontRenderer::addText("WenQuanYiMicroHei", 20, mPosX + offsetX, mPosY + fontH + offsetY, Vector3(0.1f, 0.1f, 0.1f), mText);
     verticesArray[0] = vertices[0].x; verticesArray[1] = vertices[0].y;
     verticesArray[2] = vertices[1].x; verticesArray[3] = vertices[1].y;
     verticesArray[4] = vertices[2].x; verticesArray[5] = vertices[2].y;
