@@ -121,12 +121,8 @@ void UIButton::update(float timeDelta)
 
     if(nodeStatus == NODE_HOVER && mTimeAccu >= 600)
     {
-        offset_x = 0.0f;
-        offset_y = 0.0f;
-        if(UI::getMouseX()>=UI::getWindowWidth() - mWidth - 100) offset_x = - (strlen(mText) * 9);
-        if(UI::getMouseY()>=UI::getWindowHeight() - mHeight - 100) offset_y = - 15;
         strcpy(UI::uiHintText, mText);
-        UI::hintTextPosX = UI::getMouseX() + offset_x;
-        UI::hintTextPosY = UI::getMouseY() + offset_y;
+        UI::hintTextPosX = UI::getMouseX();
+        UI::hintTextPosY = UI::getMouseY();
     }
 }

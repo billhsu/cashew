@@ -1,22 +1,25 @@
 window_width = 800
 window_height = 600
 --------------------
+BTN_LEFT_MARGIN_LEFT = 10
+BTN_LEFT_MARGIN_TOP = 80
+BTN_LEFT_INTERVAL_VERTICAL = 50
 BTN_ID_DOC_NEW = {
-   pos = {x="window_width - BTN_ID_DOC_NEW.size.width", y="BTN_ID_DOC_NEW.size.height*2 - BTN_ID_DOC_NEW.size.height*1"},
+   pos = {x="BTN_LEFT_MARGIN_LEFT", y="BTN_LEFT_MARGIN_TOP"},
    textures = {idle = "media/textures/button_document_new.png", hover = "media/textures/button_document_new.png", press = "media/textures/button_document_new.png"},
    size = {width="40", height="40"},
    text = "New Sketch"
 }
 
 BTN_ID_DOC_OPEN = {
-    pos = {x="window_width - BTN_ID_DOC_OPEN.size.width", y="BTN_ID_DOC_OPEN.size.height*2"},
+    pos = {x="BTN_LEFT_MARGIN_LEFT", y="BTN_LEFT_MARGIN_TOP + BTN_LEFT_INTERVAL_VERTICAL"},
     textures = {idle = "media/textures/button_document_open.png", hover = "media/textures/button_document_open.png", press = "media/textures/button_document_open.png"},
     size = {width="40", height="40"},
     text = "Open Sketch"
 }
 
 BTN_ID_DOC_SAVE = {
-    pos = {x="window_width - BTN_ID_DOC_SAVE.size.width", y="BTN_ID_DOC_SAVE.size.height*2 + BTN_ID_DOC_SAVE.size.height*1"},
+    pos = {x="BTN_LEFT_MARGIN_LEFT", y="BTN_LEFT_MARGIN_TOP + BTN_LEFT_INTERVAL_VERTICAL * 2"},
     textures = {idle = "media/textures/button_document_save.png", hover = "media/textures/button_document_save.png", press = "media/textures/button_document_save.png"},
     size = {width="40", height="40"},
     text = "Save Sketch"
