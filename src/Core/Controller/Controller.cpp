@@ -40,7 +40,9 @@ bool Controller::enableLight = false;
 
 std::vector<LineSegment> Controller::sketchLines;
 std::vector<LineSegment> Controller::deletedLines;
+std::vector<LineSegment> Controller::redoLines;
 std::vector<Controller::LineOperation> Controller::lineOperations;
+std::vector<Controller::LineOperation> Controller::redoOperations;
 
 Vector3 Controller::currPoint = Vector3(0,0,0);
 bool Controller::bCurrPoint = false;
@@ -90,7 +92,7 @@ void Controller::init() {
                                 NULL, NULL);
     btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", btnStandardViewEvent, NULL);
     btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
-    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", NULL, NULL);
+    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
     btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, NULL);
     btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
     
@@ -173,10 +175,12 @@ Ray Controller::getCameraRay() {
 void Controller::undoLastOperation() {
     if(lineOperations.size()>0) {
         LineOperation lineOp = lineOperations.back();
+        redoOperations.push_back(lineOp);
         lineOperations.pop_back();
         if(lineOp.operation == OPERATION_ADD_LINE) {
             for(int i=0; i<sketchLines.size(); ++i) {
                 if(lineOp.lineID == sketchLines[i].ID) {
+                    redoLines.push_back(sketchLines[i]);
                     sketchLines.erase(sketchLines.begin()+i);
                     break;
                 }
@@ -185,6 +189,7 @@ void Controller::undoLastOperation() {
             for(int i=0; i<deletedLines.size(); ++i) {
                 if(lineOp.lineID == deletedLines[i].ID) {
                     sketchLines.push_back(deletedLines[i]);
+                    redoLines.push_back(deletedLines[i]);
                     deletedLines.erase(deletedLines.begin()+i);
                     break;
                 }
@@ -193,12 +198,39 @@ void Controller::undoLastOperation() {
     }
 }
 
+void Controller::redoLastOperation() {
+    if(redoOperations.size()>0) {
+        LineOperation lineOp = redoOperations.back();
+        redoOperations.pop_back();
+        bool idFound = false;
+        int idPos = 0;
+        for(int i=0; i<redoLines.size(); ++i) {
+            if(lineOp.lineID == redoLines[i].ID) {
+                idFound = true;
+                idPos = i;
+                break;
+            }
+        }
+        if (!idFound) return;
+        if(lineOp.operation == OPERATION_ADD_LINE) {
+            addLine(redoLines[idPos]);
+        } else if (lineOp.operation == OPERATION_DELETE_LINE) {
+            delLine(redoLines[idPos]);
+        }
+        redoLines.erase(redoLines.begin() + idPos);
+    }
+}
 void Controller::btnStandardViewEvent(void* data) {
     State::currState->UIEvent(btnStandardView, 0);
 }
 void Controller::btnUndoEvent(void* data) {
     undoLastOperation();
 }
+
+void Controller::btnRedoEvent(void* data) {
+    redoLastOperation();
+}
+
 void Controller::btnDeleteLineEvent(void* data) {
     State::currState->UIEvent(btnDeleteLine, 0);
 }

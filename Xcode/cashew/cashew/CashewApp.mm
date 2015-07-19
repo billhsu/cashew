@@ -117,7 +117,9 @@ void newFile(void* data)
     {
         Controller::sketchLines.clear();
         Controller::lineOperations.clear();
+        Controller::redoOperations.clear();
         Controller::deletedLines.clear();
+        Controller::redoLines.clear();
     }
 }
 
@@ -159,7 +161,9 @@ void openFile(void* data)
         Controller::addLine(line);
     }
     Controller::lineOperations.clear();
+    Controller::redoOperations.clear();
     Controller::deletedLines.clear();
+    Controller::redoLines.clear();
     fileStream.close();
 }
 

@@ -57,7 +57,9 @@ public:
 
     static std::vector<LineSegment> sketchLines;
     static std::vector<LineSegment> deletedLines;
+    static std::vector<LineSegment> redoLines;
     static std::vector<LineOperation> lineOperations;
+    static std::vector<LineOperation> redoOperations;
     static void addLine(LineSegment l)
     {
         static int IDCounter = 0;
@@ -85,6 +87,7 @@ public:
         }
     }
     static void undoLastOperation();
+    static void redoLastOperation();
     static Plane currPlane; // Plane to draw
     static Vector3 currPoint;
     static bool bCurrPoint;
@@ -118,6 +121,7 @@ public:
                     *btnStandardView, *btnUndo, *btnRedo, *btnDeleteLine, *btnMirror;
     static void btnStandardViewEvent(void* data);
     static void btnUndoEvent(void* data);
+    static void btnRedoEvent(void* data);
     static void btnDeleteLineEvent(void* data);
     static void btnMirrorEvent(void* data);
 
