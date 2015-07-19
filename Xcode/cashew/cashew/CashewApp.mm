@@ -9,6 +9,7 @@
 #import <OpenGL/gl3.h>
 #import "CashewOpenGLView.h"
 #import "CashewInputController.h"
+#import "ChooseMirrorWindowController.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
 #include "OpenGL/Impl/Scene/Scene.h"
@@ -165,6 +166,9 @@ void openFile(void* data)
     Controller::deletedLines.clear();
     Controller::redoLines.clear();
     fileStream.close();
+}
+
+void chooseMirror(void* data) {
 }
 
 - (void)mouseLeftUp:(NSPoint)locationInWindow;

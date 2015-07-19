@@ -25,7 +25,6 @@
 - (void)update:(NSTimeInterval)timeInterval;
 - (void)render;
 - (void)reshapeWidth:(int)width height:(int)height;
-
 @end
 
 #define Set_OpenGLViewDelegate(classname) \

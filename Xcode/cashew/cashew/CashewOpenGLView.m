@@ -219,7 +219,6 @@
 - (void)cursorUpdate:(NSEvent *)theEvent
 {
     //[super cursorUpdate:theEvent];
-    
     NSLog(@"cursorUpdate");
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;

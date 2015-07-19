@@ -63,6 +63,7 @@
 		0CE999331B510C1D003378BF /* UILabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999311B510C1D003378BF /* UILabel.cpp */; };
 		0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999341B510C65003378BF /* UILabelImpl.cpp */; };
 		0CEC95121B2414260069AAEC /* StateDeleteImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */; };
+		0CF48CE51B5BAA3200061902 /* ChooseMirrorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CF48CE41B5BAA3200061902 /* ChooseMirrorWindowController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,6 +188,8 @@
 		0CE999351B510C65003378BF /* UILabelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UILabelImpl.h; path = ../../../../../../src/OpenGL/Impl/UI/UILabelImpl.h; sourceTree = "<group>"; };
 		0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDeleteImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.cpp; sourceTree = "<group>"; };
 		0CEC95111B2414260069AAEC /* StateDeleteImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDeleteImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.h; sourceTree = "<group>"; };
+		0CF48CE41B5BAA3200061902 /* ChooseMirrorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseMirrorWindowController.m; sourceTree = "<group>"; };
+		0CF48CE61B5BD8B300061902 /* ChooseMirrorWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChooseMirrorWindowController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -518,6 +521,8 @@
 				0C8D441C1A218473005421E1 /* CashewInputController.m */,
 				0C8D441D1A218473005421E1 /* CashewOpenGLInfoHelper.h */,
 				0C8D441E1A218473005421E1 /* CashewOpenGLInfoHelper.m */,
+				0CF48CE61B5BD8B300061902 /* ChooseMirrorWindowController.h */,
+				0CF48CE41B5BAA3200061902 /* ChooseMirrorWindowController.m */,
 				0C8D441F1A218473005421E1 /* CashewOpenGLView.h */,
 				0C8D44201A218473005421E1 /* CashewOpenGLView.m */,
 				0C916B271A20A0AE00676D57 /* CashewAppDelegate.h */,
@@ -702,6 +707,7 @@
 				0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */,
 				0CE999331B510C1D003378BF /* UILabel.cpp in Sources */,
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
+				0CF48CE51B5BAA3200061902 /* ChooseMirrorWindowController.m in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
