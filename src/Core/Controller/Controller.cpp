@@ -55,6 +55,8 @@ State* Controller::state_idle = NULL;
 State* Controller::state_select_plane = NULL;
 State* Controller::state_draw = NULL;
 State* Controller::state_delete = NULL;
+State* Controller::state_mirror = NULL;
+
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL, *Controller::btnDocSave = NULL,
          *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
@@ -69,6 +71,7 @@ Controller::~Controller() {
     delete state_select_plane;
     delete state_draw;
     delete state_delete;
+    delete state_mirror;
     lua_close(luaState);
     std::cout <<"Controller ~Controller()"<<std::endl;
 }
@@ -236,5 +239,5 @@ void Controller::btnDeleteLineEvent(void* data) {
 }
 
 void Controller::btnMirrorEvent(void* data) {
-    
+    State::enterState(state_mirror);
 }

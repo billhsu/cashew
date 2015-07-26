@@ -58,6 +58,8 @@
 		0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2E1A20A0AE00676D57 /* MainMenu.xib */; };
 		0C916B3C1A20A0AE00676D57 /* cashewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B3B1A20A0AE00676D57 /* cashewTests.m */; };
 		0C925C751B197D6B00B304F9 /* FlushDrawWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C925C731B197D6B00B304F9 /* FlushDrawWrapper.cpp */; };
+		0CC49AEC1B64E391007BC02A /* StateMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AEB1B64E391007BC02A /* StateMirror.cpp */; };
+		0CC49AEF1B64E9A0007BC02A /* StateMirrorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AED1B64E9A0007BC02A /* StateMirrorImpl.cpp */; };
 		0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE732541B14928D0049D5FD /* FontRenderer.cpp */; };
 		0CE999331B510C1D003378BF /* UILabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999311B510C1D003378BF /* UILabel.cpp */; };
 		0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999341B510C65003378BF /* UILabelImpl.cpp */; };
@@ -178,6 +180,10 @@
 		0C916B3B1A20A0AE00676D57 /* cashewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cashewTests.m; sourceTree = "<group>"; };
 		0C925C731B197D6B00B304F9 /* FlushDrawWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlushDrawWrapper.cpp; sourceTree = "<group>"; };
 		0C925C741B197D6B00B304F9 /* FlushDrawWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlushDrawWrapper.h; sourceTree = "<group>"; };
+		0CC49AEA1B64E376007BC02A /* StateMirror.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateMirror.h; sourceTree = "<group>"; };
+		0CC49AEB1B64E391007BC02A /* StateMirror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateMirror.cpp; sourceTree = "<group>"; };
+		0CC49AED1B64E9A0007BC02A /* StateMirrorImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateMirrorImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateMirrorImpl.cpp; sourceTree = "<group>"; };
+		0CC49AEE1B64E9A0007BC02A /* StateMirrorImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateMirrorImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateMirrorImpl.h; sourceTree = "<group>"; };
 		0CE732541B14928D0049D5FD /* FontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontRenderer.cpp; sourceTree = "<group>"; };
 		0CE732551B14928D0049D5FD /* FontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontRenderer.h; sourceTree = "<group>"; };
 		0CE999311B510C1D003378BF /* UILabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UILabel.cpp; sourceTree = "<group>"; };
@@ -317,6 +323,8 @@
 				0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */,
 				0CEC95111B2414260069AAEC /* StateDeleteImpl.h */,
 				0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */,
+				0CC49AEE1B64E9A0007BC02A /* StateMirrorImpl.h */,
+				0CC49AED1B64E9A0007BC02A /* StateMirrorImpl.cpp */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -461,6 +469,8 @@
 				0C8889A51A2B1AB100068098 /* StateDraw.cpp */,
 				0C68F9B11B229DAA00DDD23A /* StateDelete.h */,
 				0C68F9B01B229DAA00DDD23A /* StateDelete.cpp */,
+				0CC49AEA1B64E376007BC02A /* StateMirror.h */,
+				0CC49AEB1B64E391007BC02A /* StateMirror.cpp */,
 			);
 			name = State;
 			path = ../../../../src/Core/State;
@@ -677,6 +687,7 @@
 				0C8889861A2984C600068098 /* Plane.cpp in Sources */,
 				0C5F95561A6157C700BE91E9 /* GLSLShader.cpp in Sources */,
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
+				0CC49AEF1B64E9A0007BC02A /* StateMirrorImpl.cpp in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
 				0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */,
 				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
@@ -701,6 +712,7 @@
 				0C5F954E1A614F0100BE91E9 /* UIButtonImpl.cpp in Sources */,
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */,
+				0CC49AEC1B64E391007BC02A /* StateMirror.cpp in Sources */,
 				0CE999331B510C1D003378BF /* UILabel.cpp in Sources */,
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0CF48CE51B5BAA3200061902 /* ChooseMirrorWindowController.m in Sources */,

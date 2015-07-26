@@ -108,6 +108,7 @@ public:
     static State* state_select_plane;
     static State* state_draw;
     static State* state_delete;
+    static State* state_mirror;
     
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane);

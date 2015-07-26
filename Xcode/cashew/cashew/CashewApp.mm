@@ -19,6 +19,7 @@
 #include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
 #include "OpenGL/Impl/State/StateDrawImpl.h"
 #include "OpenGL/Impl/State/StateDeleteImpl.h"
+#include "OpenGL/Impl/State/StateMirrorImpl.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Impl/UI/UIImpl.h"
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
@@ -87,6 +88,7 @@ FileOperations *fileOperations = [FileOperations alloc];
     mController->state_select_plane = new StateSelectPlaneImpl();
     mController->state_draw = new StateDrawImpl();
     mController->state_delete = new StateDeleteImpl();
+    mController->state_mirror = new StateMirrorImpl();
     State::enterState(mController->state_idle);
     
     mController->init();

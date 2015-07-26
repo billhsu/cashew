@@ -1,6 +1,6 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
-
+#pragma once
 #include "State.h"
 
 class UIButton;
