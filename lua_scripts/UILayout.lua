@@ -101,3 +101,32 @@ BTN_ID_MIRROR = {
     size = {width="60", height="60"},
     text = "Mirror mode"
 }
+
+--------------------
+BTN_ID_MIRROR_X = {
+    pos = {x="window_width / 2 - BTN_ID_MIRROR_X.size.width * 0.5", y="window_height / 2 - BTN_ID_MIRROR_X.size.height * 1.5"},
+    textures = {idle = "media/textures/x_axis.png", hover = "media/textures/x_axis.png", press = "media/textures/x_axis.png"},
+    size = {width="64", height="64"},
+    text = "Mirror x axis"
+}
+
+BTN_ID_MIRROR_Y = {
+    pos = {x="window_width / 2 - BTN_ID_MIRROR_Y.size.width * 1.5", y="window_height / 2 + BTN_ID_MIRROR_Y.size.height"},
+    textures = {idle = "media/textures/y_axis.png", hover = "media/textures/y_axis.png", press = "media/textures/y_axis.png"},
+    size = {width="64", height="64"},
+    text = "Mirror y axis"
+}
+
+BTN_ID_MIRROR_Z = {
+    pos = {x="window_width / 2 + BTN_ID_MIRROR_Z.size.width * 1.5", y="window_height / 2 + BTN_ID_MIRROR_Z.size.height"},
+    textures = {idle = "media/textures/z_axis.png", hover = "media/textures/z_axis.png", press = "media/textures/z_axis.png"},
+    size = {width="64", height="64"},
+    text = "Mirror z axis"
+}
+
+BTN_ID_MIRROR_NONE = {
+    pos = {x="window_width / 2 - BTN_ID_MIRROR_NONE.size.width * 0.5", y="window_height / 2 + BTN_ID_MIRROR_NONE.size.height * 1.5"},
+    textures = {idle = "media/textures/button_cancel.png", hover = "media/textures/button_cancel.png", press = "media/textures/button_cancel.png"},
+    size = {width="64", height="64"},
+    text = "No mirror"
+}
