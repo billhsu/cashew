@@ -14,7 +14,6 @@
 		0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C2E4F311A65641D003C6ABF /* PlaneRenderer.cpp */; };
 		0C3B904D1ABD60AE00F7C594 /* LineSketches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C3B904B1ABD60AE00F7C594 /* LineSketches.cpp */; };
 		0C40ACB71AE35F52001CAC31 /* fontstash.c in Sources */ = {isa = PBXBuildFile; fileRef = 0C40ACB41AE35F52001CAC31 /* fontstash.c */; };
-		0C44AC701B1C622600E2C614 /* ChooseMirror.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C44AC6E1B1C622600E2C614 /* ChooseMirror.xib */; };
 		0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6031A86213300A5424F /* TextureManager.cpp */; };
 		0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C45C6081A86246200A5424F /* stb_image.cpp */; };
 		0C46317F1A5AE62D00D0CEFE /* media in Resources */ = {isa = PBXBuildFile; fileRef = 0C46317E1A5AE62D00D0CEFE /* media */; };
@@ -91,7 +90,6 @@
 		0C40ACB41AE35F52001CAC31 /* fontstash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fontstash.c; sourceTree = "<group>"; };
 		0C40ACB51AE35F52001CAC31 /* fontstash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fontstash.h; sourceTree = "<group>"; };
 		0C40ACB61AE35F52001CAC31 /* stb_truetype.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_truetype.h; sourceTree = "<group>"; };
-		0C44AC6F1B1C622600E2C614 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ChooseMirror.xib; sourceTree = "<group>"; };
 		0C45C6031A86213300A5424F /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
 		0C45C6041A86213300A5424F /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextureManager.h; sourceTree = "<group>"; };
 		0C45C6081A86246200A5424F /* stb_image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stb_image.cpp; sourceTree = "<group>"; };
@@ -529,7 +527,6 @@
 				0C916B281A20A0AE00676D57 /* CashewAppDelegate.mm */,
 				0C916B2C1A20A0AE00676D57 /* Images.xcassets */,
 				0C916B2E1A20A0AE00676D57 /* MainMenu.xib */,
-				0C44AC6E1B1C622600E2C614 /* ChooseMirror.xib */,
 				0C46317E1A5AE62D00D0CEFE /* media */,
 				0C22476F1A3D925A00349BCC /* lua_scripts */,
 				0C2247711A3D92F700349BCC /* Shader */,
@@ -647,7 +644,6 @@
 				0C2247701A3D925A00349BCC /* lua_scripts in Resources */,
 				0C2247721A3D92F700349BCC /* Shader in Resources */,
 				0C46317F1A5AE62D00D0CEFE /* media in Resources */,
-				0C44AC701B1C622600E2C614 /* ChooseMirror.xib in Resources */,
 				0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */,
 				0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */,
 			);
@@ -738,14 +734,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		0C44AC6E1B1C622600E2C614 /* ChooseMirror.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0C44AC6F1B1C622600E2C614 /* Base */,
-			);
-			name = ChooseMirror.xib;
-			sourceTree = "<group>";
-		};
 		0C916B2E1A20A0AE00676D57 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
