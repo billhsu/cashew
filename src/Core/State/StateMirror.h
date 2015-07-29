@@ -12,4 +12,5 @@ public:
     enum {BTN_ID_MIRROR_X, BTN_ID_MIRROR_Y, BTN_ID_MIRROR_Z, BTN_ID_MIRROR_NONE};
 protected:
     UIButton *btnMirrorX, *btnMirrorY, *btnMirrorZ, *btnMirrorNone;
+    static void btnMirrorNoneEvent(void* data);
 };

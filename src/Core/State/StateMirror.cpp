@@ -17,7 +17,7 @@ StateMirror::StateMirror()
     btnMirrorY->setVisibility(false);
     btnMirrorZ = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_Z, "BTN_ID_MIRROR_Z", NULL, this);
     btnMirrorZ->setVisibility(false);
-    btnMirrorNone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_NONE, "BTN_ID_MIRROR_NONE", NULL, this);
+    btnMirrorNone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_NONE, "BTN_ID_MIRROR_NONE", btnMirrorNoneEvent, this);
     btnMirrorNone->setVisibility(false);
 }
 
@@ -33,4 +33,8 @@ void StateMirror::postState() {
     btnMirrorY->appearOut();
     btnMirrorZ->appearOut();
     btnMirrorNone->appearOut();
+}
+
+void StateMirror::btnMirrorNoneEvent(void* data) {
+    enterState(State::statePool[STATE_IDLE]);
 }
