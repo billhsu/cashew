@@ -7,9 +7,10 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
+#include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 
-namespace Scene{
+namespace Scene {
     static float* gridVertex = NULL;
     static float* gridColor = NULL;
     GLuint sceneGridVertexBuffer;
@@ -17,14 +18,11 @@ namespace Scene{
     GLuint sceneGridVertexArrayObj;
     int grid_step_cnt;
     GLSLShader sceneProgram;
-    GLSLShader* getSceneShader()
-    {
+    GLSLShader* getSceneShader() {
         return &sceneProgram;
     }
-    void prepareSceneGrid(float size, float step)
-    {
-        if(sceneProgram.getProgram()==-1)
-        {
+    void prepareSceneGrid(float size, float step) {
+        if(sceneProgram.getProgram()==-1) {
             sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
             sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
             sceneProgram.createProgram();
@@ -34,8 +32,7 @@ namespace Scene{
         gridVertex = new float[8 * 3 * grid_step_cnt];
         gridColor = new float[8 * 3 * grid_step_cnt];
         int span = 8 * 3;
-        for(int i = 0; i < grid_step_cnt; ++i)
-        {
+        for(int i = 0; i < grid_step_cnt; ++i) {
             gridVertex[span * i + 0] = -size;
             gridVertex[span * i + 1] = 0.0f;
             gridVertex[span * i + 2] = (float)i * step;
@@ -105,8 +102,7 @@ namespace Scene{
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     }
-    void drawGrid()
-    {
+    void drawGrid() {
         glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneGridVertexArrayObj);
         glDrawArrays(GL_LINES, 0, 8 * 3 * grid_step_cnt);
@@ -146,10 +142,8 @@ namespace Scene{
         0.0f, 1.0f, 0.0f,
         0.0f, 0.0f, 1.0f
     };
-    void prepareSceneAxis(float size)
-    {
-        if(sceneProgram.getProgram()==-1)
-        {
+    void prepareSceneAxis(float size) {
+        if(sceneProgram.getProgram()==-1) {
             sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
             sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
             sceneProgram.createProgram();
@@ -207,8 +201,7 @@ namespace Scene{
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         
     }
-    void clearScene()
-    {
+    void clearScene() {
         glDeleteBuffers(1, &sceneAxisVertexBuffer);
         glDeleteBuffers(1, &sceneAxisColorBuffer);
         glDeleteVertexArrays(1, &sceneAxisVertexArrayObj);
@@ -224,8 +217,7 @@ namespace Scene{
         if(gridVertex!=NULL) delete [] gridVertex;
         if(gridColor!=NULL) delete [] gridColor;
     }
-    void drawAxis()
-    {
+    void drawAxis() {
         glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneAxisVertexArrayObj);
         glDrawArrays(GL_LINES, 0, 6*3);
@@ -236,9 +228,40 @@ namespace Scene{
         glBindVertexArray(0);
         glDepthFunc(GL_LEQUAL);
     }
-    
-    void drawScene()
-    {
+
+    void drawMirror() {
+        if(Controller::mirrorMode == Controller::MIRROR_MODE_NONE) {
+            return;
+        }
+        Plane p;
+        Vector4 color;
+        color.a = 0.1f;
+        switch (Controller::mirrorMode) {
+            case Controller::MIRROR_MODE_X:
+                p = Plane(Vector3(0.1, 0, 0), 0);
+                color.r = 1;
+                break;
+            case Controller::MIRROR_MODE_Y:
+                p = Plane(Vector3(0, 0.1, 0), 0);
+                color.g = 1;
+                break;
+            case Controller::MIRROR_MODE_Z:
+                p = Plane(Vector3(0, 0, 0.1), 0);
+                color.b = 1;
+                break;
+            default:
+                break;
+        }
+        PlaneRenderer::getPlaneShader()->bind();
+
+        GLuint local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
+        GLuint local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+        PlaneRenderer::render(p, Vector3(0, 0, 0), 2.0f, color);
+    }
+
+    void drawScene() {
         sceneProgram.bind();
         GLint local_modelView = glGetUniformLocation(sceneProgram.getProgram(), "modelView");
         glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
@@ -247,16 +270,14 @@ namespace Scene{
         drawGrid();
         drawAxis();
         sceneProgram.unbind();
+        drawMirror();
     }
-    void drawSceneWrapper(void* data)
-    {
+    void drawSceneWrapper(void* data) {
         drawScene();
     }
     
-    void renderCurrentPoint(void* data)
-    {
-        if(Controller::bCurrPoint)
-        {
+    void renderCurrentPoint(void* data) {
+        if(Controller::bCurrPoint) {
             PointRenderer::getPointShader()->bind();
             GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
             glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
