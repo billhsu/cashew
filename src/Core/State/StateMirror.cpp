@@ -35,17 +35,21 @@ void StateMirror::postState() {
     btnMirrorNone->appearOut();
 }
 void StateMirror::btnMirrorXEvent(void* data) {
-    
+    Controller::mirrorMode = Controller::MIRROR_MODE_X;
+    enterState(State::statePool[STATE_IDLE]);
 }
 
 void StateMirror::btnMirrorYEvent(void* data) {
-    
+    Controller::mirrorMode = Controller::MIRROR_MODE_Y;
+    enterState(State::statePool[STATE_IDLE]);
 }
 
 void StateMirror::btnMirrorZEvent(void* data) {
-    
+    Controller::mirrorMode = Controller::MIRROR_MODE_Z;
+    enterState(State::statePool[STATE_IDLE]);
 }
 
 void StateMirror::btnMirrorNoneEvent(void* data) {
+    Controller::mirrorMode = Controller::MIRROR_MODE_NONE;
     enterState(State::statePool[STATE_IDLE]);
 }

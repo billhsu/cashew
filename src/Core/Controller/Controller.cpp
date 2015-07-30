@@ -57,6 +57,8 @@ State* Controller::state_draw = NULL;
 State* Controller::state_delete = NULL;
 State* Controller::state_mirror = NULL;
 
+int Controller::mirrorMode = MIRROR_MODE_NONE;
+
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL, *Controller::btnDocSave = NULL,
          *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
@@ -98,7 +100,6 @@ void Controller::init() {
     btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
     btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, NULL);
     btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
-    
 }
 void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;

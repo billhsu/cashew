@@ -109,6 +109,8 @@ public:
     static State* state_draw;
     static State* state_delete;
     static State* state_mirror;
+    enum { MIRROR_MODE_X, MIRROR_MODE_Y, MIRROR_MODE_Z, MIRROR_MODE_NONE};
+    static int mirrorMode;
     
     Camera * camera;
     bool getCameraPoint(Vector3& p, const Plane& plane);
