@@ -8,8 +8,7 @@
 #include "Core/UI/UI.h"
 #include "Core/UI/UIButton.h"
 
-StateDraw::StateDraw()
-{
+StateDraw::StateDraw() {
     stateID = STATE_DRAW;
     internalState = STATE_DRAW_IDLE;
     assert(statePool[stateID] == NULL);
@@ -18,30 +17,22 @@ StateDraw::StateDraw()
     btnDrawPlaneDone->setVisibility(false);
 }
 
-void StateDraw::MouseButton(int button, int state, int x, int y)
-{
-    if(button == Mouse::MOUSE_SCROLL)
-    {
+void StateDraw::MouseButton(int button, int state, int x, int y) {
+    if(button == Mouse::MOUSE_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
-    if(state == Mouse::MOUSE_DOWN)
-    {
-        if(button == Mouse::MOUSE_LEFT)
-        {
-            if(internalState==STATE_DRAW_IDLE)
-            {
+    if(state == Mouse::MOUSE_DOWN) {
+        if(button == Mouse::MOUSE_LEFT) {
+            if(internalState==STATE_DRAW_IDLE) {
                 Controller::getInstance().getCameraPoint(startPoint, Controller::currPlane);
                 Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
                 internalState = STATE_DRAW_START_POINT_SELECTED;
             }
         }
     }
-    if(state == Mouse::MOUSE_UP)
-    {
-        if(button == Mouse::MOUSE_LEFT)
-        {
-            if(internalState == STATE_DRAW_START_POINT_SELECTED)
-            {
+    if(state == Mouse::MOUSE_UP) {
+        if(button == Mouse::MOUSE_LEFT) {
+            if(internalState == STATE_DRAW_START_POINT_SELECTED) {
                 Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
                 LineSegment line = LineSegment(startPoint, endPoint);
                 Controller::addLine(line);
@@ -64,9 +55,10 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
                     default:
                         break;
                 }
-                
-                LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
-                Controller::addLine(lineMirror);
+                if(Controller::mirrorMode!=Controller::MIRROR_MODE_NONE) {
+                    LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+                    Controller::addLine(lineMirror);
+                }
                 internalState = STATE_DRAW_IDLE;
             }
         }
@@ -74,38 +66,31 @@ void StateDraw::MouseButton(int button, int state, int x, int y)
     
 }
 
-void StateDraw::MouseLeftDrag(int dx, int dy)
-{
-    if(internalState == STATE_DRAW_START_POINT_SELECTED)
-    {
+void StateDraw::MouseLeftDrag(int dx, int dy) {
+    if(internalState == STATE_DRAW_START_POINT_SELECTED) {
         Controller::getInstance().getCameraPoint(endPoint, Controller::currPlane);
     }
 }
 
-void StateDraw::MouseRightDrag(int dx, int dy)
-{
+void StateDraw::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
     mCamera->rotateCam(Controller::rotate);
 }
 
-void StateDraw::Keyboard(unsigned char key, unsigned char status)
-{
+void StateDraw::Keyboard(unsigned char key, unsigned char status) {
     
 }
 
-void StateDraw::prepareState()
-{
+void StateDraw::prepareState() {
     btnDrawPlaneDone->appearIn();
 }
 
-void StateDraw::postState()
-{
+void StateDraw::postState() {
     btnDrawPlaneDone->appearOut();
 }
 
-void StateDraw::btnDrawPlaneDoneEvent(void* data)
-{
+void StateDraw::btnDrawPlaneDoneEvent(void* data) {
     std::cout<<"btnDrawPlaneDoneEvent"<<std::endl;
     enterState(State::statePool[STATE_IDLE]);
 }
