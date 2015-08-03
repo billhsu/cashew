@@ -133,11 +133,15 @@ void saveFile(void* data)
     std::cout<<"Saving to "<<filename<<std::endl;
     std::ofstream fileStream;
     fileStream.open(filename);
-    fileStream<<"cashew_v1"<<std::endl;
-    fileStream<<Controller::sketchLines.size()<<std::endl;
-    for(int i=0; i<Controller::sketchLines.size(); ++i)
-    {
-        fileStream<<Controller::sketchLines[i].points[0]<<" "<<Controller::sketchLines[i].points[1]<<std::endl;
+    if(filename.substr(filename.find_last_of(".") + 1) == "cashew") {
+        fileStream<<"cashew_v1"<<std::endl;
+        fileStream<<Controller::sketchLines.size()<<std::endl;
+        for(int i=0; i<Controller::sketchLines.size(); ++i)
+        {
+            fileStream<<Controller::sketchLines[i].points[0]<<" "<<Controller::sketchLines[i].points[1]<<std::endl;
+        }
+    } else if(filename.substr(filename.find_last_of(".") + 1) == "stl") {
+        
     }
     fileStream.close();
 }

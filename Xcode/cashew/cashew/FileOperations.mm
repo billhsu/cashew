@@ -20,7 +20,8 @@ std::string showSaveFileDialogWrapper (void *self) {
     NSSavePanel *panel = [NSSavePanel savePanel];
     
     // set a new file name
-    [panel setNameFieldStringValue:@"NewFile.cashew"];
+    [panel setNameFieldStringValue:@"NewFile"];
+    panel.allowedFileTypes = @[@"cashew", @"stl"];
     std::string filePath = "";
     // display the panel
     NSInteger result = [panel runModal];
@@ -38,7 +39,7 @@ std::string showOpenFileDialogWrapper (void *self) {
 -(std::string) showOpenFileDialog {
     // create the open panel
     NSOpenPanel *panel = [NSOpenPanel openPanel];
-    
+    panel.allowedFileTypes = @[@"cashew"];
     std::string filePath = "";
     // display the panel
     NSInteger result = [panel runModal];
