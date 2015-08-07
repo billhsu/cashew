@@ -142,9 +142,9 @@ std::string vectorsToSTLFacet(Vector3 v1, Vector3 v2, Vector3 v3) {
 std::string lineSegmentToSTLCube(LineSegment line) {
     std::ostringstream buffer;
     Vector3 vectors[8];
-    float scale = 0.5f;
-    Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]) * scale;
-    Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]) * scale;
+    float scale = 0.05f;
+    Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]).normalize() * scale;
+    Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]).normalize() * scale;
     vectors[0] = line.points[0] + xBase;
     vectors[1] = line.points[0] + yBase;
     vectors[2] = line.points[0] - xBase;
@@ -156,22 +156,22 @@ std::string lineSegmentToSTLCube(LineSegment line) {
     vectors[7] = line.points[1] - yBase;
     // up
     buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[2]);
-    buffer<<vectorsToSTLFacet(vectors[1], vectors[2], vectors[3]);
+    buffer<<vectorsToSTLFacet(vectors[2], vectors[3], vectors[0]);
     // bottom
     buffer<<vectorsToSTLFacet(vectors[4], vectors[5], vectors[6]);
-    buffer<<vectorsToSTLFacet(vectors[5], vectors[6], vectors[7]);
+    buffer<<vectorsToSTLFacet(vectors[6], vectors[7], vectors[4]);
     // front
-    buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[4]);
-    buffer<<vectorsToSTLFacet(vectors[1], vectors[4], vectors[5]);
+    buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[5]);
+    buffer<<vectorsToSTLFacet(vectors[5], vectors[4], vectors[0]);
     // back
-    buffer<<vectorsToSTLFacet(vectors[2], vectors[3], vectors[6]);
-    buffer<<vectorsToSTLFacet(vectors[3], vectors[6], vectors[7]);
+    buffer<<vectorsToSTLFacet(vectors[2], vectors[3], vectors[7]);
+    buffer<<vectorsToSTLFacet(vectors[7], vectors[6], vectors[2]);
     // left
-    buffer<<vectorsToSTLFacet(vectors[0], vectors[3], vectors[4]);
-    buffer<<vectorsToSTLFacet(vectors[3], vectors[4], vectors[7]);
+    buffer<<vectorsToSTLFacet(vectors[0], vectors[3], vectors[7]);
+    buffer<<vectorsToSTLFacet(vectors[7], vectors[4], vectors[0]);
     // right
-    buffer<<vectorsToSTLFacet(vectors[1], vectors[2], vectors[5]);
-    buffer<<vectorsToSTLFacet(vectors[2], vectors[5], vectors[6]);
+    buffer<<vectorsToSTLFacet(vectors[1], vectors[2], vectors[6]);
+    buffer<<vectorsToSTLFacet(vectors[6], vectors[5], vectors[1]);
     
     return buffer.str();
 }
