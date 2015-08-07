@@ -143,17 +143,31 @@ std::string lineSegmentToSTLCube(LineSegment line) {
     std::ostringstream buffer;
     Vector3 vectors[8];
     float scale = 0.05f;
-    Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]).normalize() * scale;
-    Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]).normalize() * scale;
-    vectors[0] = line.points[0] + xBase;
-    vectors[1] = line.points[0] + yBase;
-    vectors[2] = line.points[0] - xBase;
-    vectors[3] = line.points[0] - yBase;
+
+    Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]);
+    Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]);
+    Vector3 zBase = Vector3(0, 0, 1).cross(line.points[0] - line.points[1]);
+    Vector3 hBase, vBase;
+    if(xBase.length()<=yBase.length() && xBase.length()<=zBase.length()) {
+        hBase = yBase.normalize() * scale;
+        vBase = zBase.normalize() * scale;
+    } else if(yBase.length()<=xBase.length() && yBase.length()<=zBase.length()) {
+        hBase = xBase.normalize() * scale;
+        vBase = zBase.normalize() * scale;
+    }
+    else if(zBase.length()<=xBase.length() && zBase.length()<=yBase.length()) {
+        hBase = xBase.normalize() * scale;
+        vBase = yBase.normalize() * scale;
+    }
+    vectors[0] = line.points[0] + hBase;
+    vectors[1] = line.points[0] + vBase;
+    vectors[2] = line.points[0] - hBase;
+    vectors[3] = line.points[0] - vBase;
     
-    vectors[4] = line.points[1] + xBase;
-    vectors[5] = line.points[1] + yBase;
-    vectors[6] = line.points[1] - xBase;
-    vectors[7] = line.points[1] - yBase;
+    vectors[4] = line.points[1] + hBase;
+    vectors[5] = line.points[1] + vBase;
+    vectors[6] = line.points[1] - hBase;
+    vectors[7] = line.points[1] - vBase;
     // up
     buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[2]);
     buffer<<vectorsToSTLFacet(vectors[2], vectors[3], vectors[0]);
