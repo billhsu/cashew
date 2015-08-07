@@ -37,6 +37,7 @@
 #include "FileOperations.h"
 #include "FileOperationsCppWrapper.h"
 #include <fstream>
+#include <sstream>
 
 GLSLShader UIProgram;
 DepthPeeling *depthPeeling;
@@ -126,8 +127,56 @@ void newFile(void* data)
     }
 }
 
-void saveFile(void* data)
-{
+std::string vectorsToSTLFacet(Vector3 v1, Vector3 v2, Vector3 v3) {
+    std::ostringstream buffer;
+    buffer<< "  facet normal 0 0 0"<<std::endl;
+    buffer<< "    outer loop"<<std::endl;
+    buffer<<"      vertex "<<v1.x<<" "<<v1.y<<" "<<v1.z<<std::endl;
+    buffer<<"      vertex "<<v2.x<<" "<<v2.y<<" "<<v2.z<<std::endl;
+    buffer<<"      vertex "<<v3.x<<" "<<v3.y<<" "<<v3.z<<std::endl;
+    buffer<<"    endloop"<<std::endl;
+    buffer<<"  endfacet"<<std::endl;
+    return buffer.str();
+}
+
+std::string lineSegmentToSTLCube(LineSegment line) {
+    std::ostringstream buffer;
+    Vector3 vectors[8];
+    float scale = 0.5f;
+    Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]) * scale;
+    Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]) * scale;
+    vectors[0] = line.points[0] + xBase;
+    vectors[1] = line.points[0] + yBase;
+    vectors[2] = line.points[0] - xBase;
+    vectors[3] = line.points[0] - yBase;
+    
+    vectors[4] = line.points[1] + xBase;
+    vectors[5] = line.points[1] + yBase;
+    vectors[6] = line.points[1] - xBase;
+    vectors[7] = line.points[1] - yBase;
+    // up
+    buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[2]);
+    buffer<<vectorsToSTLFacet(vectors[1], vectors[2], vectors[3]);
+    // bottom
+    buffer<<vectorsToSTLFacet(vectors[4], vectors[5], vectors[6]);
+    buffer<<vectorsToSTLFacet(vectors[5], vectors[6], vectors[7]);
+    // front
+    buffer<<vectorsToSTLFacet(vectors[0], vectors[1], vectors[4]);
+    buffer<<vectorsToSTLFacet(vectors[1], vectors[4], vectors[5]);
+    // back
+    buffer<<vectorsToSTLFacet(vectors[2], vectors[3], vectors[6]);
+    buffer<<vectorsToSTLFacet(vectors[3], vectors[6], vectors[7]);
+    // left
+    buffer<<vectorsToSTLFacet(vectors[0], vectors[3], vectors[4]);
+    buffer<<vectorsToSTLFacet(vectors[3], vectors[4], vectors[7]);
+    // right
+    buffer<<vectorsToSTLFacet(vectors[1], vectors[2], vectors[5]);
+    buffer<<vectorsToSTLFacet(vectors[2], vectors[5], vectors[6]);
+    
+    return buffer.str();
+}
+
+void saveFile(void* data) {
     std::string filename = showSaveFileDialogWrapper((__bridge void*)fileOperations);
     if(filename=="") return;
     std::cout<<"Saving to "<<filename<<std::endl;
@@ -141,13 +190,16 @@ void saveFile(void* data)
             fileStream<<Controller::sketchLines[i].points[0]<<" "<<Controller::sketchLines[i].points[1]<<std::endl;
         }
     } else if(filename.substr(filename.find_last_of(".") + 1) == "stl") {
-        
+        fileStream<<"solid cashew"<<std::endl;
+        for(int i=0; i<Controller::sketchLines.size(); ++i) {
+            fileStream<<lineSegmentToSTLCube(Controller::sketchLines[i])<<std::endl;
+        }
+        fileStream<<"endsolid cashew"<<std::endl;
     }
     fileStream.close();
 }
 
-void openFile(void* data)
-{
+void openFile(void* data) {
     std::string filename = showOpenFileDialogWrapper((__bridge void*)fileOperations);
     if(filename=="") return;
     std::cout<<"Opening "<<filename<<std::endl;
