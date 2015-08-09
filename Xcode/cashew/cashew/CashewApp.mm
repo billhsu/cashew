@@ -131,9 +131,9 @@ std::string vectorsToSTLFacet(Vector3 v1, Vector3 v2, Vector3 v3) {
     std::ostringstream buffer;
     buffer<< "  facet normal 0 0 0"<<std::endl;
     buffer<< "    outer loop"<<std::endl;
-    buffer<<"      vertex "<<v1.x<<" "<<v1.y<<" "<<v1.z<<std::endl;
-    buffer<<"      vertex "<<v2.x<<" "<<v2.y<<" "<<v2.z<<std::endl;
-    buffer<<"      vertex "<<v3.x<<" "<<v3.y<<" "<<v3.z<<std::endl;
+    buffer<<"      vertex "<<v1.x<<" "<<v1.z<<" "<<v1.y<<std::endl;
+    buffer<<"      vertex "<<v2.x<<" "<<v2.z<<" "<<v2.y<<std::endl;
+    buffer<<"      vertex "<<v3.x<<" "<<v3.z<<" "<<v3.y<<std::endl;
     buffer<<"    endloop"<<std::endl;
     buffer<<"  endfacet"<<std::endl;
     return buffer.str();
@@ -142,7 +142,7 @@ std::string vectorsToSTLFacet(Vector3 v1, Vector3 v2, Vector3 v3) {
 std::string lineSegmentToSTLCube(LineSegment line) {
     std::ostringstream buffer;
     Vector3 vectors[8];
-    float scale = 0.05f;
+    float scale = 0.3f;
 
     Vector3 xBase = Vector3(1, 0, 0).cross(line.points[0] - line.points[1]);
     Vector3 yBase = Vector3(0, 1, 0).cross(line.points[0] - line.points[1]);
