@@ -10,27 +10,30 @@ namespace PointRenderer
     HardwareBuffer::VBOStruct VBOInfo;
     std::vector<Vector3> pointList;
     float* vertexBufferData = NULL;
-    
+    long vertexBufferDataSize = 0;
+
     GLSLShader pointProgram;
-    float* mapVectorToArray(const std::vector<Vector3>& list)
+    void mapVectorToArray(const std::vector<Vector3>& list)
     {
-        float* result = new float[list.size() * 3];
+        if(vertexBufferDataSize<list.size() * 3) {
+            if(vertexBufferData != NULL)
+            {
+                delete[] vertexBufferData;
+                vertexBufferData = NULL;
+            }
+            vertexBufferData = new float[list.size() * 3];
+            vertexBufferDataSize = list.size() * 3;
+        }
         for(int i=0; i < list.size(); ++i)
         {
-            result[3 * i + 0] = list[i].x;
-            result[3 * i + 1] = list[i].y;
-            result[3 * i + 2] = list[i].z;
+            vertexBufferData[3 * i + 0] = list[i].x;
+            vertexBufferData[3 * i + 1] = list[i].y;
+            vertexBufferData[3 * i + 2] = list[i].z;
         }
-        return result;
     }
     void generateVertexBuffer()
     {
-        if(vertexBufferData != NULL)
-        {
-            delete[] vertexBufferData;
-            vertexBufferData = NULL;
-        }
-        vertexBufferData = mapVectorToArray(pointList);
+        mapVectorToArray(pointList);
     }
     void prepareRenderData()
     {
@@ -50,7 +53,6 @@ namespace PointRenderer
         pointProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/point.fs");
         pointProgram.loadFromFile(GL_GEOMETRY_SHADER, "Shader/point.gs");
         pointProgram.createProgram();
-        
     }
     void render(uint textureId)
     {
