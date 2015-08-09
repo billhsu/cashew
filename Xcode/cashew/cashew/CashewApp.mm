@@ -9,7 +9,6 @@
 #import <OpenGL/gl3.h>
 #import "CashewOpenGLView.h"
 #import "CashewInputController.h"
-#import "ChooseMirrorWindowController.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
 #include "OpenGL/Impl/Scene/Scene.h"
@@ -55,8 +54,7 @@ bool windowPaused = false;
 
 @implementation CashewApp
 
-- (BOOL)prepareRenderData
-{
+- (BOOL)prepareRenderData {
     [[CashewInputController sharedInputController] addEventDelegate:self];
     NSLog(@"prepareRenderData");
     
@@ -111,15 +109,10 @@ bool windowPaused = false;
     
     return YES;
 }
-void standardView(void* data)
-{
-    
-}
-void newFile(void* data)
-{
+
+void newFile(void* data) {
     std::string option = showNewFileDialogWrapper((__bridge void*)fileOperations);
-    if(option=="OK")
-    {
+    if(option=="OK") {
         Controller::sketchLines.clear();
         Controller::lineOperations.clear();
         Controller::redoOperations.clear();
@@ -245,9 +238,6 @@ void openFile(void* data) {
     fileStream.close();
 }
 
-void chooseMirror(void* data) {
-}
-
 - (void)mouseLeftUp:(NSPoint)locationInWindow; {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
@@ -332,8 +322,7 @@ void chooseMirror(void* data) {
 #endif
 }
 
--(void)reshapeWidth:(int)width height:(int)height
-{
+-(void)reshapeWidth:(int)width height:(int)height {
     mController->resize(width, height);
     depthPeeling->setWindowSize(width, height);
     NSLog(@"reshape - width: %d height: %d", width, height);
@@ -342,8 +331,7 @@ void chooseMirror(void* data) {
 
 @implementation CashewOpenGLView(CashewMain)
 
-- (void)prepareOpenGL
-{
+- (void)prepareOpenGL {
     NSLog(@"prepareOpenGL");
     [super prepareOpenGL];
     glEnable(GL_DEPTH_TEST);
@@ -359,8 +347,7 @@ void chooseMirror(void* data) {
     Set_OpenGLViewDelegate(CashewApp);
 }
 
-- (void)clearGLContext
-{
+- (void)clearGLContext {
     NSLog(@"clearGLContext");
     Scene::clearScene();
     PointRenderer::release();
