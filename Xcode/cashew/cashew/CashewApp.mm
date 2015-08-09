@@ -45,6 +45,7 @@ TextureManager* textureManager;
 
 Controller *mController = &Controller::getInstance();
 FileOperations *fileOperations = [FileOperations alloc];
+bool windowPaused = false;
 
 #define BACKGROUND_COLOR 0.2f, 0.2f, 0.2f, 1
 
@@ -191,7 +192,9 @@ std::string lineSegmentToSTLCube(LineSegment line) {
 }
 
 void saveFile(void* data) {
+    windowPaused = true;
     std::string filename = showSaveFileDialogWrapper((__bridge void*)fileOperations);
+    windowPaused = false;
     if(filename=="") return;
     std::cout<<"Saving to "<<filename<<std::endl;
     std::ofstream fileStream;
@@ -214,7 +217,9 @@ void saveFile(void* data) {
 }
 
 void openFile(void* data) {
+    windowPaused = true;
     std::string filename = showOpenFileDialogWrapper((__bridge void*)fileOperations);
+    windowPaused = false;
     if(filename=="") return;
     std::cout<<"Opening "<<filename<<std::endl;
     Controller::sketchLines.clear();
@@ -243,56 +248,53 @@ void openFile(void* data) {
 void chooseMirror(void* data) {
 }
 
-- (void)mouseLeftUp:(NSPoint)locationInWindow;
-{
+- (void)mouseLeftUp:(NSPoint)locationInWindow; {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
     mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_UP, x, y);
 }
 
-- (void)mouseLeftDown:(NSPoint)locationInWindow;
-{
+- (void)mouseLeftDown:(NSPoint)locationInWindow; {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
     mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_DOWN, x, y);
 }
 
-- (void)mouseRightUp:(NSPoint)locationInWindow;
-{
+- (void)mouseRightUp:(NSPoint)locationInWindow; {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
     mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_UP, x, y);
 }
 
-- (void)mouseRightDown:(NSPoint)locationInWindow;
-{
+- (void)mouseRightDown:(NSPoint)locationInWindow; {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
     mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_DOWN, x, y);
 }
 
-- (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y
-{
+- (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y {
     y = mController->windowHeight - y;
     mController->PassiveMotion(x, y);
 }
-- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
-{
+- (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y {
     y = mController->windowHeight - y;
     mController->MouseRightDrag(x, y, dx, dy);
 }
 
-- (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y
-{
+- (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y {
     y = mController->windowHeight - y;
     mController->MouseLeftDrag(x, y, dx, dy);
 }
 
-- (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y
-{
+- (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y {
     mController->MouseButton(Mouse::MOUSE_SCROLL, (int)y,
                              mController->mouseX, mController->mouseY);
-    
+}
+- (void)mouseEnteredWithX:(CGFloat)x andY:(CGFloat)y {
+    windowPaused = false;
+}
+- (void)mouseExitedWithX:(CGFloat)x andY:(CGFloat)y {
+    windowPaused = true;
 }
 - (void)keyDown:(unichar)key
 {
@@ -304,11 +306,13 @@ void chooseMirror(void* data) {
 }
 - (void)update:(NSTimeInterval)timeInterval
 {
+    if(windowPaused) return;
     mController->update(timeInterval * 1000.0f);
 }
 
 - (void)render;
 {
+    if(windowPaused) return;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     GLuint local_modelView;
     GLuint local_projection;

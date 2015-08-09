@@ -174,4 +174,22 @@
     }
 }
 
+- (void)mouseEnteredWithX:(CGFloat)x andY:(CGFloat)y
+{
+    for (id<CashewInputDelegate> obj in _objsForKeyEvent) {
+        if ([obj respondsToSelector:@selector(mouseEnteredWithX:andY:)]) {
+            [obj mouseEnteredWithX:x andY:y];
+        }
+    }
+}
+
+- (void)mouseExitedWithX:(CGFloat)x andY:(CGFloat)y
+{
+    for (id<CashewInputDelegate> obj in _objsForKeyEvent) {
+        if ([obj respondsToSelector:@selector(mouseExitedWithX:andY:)]) {
+            [obj mouseExitedWithX:x andY:y];
+        }
+    }
+}
+
 @end

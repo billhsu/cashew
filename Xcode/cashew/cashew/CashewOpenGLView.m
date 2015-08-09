@@ -205,14 +205,18 @@
 - (void)mouseEntered:(NSEvent *)theEvent
 {
     //[super mouseEntered:theEvent];
-    
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
+    [[CashewInputController sharedInputController] mouseEnteredWithX:x andY:y];
     NSLog(@"mouseEntered");
 }
 
 - (void)mouseExited:(NSEvent *)theEvent
 {
     //[super mouseExited:theEvent];
-    
+    CGFloat x = [theEvent locationInWindow].x;
+    CGFloat y = [theEvent locationInWindow].y;
+    [[CashewInputController sharedInputController] mouseExitedWithX:x andY:y];
     NSLog(@"mouseExited");
 }
 

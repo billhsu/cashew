@@ -21,7 +21,8 @@
 - (void)mouseLeftDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y;
-
+- (void)mouseEnteredWithX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseExitedWithX:(CGFloat)x andY:(CGFloat)y;
 @end
 
 @interface CashewInputController : NSObject
@@ -45,5 +46,6 @@
 - (void)mouseLeftDragWithDX:(CGFloat)x andDY:(CGFloat)y andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseRightDragWithDX:(CGFloat)dx andDY:(CGFloat)dy andX:(CGFloat)x andY:(CGFloat)y;
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y;
-
+- (void)mouseEnteredWithX:(CGFloat)x andY:(CGFloat)y;
+- (void)mouseExitedWithX:(CGFloat)x andY:(CGFloat)y;
 @end
