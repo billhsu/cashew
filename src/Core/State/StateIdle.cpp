@@ -16,9 +16,10 @@ StateIdle::StateIdle() {
     statePool[stateID] = this;
 }
 void StateIdle::MouseButton(int button, int state, int x, int y) {
-    if (button == Mouse::MOUSE_SCROLL) {
+    if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
-    } else if (button == Mouse::MOUSE_LEFT && state == Mouse::MOUSE_ACTION_UP) {
+    } else if (button == Mouse::MOUSE_BUTTON_LEFT &&
+               state == Mouse::MOUSE_ACTION_UP) {
         Vector3 v;
         mCamera->getPoint(x, y, Controller::sketchLines, v);
         static_cast<StateSelectPlane*>(State::statePool[STATE_SELECT_PLANE])

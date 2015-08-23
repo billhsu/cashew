@@ -34,7 +34,7 @@ namespace IMGUI {
         if (regionHit(x, y, w, h)) {
             state.hotItem = ID;
             if (state.activeItem == 0 &&
-                state.mouseButton == Mouse::MOUSE_LEFT &&
+                state.mouseButton == Mouse::MOUSE_BUTTON_LEFT &&
                 state.mouseState == Mouse::MOUSE_ACTION_DOWN)
                 state.activeItem = ID;
         }
@@ -50,7 +50,7 @@ namespace IMGUI {
 
         // If button is hot and active, but mouse button is not
         // down, the user must have clicked the button.
-        if (state.mouseButton == Mouse::MOUSE_LEFT &&
+        if (state.mouseButton == Mouse::MOUSE_BUTTON_LEFT &&
             state.mouseState == Mouse::MOUSE_ACTION_UP && state.hotItem == ID &&
             state.activeItem == ID) {
             return true;
