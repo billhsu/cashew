@@ -1,7 +1,7 @@
 /*
  Shipeng Xu
  billhsu.x@gmail.com
- 
+
  Thanks to GLUI2
  */
 #pragma once
@@ -17,26 +17,39 @@ class UILabel;
 class UINode;
 
 class UI {
-public:
+   public:
     void resize(int width, int height);
     UINode* getNodeByPos(int x, int y);
     UINode* getNodeById(int id);
     UINode* MouseButton(int button, int state, int x, int y);
     UINode* PassiveMotion(int x, int y);
-    
+
     void update(float timeDelta);
     virtual UIButton* addButton(int id, int x, int y, int width, int height,
-                                    uint32_t textureID_idle, uint32_t textureID_hover, uint32_t textureID_press,
-                                    const char* text, void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL) {return NULL;}
-    
+                                uint32_t textureID_idle,
+                                uint32_t textureID_hover,
+                                uint32_t textureID_press, const char* text,
+                                void (*callback)(void* data),
+                                void* userData = NULL, UINode* parent = NULL) {
+        return NULL;
+    }
+
     virtual UIButton* addButton(int id, const char* strID,
-                                    void (*callback)(void* data), void* userData = NULL, UINode* parent = NULL) {return NULL;}
-    
-    virtual UILabel* addLabel(int id, int x, int y, int width, int height, const char* text, Vector4 color, UINode* parent = NULL) {return NULL;}
+                                void (*callback)(void* data),
+                                void* userData = NULL, UINode* parent = NULL) {
+        return NULL;
+    }
+
+    virtual UILabel* addLabel(int id, int x, int y, int width, int height,
+                              const char* text, Vector4 color,
+                              UINode* parent = NULL) {
+        return NULL;
+    }
 
     static char uiHintText[128];
     static int hintTextPosX, hintTextPosY;
-    virtual void render() {}
+    virtual void render() {
+    }
     static int getWindowWidth() {
         return mWindowWidth;
     }
@@ -62,28 +75,30 @@ public:
         callbackWithData.data = data;
         uiCallbackList.push_back(callbackWithData);
     }
-protected:
+
+   protected:
     UI();
     virtual ~UI();
     static int mWindowWidth, mWindowHeight;
     static int mMouseX, mMouseY;
-    std::vector <UINode*> nodeList;
+    std::vector<UINode*> nodeList;
     UINode* mRootNode;
-    int luaGetNodePosX(const char *nodeName);
-    int luaGetNodePosY(const char *nodeName);
-    int luaGetNodeWidth(const char *nodeName);
-    int luaGetNodeHeight(const char *nodeName);
-    std::string luaGetTextureName(const char *nodeName, const char *nodeTexture);
-    std::string luaGetNodeText(const char *nodeName);
-    LuaTable *UILayout;
+    int luaGetNodePosX(const char* nodeName);
+    int luaGetNodePosY(const char* nodeName);
+    int luaGetNodeWidth(const char* nodeName);
+    int luaGetNodeHeight(const char* nodeName);
+    std::string luaGetTextureName(const char* nodeName,
+                                  const char* nodeTexture);
+    std::string luaGetNodeText(const char* nodeName);
+    LuaTable* UILayout;
 
-private:
+   private:
     static std::vector<UICallbackWithObject> uiCallbackList;
     void clearUICallbackList() {
         uiCallbackList.clear();
     }
     void runUICallbackList() {
-        for(int i=0; i<uiCallbackList.size(); ++i) {
+        for (int i = 0; i < uiCallbackList.size(); ++i) {
             uiCallbackList[i].callback(uiCallbackList[i].data);
         }
     }

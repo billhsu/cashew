@@ -23,52 +23,58 @@ std::vector<UI::UICallbackWithObject> UI::uiCallbackList;
 UI::UI() {
     mRootNode = new UINode(NULL);
     UILayout = LuaTable::fromFile("lua_scripts/UILayout.lua");
-    std::cout <<"UI()"<<std::endl;
+    std::cout << "UI()" << std::endl;
 }
 
 UI::~UI() {
     delete mRootNode;
-    std::cout <<"~UI()"<<std::endl;
+    std::cout << "~UI()" << std::endl;
 }
-int UI::luaGetNodePosX(const char *nodeName) {
-    std::string stringValue = (*UILayout)[nodeName]["pos"]["x"].get<std::string> ();
+int UI::luaGetNodePosX(const char* nodeName) {
+    std::string stringValue =
+        (*UILayout)[nodeName]["pos"]["x"].get<std::string>();
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
     return result;
 }
 
-int UI::luaGetNodePosY(const char *nodeName) {
-    std::string stringValue = (*UILayout)[nodeName]["pos"]["y"].get<std::string> ();
+int UI::luaGetNodePosY(const char* nodeName) {
+    std::string stringValue =
+        (*UILayout)[nodeName]["pos"]["y"].get<std::string>();
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
     return result;
 }
 
-int UI::luaGetNodeWidth(const char *nodeName) {
-    std::string stringValue = (*UILayout)[nodeName]["size"]["width"].get<std::string> ();
+int UI::luaGetNodeWidth(const char* nodeName) {
+    std::string stringValue =
+        (*UILayout)[nodeName]["size"]["width"].get<std::string>();
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
     return result;
 }
 
-int UI::luaGetNodeHeight(const char *nodeName) {
-    std::string stringValue = (*UILayout)[nodeName]["size"]["height"].get<std::string> ();
+int UI::luaGetNodeHeight(const char* nodeName) {
+    std::string stringValue =
+        (*UILayout)[nodeName]["size"]["height"].get<std::string>();
     lua_evaluate_expression(UILayout->L, stringValue.c_str());
     int result = lua_tonumber(UILayout->L, -1);
     lua_pop(UILayout->L, 1);
     return result;
 }
 
-std::string UI::luaGetTextureName(const char *nodeName, const char *nodeTexture) {
-    std::string stringValue = (*UILayout)[nodeName]["textures"][nodeTexture].get<std::string> ();
+std::string UI::luaGetTextureName(const char* nodeName,
+                                  const char* nodeTexture) {
+    std::string stringValue =
+        (*UILayout)[nodeName]["textures"][nodeTexture].get<std::string>();
     return stringValue;
 }
 
-std::string UI::luaGetNodeText(const char *nodeName) {
-    std::string stringValue = (*UILayout)[nodeName]["text"].get<std::string> ();
+std::string UI::luaGetNodeText(const char* nodeName) {
+    std::string stringValue = (*UILayout)[nodeName]["text"].get<std::string>();
     return stringValue;
 }
 
@@ -79,8 +85,9 @@ void UI::resize(int width, int height) {
     lua_setglobal(UILayout->L, "window_width");
     lua_pushnumber(UILayout->L, height);
     lua_setglobal(UILayout->L, "window_height");
-    for(int i=0; i<nodeList.size(); ++i) {
-        if(strcmp(nodeList[i]->strID,"")==0) continue;
+    for (int i = 0; i < nodeList.size(); ++i) {
+        if (strcmp(nodeList[i]->strID, "") == 0)
+            continue;
         nodeList[i]->setPos(luaGetNodePosX(nodeList[i]->strID),
                             luaGetNodePosY(nodeList[i]->strID));
         nodeList[i]->setSize(luaGetNodeWidth(nodeList[i]->strID),
@@ -94,8 +101,8 @@ UINode* UI::getNodeByPos(int x, int y) {
 }
 
 UINode* UI::getNodeById(int id) {
-    for(int i=0; i<nodeList.size(); ++i) {
-        if(nodeList[i]->nodeID == id) {
+    for (int i = 0; i < nodeList.size(); ++i) {
+        if (nodeList[i]->nodeID == id) {
             return nodeList[i];
         }
     }
@@ -105,16 +112,16 @@ UINode* UI::MouseButton(int button, int state, int x, int y) {
     mMouseX = x;
     mMouseY = y;
     UINode* node = getNodeByPos(x, y);
-    if(node!=NULL && state == Mouse::MOUSE_DOWN) {
+    if (node != NULL && state == Mouse::MOUSE_DOWN) {
         node->MouseButton(button, state, x, y);
         mRootNode->previousPressed = node;
     }
-    
-    if(state == Mouse::MOUSE_UP && mRootNode->previousPressed != NULL) {
+
+    if (state == Mouse::MOUSE_UP && mRootNode->previousPressed != NULL) {
         mRootNode->previousPressed->MouseButton(button, state, x, y);
         mRootNode->previousPressed = NULL;
     }
-    
+
     return node;
 }
 
@@ -122,12 +129,12 @@ UINode* UI::PassiveMotion(int x, int y) {
     mMouseX = x;
     mMouseY = y;
     UINode* node = getNodeByPos(x, y);
-    if(node!=NULL) {
-        if(mRootNode->previousHover == NULL) {
+    if (node != NULL) {
+        if (mRootNode->previousHover == NULL) {
             node->PassiveMotion(x, y);
             mRootNode->previousHover = node;
             return node;
-        } else if(mRootNode->previousHover != node) {
+        } else if (mRootNode->previousHover != node) {
             mRootNode->previousHover->PassiveMotion(x, y);
             node->PassiveMotion(x, y);
             mRootNode->previousHover = node;
@@ -135,7 +142,7 @@ UINode* UI::PassiveMotion(int x, int y) {
         } else {
             node->PassiveMotion(x, y);
         }
-    } else if(mRootNode->previousHover != NULL) {
+    } else if (mRootNode->previousHover != NULL) {
         mRootNode->previousHover->PassiveMotion(x, y);
         mRootNode->previousHover = NULL;
     }
