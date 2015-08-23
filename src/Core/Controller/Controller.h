@@ -1,4 +1,4 @@
-/* 
+/*
 Shipeng Xu
 billhsu.x@gmail.com
 */
@@ -25,11 +25,9 @@ class UINode;
 class UIButton;
 class UILabel;
 
-class Controller
-{
-public:
-    static Controller& getInstance()
-    {
+class Controller {
+   public:
+    static Controller& getInstance() {
         static Controller instance;
         return instance;
     }
@@ -38,19 +36,18 @@ public:
     void MouseLeftDrag(int x, int y, int dx, int dy);
     void MouseRightDrag(int x, int y, int dx, int dy);
     void PassiveMotion(int x, int y);
-    enum {KEY_UP, KEY_DOWN};
+    enum { KEY_UP, KEY_DOWN };
     void Keyboard(unsigned char key, unsigned char status);
     void update(float timeDelta);
     void render();
-    
+
     void init();
 
     void resize(int _width, int _heigth);
     static void UIButtonCallback(UINode* sender);
 
-    enum {OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE};
-    struct LineOperation
-    {
+    enum { OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE };
+    struct LineOperation {
         int lineID;
         int operation;
     };
@@ -60,8 +57,7 @@ public:
     static std::vector<LineSegment> redoLines;
     static std::vector<LineOperation> lineOperations;
     static std::vector<LineOperation> redoOperations;
-    static void addLine(LineSegment l)
-    {
+    static void addLine(LineSegment l) {
         static int IDCounter = 0;
         l.ID = IDCounter++;
         LineOperation lineOp;
@@ -70,36 +66,33 @@ public:
         lineOperations.push_back(lineOp);
         sketchLines.push_back(l);
     }
-    static void delLine(LineSegment& l)
-    {
-        for(int i = 0; i < sketchLines.size(); ++i)
-        {
-            if(sketchLines[i].ID == l.ID)
-            {
+    static void delLine(LineSegment& l) {
+        for (int i = 0; i < sketchLines.size(); ++i) {
+            if (sketchLines[i].ID == l.ID) {
                 LineOperation lineOp;
                 lineOp.lineID = l.ID;
                 lineOp.operation = OPERATION_DELETE_LINE;
                 lineOperations.push_back(lineOp);
                 deletedLines.push_back(sketchLines[i]);
-                sketchLines.erase(Controller::sketchLines.begin()+i);
+                sketchLines.erase(Controller::sketchLines.begin() + i);
                 break;
             }
         }
     }
     static void undoLastOperation();
     static void redoLastOperation();
-    static Plane currPlane; // Plane to draw
+    static Plane currPlane;  // Plane to draw
     static Vector3 currPoint;
     static bool bCurrPoint;
 
     int status;
 
-    static int windowWidth,windowHeight;
+    static int windowWidth, windowHeight;
     static Matrix4 modelView;
     static Matrix4 projection;
-    static int originWidth,originHeight;
-    static int mouseX,mouseY;
-    static int mouseButton,mouseState; // mouse status
+    static int originWidth, originHeight;
+    static int mouseX, mouseY;
+    static int mouseButton, mouseState;  // mouse status
 
     static UI* GUI;
     static int uiHold;
@@ -109,26 +102,33 @@ public:
     static State* state_draw;
     static State* state_delete;
     static State* state_mirror;
-    enum { MIRROR_MODE_X, MIRROR_MODE_Y, MIRROR_MODE_Z, MIRROR_MODE_NONE};
+    enum { MIRROR_MODE_X, MIRROR_MODE_Y, MIRROR_MODE_Z, MIRROR_MODE_NONE };
     static int mirrorMode;
-    
-    Camera * camera;
+
+    Camera* camera;
     bool getCameraPoint(Vector3& p, const Plane& plane);
     Ray getCameraRay();
     static bool enableLight;
     static Vector3 rotate;
-    static lua_State *luaState;
-    enum {BTN_ID_DOC_NEW=10, BTN_ID_DOC_OPEN, BTN_ID_DOC_SAVE,
-        BTN_ID_STANDARD_VIEW, BTN_ID_UNDO, BTN_ID_DELETE_LINE, BTN_ID_MIRROR};
-    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave,
-                    *btnStandardView, *btnUndo, *btnRedo, *btnDeleteLine, *btnMirror;
+    static lua_State* luaState;
+    enum {
+        BTN_ID_DOC_NEW = 10,
+        BTN_ID_DOC_OPEN,
+        BTN_ID_DOC_SAVE,
+        BTN_ID_STANDARD_VIEW,
+        BTN_ID_UNDO,
+        BTN_ID_DELETE_LINE,
+        BTN_ID_MIRROR
+    };
+    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave, *btnStandardView,
+        *btnUndo, *btnRedo, *btnDeleteLine, *btnMirror;
     static void btnStandardViewEvent(void* data);
     static void btnUndoEvent(void* data);
     static void btnRedoEvent(void* data);
     static void btnDeleteLineEvent(void* data);
     static void btnMirrorEvent(void* data);
 
-private:
+   private:
     Controller();
     ~Controller();
     Controller(Controller const&);

@@ -31,6 +31,7 @@
 		0C68F9B21B229DAA00DDD23A /* StateDelete.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C68F9B01B229DAA00DDD23A /* StateDelete.cpp */; };
 		0C7201A81A7DFE4700CFA38F /* DepthPeeling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */; };
 		0C73BF401B883D2100A9B7D2 /* IMGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C73BF3E1B883D2100A9B7D2 /* IMGUI.cpp */; };
+		0C74DAE61B89BB9C0096D8DA /* MouseEventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C74DAE41B89BB9C0096D8DA /* MouseEventQueue.cpp */; };
 		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
 		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
 		0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7764211A3C7ABE0010E1BB /* UINode.cpp */; };
@@ -126,6 +127,9 @@
 		0C7201A71A7DFE4700CFA38F /* DepthPeeling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DepthPeeling.h; sourceTree = "<group>"; };
 		0C73BF3E1B883D2100A9B7D2 /* IMGUI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IMGUI.cpp; sourceTree = "<group>"; };
 		0C73BF3F1B883D2100A9B7D2 /* IMGUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMGUI.h; sourceTree = "<group>"; };
+		0C74DAE21B89BA3C0096D8DA /* MouseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseEvent.h; sourceTree = "<group>"; };
+		0C74DAE41B89BB9C0096D8DA /* MouseEventQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseEventQueue.cpp; sourceTree = "<group>"; };
+		0C74DAE51B89BB9C0096D8DA /* MouseEventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseEventQueue.h; sourceTree = "<group>"; };
 		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
 		0C77641E1A3C7ABE0010E1BB /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
 		0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIButton.cpp; sourceTree = "<group>"; };
@@ -484,6 +488,9 @@
 				0C693EF31AA4BF7700356F22 /* Mouse.h */,
 				0C8889961A2ABF7A00068098 /* Controller.cpp */,
 				0C8889951A2ABEDB00068098 /* Controller.h */,
+				0C74DAE21B89BA3C0096D8DA /* MouseEvent.h */,
+				0C74DAE41B89BB9C0096D8DA /* MouseEventQueue.cpp */,
+				0C74DAE51B89BB9C0096D8DA /* MouseEventQueue.h */,
 			);
 			name = Controller;
 			path = ../../../../src/Core/Controller;
@@ -717,6 +724,7 @@
 				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C73BF401B883D2100A9B7D2 /* IMGUI.cpp in Sources */,
+				0C74DAE61B89BB9C0096D8DA /* MouseEventQueue.cpp in Sources */,
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
 				0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */,

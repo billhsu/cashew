@@ -1,4 +1,4 @@
-/* 
+/*
 Shipeng Xu
 billhsu.x@gmail.com
 */
@@ -44,12 +44,12 @@ std::vector<LineSegment> Controller::redoLines;
 std::vector<Controller::LineOperation> Controller::lineOperations;
 std::vector<Controller::LineOperation> Controller::redoOperations;
 
-Vector3 Controller::currPoint = Vector3(0,0,0);
+Vector3 Controller::currPoint = Vector3(0, 0, 0);
 bool Controller::bCurrPoint = false;
 
-Vector3 Controller::rotate = Vector3(-30,0,0);
+Vector3 Controller::rotate = Vector3(-30, 0, 0);
 
-lua_State *Controller::luaState = NULL;
+lua_State* Controller::luaState = NULL;
 
 State* Controller::state_idle = NULL;
 State* Controller::state_select_plane = NULL;
@@ -60,12 +60,13 @@ State* Controller::state_mirror = NULL;
 int Controller::mirrorMode = MIRROR_MODE_NONE;
 
 UI* Controller::GUI = NULL;
-UIButton *Controller::btnDocNew  = NULL, *Controller::btnDocOpen = NULL, *Controller::btnDocSave = NULL,
-         *Controller::btnStandardView = NULL, *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
+UIButton *Controller::btnDocNew = NULL, *Controller::btnDocOpen = NULL,
+         *Controller::btnDocSave = NULL, *Controller::btnStandardView = NULL,
+         *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
          *Controller::btnDeleteLine = NULL, *Controller::btnMirror = NULL;
 
 Controller::Controller() {
-    std::cout <<"Controller Controller()"<<std::endl;
+    std::cout << "Controller Controller()" << std::endl;
 }
 
 Controller::~Controller() {
@@ -75,31 +76,31 @@ Controller::~Controller() {
     delete state_delete;
     delete state_mirror;
     lua_close(luaState);
-    std::cout <<"Controller ~Controller()"<<std::endl;
+    std::cout << "Controller ~Controller()" << std::endl;
 }
-
 
 void Controller::init() {
     luaState = luaL_newstate();
-    luaL_openlibs( luaState );
+    luaL_openlibs(luaState);
 
     GUI->resize(originWidth, originHeight);
 
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
-    
+
     // Add buttons
-    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW",
-                               NULL, NULL);
-    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN",
-                                NULL, NULL);
-    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE",
-                                NULL, NULL);
-    btnStandardView = GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW", btnStandardViewEvent, NULL);
+    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL, NULL);
+    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL, NULL);
+    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL, NULL);
+    btnStandardView =
+        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
+                       btnStandardViewEvent, NULL);
     btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
     btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
-    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE", btnDeleteLineEvent, NULL);
-    btnMirror = GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
+    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE",
+                                   btnDeleteLineEvent, NULL);
+    btnMirror =
+        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
 }
 void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;
@@ -107,11 +108,13 @@ void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseX = x;
     Controller::mouseY = y;
     UINode* node = GUI->MouseButton(button, state, x, y);
-    if(node!=NULL) {
+    if (node != NULL) {
         uiHold = 1;
-        if(state==Mouse::MOUSE_UP) uiHold = 0;
+        if (state == Mouse::MOUSE_UP)
+            uiHold = 0;
     } else {
-        if(uiHold==0) State::currState->MouseButton(button, state, x, y);
+        if (uiHold == 0)
+            State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
     }
 }
@@ -119,25 +122,29 @@ void Controller::MouseButton(int button, int state, int x, int y) {
 void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if(uiHold==0) State::currState->MouseRightDrag(dx, dy);
+    if (uiHold == 0)
+        State::currState->MouseRightDrag(dx, dy);
 }
 
 void Controller::MouseLeftDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if(uiHold==0) State::currState->MouseLeftDrag(dx, dy);
+    if (uiHold == 0)
+        State::currState->MouseLeftDrag(dx, dy);
 }
 void Controller::PassiveMotion(int x, int y) {
-    //std::cout<<x<<" "<<y<<std::endl;
+    // std::cout<<x<<" "<<y<<std::endl;
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
     GUI->PassiveMotion(x, y);
-    if(camera->getPoint(x, y, sketchLines, p)) {
+    if (camera->getPoint(x, y, sketchLines, p)) {
         currPoint = p;
         bCurrPoint = true;
-    } else bCurrPoint = false;
-    if(uiHold==0) State::currState->PassiveMotion(x, y);
+    } else
+        bCurrPoint = false;
+    if (uiHold == 0)
+        State::currState->PassiveMotion(x, y);
 }
 void Controller::Keyboard(unsigned char key, unsigned char status) {
     State::currState->Keyboard(key, status);
@@ -146,7 +153,7 @@ void Controller::Keyboard(unsigned char key, unsigned char status) {
 void Controller::update(float timeDelta) {
     modelView.identity();
     int result = camera->update(timeDelta);
-    if(result == Camera::UPDATE_ANIM_DONE) {
+    if (result == Camera::UPDATE_ANIM_DONE) {
         rotate = Quaternion::toEuler(camera->getRotateQuaternion());
     }
     State::currState->update(timeDelta);
@@ -162,7 +169,8 @@ void Controller::resize(int _width, int _height) {
     windowWidth = _width;
     windowHeight = _height;
     GUI->resize(_width, _height);
-    projection = cashew::gluPerspective(45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
+    projection = cashew::gluPerspective(
+        45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
     camera->setWindowWidth(windowWidth);
     camera->setWindowHeight(windowHeight);
     camera->setProjection(projection);
@@ -177,24 +185,24 @@ Ray Controller::getCameraRay() {
 }
 
 void Controller::undoLastOperation() {
-    if(lineOperations.size()>0) {
+    if (lineOperations.size() > 0) {
         LineOperation lineOp = lineOperations.back();
         redoOperations.push_back(lineOp);
         lineOperations.pop_back();
-        if(lineOp.operation == OPERATION_ADD_LINE) {
-            for(int i=0; i<sketchLines.size(); ++i) {
-                if(lineOp.lineID == sketchLines[i].ID) {
+        if (lineOp.operation == OPERATION_ADD_LINE) {
+            for (int i = 0; i < sketchLines.size(); ++i) {
+                if (lineOp.lineID == sketchLines[i].ID) {
                     redoLines.push_back(sketchLines[i]);
-                    sketchLines.erase(sketchLines.begin()+i);
+                    sketchLines.erase(sketchLines.begin() + i);
                     break;
                 }
             }
-        } else if(lineOp.operation == OPERATION_DELETE_LINE) {
-            for(int i=0; i<deletedLines.size(); ++i) {
-                if(lineOp.lineID == deletedLines[i].ID) {
+        } else if (lineOp.operation == OPERATION_DELETE_LINE) {
+            for (int i = 0; i < deletedLines.size(); ++i) {
+                if (lineOp.lineID == deletedLines[i].ID) {
                     sketchLines.push_back(deletedLines[i]);
                     redoLines.push_back(deletedLines[i]);
-                    deletedLines.erase(deletedLines.begin()+i);
+                    deletedLines.erase(deletedLines.begin() + i);
                     break;
                 }
             }
@@ -203,20 +211,21 @@ void Controller::undoLastOperation() {
 }
 
 void Controller::redoLastOperation() {
-    if(redoOperations.size()>0) {
+    if (redoOperations.size() > 0) {
         LineOperation lineOp = redoOperations.back();
         redoOperations.pop_back();
         bool idFound = false;
         int idPos = 0;
-        for(int i=0; i<redoLines.size(); ++i) {
-            if(lineOp.lineID == redoLines[i].ID) {
+        for (int i = 0; i < redoLines.size(); ++i) {
+            if (lineOp.lineID == redoLines[i].ID) {
                 idFound = true;
                 idPos = i;
                 break;
             }
         }
-        if (!idFound) return;
-        if(lineOp.operation == OPERATION_ADD_LINE) {
+        if (!idFound)
+            return;
+        if (lineOp.operation == OPERATION_ADD_LINE) {
             addLine(redoLines[idPos]);
         } else if (lineOp.operation == OPERATION_DELETE_LINE) {
             delLine(redoLines[idPos]);
