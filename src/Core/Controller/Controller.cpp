@@ -110,7 +110,7 @@ void Controller::MouseButton(int button, int state, int x, int y) {
     UINode* node = GUI->MouseButton(button, state, x, y);
     if (node != NULL) {
         uiHold = 1;
-        if (state == Mouse::MOUSE_UP)
+        if (state == Mouse::MOUSE_ACTION_UP)
             uiHold = 0;
     } else {
         if (uiHold == 0)

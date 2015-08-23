@@ -11,5 +11,6 @@ namespace MouseEventQueue {
     void init();
     bool pollEvent(MouseEvent& event);
     void addEvent(const MouseEvent event);
+    void clear();
 }
 #endif /* defined(__cashew__MouseEventQueue__) */

@@ -12,6 +12,7 @@
 #include "Core/Math/Vectors.h"
 #include "Core/Math/Matrices.h"
 #include "OpenGL/Impl/Scene/Scene.h"
+#include "Core/Controller/MouseEventQueue.h"
 
 #include "Core/Camera/Camera.h"
 #include "OpenGL/Impl/State/StateIdleImpl.h"
@@ -106,6 +107,8 @@ bool windowPaused = false;
                                 mController->windowHeight);
     depthPeeling->init();
     depthPeeling->setBackgroundColor(BACKGROUND_COLOR);
+
+    MouseEventQueue::init();
 
     return YES;
 }
@@ -251,28 +254,58 @@ void openFile(void* data) {
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_UP, x, y);
+    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_ACTION_UP, x, y);
+    MouseEvent event;
+    event.mouseButton = Mouse::MOUSE_LEFT;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_UP;
+    event.mousePosX = x;
+    event.mousePosY = y;
+
+    MouseEventQueue::addEvent(event);
 }
 
 - (void)mouseLeftDown:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_DOWN, x, y);
+    mController->MouseButton(Mouse::MOUSE_LEFT, Mouse::MOUSE_ACTION_DOWN, x, y);
+
+    MouseEvent event;
+    event.mouseButton = Mouse::MOUSE_LEFT;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_DOWN;
+    event.mousePosX = x;
+    event.mousePosY = y;
+
+    MouseEventQueue::addEvent(event);
 }
 
 - (void)mouseRightUp:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_UP, x, y);
+    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_ACTION_UP, x, y);
+    MouseEvent event;
+    event.mouseButton = Mouse::MOUSE_RIGHT;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_UP;
+    event.mousePosX = x;
+    event.mousePosY = y;
+
+    MouseEventQueue::addEvent(event);
 }
 
 - (void)mouseRightDown:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_DOWN, x, y);
+    mController->MouseButton(Mouse::MOUSE_RIGHT, Mouse::MOUSE_ACTION_DOWN, x,
+                             y);
+    MouseEvent event;
+    event.mouseButton = Mouse::MOUSE_RIGHT;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_DOWN;
+    event.mousePosX = x;
+    event.mousePosY = y;
+
+    MouseEventQueue::addEvent(event);
 }
 
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y {

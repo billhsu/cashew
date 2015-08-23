@@ -8,7 +8,7 @@ namespace MouseEventQueue {
     std::queue<MouseEvent> queue;
 
     void init() {
-        queue = std::queue<MouseEvent>();
+        clear();
     }
     bool pollEvent(MouseEvent& event) {
         if (queue.size() == 0) {
@@ -20,5 +20,8 @@ namespace MouseEventQueue {
     }
     void addEvent(const MouseEvent event) {
         queue.push(event);
+    }
+    void clear() {
+        queue = std::queue<MouseEvent>();
     }
 }

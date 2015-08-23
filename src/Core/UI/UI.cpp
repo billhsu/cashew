@@ -112,12 +112,12 @@ UINode* UI::MouseButton(int button, int state, int x, int y) {
     mMouseX = x;
     mMouseY = y;
     UINode* node = getNodeByPos(x, y);
-    if (node != NULL && state == Mouse::MOUSE_DOWN) {
+    if (node != NULL && state == Mouse::MOUSE_ACTION_DOWN) {
         node->MouseButton(button, state, x, y);
         mRootNode->previousPressed = node;
     }
 
-    if (state == Mouse::MOUSE_UP && mRootNode->previousPressed != NULL) {
+    if (state == Mouse::MOUSE_ACTION_UP && mRootNode->previousPressed != NULL) {
         mRootNode->previousPressed->MouseButton(button, state, x, y);
         mRootNode->previousPressed = NULL;
     }
