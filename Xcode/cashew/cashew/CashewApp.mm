@@ -218,6 +218,7 @@ void saveFile(void* data) {
         fileStream << "endsolid cashew" << std::endl;
     }
     fileStream.close();
+    MouseEventQueue::clear();
 }
 
 void openFile(void* data) {
@@ -248,14 +249,14 @@ void openFile(void* data) {
     Controller::deletedLines.clear();
     Controller::redoLines.clear();
     fileStream.close();
+    MouseEventQueue::clear();
 }
 
 - (void)mouseLeftUp:(NSPoint)locationInWindow;
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_BUTTON_LEFT, Mouse::MOUSE_ACTION_UP,
-                             x, y);
+
     MouseEvent event;
     event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
     event.mouseButtonAction = Mouse::MOUSE_ACTION_UP;
@@ -269,8 +270,6 @@ void openFile(void* data) {
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_BUTTON_LEFT, Mouse::MOUSE_ACTION_DOWN,
-                             x, y);
 
     MouseEvent event;
     event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
@@ -285,8 +284,7 @@ void openFile(void* data) {
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_BUTTON_RIGHT, Mouse::MOUSE_ACTION_UP,
-                             x, y);
+
     MouseEvent event;
     event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
     event.mouseButtonAction = Mouse::MOUSE_ACTION_UP;
@@ -300,8 +298,7 @@ void openFile(void* data) {
 {
     int x = (int)locationInWindow.x;
     int y = mController->windowHeight - (int)locationInWindow.y;
-    mController->MouseButton(Mouse::MOUSE_BUTTON_RIGHT,
-                             Mouse::MOUSE_ACTION_DOWN, x, y);
+
     MouseEvent event;
     event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
     event.mouseButtonAction = Mouse::MOUSE_ACTION_DOWN;
@@ -313,7 +310,7 @@ void openFile(void* data) {
 
 - (void)mouseMoveWithX:(CGFloat)x andY:(CGFloat)y {
     y = mController->windowHeight - y;
-    mController->PassiveMotion(x, y);
+
     MouseEvent event;
     event.mouseButtonAction = Mouse::MOUSE_ACTION_MOTION;
     event.mousePosX = x;
@@ -326,7 +323,7 @@ void openFile(void* data) {
                         andX:(CGFloat)x
                         andY:(CGFloat)y {
     y = mController->windowHeight - y;
-    mController->MouseRightDrag(x, y, dx, dy);
+
     MouseEvent event;
     event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
     event.mouseButtonAction = Mouse::MOUSE_ACTION_DRAG;
@@ -342,12 +339,22 @@ void openFile(void* data) {
                        andX:(CGFloat)x
                        andY:(CGFloat)y {
     y = mController->windowHeight - y;
-    mController->MouseLeftDrag(x, y, dx, dy);
+    MouseEvent event;
+    event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_DRAG;
+    event.mousePosX = x;
+    event.mousePosY = y;
+    event.mouseDragX = dx;
+    event.mouseDragY = dy;
+    MouseEventQueue::addEvent(event);
 }
 
 - (void)mouseScrollWithX:(CGFloat)x andY:(CGFloat)y {
-    mController->MouseButton(Mouse::MOUSE_BUTTON_SCROLL, (int)y,
-                             mController->mouseX, mController->mouseY);
+    MouseEvent event;
+    event.mouseButtonAction = Mouse::MOUSE_ACTION_SCROLL;
+    event.mouseButton = Mouse::MOUSE_BUTTON_SCROLL;
+    event.mouseScroll = y;
+    MouseEventQueue::addEvent(event);
 }
 - (void)mouseEnteredWithX:(CGFloat)x andY:(CGFloat)y {
     windowPaused = false;
@@ -364,7 +371,39 @@ void openFile(void* data) {
 - (void)update:(NSTimeInterval)timeInterval {
     if (windowPaused)
         return;
+    MouseEvent event;
+    while (MouseEventQueue::pollEvent(event)) {
+        processMouseEvent(event);
+    }
     mController->update(timeInterval * 1000.0f);
+}
+
+void processMouseEvent(MouseEvent event) {
+    switch (event.mouseButtonAction) {
+        case Mouse::MOUSE_ACTION_UP:
+        case Mouse::MOUSE_ACTION_DOWN:
+            mController->MouseButton(event.mouseButton, event.mouseButtonAction,
+                                     event.mousePosX, event.mousePosY);
+            break;
+        case Mouse::MOUSE_ACTION_MOTION:
+            mController->PassiveMotion(event.mousePosX, event.mousePosY);
+            break;
+        case Mouse::MOUSE_ACTION_DRAG:
+            if (event.mouseButton == Mouse::MOUSE_BUTTON_RIGHT) {
+                mController->MouseRightDrag(event.mousePosX, event.mousePosY,
+                                            event.mouseDragX, event.mouseDragY);
+            } else if (event.mouseButton == Mouse::MOUSE_BUTTON_LEFT) {
+                mController->MouseLeftDrag(event.mousePosX, event.mousePosY,
+                                           event.mouseDragX, event.mouseDragY);
+            }
+            break;
+        case Mouse::MOUSE_ACTION_SCROLL:
+            mController->MouseButton(event.mouseButton, (int)event.mouseScroll,
+                                     mController->mouseX, mController->mouseY);
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)render;

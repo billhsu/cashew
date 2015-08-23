@@ -14,7 +14,6 @@ class MouseEvent {
     float mouseScroll;
     int mouseButton;
     int mouseButtonAction;
-    int mouseScrollDirection;
     MouseEvent() {
         mousePosX = 0;
         mousePosY = 0;
@@ -23,7 +22,6 @@ class MouseEvent {
         mouseScroll = 0;
         mouseButton = Mouse::MOUSE_BUTTON_UNDEFINED;
         mouseButtonAction = Mouse::MOUSE_ACTION_UNDEFIINED;
-        mouseScrollDirection = Mouse::MOUSE_SCROLL_UNDEFINED;
     }
 };
 
