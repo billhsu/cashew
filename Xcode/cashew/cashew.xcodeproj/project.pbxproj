@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0C0118161AC6F64A0042E1CC /* FileOperations.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C0118151AC6F64A0042E1CC /* FileOperations.mm */; };
+		0C0A52681B8CC18500F378BE /* IMGUIImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C0A52661B8CC18500F378BE /* IMGUIImpl.cpp */; };
 		0C1EC06E1A6A623B004FA7C2 /* HardwareBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1EC06C1A6A623B004FA7C2 /* HardwareBuffer.cpp */; };
 		0C2247701A3D925A00349BCC /* lua_scripts in Resources */ = {isa = PBXBuildFile; fileRef = 0C22476F1A3D925A00349BCC /* lua_scripts */; };
 		0C2247721A3D92F700349BCC /* Shader in Resources */ = {isa = PBXBuildFile; fileRef = 0C2247711A3D92F700349BCC /* Shader */; };
@@ -82,6 +83,8 @@
 		0C0118151AC6F64A0042E1CC /* FileOperations.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileOperations.mm; sourceTree = "<group>"; };
 		0C0118171AC6F68E0042E1CC /* FileOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
 		0C0118181AC6F6CC0042E1CC /* FileOperationsCppWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileOperationsCppWrapper.h; sourceTree = "<group>"; };
+		0C0A52661B8CC18500F378BE /* IMGUIImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = IMGUIImpl.cpp; path = ../../../../../../src/OpenGL/Impl/UI/IMGUIImpl.cpp; sourceTree = "<group>"; };
+		0C0A52671B8CC18500F378BE /* IMGUIImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IMGUIImpl.h; path = ../../../../../../src/OpenGL/Impl/UI/IMGUIImpl.h; sourceTree = "<group>"; };
 		0C1EC06C1A6A623B004FA7C2 /* HardwareBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HardwareBuffer.cpp; sourceTree = "<group>"; };
 		0C1EC06D1A6A623B004FA7C2 /* HardwareBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HardwareBuffer.h; sourceTree = "<group>"; };
 		0C22476F1A3D925A00349BCC /* lua_scripts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lua_scripts; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				0C5F95471A614F0100BE91E9 /* UIButtonImpl.h */,
 				0C5F95481A614F0100BE91E9 /* UIImpl.cpp */,
 				0C5F95491A614F0100BE91E9 /* UIImpl.h */,
+				0C0A52661B8CC18500F378BE /* IMGUIImpl.cpp */,
+				0C0A52671B8CC18500F378BE /* IMGUIImpl.h */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -696,6 +701,7 @@
 				0C8D44251A218473005421E1 /* CashewInputController.m in Sources */,
 				0CC49AEF1B64E9A0007BC02A /* StateMirrorImpl.cpp in Sources */,
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
+				0C0A52681B8CC18500F378BE /* IMGUIImpl.cpp in Sources */,
 				0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */,
 				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
 				0C5F954F1A614F0100BE91E9 /* UIImpl.cpp in Sources */,
