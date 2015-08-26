@@ -23,6 +23,13 @@ namespace IMGUIImpl {
         uvArray[6] = 0.0f;
         uvArray[7] = 1.0f;
 
+        indices[0] = 0;
+        indices[1] = 1;
+        indices[2] = 2;
+        indices[3] = 0;
+        indices[4] = 2;
+        indices[5] = 3;
+
         colorArray[0] = mR;
         colorArray[1] = mG;
         colorArray[2] = mB;
@@ -81,6 +88,11 @@ namespace IMGUIImpl {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     void render() {
+        glDisable(GL_DEPTH_TEST);
+        glDepthMask(GL_FALSE);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable(GL_BLEND);
+
         std::queue<RenderItem> renderQueue = getRenderQueue();
         while (renderQueue.size() > 0) {
             RenderItem renderItem = renderQueue.front();
@@ -95,5 +107,9 @@ namespace IMGUIImpl {
                     break;
             }
         }
+
+        glDepthMask(GL_TRUE);
+        glDisable(GL_BLEND);
+        glEnable(GL_DEPTH_TEST);
     }
 };

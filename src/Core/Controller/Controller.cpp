@@ -15,6 +15,7 @@ billhsu.x@gmail.com
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
 #include "Core/UI/UI.h"
+#include "Core/UI/IMGUI.h"
 #include "Core/UI/UIButton.h"
 #include <iostream>
 #include <fstream>
@@ -159,6 +160,7 @@ void Controller::update(float timeDelta) {
     State::currState->update(timeDelta);
     modelView = camera->getMatrix();
     GUI->update(timeDelta);
+    IMGUI::update(timeDelta);
 }
 
 void Controller::render() {

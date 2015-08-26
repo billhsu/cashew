@@ -22,6 +22,7 @@
 #include "OpenGL/Impl/State/StateMirrorImpl.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Impl/UI/UIImpl.h"
+#include "OpenGL/Impl/UI/IMGUIImpl.h"
 #include "OpenGL/Impl/UI/UIButtonImpl.h"
 #include "OpenGL/Util/Utility.h"
 #include "OpenGL/Shader/GLSLShader.h"
@@ -100,6 +101,7 @@ bool windowPaused = false;
     PointRenderer::prepareRenderData();
     LineSegmentRenderer::prepareRenderData();
     FontRenderer::prepareRenderData();
+    IMGUIImpl::prepareRenderData();
 
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);
@@ -371,11 +373,13 @@ void openFile(void* data) {
 - (void)update:(NSTimeInterval)timeInterval {
     if (windowPaused)
         return;
+    IMGUIImpl::beginFrame();
     MouseEvent event;
     while (MouseEventQueue::pollEvent(event)) {
         processMouseEvent(event);
     }
     mController->update(timeInterval * 1000.0f);
+    IMGUIImpl::endFrame();
 }
 
 void processMouseEvent(MouseEvent event) {
@@ -425,6 +429,8 @@ void processMouseEvent(MouseEvent event) {
     glUniformMatrix4fv(local_projection, 1, GL_FALSE,
                        mController->GUI->getProjection().get());
     glUniform1i(glGetUniformLocation(UIProgram.getProgram(), "image0"), 0);
+    IMGUIImpl::render();
+    // todo: remove mController->GUI->render()
     mController->GUI->render();
 
 #ifdef DEBUG
