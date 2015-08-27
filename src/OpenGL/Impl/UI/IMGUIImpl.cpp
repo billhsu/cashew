@@ -14,6 +14,7 @@ namespace IMGUIImpl {
     int indices[6];
     float mR = 1, mG = 1, mB = 1, mAlpha = 1;
     void prepareRenderData() {
+        init();
         uvArray[0] = 0.0f;
         uvArray[1] = 0.0f;
         uvArray[2] = 1.0f;

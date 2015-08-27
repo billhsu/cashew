@@ -42,7 +42,7 @@ namespace IMGUI {
         renderQueue.push(item);
     }
 
-    UIState getState() {
+    UIState& getState() {
         return state;
     }
     void update(float timeDelta) {

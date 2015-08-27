@@ -12,7 +12,8 @@
 #include <queue>
 
 namespace IMGUI {
-    struct UIState {
+    class UIState {
+       public:
         int mouseX;
         int mouseY;
         int mouseButton;
@@ -20,11 +21,21 @@ namespace IMGUI {
 
         int hotItem;
         int activeItem;
+        void setMousePos(int x, int y) {
+            mouseX = x;
+            mouseY = y;
+        }
+        void setMouseButton(int button) {
+            mouseButton = button;
+        }
+        void setMouseState(int state) {
+            mouseState = state;
+        }
     };
     void init();
     void beginFrame();
     void endFrame();
-    UIState getState();
+    UIState& getState();
 
     enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_LABEL };
     struct RenderItem {
