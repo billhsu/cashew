@@ -12,7 +12,7 @@ namespace IMGUI {
     float timeAnimationAcc;
     float timeElapsed;
     void init() {
-        state = {0, 0, 0, 0, 0};
+        state.init();
     }
 
     bool regionHit(int x, int y, int w, int h) {

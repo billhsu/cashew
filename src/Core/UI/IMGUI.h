@@ -14,13 +14,9 @@
 namespace IMGUI {
     class UIState {
        public:
-        int mouseX;
-        int mouseY;
-        int mouseButton;
-        int mouseState;
-
-        int hotItem;
-        int activeItem;
+        UIState() {
+            init();
+        }
         void setMousePos(int x, int y) {
             mouseX = x;
             mouseY = y;
@@ -31,6 +27,27 @@ namespace IMGUI {
         void setMouseState(int state) {
             mouseState = state;
         }
+        void setHotItem(int ID) {
+            hotItem = ID;
+        }
+        void setActiveItem(int ID) {
+            activeItem = ID;
+        }
+        void init() {
+            mouseX = 0;
+            mouseY = 0;
+            mouseButton = Mouse::MOUSE_BUTTON_UNDEFINED;
+            mouseState = Mouse::MOUSE_ACTION_UNDEFIINED;
+            hotItem = 0;
+            activeItem = 0;
+        }
+        int mouseX;
+        int mouseY;
+        int mouseButton;
+        int mouseState;
+
+        int hotItem;
+        int activeItem;
     };
     void init();
     void beginFrame();
