@@ -1,9 +1,4 @@
-os:
-  - linux
-  - osx
-language: cpp
-compiler:
-  - gcc
-  - clang
+os: osx
+language: objective-c
 
 script: ./configure && make; xctool -project Xcode/cashew/cashew.xcodeproj -scheme cashew build;
