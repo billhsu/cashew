@@ -34,8 +34,8 @@ namespace IMGUI {
             activeItem = ID;
         }
         void init() {
-            mouseX = 0;
-            mouseY = 0;
+            mouseX = -100;
+            mouseY = -100;
             mouseButton = Mouse::MOUSE_BUTTON_UNDEFINED;
             mouseState = Mouse::MOUSE_ACTION_UNDEFIINED;
             hotItem = 0;
@@ -47,7 +47,9 @@ namespace IMGUI {
         int mouseState;
 
         int hotItem;
+        int preHotItem;
         int activeItem;
+        int preActiveItem;
     };
     void init();
     void beginFrame();

@@ -10,7 +10,6 @@ namespace IMGUI {
     IMGUI::UIState state;
     std::queue<RenderItem> renderQueue;
     float timeAnimationAcc;
-    float timeElapsed;
     void init() {
         state.init();
     }
@@ -24,11 +23,13 @@ namespace IMGUI {
     }
 
     void beginFrame() {
+        state.preHotItem = state.hotItem;
         state.hotItem = 0;
         renderQueue = std::queue<RenderItem>();
     }
 
     void endFrame() {
+        state.preActiveItem = state.activeItem;
         if (state.mouseState == Mouse::MOUSE_ACTION_UP) {
             state.activeItem = 0;
         }
@@ -46,17 +47,17 @@ namespace IMGUI {
         return state;
     }
     void update(float timeDelta) {
-        timeElapsed = timeDelta;
+        timeAnimationAcc += timeDelta;
     }
 
     bool button(int ID, int x, int y, int w, int h, int texID, Vector4 color) {
         float _height = h;
         float _width = w;
         if (regionHit(x, y, w, h)) {
-            if (state.hotItem != ID) {
+            state.hotItem = ID;
+            if (state.hotItem != state.preHotItem) {
                 timeAnimationAcc = 0;
             }
-            state.hotItem = ID;
             if (state.activeItem == 0 &&
                 state.mouseButton == Mouse::MOUSE_BUTTON_LEFT &&
                 state.mouseState == Mouse::MOUSE_ACTION_DOWN)
