@@ -102,4 +102,9 @@ namespace IMGUI {
         // Otherwise, no clicky.
         return false;
     }
+
+    bool checkbox(int ID, int x, int y, int w, int h, int texID,
+                  Vector4 color) {
+        return false;
+    }
 }
