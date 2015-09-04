@@ -79,12 +79,32 @@ namespace IMGUIImpl {
         verticesArray[6] = renderItem.vertices[3].x;
         verticesArray[7] = renderItem.vertices[3].y;
 
+        colorArray[0] = renderItem.color.r;
+        colorArray[1] = renderItem.color.g;
+        colorArray[2] = renderItem.color.b;
+        colorArray[3] = renderItem.color.a;
+        colorArray[4] = renderItem.color.r;
+        colorArray[5] = renderItem.color.g;
+        colorArray[6] = renderItem.color.b;
+        colorArray[7] = renderItem.color.a;
+        colorArray[8] = renderItem.color.r;
+        colorArray[9] = renderItem.color.g;
+        colorArray[10] = renderItem.color.b;
+        colorArray[11] = renderItem.color.a;
+        colorArray[12] = renderItem.color.r;
+        colorArray[13] = renderItem.color.g;
+        colorArray[14] = renderItem.color.b;
+        colorArray[15] = renderItem.color.a;
+
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, renderItem.texID);
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = verticesArray;
         _VBO.vertexBufferSize = sizeof(verticesArray) / sizeof(float);
-        buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER);
+        _VBO.colorBufferData = colorArray;
+        _VBO.colorBufferSize = sizeof(colorArray) / sizeof(float);
+        buffer.updateVBO(_VBO, HardwareBuffer::FLAG_VERTEX_BUFFER |
+                                   HardwareBuffer::FLAG_COLOR_BUFFER);
         buffer.render();
         glBindTexture(GL_TEXTURE_2D, 0);
     }

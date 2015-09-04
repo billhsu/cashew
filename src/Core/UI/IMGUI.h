@@ -69,7 +69,7 @@ namespace IMGUI {
     // functions for adding UI elements
     bool button(int ID, int x, int y, int w, int h, int texID,
                 Vector4 color = Vector4(1, 1, 1, 1));
-    bool checkbox(int ID, int x, int y, int w, int h, int texID,
+    bool checkbox(int ID, int x, int y, int w, int h, bool& checked, int texID,
                   Vector4 color = Vector4(1, 1, 1, 1));
 }
 #endif /* defined(__cashew__IMGUI__) */

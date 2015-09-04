@@ -378,8 +378,9 @@ void openFile(void* data) {
     while (MouseEventQueue::pollEvent(event)) {
         processMouseEvent(event);
     }
-    if (IMGUIImpl::button(1, 0, 0, 100, 100, 3)) {
-        std::cout << "button clicked" << std::endl;
+    static bool checked = false;
+    if (IMGUIImpl::checkbox(1, 0, 0, 100, 100, checked, 3)) {
+        std::cout << "checkbox clicked " << checked << std::endl;
     }
     mController->update(timeInterval * 1000.0f);
     IMGUIImpl::endFrame();
