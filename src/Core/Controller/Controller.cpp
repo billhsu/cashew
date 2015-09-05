@@ -84,7 +84,7 @@ void Controller::init() {
     luaState = luaL_newstate();
     luaL_openlibs(luaState);
     IMGUI::init(luaState);
-
+    luaL_dofile(luaState, "lua_scripts/init.lua");
     GUI->resize(originWidth, originHeight);
 
     camera = &Camera::getInstance();
