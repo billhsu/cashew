@@ -10,7 +10,9 @@
 #include "Core/Controller/Mouse.h"
 #include "Core/Math/Vectors.h"
 #include <queue>
+#include <string>
 
+class lua_State;
 namespace IMGUI {
     class UIState {
        public:
@@ -51,7 +53,7 @@ namespace IMGUI {
         int activeItem;
         int preActiveItem;
     };
-    void init();
+    void init(lua_State* _luaState);
     void beginFrame();
     void endFrame();
     UIState& getState();
@@ -59,17 +61,18 @@ namespace IMGUI {
     enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_LABEL };
     struct RenderItem {
         int type;
-        int texID;
-        char* text;
+        std::string textureFile;
+        std::string text;
         Vector2 vertices[4];
         Vector4 color;
     };
     std::queue<RenderItem> getRenderQueue();
     void update(float timeDelta);
     // functions for adding UI elements
-    bool button(int ID, int x, int y, int w, int h, int texID,
+    bool button(int ID, int x, int y, int w, int h, std::string textureFile,
                 Vector4 color = Vector4(1, 1, 1, 1));
-    bool checkbox(int ID, int x, int y, int w, int h, bool& checked, int texID,
-                  Vector4 color = Vector4(1, 1, 1, 1));
+    bool checkbox(int ID, int x, int y, int w, int h, bool& checked,
+                  std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
+    bool isUIClicked();
 }
 #endif /* defined(__cashew__IMGUI__) */

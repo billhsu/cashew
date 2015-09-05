@@ -4,6 +4,7 @@
 #include "IMGUIImpl.h"
 #include <queue>
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
+#include "OpenGL/TextureManager/TextureManager.h"
 
 namespace IMGUIImpl {
     HardwareBuffer buffer;
@@ -14,7 +15,6 @@ namespace IMGUIImpl {
     int indices[6];
     float mR = 1, mG = 1, mB = 1, mAlpha = 1;
     void prepareRenderData() {
-        init();
         uvArray[0] = 0.0f;
         uvArray[1] = 0.0f;
         uvArray[2] = 1.0f;
@@ -97,7 +97,10 @@ namespace IMGUIImpl {
         colorArray[15] = renderItem.color.a;
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, renderItem.texID);
+        int texID = TextureManager::getInstance()
+                        .getTexture(renderItem.textureFile)
+                        .glTextureID;
+        glBindTexture(GL_TEXTURE_2D, texID);
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = verticesArray;
         _VBO.vertexBufferSize = sizeof(verticesArray) / sizeof(float);

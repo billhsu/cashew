@@ -379,8 +379,14 @@ void openFile(void* data) {
         processMouseEvent(event);
     }
     static bool checked = false;
-    if (IMGUIImpl::checkbox(1, 0, 0, 100, 100, checked, 3)) {
+    if (IMGUIImpl::checkbox(1, 0, 0, 100, 100, checked,
+                            "media/textures/point_selected.png")) {
         std::cout << "checkbox clicked " << checked << std::endl;
+    }
+    static bool checked2 = false;
+    if (IMGUIImpl::checkbox(2, 200, 0, 100, 100, checked2,
+                            "media/textures/point_current.png")) {
+        std::cout << "checkbox clicked " << checked2 << std::endl;
     }
     mController->update(timeInterval * 1000.0f);
     IMGUIImpl::endFrame();

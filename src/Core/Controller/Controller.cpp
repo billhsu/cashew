@@ -83,6 +83,7 @@ Controller::~Controller() {
 void Controller::init() {
     luaState = luaL_newstate();
     luaL_openlibs(luaState);
+    IMGUI::init(luaState);
 
     GUI->resize(originWidth, originHeight);
 
@@ -114,7 +115,7 @@ void Controller::MouseButton(int button, int state, int x, int y) {
         if (state == Mouse::MOUSE_ACTION_UP)
             uiHold = 0;
     } else {
-        if (uiHold == 0)
+        if (uiHold == 0 && !IMGUI::isUIClicked())
             State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
     }
@@ -169,6 +170,7 @@ void Controller::Keyboard(unsigned char key, unsigned char status) {
 
 void Controller::update(float timeDelta) {
     modelView.identity();
+    luaL_dofile(luaState, "lua_scripts/test.lua");
     int result = camera->update(timeDelta);
     if (result == Camera::UPDATE_ANIM_DONE) {
         rotate = Quaternion::toEuler(camera->getRotateQuaternion());
