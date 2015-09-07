@@ -373,11 +373,16 @@ void openFile(void* data) {
 - (void)update:(NSTimeInterval)timeInterval {
     if (windowPaused)
         return;
-    IMGUIImpl::beginFrame();
+    std::queue<MouseEvent> queueCpy = MouseEventQueue::getQueue();
+    while (queueCpy.size() > 0) {
+        processMouseEventForUI(queueCpy.front());
+        queueCpy.pop();
+    }
     MouseEvent event;
     while (MouseEventQueue::pollEvent(event)) {
         processMouseEvent(event);
     }
+    IMGUIImpl::beginFrame();
     static bool checked = false;
     if (IMGUIImpl::checkbox(1, 0, 0, 100, 100, checked,
                             "media/textures/point_selected.png")) {
@@ -390,8 +395,16 @@ void openFile(void* data) {
     }
     mController->update(timeInterval * 1000.0f);
     IMGUIImpl::endFrame();
+    while (MouseEventQueue::pollEvent(event)) {
+        processMouseEvent(event);
+    }
 }
 
+void processMouseEventForUI(MouseEvent event) {
+    IMGUI::getState().setMouseButton(event.mouseButton);
+    IMGUI::getState().setMouseState(event.mouseButtonAction);
+    IMGUI::getState().setMousePos(event.mousePosX, event.mousePosY);
+}
 void processMouseEvent(MouseEvent event) {
     switch (event.mouseButtonAction) {
         case Mouse::MOUSE_ACTION_UP:

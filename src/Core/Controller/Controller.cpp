@@ -115,13 +115,12 @@ void Controller::MouseButton(int button, int state, int x, int y) {
         if (state == Mouse::MOUSE_ACTION_UP)
             uiHold = 0;
     } else {
+        std::cout << "IMGUI::isUIClicked():" << IMGUI::isUIClicked()
+                  << std::endl;
         if (uiHold == 0 && !IMGUI::isUIClicked())
             State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
     }
-    IMGUI::getState().setMouseButton(button);
-    IMGUI::getState().setMouseState(state);
-    IMGUI::getState().setMousePos(x, y);
 }
 
 void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
@@ -130,9 +129,6 @@ void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
     if (uiHold == 0) {
         State::currState->MouseRightDrag(dx, dy);
     }
-    IMGUI::getState().setMouseButton(Mouse::MOUSE_BUTTON_RIGHT);
-    IMGUI::getState().setMouseState(Mouse::MOUSE_ACTION_DRAG);
-    IMGUI::getState().setMousePos(x, y);
 }
 
 void Controller::MouseLeftDrag(int x, int y, int dx, int dy) {
@@ -141,9 +137,6 @@ void Controller::MouseLeftDrag(int x, int y, int dx, int dy) {
     if (uiHold == 0) {
         State::currState->MouseLeftDrag(dx, dy);
     }
-    IMGUI::getState().setMouseButton(Mouse::MOUSE_BUTTON_LEFT);
-    IMGUI::getState().setMouseState(Mouse::MOUSE_ACTION_DRAG);
-    IMGUI::getState().setMousePos(x, y);
 }
 void Controller::PassiveMotion(int x, int y) {
     // std::cout<<x<<" "<<y<<std::endl;
@@ -160,9 +153,6 @@ void Controller::PassiveMotion(int x, int y) {
     if (uiHold == 0) {
         State::currState->PassiveMotion(x, y);
     }
-    IMGUI::getState().setMouseButton(Mouse::MOUSE_BUTTON_UNDEFINED);
-    IMGUI::getState().setMouseState(Mouse::MOUSE_ACTION_MOTION);
-    IMGUI::getState().setMousePos(x, y);
 }
 void Controller::Keyboard(unsigned char key, unsigned char status) {
     State::currState->Keyboard(key, status);

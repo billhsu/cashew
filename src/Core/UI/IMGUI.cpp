@@ -10,6 +10,8 @@ extern "C" {
 #include "lauxlib.h"
 }
 #include "IMGUI.h"
+#include "Scripting/luaUtility.h"
+
 namespace IMGUI {
     IMGUI::UIState state;
     std::queue<RenderItem> renderQueue;
@@ -90,6 +92,7 @@ namespace IMGUI {
     void checkUIRegion(int ID, int x, int y, int w, int h) {
         if (regionHit(x, y, w, h)) {
             state.hotItem = ID;
+            UIClicked = true;
             if (state.hotItem != state.preHotItem) {
                 timeAnimationAcc = 0;
             }
@@ -187,6 +190,9 @@ namespace IMGUI {
         lua_pop(L, 1);
         const char* textureFile = lua_tostring(L, 7);
         bool hit = checkbox(ID, x, y, w, h, checked, textureFile);
+        lua_pushstring(L, "checked");
+        lua_pushboolean(L, checked);
+        lua_settable(L, 6);
         lua_pushboolean(L, hit);
         return 1;
     }

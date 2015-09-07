@@ -24,4 +24,7 @@ namespace MouseEventQueue {
     void clear() {
         queue = std::queue<MouseEvent>();
     }
+    std::queue<MouseEvent> getQueue() {
+        return queue;
+    }
 }
