@@ -110,14 +110,16 @@ void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseX = x;
     Controller::mouseY = y;
     UINode* node = GUI->MouseButton(button, state, x, y);
+    static bool UIHot = false;
+    if (state == Mouse::MOUSE_ACTION_DOWN) {
+        UIHot = (IMGUI::getState().hotItem != 0);
+    }
     if (node != NULL) {
         uiHold = 1;
         if (state == Mouse::MOUSE_ACTION_UP)
             uiHold = 0;
     } else {
-        std::cout << "IMGUI::isUIClicked():" << IMGUI::isUIClicked()
-                  << std::endl;
-        if (uiHold == 0 && !IMGUI::isUIClicked())
+        if (uiHold == 0 && !UIHot)
             State::currState->MouseButton(button, state, x, y);
         uiHold = 0;
     }

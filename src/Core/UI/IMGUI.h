@@ -73,6 +73,5 @@ namespace IMGUI {
                 Vector4 color = Vector4(1, 1, 1, 1));
     bool checkbox(int ID, int x, int y, int w, int h, bool& checked,
                   std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
-    bool isUIClicked();
 }
 #endif /* defined(__cashew__IMGUI__) */

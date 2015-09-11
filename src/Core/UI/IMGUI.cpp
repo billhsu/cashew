@@ -10,17 +10,12 @@ extern "C" {
 #include "lauxlib.h"
 }
 #include "IMGUI.h"
-#include "Scripting/luaUtility.h"
+#include "Core/Scripting/luaUtility.h"
 
 namespace IMGUI {
     IMGUI::UIState state;
     std::queue<RenderItem> renderQueue;
-    bool UIClicked;
     lua_State* luaState;
-
-    bool isUIClicked() {
-        return UIClicked;
-    }
     float timeAnimationAcc;
 
     static int luaButton(lua_State* L);
@@ -44,7 +39,6 @@ namespace IMGUI {
     void beginFrame() {
         state.preHotItem = state.hotItem;
         state.hotItem = 0;
-        UIClicked = false;
         renderQueue = std::queue<RenderItem>();
     }
 
@@ -92,7 +86,6 @@ namespace IMGUI {
     void checkUIRegion(int ID, int x, int y, int w, int h) {
         if (regionHit(x, y, w, h)) {
             state.hotItem = ID;
-            UIClicked = true;
             if (state.hotItem != state.preHotItem) {
                 timeAnimationAcc = 0;
             }
