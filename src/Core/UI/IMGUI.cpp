@@ -11,7 +11,7 @@ extern "C" {
 }
 #include "IMGUI.h"
 #include "Core/Scripting/luaUtility.h"
-
+#define TEXTURE_FILE_PATH "media/textures/"
 namespace IMGUI {
     IMGUI::UIState state;
     std::queue<RenderItem> renderQueue;
@@ -20,6 +20,11 @@ namespace IMGUI {
 
     static int luaButton(lua_State* L);
     static int luaCheckbox(lua_State* L);
+
+    int currentMaxID = 0;
+    int generateID() {
+        return ++currentMaxID;
+    }
 
     void init(lua_State* _luaState) {
         state.init();
@@ -40,6 +45,7 @@ namespace IMGUI {
         state.preHotItem = state.hotItem;
         state.hotItem = 0;
         renderQueue = std::queue<RenderItem>();
+        currentMaxID = 0;
     }
 
     void endFrame() {
@@ -65,12 +71,16 @@ namespace IMGUI {
     }
 
     RenderItem generateRenderItem(int itemType, std::string textureFile,
-                                  float x, float y, float width, float height,
-                                  float offset_x, float offset_y,
-                                  Vector4 color) {
+                                  std::string text, float x, float y,
+                                  float width, float height, float offset_x,
+                                  float offset_y, Vector4 color) {
         RenderItem item;
         item.type = itemType;
-        item.textureFile = textureFile;
+        if (textureFile.find(TEXTURE_FILE_PATH) == 0) {
+            item.textureFile = textureFile;
+        } else {
+            item.textureFile = TEXTURE_FILE_PATH + textureFile;
+        }
         item.vertices[0].x = x + offset_x;
         item.vertices[0].y = y + offset_y;
         item.vertices[1].x = x + offset_x + width;
@@ -80,6 +90,7 @@ namespace IMGUI {
         item.vertices[3].x = x + offset_x;
         item.vertices[3].y = y + offset_y + height;
         item.color = color;
+        item.text = text;
         return item;
     }
 
@@ -106,10 +117,11 @@ namespace IMGUI {
         return false;
     }
 
-    bool button(int ID, int x, int y, int w, int h, std::string textureFile,
-                Vector4 color) {
+    bool button(int x, int y, int w, int h, std::string text,
+                std::string textureFile, Vector4 color) {
         float height = h;
         float width = w;
+        int ID = generateID();
         checkUIRegion(ID, x, y, w, h);
         if (state.hotItem == ID) {
             if (state.activeItem == ID) {
@@ -123,17 +135,18 @@ namespace IMGUI {
         float offset_y = (h - height) / 2.0f;
 
         RenderItem item =
-            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, x, y, width,
-                               height, offset_x, offset_y, color);
+            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, text, x, y,
+                               width, height, offset_x, offset_y, color);
 
         addToRenderQueue(item);
         return checkUIHit(ID);
     }
 
-    bool checkbox(int ID, int x, int y, int w, int h, bool& checked,
+    bool checkbox(int x, int y, int w, int h, std::string text, bool& checked,
                   std::string textureFile, Vector4 color) {
         float height = h;
         float width = w;
+        int ID = generateID();
         checkUIRegion(ID, x, y, w, h);
         if (state.hotItem == ID) {
             if (state.activeItem == ID) {
@@ -150,8 +163,8 @@ namespace IMGUI {
             color.a = oldAplha;
         }
         RenderItem item =
-            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, x, y, width,
-                               height, offset_x, offset_y, color);
+            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, text, x, y,
+                               width, height, offset_x, offset_y, color);
 
         addToRenderQueue(item);
         if (checkUIHit(ID)) {
@@ -161,28 +174,28 @@ namespace IMGUI {
         return false;
     }
     int luaButton(lua_State* L) {
-        int ID = lua_tonumber(L, 1);
-        int x = lua_tonumber(L, 2);
-        int y = lua_tonumber(L, 3);
-        int w = lua_tonumber(L, 4);
-        int h = lua_tonumber(L, 5);
+        int x = lua_tonumber(L, 1);
+        int y = lua_tonumber(L, 2);
+        int w = lua_tonumber(L, 3);
+        int h = lua_tonumber(L, 4);
+        const char* text = lua_tostring(L, 5);
         const char* textureFile = lua_tostring(L, 6);
-        bool hit = button(ID, x, y, w, h, textureFile);
+        bool hit = button(x, y, w, h, text, textureFile);
         lua_pushboolean(L, hit);
         return 1;
     }
     int luaCheckbox(lua_State* L) {
-        int ID = lua_tonumber(L, 1);
-        int x = lua_tonumber(L, 2);
-        int y = lua_tonumber(L, 3);
-        int w = lua_tonumber(L, 4);
-        int h = lua_tonumber(L, 5);
+        int x = lua_tonumber(L, 1);
+        int y = lua_tonumber(L, 2);
+        int w = lua_tonumber(L, 3);
+        int h = lua_tonumber(L, 4);
         lua_pushstring(L, "checked");
         lua_gettable(L, 6);
         bool checked = lua_toboolean(L, 8);
         lua_pop(L, 1);
+        const char* text = lua_tostring(L, 5);
         const char* textureFile = lua_tostring(L, 7);
-        bool hit = checkbox(ID, x, y, w, h, checked, textureFile);
+        bool hit = checkbox(x, y, w, h, text, checked, textureFile);
         lua_pushstring(L, "checked");
         lua_pushboolean(L, checked);
         lua_settable(L, 6);

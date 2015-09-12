@@ -93,9 +93,9 @@ bool windowPaused = false;
     mController->state_mirror = new StateMirrorImpl();
     State::enterState(mController->state_idle);
 
-    Controller::btnDocNew->setCallback(newFile);
-    Controller::btnDocOpen->setCallback(openFile);
-    Controller::btnDocSave->setCallback(saveFile);
+    //    Controller::btnDocNew->setCallback(newFile);
+    //    Controller::btnDocOpen->setCallback(openFile);
+    //    Controller::btnDocSave->setCallback(saveFile);
 
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
@@ -384,13 +384,13 @@ void openFile(void* data) {
     }
     IMGUIImpl::beginFrame();
     static bool checked = false;
-    if (IMGUIImpl::checkbox(1, 0, 0, 100, 100, checked,
-                            "media/textures/point_selected.png")) {
+    if (IMGUIImpl::checkbox(0, 0, 100, 100, "test1", checked,
+                            "point_selected.png")) {
         std::cout << "checkbox clicked " << checked << std::endl;
     }
     static bool checked2 = false;
-    if (IMGUIImpl::checkbox(2, 200, 0, 100, 100, checked2,
-                            "media/textures/point_current.png")) {
+    if (IMGUIImpl::checkbox(200, 0, 100, 100, "test2", checked2,
+                            "point_current.png")) {
         std::cout << "checkbox clicked " << checked2 << std::endl;
     }
     mController->update(timeInterval * 1000.0f);

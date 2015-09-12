@@ -69,9 +69,9 @@ namespace IMGUI {
     std::queue<RenderItem> getRenderQueue();
     void update(float timeDelta);
     // functions for adding UI elements
-    bool button(int ID, int x, int y, int w, int h, std::string textureFile,
-                Vector4 color = Vector4(1, 1, 1, 1));
-    bool checkbox(int ID, int x, int y, int w, int h, bool& checked,
+    bool button(int x, int y, int w, int h, std::string text,
+                std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
+    bool checkbox(int x, int y, int w, int h, std::string text, bool& checked,
                   std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
 }
 #endif /* defined(__cashew__IMGUI__) */

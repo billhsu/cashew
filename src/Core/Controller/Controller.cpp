@@ -91,18 +91,18 @@ void Controller::init() {
     camera->rotateCam(rotate);
 
     // Add buttons
-    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL, NULL);
-    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL, NULL);
-    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL, NULL);
-    btnStandardView =
-        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
-                       btnStandardViewEvent, NULL);
-    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
-    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
-    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE",
-                                   btnDeleteLineEvent, NULL);
-    btnMirror =
-        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
+//    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL, NULL);
+//    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL, NULL);
+//    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL, NULL);
+//    btnStandardView =
+//        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
+//                       btnStandardViewEvent, NULL);
+//    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
+//    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
+//    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE",
+//                                   btnDeleteLineEvent, NULL);
+//    btnMirror =
+//        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
 }
 void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;
