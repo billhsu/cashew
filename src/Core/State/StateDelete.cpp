@@ -11,13 +11,15 @@
 
 StateDelete::StateDelete() {
     stateID = STATE_DELETE;
+    isCurrentLineSelected = false;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
+    stateName = "delete";
+    luaL_dofile(Controller::luaState, getLuaInitFile());
     btnDeleteDone = Controller::GUI->addButton(
         stateID * 100 + 100 + BTN_ID_DELETE_LINE_DONE,
         "BTN_ID_DELETE_LINE_DONE", btnDeleteDoneEvent, this);
     btnDeleteDone->setVisibility(false);
-    isCurrentLineSelected = false;
 }
 void StateDelete::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {

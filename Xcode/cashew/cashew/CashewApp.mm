@@ -85,6 +85,7 @@ bool windowPaused = false;
     for (int i = 0; i < State::STATE_ID_MAX; ++i) {
         State::statePool[i] = NULL;
     }
+    mController->init();
     mController->state_idle = new StateIdleImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
     mController->state_draw = new StateDrawImpl();
@@ -92,7 +93,6 @@ bool windowPaused = false;
     mController->state_mirror = new StateMirrorImpl();
     State::enterState(mController->state_idle);
 
-    mController->init();
     Controller::btnDocNew->setCallback(newFile);
     Controller::btnDocOpen->setCallback(openFile);
     Controller::btnDocSave->setCallback(saveFile);

@@ -13,10 +13,12 @@ std::vector<Vector3> StateSelectPlane::selectedPoints;
 
 StateSelectPlane::StateSelectPlane() {
     stateID = STATE_SELECT_PLANE;
+    stateName = "select_plan";
     selectedPoints.clear();
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+    luaL_dofile(Controller::luaState, getLuaInitFile());
     btnCancelPlane = Controller::GUI->addButton(
         stateID * 100 + 100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE",
         btnCancelPlaneEvent, this);

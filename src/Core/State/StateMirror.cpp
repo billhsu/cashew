@@ -6,18 +6,27 @@
 #include "Core/UI/UI.h"
 #include "Core/UI/UIButton.h"
 
-StateMirror::StateMirror()
-{
+StateMirror::StateMirror() {
     stateID = STATE_MIRRPR;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
-    btnMirrorX = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_X, "BTN_ID_MIRROR_X", btnMirrorXEvent, this);
+    stateName = "mirror";
+    luaL_dofile(Controller::luaState, getLuaInitFile());
+    btnMirrorX =
+        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_X,
+                                   "BTN_ID_MIRROR_X", btnMirrorXEvent, this);
     btnMirrorX->setVisibility(false);
-    btnMirrorY = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_Y, "BTN_ID_MIRROR_Y", btnMirrorYEvent, this);
+    btnMirrorY =
+        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_Y,
+                                   "BTN_ID_MIRROR_Y", btnMirrorYEvent, this);
     btnMirrorY->setVisibility(false);
-    btnMirrorZ = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_Z, "BTN_ID_MIRROR_Z", btnMirrorZEvent, this);
+    btnMirrorZ =
+        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_Z,
+                                   "BTN_ID_MIRROR_Z", btnMirrorZEvent, this);
     btnMirrorZ->setVisibility(false);
-    btnMirrorNone = Controller::GUI->addButton(stateID*100 + 100 + BTN_ID_MIRROR_NONE, "BTN_ID_MIRROR_NONE", btnMirrorNoneEvent, this);
+    btnMirrorNone = Controller::GUI->addButton(
+        stateID * 100 + 100 + BTN_ID_MIRROR_NONE, "BTN_ID_MIRROR_NONE",
+        btnMirrorNoneEvent, this);
     btnMirrorNone->setVisibility(false);
 }
 

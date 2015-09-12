@@ -7,14 +7,21 @@
 #include <iostream>
 #include <vector>
 #include <assert.h>
+#include <string>
 #include "Core/Math/Vectors.h"
 #include "Core/Basic/LineSegment.h"
+
+extern "C" {
+#include <lua.h>
+#include <lualib.h>
+#include <lauxlib.h>
+}
+
 class Camera;
 class UINode;
 
-class State
-{
-public:
+class State {
+   public:
     State();
     virtual ~State(){};
     virtual void MouseButton(int button, int state, int x, int y){};
@@ -28,20 +35,35 @@ public:
     virtual void update(float timeDelta){};
     virtual void render(){};
     static State* currState;
-    static void enterState(State* state)
-    {
-        if(currState!=NULL) currState->postState();
+    static void enterState(State* state) {
+        if (currState != NULL)
+            currState->postState();
         currState = state;
         currState->prepareState();
-        std::cout<<state<<" - ";
-        std::cout<<"enterState: "<<state->stateID<<std::endl;
+        std::cout << state << " - ";
+        std::cout << "enterState: " << state->stateID << std::endl;
     }
-    
-    enum {STATE_IDLE, STATE_SELECT_PLANE, STATE_DRAW, STATE_DELETE, STATE_MIRRPR, STATE_ID_MAX};
+
+    enum {
+        STATE_IDLE,
+        STATE_SELECT_PLANE,
+        STATE_DRAW,
+        STATE_DELETE,
+        STATE_MIRRPR,
+        STATE_ID_MAX
+    };
     static State* statePool[STATE_ID_MAX];
 
-protected:
-    Camera *mCamera;
-
+   protected:
+    Camera* mCamera;
     int stateID;
+    std::string stateName;
+    const char* getLuaInitFile() {
+        return std::string("lua_scripts/state_" + stateName + "_init.lua")
+            .c_str();
+    }
+    const char* getLuaUIFile() {
+        return std::string("lua_scripts/state_" + stateName + "_ui.lua")
+            .c_str();
+    }
 };

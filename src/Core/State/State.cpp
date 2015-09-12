@@ -3,12 +3,13 @@
 
 #include "State.h"
 #include "Core/Camera/Camera.h"
+#include "Core/Controller/Controller.h"
 
 State* State::statePool[STATE_ID_MAX];
 State* State::currState = NULL;
 
-State::State()
-{
+State::State() {
     mCamera = &Camera::getInstance();
-    std::cout<<"State State()"<<std::endl;
+    stateName = "default";
+    luaL_dofile(Controller::luaState, getLuaInitFile());
 }

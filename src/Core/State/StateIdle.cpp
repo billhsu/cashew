@@ -14,6 +14,8 @@ StateIdle::StateIdle() {
     stateID = STATE_IDLE;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
+    stateName = "idle";
+    luaL_dofile(Controller::luaState, getLuaInitFile());
 }
 void StateIdle::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
