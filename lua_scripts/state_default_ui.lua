@@ -1,14 +1,14 @@
 function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isVertical)
   local centerItemOffsetX = 0
   local centerItemOffsetY = 0
-  if totalNumber % 2 != 0 then
+  if totalNumber % 2 ~= 0 then
     centerItemOffsetY = -size/2
     centerItemOffsetX = -size/2
-  else then
+  else
     if isVertical then
       centerItemOffsetX = -size/2
       centerItemOffsetY = margin/2
-    else then
+    else
       centerItemOffsetY = -size/2
       centerItemOffsetX = margin/2
     end
@@ -17,14 +17,14 @@ function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isV
   local centerItemIdx = 0
   if(totalNumber % 2==0) then
     centerItemIdx = totalNumber/2 + 1
-  else then
+  else
     centerItemIdx = math.ceil(totalNumber/2)
   end
 
   local idxDist = (currentIdx - centerItemIdx) * (size + margin)
   if isVertical then
     return centerX + centerItemOffsetX, centerY + centerItemOffsetY + idxDist
-  else then
+  else
     return centerX + centerItemOffsetX + idxDist, centerY + centerItemOffsetY
   end
 end
