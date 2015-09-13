@@ -13,7 +13,7 @@ std::vector<Vector3> StateSelectPlane::selectedPoints;
 
 StateSelectPlane::StateSelectPlane() {
     stateID = STATE_SELECT_PLANE;
-    stateName = "select_plan";
+    stateName = "select_plane";
     selectedPoints.clear();
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
