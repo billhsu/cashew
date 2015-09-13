@@ -10,13 +10,11 @@
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Controller.h"
 
-StateIdleImpl::StateIdleImpl()
-{
+StateIdleImpl::StateIdleImpl() {
     depthPeeling = &DepthPeeling::getInstance();
     textureManager = &TextureManager::getInstance();
 }
-void StateIdleImpl::render()
-{
+void StateIdleImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     depthPeeling->addToRenderCallbackList(Scene::renderSketchLines);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);

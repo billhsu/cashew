@@ -84,25 +84,32 @@ void Controller::init() {
     luaState = luaL_newstate();
     luaL_openlibs(luaState);
     IMGUI::init(luaState);
-    luaL_dofile(luaState, "lua_scripts/init.lua");
+    IMGUI::resize(originWidth, originHeight);
     GUI->resize(originWidth, originHeight);
 
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
 
     // Add buttons
-//    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL, NULL);
-//    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL, NULL);
-//    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL, NULL);
-//    btnStandardView =
-//        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
-//                       btnStandardViewEvent, NULL);
-//    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent, NULL);
-//    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent, NULL);
-//    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE, "BTN_ID_DELETE_LINE",
-//                                   btnDeleteLineEvent, NULL);
-//    btnMirror =
-//        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent, NULL);
+    //    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL,
+    //    NULL);
+    //    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL,
+    //    NULL);
+    //    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL,
+    //    NULL);
+    //    btnStandardView =
+    //        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
+    //                       btnStandardViewEvent, NULL);
+    //    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent,
+    //    NULL);
+    //    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent,
+    //    NULL);
+    //    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE,
+    //    "BTN_ID_DELETE_LINE",
+    //                                   btnDeleteLineEvent, NULL);
+    //    btnMirror =
+    //        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent,
+    //        NULL);
 }
 void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;
@@ -162,7 +169,6 @@ void Controller::Keyboard(unsigned char key, unsigned char status) {
 
 void Controller::update(float timeDelta) {
     modelView.identity();
-    luaL_dofile(luaState, "lua_scripts/test.lua");
     int result = camera->update(timeDelta);
     if (result == Camera::UPDATE_ANIM_DONE) {
         rotate = Quaternion::toEuler(camera->getRotateQuaternion());
@@ -181,6 +187,7 @@ void Controller::resize(int _width, int _height) {
     windowWidth = _width;
     windowHeight = _height;
     GUI->resize(_width, _height);
+    IMGUI::resize(_width, _height);
     projection = cashew::gluPerspective(
         45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);
     camera->setWindowWidth(windowWidth);

@@ -100,6 +100,10 @@ namespace IMGUIImpl {
         int texID = TextureManager::getInstance()
                         .getTexture(renderItem.textureFile)
                         .glTextureID;
+        if (texID == -1) {
+            texID = TextureManager::getInstance().loadTexture(
+                renderItem.textureFile, 4);
+        }
         glBindTexture(GL_TEXTURE_2D, texID);
         HardwareBuffer::VBOStruct _VBO;
         _VBO.vertexBufferData = verticesArray;

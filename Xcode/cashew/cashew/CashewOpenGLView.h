@@ -9,16 +9,16 @@
 @protocol CashewOpenGLViewDelegate;
 
 @interface CashewOpenGLView : NSOpenGLView {
-    NSTimer *_timer;
-    NSTrackingArea *trackingArea;
+    NSTimer* _timer;
+    NSTrackingArea* trackingArea;
 }
 
-@property (nonatomic, strong) id<CashewOpenGLViewDelegate> delegate;
+@property(nonatomic, strong) id<CashewOpenGLViewDelegate> delegate;
 - (void)visit:(NSTimer*)theTimer;
 
 @end
 
-@protocol CashewOpenGLViewDelegate <NSObject>
+@protocol CashewOpenGLViewDelegate<NSObject>
 
 @required
 - (BOOL)prepareRenderData;
@@ -27,16 +27,15 @@
 - (void)reshapeWidth:(int)width height:(int)height;
 @end
 
-#define Set_OpenGLViewDelegate(classname) \
-    classname *delegate = [[classname alloc] init]; \
-    self.delegate = delegate; \
+#define Set_OpenGLViewDelegate(classname)                                  \
+    classname* delegate = [[classname alloc] init];                        \
+    self.delegate = delegate;                                              \
     if ([self.delegate respondsToSelector:@selector(prepareRenderData)]) { \
-        [self.delegate prepareRenderData]; \
-    } \
-    _timer = [NSTimer timerWithTimeInterval:(1.0/60.0) \
-                                     target:self \
-                                   selector:@selector(visit:) \
-                                   userInfo:nil \
-                                    repeats:YES]; \
-    [[NSRunLoop currentRunLoop]addTimer:_timer forMode:NSDefaultRunLoopMode];
-
+        [self.delegate prepareRenderData];                                 \
+    }                                                                      \
+    _timer = [NSTimer timerWithTimeInterval:(1.0 / 60.0)                   \
+                                     target:self                           \
+                                   selector:@selector(visit:)              \
+                                   userInfo:nil                            \
+                                    repeats:YES];                          \
+    [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];

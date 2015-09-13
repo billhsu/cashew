@@ -39,6 +39,7 @@
 #include "FileOperationsCppWrapper.h"
 #include <fstream>
 #include <sstream>
+#include <queue>
 
 GLSLShader UIProgram;
 DepthPeeling* depthPeeling;
@@ -383,16 +384,6 @@ void openFile(void* data) {
         processMouseEvent(event);
     }
     IMGUIImpl::beginFrame();
-    static bool checked = false;
-    if (IMGUIImpl::checkbox(0, 0, 100, 100, "test1", checked,
-                            "point_selected.png")) {
-        std::cout << "checkbox clicked " << checked << std::endl;
-    }
-    static bool checked2 = false;
-    if (IMGUIImpl::checkbox(200, 0, 100, 100, "test2", checked2,
-                            "point_current.png")) {
-        std::cout << "checkbox clicked " << checked2 << std::endl;
-    }
     mController->update(timeInterval * 1000.0f);
     IMGUIImpl::endFrame();
     while (MouseEventQueue::pollEvent(event)) {
@@ -437,12 +428,13 @@ void processMouseEvent(MouseEvent event) {
 {
     if (windowPaused)
         return;
+    glViewport(0, 0, mController->windowWidth, mController->windowHeight);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(BACKGROUND_COLOR);
     GLuint local_modelView;
     GLuint local_projection;
     mController->render();
     depthPeeling->render();
-    glClearColor(BACKGROUND_COLOR);
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
@@ -462,9 +454,9 @@ void processMouseEvent(MouseEvent event) {
 }
 
 - (void)reshapeWidth:(int)width height:(int)height {
+    windowPaused = false;
     mController->resize(width, height);
     depthPeeling->setWindowSize(width, height);
-    NSLog(@"reshape - width: %d height: %d", width, height);
 }
 @end
 

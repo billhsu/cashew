@@ -32,7 +32,7 @@ class State {
     virtual void UIEvent(UINode* sender, int event){};
     virtual void prepareState(){};
     virtual void postState(){};
-    virtual void update(float timeDelta){};
+    virtual void update(float timeDelta);
     virtual void render(){};
     static State* currState;
     static void enterState(State* state) {
@@ -58,12 +58,10 @@ class State {
     Camera* mCamera;
     int stateID;
     std::string stateName;
-    const char* getLuaInitFile() {
-        return std::string("lua_scripts/state_" + stateName + "_init.lua")
-            .c_str();
+    std::string getLuaInitFile() {
+        return std::string("lua_scripts/state_" + stateName + "_init.lua");
     }
-    const char* getLuaUIFile() {
-        return std::string("lua_scripts/state_" + stateName + "_ui.lua")
-            .c_str();
+    std::string getLuaUIFile() {
+        return std::string("lua_scripts/state_" + stateName + "_ui.lua");
     }
 };

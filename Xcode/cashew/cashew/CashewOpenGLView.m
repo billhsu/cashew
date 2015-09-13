@@ -14,56 +14,59 @@
 - (void)updateTrackingAreas {
     if (self) {
         [self removeTrackingArea:trackingArea];
-        trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
-                                                    options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
-                                                      owner:self
-                                                   userInfo:nil];
+        trackingArea = [[NSTrackingArea alloc]
+            initWithRect:[self bounds]
+                 options:(NSTrackingMouseEnteredAndExited |
+                          NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
+                   owner:self
+                userInfo:nil];
         [self addTrackingArea:trackingArea];
     }
 }
 
-- (id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat*)format
-{
+- (id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat*)format {
     self = [super initWithFrame:frameRect pixelFormat:format];
-    
+
     if (self) {
-        trackingArea = [[NSTrackingArea alloc] initWithRect:[self bounds]
-                                                    options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
-                                                      owner:self
-                                                   userInfo:nil];
+        trackingArea = [[NSTrackingArea alloc]
+            initWithRect:[self bounds]
+                 options:(NSTrackingMouseEnteredAndExited |
+                          NSTrackingMouseMoved | NSTrackingActiveInKeyWindow)
+                   owner:self
+                userInfo:nil];
         [self addTrackingArea:trackingArea];
     }
-    
+
     return self;
 }
 
 //- (void)viewDidMoveToWindow
 //{
-//    [self addTrackingRect:[self bounds] owner:self userData:nil assumeInside:NO];
+//    [self addTrackingRect:[self bounds] owner:self userData:nil
+//    assumeInside:NO];
 //}
 
-- (void)visit:(NSTimer*)theTimer
-{
+- (void)visit:(NSTimer*)theTimer {
     if ([theTimer isEqual:_timer] == NO) {
         return;
     }
-    
+
     if ([self.delegate respondsToSelector:@selector(update:)]) {
-        [[CashewInputController sharedInputController] updateDelegate:[theTimer timeInterval]];
+        [[CashewInputController sharedInputController]
+            updateDelegate:[theTimer timeInterval]];
         [self.delegate update:[theTimer timeInterval]];
         [self drawRect:[self bounds]];
     }
 }
 
-- (void)drawRect:(NSRect)dirtyRect
-{
+- (void)drawRect:(NSRect)dirtyRect {
     // Drawing code here.
     [[self openGLContext] makeCurrentContext];
-    
+
     if ([self.delegate respondsToSelector:@selector(render)]) {
         [self.delegate render];
     }
-    
+
     [[self openGLContext] flushBuffer];
 }
 
@@ -73,24 +76,22 @@
 
     [[self openGLContext] makeCurrentContext];
     [[self openGLContext] update];
-    
-    NSRect rect = [self bounds];
-    glViewport(0, 0, (GLint) rect.size.width, (GLint) rect.size.height);
+
+    //    NSRect rect = [self bounds];
+    //    glViewport(0, 0, (GLint)rect.size.width, (GLint)rect.size.height);
 }
 
-- (void)reshape
-{
+- (void)reshape {
     [super reshape];
-    
+
     [[self openGLContext] makeCurrentContext];
     [[self openGLContext] update];
     NSRect rect = [self bounds];
-    glViewport(0, 0, rect.size.width, rect.size.height);
+    //    glViewport(0, 0, rect.size.width, rect.size.height);
     [self.delegate reshapeWidth:rect.size.width height:rect.size.height];
 }
 
-- (BOOL)acceptsFirstResponder
-{
+- (BOOL)acceptsFirstResponder {
     return YES;
 }
 
@@ -101,109 +102,104 @@
 
 #pragma mark - keyboard and mouse event
 
-- (void)keyDown:(NSEvent *)theEvent
-{
+- (void)keyDown:(NSEvent*)theEvent {
     //[super keyDown:theEvent];
-    
-    NSString *characters = [theEvent characters];
+
+    NSString* characters = [theEvent characters];
     [[CashewInputController sharedInputController] keysDown:characters];
-    
+
     NSLog(@"keyDown: %@", characters);
 }
 
-- (void)keyUp:(NSEvent *)theEvent
-{
+- (void)keyUp:(NSEvent*)theEvent {
     //[super keyUp:theEvent];
-    
-    NSString *characters = [theEvent characters];
+
+    NSString* characters = [theEvent characters];
     [[CashewInputController sharedInputController] keysUp:characters];
-    
+
     NSLog(@"keyUp: %@", characters);
 }
 
-- (void)mouseDown:(NSEvent *)theEvent
-{
+- (void)mouseDown:(NSEvent*)theEvent {
     //[super mouseDown:theEvent];
-    
+
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseLeftDown:location];
-    
+
     NSLog(@"mouseDown: location:%f %f", location.x, location.y);
 }
 
-- (void)mouseUp:(NSEvent *)theEvent
-{
+- (void)mouseUp:(NSEvent*)theEvent {
     //[super mouseUp:theEvent];
-    
+
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseLeftUp:location];
-    
+
     NSLog(@"mouseUp: location:%f %f", location.x, location.y);
 }
 
-- (void)rightMouseDown:(NSEvent *)theEvent
-{
+- (void)rightMouseDown:(NSEvent*)theEvent {
     //[super rightMouseDown:theEvent];
-    
+
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseRightDown:location];
-    
+
     NSLog(@"rightMouseDown: location:%f %f", location.x, location.y);
 }
 
-- (void)rightMouseUp:(NSEvent *)theEvent
-{
+- (void)rightMouseUp:(NSEvent*)theEvent {
     //[super rightMouseUp:theEvent];
-    
+
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseRightUp:location];
-    
+
     NSLog(@"rightMouseUp: location:%f %f", location.x, location.y);
 }
 
-- (void)mouseMoved:(NSEvent *)theEvent
-{
+- (void)mouseMoved:(NSEvent*)theEvent {
     //[super mouseMoved:theEvent];
-    
+
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;
     [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
 }
 
-- (void)mouseDragged:(NSEvent *)theEvent
-{
+- (void)mouseDragged:(NSEvent*)theEvent {
     //[super mouseDragged:theEvent];
-    
+
     CGFloat dx = [theEvent deltaX];
     CGFloat dy = [theEvent deltaY];
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;
-    
-    [[CashewInputController sharedInputController] mouseLeftDragWithDX:dx andDY:dy andX:x andY:y];
+
+    [[CashewInputController sharedInputController] mouseLeftDragWithDX:dx
+                                                                 andDY:dy
+                                                                  andX:x
+                                                                  andY:y];
 }
 
-- (void)rightMouseDragged:(NSEvent *)theEvent
-{
+- (void)rightMouseDragged:(NSEvent*)theEvent {
     //[super rightMouseDragged:theEvent];
-    
+
     CGFloat dx = [theEvent deltaX];
     CGFloat dy = [theEvent deltaY];
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;
-    [[CashewInputController sharedInputController] mouseRightDragWithDX:dx andDY:dy andX:x andY:y];
+    [[CashewInputController sharedInputController] mouseRightDragWithDX:dx
+                                                                  andDY:dy
+                                                                   andX:x
+                                                                   andY:y];
 }
 
-- (void)scrollWheel:(NSEvent *)theEvent
-{
+- (void)scrollWheel:(NSEvent*)theEvent {
     //[super scrollWheel:theEvent];
-    
+
     CGFloat x = [theEvent scrollingDeltaX];
     CGFloat y = [theEvent scrollingDeltaY];
     [[CashewInputController sharedInputController] mouseScrollWithX:x andY:y];
 }
 
-- (void)mouseEntered:(NSEvent *)theEvent
-{
+- (void)mouseEntered:(NSEvent*)theEvent {
     //[super mouseEntered:theEvent];
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;
@@ -211,8 +207,7 @@
     NSLog(@"mouseEntered");
 }
 
-- (void)mouseExited:(NSEvent *)theEvent
-{
+- (void)mouseExited:(NSEvent*)theEvent {
     //[super mouseExited:theEvent];
     CGFloat x = [theEvent locationInWindow].x;
     CGFloat y = [theEvent locationInWindow].y;
@@ -220,8 +215,7 @@
     NSLog(@"mouseExited");
 }
 
-- (void)cursorUpdate:(NSEvent *)theEvent
-{
+- (void)cursorUpdate:(NSEvent*)theEvent {
     //[super cursorUpdate:theEvent];
     NSLog(@"cursorUpdate");
     CGFloat x = [theEvent locationInWindow].x;

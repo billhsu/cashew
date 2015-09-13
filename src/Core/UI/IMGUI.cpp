@@ -55,6 +55,13 @@ namespace IMGUI {
         }
     }
 
+    void resize(int w, int h) {
+        lua_pushnumber(luaState, w);
+        lua_setglobal(luaState, "window_width");
+        lua_pushnumber(luaState, h);
+        lua_setglobal(luaState, "window_height");
+    }
+
     std::queue<RenderItem> getRenderQueue() {
         return renderQueue;
     }

@@ -11,5 +11,13 @@ State* State::currState = NULL;
 State::State() {
     mCamera = &Camera::getInstance();
     stateName = "default";
-    luaL_dofile(Controller::luaState, getLuaInitFile());
+    if (luaL_dofile(Controller::luaState, getLuaInitFile().c_str())) {
+        printf("%s\n", lua_tostring(Controller::luaState, -1));
+    }
+}
+
+void State::update(float timeDelta) {
+    if (luaL_dofile(Controller::luaState, getLuaUIFile().c_str())) {
+        printf("%s\n", lua_tostring(Controller::luaState, -1));
+    }
 }

@@ -11,7 +11,7 @@ StateMirror::StateMirror() {
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     stateName = "mirror";
-    luaL_dofile(Controller::luaState, getLuaInitFile());
+    luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
     btnMirrorX =
         Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_X,
                                    "BTN_ID_MIRROR_X", btnMirrorXEvent, this);

@@ -56,6 +56,7 @@ namespace IMGUI {
     void init(lua_State* _luaState);
     void beginFrame();
     void endFrame();
+    void resize(int w, int h);
     UIState& getState();
 
     enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_LABEL };

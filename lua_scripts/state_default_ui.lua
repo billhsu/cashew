@@ -29,6 +29,32 @@ function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isV
   end
 end
 
-if button(300, 200, 100, 100, "test", "button_document_new.png") then
-  print("hit", a.checked)
+local topBarItemSize = 60
+local topBarItemMargin = 10
+local function genTopBarItemPos(idx)
+  return genItemPos(window_width/2, 1.5*topBarItemSize, topBarItemSize, topBarItemMargin, 5, idx, false)
+end
+local function getTopBarItemSize()
+  return topBarItemSize, topBarItemSize
+end
+
+local leftBarItemSize = 40
+local leftBarItemMargin = 5
+local function genLeftBarItemPos(idx)
+  return genItemPos(1.5*leftBarItemSize, window_height/2, leftBarItemSize, leftBarItemMargin, 3, idx, true)
+end
+local function getLeftBarItemSize()
+  return leftBarItemSize, leftBarItemSize
+end
+
+if button(genLeftBarItemPos(1), getLeftBarItemSize(), "New Sketch", "button_document_new.png") then
+
+end
+
+if button(genLeftBarItemPos(2), getLeftBarItemSize(), "Open Sketch", "button_document_open.png") then
+
+end
+
+if button(genLeftBarItemPos(3), getLeftBarItemSize(), "Save Sketch", "button_document_save.png") then
+
 end
