@@ -627,7 +627,7 @@
 		0C916B1A1A20A0AE00676D57 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Xu, Shipeng";
 				TargetAttributes = {
 					0C916B211A20A0AE00676D57 = {
@@ -791,6 +791,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -861,10 +862,10 @@
 				LIBRARY_SEARCH_PATHS = "../../lib/lua-5.2.3/src/";
 				OTHER_CFLAGS = (
 					"-I./cashew/",
-					"-I./../../lib/lua-5.2.3/src/",
-					"-llua",
+					"-I./../../lib/lua-5.2.3/src/"
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.billhsu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./cashew/**";
 			};
@@ -888,6 +889,7 @@
 					"-llua",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.billhsu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "./cashew/**";
 			};
@@ -908,6 +910,7 @@
 				);
 				INFOPLIST_FILE = cashewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.billhsu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cashew.app/Contents/MacOS/cashew";
 			};
@@ -924,6 +927,7 @@
 				);
 				INFOPLIST_FILE = cashewTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "me.billhsu.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cashew.app/Contents/MacOS/cashew";
 			};
