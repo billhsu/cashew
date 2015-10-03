@@ -67,28 +67,28 @@ end
 -- top buttons
 local buttonPosX,buttonPosY = genTopBarItemPos(1)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Standard View", "button_standard_view.png") then
-
+  standardView()
 end
 
 local buttonPosX,buttonPosY = genTopBarItemPos(2)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Undo", "button_undo.png") then
-
+  undo()
 end
 
 
 local buttonPosX,buttonPosY = genTopBarItemPos(3)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Redo", "button_redo.png") then
-
+  redo()
 end
 
 
 local buttonPosX,buttonPosY = genTopBarItemPos(4)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Delete lines", "button_delete.png") then
-
+  deleteLine()
 end
 
 
 local buttonPosX,buttonPosY = genTopBarItemPos(5)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Mirror mode", "button_mirror.png") then
-
+  mirrorMode()
 end

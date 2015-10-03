@@ -51,12 +51,12 @@ void StateIdle::prepareState() {
 
 void StateIdle::postState() {
 }
-void StateIdle::UIEvent(UINode* sender, int event) {
-    if (sender->nodeID == Controller::BTN_ID_STANDARD_VIEW) {
+void StateIdle::UIEvent(int event) {
+    if (event == Controller::BTN_ID_STANDARD_VIEW) {
         Quaternion q = Quaternion::fromEuler(Vector3(-90, 0, 0));
         mCamera->setCamCenterTo(Vector3(0, 0, 0));
         mCamera->rotateCamTo(q);
-    } else if (sender->nodeID == Controller::BTN_ID_DELETE_LINE) {
+    } else if (event == Controller::BTN_ID_DELETE_LINE) {
         enterState(State::statePool[STATE_DELETE]);
     }
 }

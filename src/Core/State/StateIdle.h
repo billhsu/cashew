@@ -3,13 +3,12 @@
 #pragma once
 #include "State.h"
 class UIButton;
-class StateIdle : public State
-{
-public:
+class StateIdle : public State {
+   public:
     StateIdle();
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
     void prepareState();
     void postState();
-    void UIEvent(UINode* sender, int event);
+    void UIEvent(int event);
 };

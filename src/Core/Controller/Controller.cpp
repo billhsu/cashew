@@ -62,9 +62,7 @@ int Controller::mirrorMode = MIRROR_MODE_NONE;
 
 UI* Controller::GUI = NULL;
 UIButton *Controller::btnDocNew = NULL, *Controller::btnDocOpen = NULL,
-         *Controller::btnDocSave = NULL, *Controller::btnStandardView = NULL,
-         *Controller::btnUndo = NULL, *Controller::btnRedo = NULL,
-         *Controller::btnDeleteLine = NULL, *Controller::btnMirror = NULL;
+         *Controller::btnDocSave = NULL;
 
 Controller::Controller() {
     std::cout << "Controller Controller()" << std::endl;
@@ -80,6 +78,12 @@ Controller::~Controller() {
     std::cout << "Controller ~Controller()" << std::endl;
 }
 
+static int btnStandardViewEvent(lua_State* L);
+static int btnUndoEvent(lua_State* L);
+static int btnRedoEvent(lua_State* L);
+static int btnDeleteLineEvent(lua_State* L);
+static int btnMirrorEvent(lua_State* L);
+
 void Controller::init() {
     luaState = luaL_newstate();
     luaL_openlibs(luaState);
@@ -89,27 +93,11 @@ void Controller::init() {
 
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
-
-    // Add buttons
-    //    btnDocNew = GUI->addButton(BTN_ID_DOC_NEW, "BTN_ID_DOC_NEW", NULL,
-    //    NULL);
-    //    btnDocOpen = GUI->addButton(BTN_ID_DOC_OPEN, "BTN_ID_DOC_OPEN", NULL,
-    //    NULL);
-    //    btnDocSave = GUI->addButton(BTN_ID_DOC_SAVE, "BTN_ID_DOC_SAVE", NULL,
-    //    NULL);
-    //    btnStandardView =
-    //        GUI->addButton(BTN_ID_STANDARD_VIEW, "BTN_ID_STANDARD_VIEW",
-    //                       btnStandardViewEvent, NULL);
-    //    btnUndo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_UNDO", btnUndoEvent,
-    //    NULL);
-    //    btnRedo = GUI->addButton(BTN_ID_UNDO, "BTN_ID_REDO", btnRedoEvent,
-    //    NULL);
-    //    btnDeleteLine = GUI->addButton(BTN_ID_DELETE_LINE,
-    //    "BTN_ID_DELETE_LINE",
-    //                                   btnDeleteLineEvent, NULL);
-    //    btnMirror =
-    //        GUI->addButton(BTN_ID_MIRROR, "BTN_ID_MIRROR", btnMirrorEvent,
-    //        NULL);
+    lua_register(luaState, "standardView", btnStandardViewEvent);
+    lua_register(luaState, "undo", btnUndoEvent);
+    lua_register(luaState, "redo", btnRedoEvent);
+    lua_register(luaState, "deleteLine", btnDeleteLineEvent);
+    lua_register(luaState, "mirrorMode", btnMirrorEvent);
 }
 void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseButton = button;
@@ -252,21 +240,26 @@ void Controller::redoLastOperation() {
         redoLines.erase(redoLines.begin() + idPos);
     }
 }
-void Controller::btnStandardViewEvent(void* data) {
-    State::currState->UIEvent(btnStandardView, 0);
+int btnStandardViewEvent(lua_State* L) {
+    State::currState->UIEvent(Controller::BTN_ID_STANDARD_VIEW);
+    return 0;
 }
-void Controller::btnUndoEvent(void* data) {
-    undoLastOperation();
-}
-
-void Controller::btnRedoEvent(void* data) {
-    redoLastOperation();
+int btnUndoEvent(lua_State* L) {
+    Controller::undoLastOperation();
+    return 0;
 }
 
-void Controller::btnDeleteLineEvent(void* data) {
-    State::currState->UIEvent(btnDeleteLine, 0);
+int btnRedoEvent(lua_State* L) {
+    Controller::redoLastOperation();
+    return 0;
 }
 
-void Controller::btnMirrorEvent(void* data) {
-    State::enterState(state_mirror);
+int btnDeleteLineEvent(lua_State* L) {
+    State::currState->UIEvent(Controller::BTN_ID_DELETE_LINE);
+    return 0;
+}
+
+int btnMirrorEvent(lua_State* L) {
+    State::enterState(Controller::state_mirror);
+    return 0;
 }

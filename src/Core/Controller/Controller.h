@@ -120,13 +120,7 @@ class Controller {
         BTN_ID_DELETE_LINE,
         BTN_ID_MIRROR
     };
-    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave, *btnStandardView,
-        *btnUndo, *btnRedo, *btnDeleteLine, *btnMirror;
-    static void btnStandardViewEvent(void* data);
-    static void btnUndoEvent(void* data);
-    static void btnRedoEvent(void* data);
-    static void btnDeleteLineEvent(void* data);
-    static void btnMirrorEvent(void* data);
+    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
 
    private:
     Controller();

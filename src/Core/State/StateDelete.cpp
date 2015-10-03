@@ -54,8 +54,8 @@ void StateDelete::prepareState() {
 void StateDelete::postState() {
     btnDeleteDone->appearOut();
 }
-void StateDelete::UIEvent(UINode* sender, int event) {
-    if (sender->nodeID == Controller::BTN_ID_STANDARD_VIEW) {
+void StateDelete::UIEvent(int event) {
+    if (event == Controller::BTN_ID_STANDARD_VIEW) {
         Quaternion q = Quaternion::fromEuler(Vector3(-90, 0, 0));
         mCamera->setCamCenterTo(Vector3(0, 0, 0));
         mCamera->rotateCamTo(q);
