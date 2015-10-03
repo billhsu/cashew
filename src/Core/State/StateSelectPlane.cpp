@@ -10,31 +10,24 @@
 #include "Core/UI/UIButton.h"
 
 std::vector<Vector3> StateSelectPlane::selectedPoints;
-
+StateSelectPlane* self;
 StateSelectPlane::StateSelectPlane() {
+    self = this;
     stateID = STATE_SELECT_PLANE;
     stateName = "select_plane";
     selectedPoints.clear();
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     selectPlaneMode = SELECT_HORIZONTAL_PLANE;
+    lua_register(Controller::luaState, "cancelPlaneSelection",
+                 btnCancelPlaneEvent);
+    lua_register(Controller::luaState, "confirmPlaneSelection",
+                 btnConfirmPlaneEvent);
+    lua_register(Controller::luaState, "selectVerticalPlane",
+                 btnSelectVerticalPlaneEvent);
+    lua_register(Controller::luaState, "selectHorizontalPlane",
+                 btnSelectHorizontalPlaneEvent);
     luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
-    btnCancelPlane = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_CANCEL_PLANE, "BTN_ID_CANCEL_PLANE",
-        btnCancelPlaneEvent, this);
-    btnCancelPlane->setVisibility(false);
-    btnConfirmPlane = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_CONFIRM_PLANE, "BTN_ID_CONFIRM_PLANE",
-        btnConfirmPlaneEvent, this);
-    btnConfirmPlane->setVisibility(false);
-    btnSelectHorizontalPlane = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_SELECT_HORIZONTAL,
-        "BTN_ID_SELECT_HORIZONTAL", btnSelectHorizontalPlaneEvent, this);
-    btnSelectHorizontalPlane->setVisibility(false);
-    btnSelectVerticalPlane = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_SELECT_VERTICAL, "BTN_ID_SELECT_VERTICAL",
-        btnSelectVerticalPlaneEvent, this);
-    btnSelectVerticalPlane->setVisibility(false);
 }
 
 void StateSelectPlane::buildCurrentPlane() {
@@ -113,23 +106,16 @@ void StateSelectPlane::MouseRightDrag(int dx, int dy) {
 void StateSelectPlane::Keyboard(unsigned char key, unsigned char status) {
 }
 void StateSelectPlane::prepareState() {
-    btnSelectVerticalPlane->appearIn();
-    btnSelectHorizontalPlane->appearIn();
-    btnConfirmPlane->appearIn();
-    btnCancelPlane->appearIn();
 }
 
 void StateSelectPlane::postState() {
-    btnSelectVerticalPlane->appearOut();
-    btnSelectHorizontalPlane->appearOut();
-    btnConfirmPlane->appearOut();
-    btnCancelPlane->appearOut();
 }
 
-void StateSelectPlane::btnCancelPlaneEvent(void* data) {
+int StateSelectPlane::btnCancelPlaneEvent(lua_State* L) {
     enterState(State::statePool[STATE_IDLE]);
+    return 0;
 }
-void StateSelectPlane::btnConfirmPlaneEvent(void* data) {
+int StateSelectPlane::btnConfirmPlaneEvent(lua_State* L) {
     Vector3 center(0, 0, 0);
     for (int i = 0; i < selectedPoints.size(); ++i)
         center += selectedPoints[i];
@@ -139,19 +125,19 @@ void StateSelectPlane::btnConfirmPlaneEvent(void* data) {
     dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])->selectedPoints =
         selectedPoints;
     enterState(State::statePool[STATE_DRAW]);
+    return 0;
 }
-void StateSelectPlane::btnSelectVerticalPlaneEvent(void* data) {
+int StateSelectPlane::btnSelectVerticalPlaneEvent(lua_State* L) {
     std::cout << "btnSelectVerticalPlaneEvent" << std::endl;
-    StateSelectPlane* self = static_cast<StateSelectPlane*>(data);
     self->selectPlaneMode = SELECT_VERTICAL_PLANE;
     self->buildCurrentPlane();
     Quaternion q =
         Quaternion::fromVector(Controller::currPlane.N, Quaternion::Z_NEG_AXIS);
     self->mCamera->rotateCamTo(q);
+    return 0;
 }
-void StateSelectPlane::btnSelectHorizontalPlaneEvent(void* data) {
+int StateSelectPlane::btnSelectHorizontalPlaneEvent(lua_State* L) {
     std::cout << "btnSelectHorizontalPlaneEvent" << std::endl;
-    StateSelectPlane* self = static_cast<StateSelectPlane*>(data);
     if (self->selectedPoints.size() == 1)
         self->selectPlaneMode = SELECT_HORIZONTAL_PLANE;
     else if (self->selectedPoints.size() == 2)
@@ -162,4 +148,5 @@ void StateSelectPlane::btnSelectHorizontalPlaneEvent(void* data) {
                                               Quaternion::Z_NEG_AXIS);
         self->mCamera->rotateCamTo(q);
     }
+    return 0;
 }

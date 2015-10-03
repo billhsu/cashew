@@ -107,8 +107,6 @@
 
     NSString* characters = [theEvent characters];
     [[CashewInputController sharedInputController] keysDown:characters];
-
-    NSLog(@"keyDown: %@", characters);
 }
 
 - (void)keyUp:(NSEvent*)theEvent {
@@ -116,8 +114,6 @@
 
     NSString* characters = [theEvent characters];
     [[CashewInputController sharedInputController] keysUp:characters];
-
-    NSLog(@"keyUp: %@", characters);
 }
 
 - (void)mouseDown:(NSEvent*)theEvent {
@@ -125,8 +121,6 @@
 
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseLeftDown:location];
-
-    NSLog(@"mouseDown: location:%f %f", location.x, location.y);
 }
 
 - (void)mouseUp:(NSEvent*)theEvent {
@@ -134,8 +128,6 @@
 
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseLeftUp:location];
-
-    NSLog(@"mouseUp: location:%f %f", location.x, location.y);
 }
 
 - (void)rightMouseDown:(NSEvent*)theEvent {
@@ -143,8 +135,6 @@
 
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseRightDown:location];
-
-    NSLog(@"rightMouseDown: location:%f %f", location.x, location.y);
 }
 
 - (void)rightMouseUp:(NSEvent*)theEvent {
@@ -152,8 +142,6 @@
 
     NSPoint location = [theEvent locationInWindow];
     [[CashewInputController sharedInputController] mouseRightUp:location];
-
-    NSLog(@"rightMouseUp: location:%f %f", location.x, location.y);
 }
 
 - (void)mouseMoved:(NSEvent*)theEvent {

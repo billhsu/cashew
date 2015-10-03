@@ -6,9 +6,8 @@
 class UIButton;
 class UINode;
 
-class StateSelectPlane : public State
-{
-public:
+class StateSelectPlane : public State {
+   public:
     StateSelectPlane();
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
@@ -16,18 +15,15 @@ public:
     void prepareState();
     void postState();
     static std::vector<Vector3> selectedPoints;
-    enum{BTN_ID_SELECT_VERTICAL, BTN_ID_SELECT_HORIZONTAL,
-        BTN_ID_CONFIRM_PLANE, BTN_ID_CANCEL_PLANE};
-private:
+
+   private:
     void buildCurrentPlane();
     int selectPlaneMode;
-    enum{SELECT_VERTICAL_PLANE, SELECT_HORIZONTAL_PLANE, SELECT_SLOPE};
+    enum { SELECT_VERTICAL_PLANE, SELECT_HORIZONTAL_PLANE, SELECT_SLOPE };
+    static int btnCancelPlaneEvent(lua_State* L);
+    static int btnConfirmPlaneEvent(lua_State* L);
+    static int btnSelectVerticalPlaneEvent(lua_State* L);
+    static int btnSelectHorizontalPlaneEvent(lua_State* L);
 
-protected:
-    UIButton* btnSelectVerticalPlane, *btnSelectHorizontalPlane;
-    UIButton *btnConfirmPlane, *btnCancelPlane;
-    static void btnCancelPlaneEvent(void* data);
-    static void btnConfirmPlaneEvent(void* data);
-    static void btnSelectVerticalPlaneEvent(void* data);
-    static void btnSelectHorizontalPlaneEvent(void* data);
+   protected:
 };
