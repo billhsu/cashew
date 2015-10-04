@@ -14,16 +14,8 @@ billhsu.x@gmail.com
 class State;
 class Camera;
 class UI;
-class UINode;
-class UIButton;
-class UILabel;
-class UIRadioButton;
 class lua_State;
 class Texture;
-class UI;
-class UINode;
-class UIButton;
-class UILabel;
 
 class Controller {
    public:
@@ -44,7 +36,6 @@ class Controller {
     void init();
 
     void resize(int _width, int _heigth);
-    static void UIButtonCallback(UINode* sender);
 
     enum { OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE };
     struct LineOperation {
@@ -95,7 +86,6 @@ class Controller {
     static int mouseButton, mouseState;  // mouse status
 
     static UI* GUI;
-    static int uiHold;
 
     static State* state_idle;
     static State* state_select_plane;
@@ -125,7 +115,6 @@ class Controller {
         BTN_ID_DELETE_LINE,
         BTN_ID_MIRROR
     };
-    static UIButton *btnDocNew, *btnDocOpen, *btnDocSave;
 
    private:
     Controller();

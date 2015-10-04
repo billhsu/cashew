@@ -14,9 +14,7 @@ billhsu.x@gmail.com
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
-#include "Core/UI/UI.h"
 #include "Core/UI/IMGUI.h"
-#include "Core/UI/UIButton.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -33,8 +31,6 @@ int Controller::mouseX = 0;
 int Controller::mouseY = 0;
 int Controller::mouseButton;
 int Controller::mouseState;
-
-int Controller::uiHold = 0;
 
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
@@ -59,10 +55,6 @@ State* Controller::state_delete = NULL;
 State* Controller::state_mirror = NULL;
 
 int Controller::mirrorMode = MIRROR_MODE_NONE;
-
-UI* Controller::GUI = NULL;
-UIButton *Controller::btnDocNew = NULL, *Controller::btnDocOpen = NULL,
-         *Controller::btnDocSave = NULL;
 
 Controller::Controller() {
     std::cout << "Controller Controller()" << std::endl;
@@ -89,7 +81,6 @@ void Controller::init() {
     luaL_openlibs(luaState);
     IMGUI::init(luaState);
     IMGUI::resize(originWidth, originHeight);
-    GUI->resize(originWidth, originHeight);
 
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
@@ -104,29 +95,21 @@ void Controller::MouseButton(int button, int state, int x, int y) {
     Controller::mouseState = state;
     Controller::mouseX = x;
     Controller::mouseY = y;
-    UINode* node = GUI->MouseButton(button, state, x, y);
     static bool UIHot = false;
     if (state == Mouse::MOUSE_ACTION_DOWN) {
-        UIHot = (IMGUI::getState().hotItem != 0);
+        UIHot = IMGUI::isUIHot();
     } else if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         UIHot = false;
     }
-    if (node != NULL) {
-        uiHold = 1;
-        if (state == Mouse::MOUSE_ACTION_UP)
-            uiHold = 0;
-    } else {
-        if (uiHold == 0 && !UIHot) {
-            State::currState->MouseButton(button, state, x, y);
-        }
-        uiHold = 0;
+    if (!UIHot) {
+        State::currState->MouseButton(button, state, x, y);
     }
 }
 
 void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if (uiHold == 0) {
+    if (!IMGUI::isUIHot()) {
         State::currState->MouseRightDrag(dx, dy);
     }
 }
@@ -134,25 +117,22 @@ void Controller::MouseRightDrag(int x, int y, int dx, int dy) {
 void Controller::MouseLeftDrag(int x, int y, int dx, int dy) {
     Controller::mouseX = x;
     Controller::mouseY = y;
-    if (uiHold == 0) {
+    if (!IMGUI::isUIHot()) {
         State::currState->MouseLeftDrag(dx, dy);
     }
 }
 void Controller::PassiveMotion(int x, int y) {
-    // std::cout<<x<<" "<<y<<std::endl;
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
-    GUI->PassiveMotion(x, y);
     if (camera->getPoint(x, y, sketchLines, p)) {
         currPoint = p;
         bCurrPoint = true;
     } else {
         bCurrPoint = false;
     }
-    if (uiHold == 0) {
-        State::currState->PassiveMotion(x, y);
-    }
+    // todo: add check here
+    State::currState->PassiveMotion(x, y);
 }
 void Controller::Keyboard(unsigned char key, unsigned char status) {
     State::currState->Keyboard(key, status);
@@ -166,7 +146,6 @@ void Controller::update(float timeDelta) {
     }
     State::currState->update(timeDelta);
     modelView = camera->getMatrix();
-    GUI->update(timeDelta);
     IMGUI::update(timeDelta);
 }
 
@@ -177,7 +156,6 @@ void Controller::render() {
 void Controller::resize(int _width, int _height) {
     windowWidth = _width;
     windowHeight = _height;
-    GUI->resize(_width, _height);
     IMGUI::resize(_width, _height);
     projection = cashew::gluPerspective(
         45.0f, windowWidth / (float)windowHeight, 0.1f, 10000.f);

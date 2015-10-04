@@ -13,6 +13,7 @@
 #include <string>
 
 class lua_State;
+class Matrix4;
 namespace IMGUI {
     class UIState {
        public:
@@ -57,8 +58,11 @@ namespace IMGUI {
     void beginFrame();
     void endFrame();
     void resize(int w, int h);
+    Matrix4 getProjection();
+    Matrix4 getModelView();
     UIState& getState();
 
+    bool isUIHot();
     enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_LABEL };
     struct RenderItem {
         int type;

@@ -80,9 +80,6 @@ bool windowPaused = false;
     Scene::prepareSceneAxis(1.0f);
     Scene::prepareSceneGrid(20.0f, 1.0f);
 
-    mController->GUI = &UIImpl::getInstance();
-    static_cast<UIImpl*>(mController->GUI)->setShader(UIProgram.getProgram());
-
     for (int i = 0; i < State::STATE_ID_MAX; ++i) {
         State::statePool[i] = NULL;
     }
@@ -93,10 +90,6 @@ bool windowPaused = false;
     mController->state_delete = new StateDeleteImpl();
     mController->state_mirror = new StateMirrorImpl();
     State::enterState(mController->state_idle);
-
-    //    Controller::btnDocNew->setCallback(newFile);
-    //    Controller::btnDocOpen->setCallback(openFile);
-    //    Controller::btnDocSave->setCallback(saveFile);
 
     PlaneRenderer::prepareRenderData();
     PointRenderer::prepareRenderData();
@@ -435,16 +428,13 @@ void processMouseEvent(MouseEvent event) {
     UIProgram.bind();
     local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
     glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
-                       mController->GUI->getModelView().get());
+                       IMGUI::getModelView().get());
     local_projection =
         glGetUniformLocation(UIProgram.getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE,
-                       mController->GUI->getProjection().get());
+                       IMGUI::getProjection().get());
     glUniform1i(glGetUniformLocation(UIProgram.getProgram(), "image0"), 0);
     IMGUIImpl::render();
-    // todo: remove mController->GUI->render()
-    mController->GUI->render();
-
 #ifdef DEBUG
     checkGlErr(__FILE__, __LINE__);
 #endif

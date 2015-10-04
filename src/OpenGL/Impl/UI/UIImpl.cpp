@@ -111,12 +111,11 @@ void UIImpl::render() {
     FontRenderer::getFontShader()->bind();
     GLuint local_modelView = glGetUniformLocation(
         FontRenderer::getFontShader()->getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
-                       Controller::GUI->getModelView().get());
+    glUniformMatrix4fv(local_modelView, 1, GL_FALSE, UI::getModelView().get());
     GLuint local_projection = glGetUniformLocation(
         FontRenderer::getFontShader()->getProgram(), "projection");
     glUniformMatrix4fv(local_projection, 1, GL_FALSE,
-                       Controller::GUI->getProjection().get());
+                       UI::getProjection().get());
     glUniform1i(glGetUniformLocation(
                     FontRenderer::getFontShader()->getProgram(), "image0"),
                 0);
