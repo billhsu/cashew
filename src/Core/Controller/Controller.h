@@ -102,7 +102,12 @@ class Controller {
     static State* state_draw;
     static State* state_delete;
     static State* state_mirror;
-    enum { MIRROR_MODE_X, MIRROR_MODE_Y, MIRROR_MODE_Z, MIRROR_MODE_NONE };
+    enum {
+        MIRROR_MODE_X = 0x00000001,
+        MIRROR_MODE_Y = 0x00000002,
+        MIRROR_MODE_Z = 0x00000004,
+        MIRROR_MODE_NONE = 0x00000000
+    };
     static int mirrorMode;
 
     Camera* camera;

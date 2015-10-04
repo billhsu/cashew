@@ -11,54 +11,57 @@ StateMirror::StateMirror() {
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     stateName = "mirror";
+    lua_register(Controller::luaState, "mirrorXAxis", btnMirrorXEvent);
+    lua_register(Controller::luaState, "mirrorYAxis", btnMirrorYEvent);
+    lua_register(Controller::luaState, "mirrorZAxis", btnMirrorZEvent);
+    lua_register(Controller::luaState, "mirrorAxisSelectionDone",
+                 btnMirrorDoneEvent);
     luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
-    btnMirrorX =
-        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_X,
-                                   "BTN_ID_MIRROR_X", btnMirrorXEvent, this);
-    btnMirrorX->setVisibility(false);
-    btnMirrorY =
-        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_Y,
-                                   "BTN_ID_MIRROR_Y", btnMirrorYEvent, this);
-    btnMirrorY->setVisibility(false);
-    btnMirrorZ =
-        Controller::GUI->addButton(stateID * 100 + 100 + BTN_ID_MIRROR_Z,
-                                   "BTN_ID_MIRROR_Z", btnMirrorZEvent, this);
-    btnMirrorZ->setVisibility(false);
-    btnMirrorNone = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_MIRROR_NONE, "BTN_ID_MIRROR_NONE",
-        btnMirrorNoneEvent, this);
-    btnMirrorNone->setVisibility(false);
 }
 
 void StateMirror::prepareState() {
-    btnMirrorX->appearIn();
-    btnMirrorY->appearIn();
-    btnMirrorZ->appearIn();
-    btnMirrorNone->appearIn();
 }
 
 void StateMirror::postState() {
-    btnMirrorX->appearOut();
-    btnMirrorY->appearOut();
-    btnMirrorZ->appearOut();
-    btnMirrorNone->appearOut();
 }
-void StateMirror::btnMirrorXEvent(void* data) {
-    Controller::mirrorMode = Controller::MIRROR_MODE_X;
-    enterState(State::statePool[STATE_IDLE]);
+int StateMirror::btnMirrorXEvent(lua_State* L) {
+    bool checked = lua_toboolean(L, 1);
+    if (checked) {
+        Controller::mirrorMode =
+            Controller::mirrorMode | Controller::MIRROR_MODE_X;
+    } else {
+        Controller::mirrorMode =
+            Controller::mirrorMode & (~Controller::MIRROR_MODE_X);
+    }
+
+    return 0;
 }
 
-void StateMirror::btnMirrorYEvent(void* data) {
-    Controller::mirrorMode = Controller::MIRROR_MODE_Y;
-    enterState(State::statePool[STATE_IDLE]);
+int StateMirror::btnMirrorYEvent(lua_State* L) {
+    bool checked = lua_toboolean(L, 1);
+    if (checked) {
+        Controller::mirrorMode =
+            Controller::mirrorMode | Controller::MIRROR_MODE_Y;
+    } else {
+        Controller::mirrorMode =
+            Controller::mirrorMode & (~Controller::MIRROR_MODE_Y);
+    }
+    return 0;
 }
 
-void StateMirror::btnMirrorZEvent(void* data) {
-    Controller::mirrorMode = Controller::MIRROR_MODE_Z;
-    enterState(State::statePool[STATE_IDLE]);
+int StateMirror::btnMirrorZEvent(lua_State* L) {
+    bool checked = lua_toboolean(L, 1);
+    if (checked) {
+        Controller::mirrorMode =
+            Controller::mirrorMode | Controller::MIRROR_MODE_Z;
+    } else {
+        Controller::mirrorMode =
+            Controller::mirrorMode & (~Controller::MIRROR_MODE_Z);
+    }
+    return 0;
 }
 
-void StateMirror::btnMirrorNoneEvent(void* data) {
-    Controller::mirrorMode = Controller::MIRROR_MODE_NONE;
+int StateMirror::btnMirrorDoneEvent(lua_State* L) {
     enterState(State::statePool[STATE_IDLE]);
+    return 0;
 }
