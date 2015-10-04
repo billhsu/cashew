@@ -386,9 +386,6 @@ void openFile(void* data) {
     IMGUIImpl::beginFrame();
     mController->update(timeInterval * 1000.0f);
     IMGUIImpl::endFrame();
-    while (MouseEventQueue::pollEvent(event)) {
-        processMouseEvent(event);
-    }
 }
 
 void processMouseEventForUI(MouseEvent event) {

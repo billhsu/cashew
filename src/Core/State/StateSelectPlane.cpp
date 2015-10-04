@@ -128,7 +128,6 @@ int StateSelectPlane::btnConfirmPlaneEvent(lua_State* L) {
     return 0;
 }
 int StateSelectPlane::btnSelectVerticalPlaneEvent(lua_State* L) {
-    std::cout << "btnSelectVerticalPlaneEvent" << std::endl;
     self->selectPlaneMode = SELECT_VERTICAL_PLANE;
     self->buildCurrentPlane();
     Quaternion q =
@@ -137,7 +136,6 @@ int StateSelectPlane::btnSelectVerticalPlaneEvent(lua_State* L) {
     return 0;
 }
 int StateSelectPlane::btnSelectHorizontalPlaneEvent(lua_State* L) {
-    std::cout << "btnSelectHorizontalPlaneEvent" << std::endl;
     if (self->selectedPoints.size() == 1)
         self->selectPlaneMode = SELECT_HORIZONTAL_PLANE;
     else if (self->selectedPoints.size() == 2)

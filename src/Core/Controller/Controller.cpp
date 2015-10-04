@@ -108,14 +108,17 @@ void Controller::MouseButton(int button, int state, int x, int y) {
     static bool UIHot = false;
     if (state == Mouse::MOUSE_ACTION_DOWN) {
         UIHot = (IMGUI::getState().hotItem != 0);
+    } else if (button == Mouse::MOUSE_BUTTON_SCROLL) {
+        UIHot = false;
     }
     if (node != NULL) {
         uiHold = 1;
         if (state == Mouse::MOUSE_ACTION_UP)
             uiHold = 0;
     } else {
-        if (uiHold == 0 && !UIHot)
+        if (uiHold == 0 && !UIHot) {
             State::currState->MouseButton(button, state, x, y);
+        }
         uiHold = 0;
     }
 }

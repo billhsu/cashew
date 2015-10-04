@@ -35,14 +35,7 @@ class State {
     virtual void update(float timeDelta);
     virtual void render(){};
     static State* currState;
-    static void enterState(State* state) {
-        if (currState != NULL)
-            currState->postState();
-        currState = state;
-        currState->prepareState();
-        std::cout << state << " - ";
-        std::cout << "enterState: " << state->stateID << std::endl;
-    }
+    static void enterState(State* state);
 
     enum {
         STATE_IDLE,

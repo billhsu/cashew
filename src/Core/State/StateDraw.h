@@ -4,9 +4,8 @@
 #include "Core/State/State.h"
 
 class UIButton;
-class StateDraw : public State
-{
-public:
+class StateDraw : public State {
+   public:
     StateDraw();
     void MouseButton(int button, int state, int x, int y);
     void MouseRightDrag(int dx, int dy);
@@ -17,11 +16,11 @@ public:
     Vector3 vCenter;
     std::vector<Vector3> selectedPoints;
     Vector3 startPoint, endPoint;
-    
+
     int internalState;
-    enum {STATE_DRAW_IDLE, STATE_DRAW_START_POINT_SELECTED};
-    enum{BTN_ID_DRAW_PLANE_DONE};
-protected:
-    UIButton *btnDrawPlaneDone;
-    static void btnDrawPlaneDoneEvent(void* data);
+    enum { STATE_DRAW_IDLE, STATE_DRAW_START_POINT_SELECTED };
+    enum { BTN_ID_DRAW_PLANE_DONE };
+
+   private:
+    static int btnDrawPlaneDoneEvent(lua_State* L);
 };

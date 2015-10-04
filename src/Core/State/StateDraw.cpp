@@ -14,11 +14,8 @@ StateDraw::StateDraw() {
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     stateName = "draw";
+    lua_register(Controller::luaState, "drawPlaneDone", btnDrawPlaneDoneEvent);
     luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
-    btnDrawPlaneDone = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_DRAW_PLANE_DONE, "BTN_ID_DRAW_PLANE_DONE",
-        btnDrawPlaneDoneEvent, this);
-    btnDrawPlaneDone->setVisibility(false);
 }
 
 void StateDraw::MouseButton(int button, int state, int x, int y) {
@@ -90,14 +87,12 @@ void StateDraw::Keyboard(unsigned char key, unsigned char status) {
 }
 
 void StateDraw::prepareState() {
-    btnDrawPlaneDone->appearIn();
 }
 
 void StateDraw::postState() {
-    btnDrawPlaneDone->appearOut();
 }
 
-void StateDraw::btnDrawPlaneDoneEvent(void* data) {
-    std::cout << "btnDrawPlaneDoneEvent" << std::endl;
+int StateDraw::btnDrawPlaneDoneEvent(lua_State* L) {
     enterState(State::statePool[STATE_IDLE]);
+    return 0;
 }
