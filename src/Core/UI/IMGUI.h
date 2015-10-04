@@ -9,11 +9,11 @@
 #define __cashew__IMGUI__
 #include "Core/Controller/Mouse.h"
 #include "Core/Math/Vectors.h"
+#include "Core/Math/Matrices.h"
 #include <queue>
 #include <string>
 
 class lua_State;
-class Matrix4;
 namespace IMGUI {
     class UIState {
        public:

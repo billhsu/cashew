@@ -41,7 +41,6 @@
 #include <sstream>
 #include <queue>
 
-GLSLShader UIProgram;
 DepthPeeling* depthPeeling;
 TextureManager* textureManager;
 
@@ -72,10 +71,6 @@ bool windowPaused = false;
     textureManager->loadTexture("media/textures/point_3.png", 4);
     textureManager->loadTexture("media/textures/point_4.png", 4);
     textureManager->loadTexture("media/textures/FFFFFF-1.png", 4);
-
-    UIProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/UI.vs");
-    UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
-    UIProgram.createProgram();
 
     Scene::prepareSceneAxis(1.0f);
     Scene::prepareSceneGrid(20.0f, 1.0f);
@@ -421,19 +416,8 @@ void processMouseEvent(MouseEvent event) {
     glViewport(0, 0, mController->windowWidth, mController->windowHeight);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(BACKGROUND_COLOR);
-    GLuint local_modelView;
-    GLuint local_projection;
     mController->render();
     depthPeeling->render();
-    UIProgram.bind();
-    local_modelView = glGetUniformLocation(UIProgram.getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
-                       IMGUI::getModelView().get());
-    local_projection =
-        glGetUniformLocation(UIProgram.getProgram(), "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE,
-                       IMGUI::getProjection().get());
-    glUniform1i(glGetUniformLocation(UIProgram.getProgram(), "image0"), 0);
     IMGUIImpl::render();
 #ifdef DEBUG
     checkGlErr(__FILE__, __LINE__);

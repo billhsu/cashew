@@ -3,12 +3,15 @@
 
 #include "IMGUIImpl.h"
 #include <queue>
+#include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 
 namespace IMGUIImpl {
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
+    GLSLShader UIProgram;
+
     float verticesArray[8];
     float uvArray[8];
     float colorArray[16];
@@ -68,6 +71,10 @@ namespace IMGUIImpl {
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+
+        UIProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/UI.vs");
+        UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
+        UIProgram.createProgram();
     }
     void renderButton(RenderItem renderItem) {
         verticesArray[0] = renderItem.vertices[0].x;
@@ -116,6 +123,18 @@ namespace IMGUIImpl {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
     void render() {
+        GLuint local_modelView;
+        GLuint local_projection;
+        UIProgram.bind();
+        local_modelView =
+            glGetUniformLocation(UIProgram.getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           IMGUI::getModelView().get());
+        local_projection =
+            glGetUniformLocation(UIProgram.getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           IMGUI::getProjection().get());
+        glUniform1i(glGetUniformLocation(UIProgram.getProgram(), "image0"), 0);
         glDisable(GL_DEPTH_TEST);
         glDepthMask(GL_FALSE);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -139,5 +158,9 @@ namespace IMGUIImpl {
         glDepthMask(GL_TRUE);
         glDisable(GL_BLEND);
         glEnable(GL_DEPTH_TEST);
+    }
+
+    GLSLShader& getUIProgram() {
+        return UIProgram;
     }
 };

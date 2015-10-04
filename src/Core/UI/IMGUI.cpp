@@ -12,7 +12,6 @@ extern "C" {
 #include "IMGUI.h"
 #include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
-#include "Core/Math/Matrices.h"
 
 #define TEXTURE_FILE_PATH "media/textures/"
 namespace IMGUI {
