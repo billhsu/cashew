@@ -41,6 +41,12 @@
 #include <sstream>
 #include <queue>
 
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 DepthPeeling* depthPeeling;
 TextureManager* textureManager;
 
@@ -84,6 +90,11 @@ bool windowPaused = false;
     mController->state_draw = new StateDrawImpl();
     mController->state_delete = new StateDeleteImpl();
     mController->state_mirror = new StateMirrorImpl();
+
+    lua_register(Controller::luaState, "newFile", newFile);
+    lua_register(Controller::luaState, "saveFile", saveFile);
+    lua_register(Controller::luaState, "openFile", openFile);
+
     State::enterState(mController->state_idle);
 
     PlaneRenderer::prepareRenderData();
@@ -93,7 +104,7 @@ bool windowPaused = false;
     IMGUIImpl::prepareRenderData();
 
     depthPeeling = &DepthPeeling::getInstance();
-    depthPeeling->setPassCount(3);
+    depthPeeling->setPassCount(2);
     depthPeeling->setWindowSize(mController->windowWidth,
                                 mController->windowHeight);
     depthPeeling->init();
@@ -104,7 +115,7 @@ bool windowPaused = false;
     return YES;
 }
 
-void newFile(void* data) {
+int newFile(lua_State* L) {
     std::string option =
         showNewFileDialogWrapper((__bridge void*)fileOperations);
     if (option == "OK") {
@@ -114,6 +125,7 @@ void newFile(void* data) {
         Controller::deletedLines.clear();
         Controller::redoLines.clear();
     }
+    return 0;
 }
 
 std::string vectorsToSTLFacet(Vector3 v1, Vector3 v2, Vector3 v3) {
@@ -183,13 +195,13 @@ std::string lineSegmentToSTLCube(LineSegment line) {
     return buffer.str();
 }
 
-void saveFile(void* data) {
+int saveFile(lua_State* L) {
     windowPaused = true;
     std::string filename =
         showSaveFileDialogWrapper((__bridge void*)fileOperations);
     windowPaused = false;
     if (filename == "")
-        return;
+        return 0;
     std::cout << "Saving to " << filename << std::endl;
     std::ofstream fileStream;
     fileStream.open(filename);
@@ -210,15 +222,16 @@ void saveFile(void* data) {
     }
     fileStream.close();
     MouseEventQueue::clear();
+    return 0;
 }
 
-void openFile(void* data) {
+int openFile(lua_State* L) {
     windowPaused = true;
     std::string filename =
         showOpenFileDialogWrapper((__bridge void*)fileOperations);
     windowPaused = false;
     if (filename == "")
-        return;
+        return 0;
     std::cout << "Opening " << filename << std::endl;
     Controller::sketchLines.clear();
     std::ifstream fileStream;
@@ -241,6 +254,7 @@ void openFile(void* data) {
     Controller::redoLines.clear();
     fileStream.close();
     MouseEventQueue::clear();
+    return 0;
 }
 
 - (void)mouseLeftUp:(NSPoint)locationInWindow;

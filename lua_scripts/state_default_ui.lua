@@ -50,17 +50,17 @@ end
 -- left side buttons
 local buttonPosX,buttonPosY = genLeftBarItemPos(1)
 if button(buttonPosX ,buttonPosY, leftBarItemSize, leftBarItemSize, "New Sketch", "button_document_new.png") then
-
+  newFile()
 end
 
 local buttonPosX,buttonPosY = genLeftBarItemPos(2)
 if button(buttonPosX ,buttonPosY, leftBarItemSize, leftBarItemSize, "Open Sketch", "button_document_open.png") then
-
+  openFile()
 end
 
 local buttonPosX,buttonPosY = genLeftBarItemPos(3)
 if button(buttonPosX ,buttonPosY, leftBarItemSize, leftBarItemSize, "Save Sketch", "button_document_save.png") then
-
+  saveFile()
 end
 
 
