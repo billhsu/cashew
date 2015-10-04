@@ -41,25 +41,29 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
                 LineSegment line = LineSegment(startPoint, endPoint);
                 Controller::addLine(line);
 
-                Vector3 startPointMirror = startPoint;
-                Vector3 endPointMirror = endPoint;
-                switch (Controller::mirrorMode) {
-                    case Controller::MIRROR_MODE_X:
-                        startPointMirror.x = -startPointMirror.x;
-                        endPointMirror.x = -endPointMirror.x;
-                        break;
-                    case Controller::MIRROR_MODE_Y:
-                        startPointMirror.y = -startPointMirror.y;
-                        endPointMirror.y = -endPointMirror.y;
-                        break;
-                    case Controller::MIRROR_MODE_Z:
-                        startPointMirror.z = -startPointMirror.z;
-                        endPointMirror.z = -endPointMirror.z;
-                        break;
-                    default:
-                        break;
+                if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+                    Vector3 startPointMirror = startPoint;
+                    Vector3 endPointMirror = endPoint;
+                    startPointMirror.x = -startPointMirror.x;
+                    endPointMirror.x = -endPointMirror.x;
+                    LineSegment lineMirror =
+                        LineSegment(startPointMirror, endPointMirror);
+                    Controller::addLine(lineMirror);
                 }
-                if (Controller::mirrorMode != Controller::MIRROR_MODE_NONE) {
+                if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+                    Vector3 startPointMirror = startPoint;
+                    Vector3 endPointMirror = endPoint;
+                    startPointMirror.y = -startPointMirror.y;
+                    endPointMirror.y = -endPointMirror.y;
+                    LineSegment lineMirror =
+                        LineSegment(startPointMirror, endPointMirror);
+                    Controller::addLine(lineMirror);
+                }
+                if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+                    Vector3 startPointMirror = startPoint;
+                    Vector3 endPointMirror = endPoint;
+                    startPointMirror.z = -startPointMirror.z;
+                    endPointMirror.z = -endPointMirror.z;
                     LineSegment lineMirror =
                         LineSegment(startPointMirror, endPointMirror);
                     Controller::addLine(lineMirror);

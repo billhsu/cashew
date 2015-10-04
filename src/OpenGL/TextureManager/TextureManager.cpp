@@ -51,9 +51,6 @@ int TextureManager::loadTexture(std::string filename, int channels) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    // Done setting image parameters
-    glDisable(GL_TEXTURE_2D);
-
     // Release internal buffer
     stbi_image_free(dataBuffer);
 

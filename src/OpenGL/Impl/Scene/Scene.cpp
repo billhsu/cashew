@@ -22,85 +22,101 @@ namespace Scene {
         return &sceneProgram;
     }
     void prepareSceneGrid(float size, float step) {
-        if(sceneProgram.getProgram()==-1) {
-            sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
+        if (sceneProgram.getProgram() == -1) {
+            sceneProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/scene.vs");
             sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
             sceneProgram.createProgram();
         }
-        
+
         grid_step_cnt = size / step;
         gridVertex = new float[8 * 3 * grid_step_cnt];
         gridColor = new float[8 * 3 * grid_step_cnt];
         int span = 8 * 3;
-        for(int i = 0; i < grid_step_cnt; ++i) {
+        for (int i = 0; i < grid_step_cnt; ++i) {
             gridVertex[span * i + 0] = -size;
             gridVertex[span * i + 1] = 0.0f;
             gridVertex[span * i + 2] = (float)i * step;
-            
+
             gridVertex[span * i + 3] = size;
             gridVertex[span * i + 4] = 0.0f;
             gridVertex[span * i + 5] = (float)i * step;
-            
+
             gridVertex[span * i + 6] = -size;
             gridVertex[span * i + 7] = 0.0f;
             gridVertex[span * i + 8] = -(float)i * step;
-            
+
             gridVertex[span * i + 9] = size;
             gridVertex[span * i + 10] = 0.0f;
             gridVertex[span * i + 11] = -(float)i * step;
-            
+
             //////////////////////////////////////////
-            
+
             gridVertex[span * i + 12] = (float)i * step;
             gridVertex[span * i + 13] = 0.0f;
             gridVertex[span * i + 14] = -size;
-            
+
             gridVertex[span * i + 15] = (float)i * step;
             gridVertex[span * i + 16] = 0.0f;
             gridVertex[span * i + 17] = size;
-            
+
             gridVertex[span * i + 18] = -(float)i * step;
             gridVertex[span * i + 19] = 0.0f;
             gridVertex[span * i + 20] = -size;
-            
+
             gridVertex[span * i + 21] = -(float)i * step;
             gridVertex[span * i + 22] = 0.0f;
             gridVertex[span * i + 23] = size;
-            
-            
-            gridColor[span * i + 0] = 0.5f; gridColor[span * i + 1] = 0.5f; gridColor[span * i + 2] = 0.5f;
-            gridColor[span * i + 3] = 0.5f; gridColor[span * i + 4] = 0.5f; gridColor[span * i + 5] = 0.5f;
-            gridColor[span * i + 6] = 0.5f; gridColor[span * i + 7] = 0.5f; gridColor[span * i + 8] = 0.5f;
-            gridColor[span * i + 9] = 0.5f; gridColor[span * i + 10] = 0.5f; gridColor[span * i + 11] = 0.5f;
-            
-            gridColor[span * i + 12] = 0.5f; gridColor[span * i + 13] = 0.5f; gridColor[span * i + 14] = 0.5f;
-            gridColor[span * i + 15] = 0.5f; gridColor[span * i + 16] = 0.5f; gridColor[span * i + 17] = 0.5f;
-            gridColor[span * i + 18] = 0.5f; gridColor[span * i + 19] = 0.5f; gridColor[span * i + 20] = 0.5f;
-            gridColor[span * i + 21] = 0.5f; gridColor[span * i + 22] = 0.5f; gridColor[span * i + 23] = 0.5f;
+
+            gridColor[span * i + 0] = 0.5f;
+            gridColor[span * i + 1] = 0.5f;
+            gridColor[span * i + 2] = 0.5f;
+            gridColor[span * i + 3] = 0.5f;
+            gridColor[span * i + 4] = 0.5f;
+            gridColor[span * i + 5] = 0.5f;
+            gridColor[span * i + 6] = 0.5f;
+            gridColor[span * i + 7] = 0.5f;
+            gridColor[span * i + 8] = 0.5f;
+            gridColor[span * i + 9] = 0.5f;
+            gridColor[span * i + 10] = 0.5f;
+            gridColor[span * i + 11] = 0.5f;
+
+            gridColor[span * i + 12] = 0.5f;
+            gridColor[span * i + 13] = 0.5f;
+            gridColor[span * i + 14] = 0.5f;
+            gridColor[span * i + 15] = 0.5f;
+            gridColor[span * i + 16] = 0.5f;
+            gridColor[span * i + 17] = 0.5f;
+            gridColor[span * i + 18] = 0.5f;
+            gridColor[span * i + 19] = 0.5f;
+            gridColor[span * i + 20] = 0.5f;
+            gridColor[span * i + 21] = 0.5f;
+            gridColor[span * i + 22] = 0.5f;
+            gridColor[span * i + 23] = 0.5f;
         }
         glGenBuffers(1, &sceneGridVertexBuffer);
         glGenBuffers(1, &sceneGridColorBuffer);
         glGenVertexArrays(1, &sceneGridVertexArrayObj);
-        
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneGridVertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridVertex, GL_STATIC_DRAW);
-        
+        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridVertex,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneGridColorBuffer);
-        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridColor, GL_STATIC_DRAW);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
-        // create vertex array for shader attributes
-        glBindVertexArray(sceneGridVertexArrayObj);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, sceneGridVertexBuffer);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
-        glBindBuffer(GL_ARRAY_BUFFER, sceneGridColorBuffer);
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glBufferData(GL_ARRAY_BUFFER, 8 * 3 * grid_step_cnt * 4, gridColor,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+        // create vertex array for shader attributes
+        glBindVertexArray(sceneGridVertexArrayObj);
+
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridVertexBuffer);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, sceneGridColorBuffer);
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
     }
     void drawGrid() {
         glDepthFunc(GL_ALWAYS);
@@ -116,42 +132,26 @@ namespace Scene {
     GLuint sceneAxisEndColorBuffer;
     GLuint sceneAxisVertexArrayObj;
     GLuint sceneAxisEndVertexArrayObj;
-    static float axisCoords[] = {
-        0.0f, 0.0f, 0.0f,
-        1.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
-    static float axisEndCoords[] = {
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
-    static float axisColors[] = {
-        1.0f, 0.0f, 0.0f,
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f,
-        0.0f, 0.0f, 1.0f
-    };
-    static float axisEndColors[] = {
-        1.0f, 0.0f, 0.0f,
-        0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 1.0f
-    };
+    static float axisCoords[] = {0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                                 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+                                 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f};
+    static float axisEndCoords[] = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+                                    0.0f, 0.0f, 0.0f, 1.0f};
+    static float axisColors[] = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+                                 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+                                 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f};
+    static float axisEndColors[] = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
+                                    0.0f, 0.0f, 0.0f, 1.0f};
     void prepareSceneAxis(float size) {
-        if(sceneProgram.getProgram()==-1) {
-            sceneProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/scene.vs");
+        if (sceneProgram.getProgram() == -1) {
+            sceneProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/scene.vs");
             sceneProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/scene.fs");
             sceneProgram.createProgram();
         }
         axisCoords[3] = size;
         axisCoords[10] = size;
         axisCoords[17] = size;
-        
+
         axisEndCoords[0] = size;
         axisEndCoords[4] = size;
         axisEndCoords[8] = size;
@@ -163,110 +163,125 @@ namespace Scene {
         // create vertex array for shader attributes
         glGenVertexArrays(1, &sceneAxisVertexArrayObj);
         glGenVertexArrays(1, &sceneAxisEndVertexArrayObj);
-        
+
         // create vertex attribute buffers
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisVertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(axisCoords), axisCoords, GL_STATIC_DRAW);
-        
+        glBufferData(GL_ARRAY_BUFFER, sizeof(axisCoords), axisCoords,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisEndVertexBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(axisEndCoords), axisEndCoords, GL_STATIC_DRAW);
-        
+        glBufferData(GL_ARRAY_BUFFER, sizeof(axisEndCoords), axisEndCoords,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisColorBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(axisColors), axisColors, GL_STATIC_DRAW);
-        
+        glBufferData(GL_ARRAY_BUFFER, sizeof(axisColors), axisColors,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisEndColorBuffer);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(axisEndColors), axisEndColors, GL_STATIC_DRAW);
-        
+        glBufferData(GL_ARRAY_BUFFER, sizeof(axisEndColors), axisEndColors,
+                     GL_STATIC_DRAW);
+
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
+
         // create vertex array for shader attributes
         glBindVertexArray(sceneAxisVertexArrayObj);
-        
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisVertexBuffer);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisColorBuffer);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
+
         glBindVertexArray(sceneAxisEndVertexArrayObj);
-        
+
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisEndVertexBuffer);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         glBindBuffer(GL_ARRAY_BUFFER, sceneAxisEndColorBuffer);
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid *)0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
-        
     }
     void clearScene() {
         glDeleteBuffers(1, &sceneAxisVertexBuffer);
         glDeleteBuffers(1, &sceneAxisColorBuffer);
         glDeleteVertexArrays(1, &sceneAxisVertexArrayObj);
-        
+
         glDeleteBuffers(1, &sceneAxisEndVertexBuffer);
         glDeleteBuffers(1, &sceneAxisEndColorBuffer);
         glDeleteVertexArrays(1, &sceneAxisEndVertexArrayObj);
-        
+
         glDeleteBuffers(1, &sceneGridVertexBuffer);
         glDeleteBuffers(1, &sceneGridColorBuffer);
         glDeleteVertexArrays(1, &sceneGridVertexArrayObj);
-        
-        if(gridVertex!=NULL) delete [] gridVertex;
-        if(gridColor!=NULL) delete [] gridColor;
+
+        if (gridVertex != NULL)
+            delete[] gridVertex;
+        if (gridColor != NULL)
+            delete[] gridColor;
     }
     void drawAxis() {
         glDepthFunc(GL_ALWAYS);
         glBindVertexArray(sceneAxisVertexArrayObj);
-        glDrawArrays(GL_LINES, 0, 6*3);
+        glDrawArrays(GL_LINES, 0, 6 * 3);
         glPointSize(5);
         glBindVertexArray(sceneAxisEndVertexArrayObj);
-        glDrawArrays(GL_POINTS, 0, 3*3);
+        glDrawArrays(GL_POINTS, 0, 3 * 3);
         glPointSize(1);
         glBindVertexArray(0);
         glDepthFunc(GL_LEQUAL);
     }
 
     void drawMirror() {
-        if(Controller::mirrorMode == Controller::MIRROR_MODE_NONE) {
+        if (Controller::mirrorMode == Controller::MIRROR_MODE_NONE) {
             return;
-        }
-        Plane p;
-        Vector4 color;
-        color.a = 0.1f;
-        switch (Controller::mirrorMode) {
-            case Controller::MIRROR_MODE_X:
-                p = Plane(Vector3(0.1, 0, 0), 0);
-                color.r = 1;
-                break;
-            case Controller::MIRROR_MODE_Y:
-                p = Plane(Vector3(0, 0.1, 0), 0);
-                color.g = 1;
-                break;
-            case Controller::MIRROR_MODE_Z:
-                p = Plane(Vector3(0, 0, 0.1), 0);
-                color.b = 1;
-                break;
-            default:
-                break;
         }
         PlaneRenderer::getPlaneShader()->bind();
 
-        GLuint local_modelView = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
-        glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
-        GLuint local_projection = glGetUniformLocation(PlaneRenderer::getPlaneShader()->getProgram(), "projection");
-        glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
-        PlaneRenderer::render(p, Vector3(0, 0, 0), 2.0f, color);
+        GLuint local_modelView = glGetUniformLocation(
+            PlaneRenderer::getPlaneShader()->getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           Controller::modelView.get());
+        GLuint local_projection = glGetUniformLocation(
+            PlaneRenderer::getPlaneShader()->getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           Controller::projection.get());
+        Plane p;
+        if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+            p = Plane(Vector3(0.1, 0, 0), 0);
+            Vector4 color = Vector4();
+            color.a = 0.1f;
+            color.r = 1;
+            PlaneRenderer::render(p, Vector3(0, 0, 0), 2.0f, color);
+        }
+        if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+            p = Plane(Vector3(0, 0.1, 0), 0);
+            Vector4 color = Vector4();
+            color.a = 0.1f;
+            color.g = 1;
+            PlaneRenderer::render(p, Vector3(0, 0, 0), 2.0f, color);
+        }
+        if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+            p = Plane(Vector3(0, 0, 0.1), 0);
+            Vector4 color = Vector4();
+            color.a = 0.1f;
+            color.b = 1;
+            PlaneRenderer::render(p, Vector3(0, 0, 0), 2.0f, color);
+        }
     }
 
     void drawScene() {
         sceneProgram.bind();
-        GLint local_modelView = glGetUniformLocation(sceneProgram.getProgram(), "modelView");
-        glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
-        GLint local_projection = glGetUniformLocation(sceneProgram.getProgram(), "projection");
-        glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
+        GLint local_modelView =
+            glGetUniformLocation(sceneProgram.getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           Controller::modelView.get());
+        GLint local_projection =
+            glGetUniformLocation(sceneProgram.getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           Controller::projection.get());
         drawGrid();
         drawAxis();
         sceneProgram.unbind();
@@ -275,20 +290,30 @@ namespace Scene {
     void drawSceneWrapper(void* data) {
         drawScene();
     }
-    
+
     void renderCurrentPoint(void* data) {
-        if(Controller::bCurrPoint) {
+        if (Controller::bCurrPoint) {
             PointRenderer::getPointShader()->bind();
-            GLuint local_modelView = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "modelView");
-            glUniformMatrix4fv(local_modelView, 1, GL_FALSE, Controller::modelView.get());
-            GLuint local_projection = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "projection");
-            glUniformMatrix4fv(local_projection, 1, GL_FALSE, Controller::projection.get());
-            GLuint local_pointSize = glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointSize");
+            GLuint local_modelView = glGetUniformLocation(
+                PointRenderer::getPointShader()->getProgram(), "modelView");
+            glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                               Controller::modelView.get());
+            GLuint local_projection = glGetUniformLocation(
+                PointRenderer::getPointShader()->getProgram(), "projection");
+            glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                               Controller::projection.get());
+            GLuint local_pointSize = glGetUniformLocation(
+                PointRenderer::getPointShader()->getProgram(), "pointSize");
             glUniform1f(local_pointSize, 0.2f);
-            glUniform1i(glGetUniformLocation(PointRenderer::getPointShader()->getProgram(), "pointTexture"), 1);
+            glUniform1i(glGetUniformLocation(
+                            PointRenderer::getPointShader()->getProgram(),
+                            "pointTexture"),
+                        1);
             PointRenderer::getPointList().clear();
             PointRenderer::getPointList().push_back(Controller::currPoint);
-            PointRenderer::render(TextureManager::getInstance().getTexture("media/textures/point_4.png").glTextureID);
+            PointRenderer::render(TextureManager::getInstance()
+                                      .getTexture("media/textures/point_4.png")
+                                      .glTextureID);
         }
     }
 }

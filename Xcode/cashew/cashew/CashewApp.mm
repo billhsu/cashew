@@ -105,7 +105,7 @@ bool windowPaused = false;
     IMGUIImpl::prepareRenderData();
 
     depthPeeling = &DepthPeeling::getInstance();
-    depthPeeling->setPassCount(2);
+    depthPeeling->setPassCount(3);
     depthPeeling->setWindowSize(mController->windowWidth,
                                 mController->windowHeight);
     depthPeeling->init();
