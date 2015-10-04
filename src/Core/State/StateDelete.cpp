@@ -22,7 +22,7 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
-    if (button == Mouse::MOUSE_BUTTON_LEFT) {
+    if (button == Mouse::MOUSE_BUTTON_LEFT && state == Mouse::MOUSE_ACTION_UP) {
         if (mCamera->getLine(Controller::mouseX, Controller::mouseY,
                              Controller::sketchLines, currentLine) >= 0) {
             Controller::delLine(currentLine);
