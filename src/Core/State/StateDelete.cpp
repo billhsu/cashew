@@ -15,11 +15,8 @@ StateDelete::StateDelete() {
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     stateName = "delete";
+    lua_register(Controller::luaState, "deleteLinesDone", btnDeleteDoneEvent);
     luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
-    btnDeleteDone = Controller::GUI->addButton(
-        stateID * 100 + 100 + BTN_ID_DELETE_LINE_DONE,
-        "BTN_ID_DELETE_LINE_DONE", btnDeleteDoneEvent, this);
-    btnDeleteDone->setVisibility(false);
 }
 void StateDelete::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
@@ -48,11 +45,9 @@ void StateDelete::MouseRightDrag(int dx, int dy) {
 }
 
 void StateDelete::prepareState() {
-    btnDeleteDone->appearIn();
 }
 
 void StateDelete::postState() {
-    btnDeleteDone->appearOut();
 }
 void StateDelete::UIEvent(int event) {
     if (event == Controller::BTN_ID_STANDARD_VIEW) {
@@ -62,6 +57,7 @@ void StateDelete::UIEvent(int event) {
     }
 }
 
-void StateDelete::btnDeleteDoneEvent(void* data) {
+int StateDelete::btnDeleteDoneEvent(lua_State* L) {
     enterState(State::statePool[STATE_IDLE]);
+    return 0;
 }

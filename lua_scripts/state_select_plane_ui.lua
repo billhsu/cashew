@@ -1,7 +1,7 @@
 dofile("lua_scripts/state_default_ui.lua")
 
-itemSize = 60
-itemMargin = 10
+local itemSize = 60
+local itemMargin = 10
 local function genOrientationBarItemPos(idx)
   return genItemPos(window_width / 2, window_height - 2 * itemSize, itemSize, itemMargin, 2, idx, false)
 end

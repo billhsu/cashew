@@ -16,8 +16,7 @@ class StateDelete : public State {
     enum { BTN_ID_DELETE_LINE_DONE };
 
    protected:
-    UIButton* btnDeleteDone;
-    static void btnDeleteDoneEvent(void* data);
+    static int btnDeleteDoneEvent(lua_State* L);
     LineSegment currentLine;
     bool isCurrentLineSelected;
 };
