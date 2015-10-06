@@ -104,7 +104,8 @@ namespace IMGUI {
     RenderItem generateRenderItem(int itemType, std::string textureFile,
                                   std::string text, float x, float y,
                                   float width, float height, float offset_x,
-                                  float offset_y, Vector4 color) {
+                                  float offset_y, Vector4 color,
+                                  bool showHintText) {
         RenderItem item;
         item.type = itemType;
         if (textureFile.find(TEXTURE_FILE_PATH) == 0) {
@@ -122,6 +123,9 @@ namespace IMGUI {
         item.vertices[3].y = y + offset_y + height;
         item.color = color;
         item.text = text;
+        item.showHintText = showHintText;
+        item.pos = Vector2(x, y);
+        item.size = Vector2(width, height);
         return item;
     }
 
@@ -153,10 +157,12 @@ namespace IMGUI {
         float height = h;
         float width = w;
         int ID = generateID();
+        bool showHintText = false;
         checkUIRegion(ID, x, y, w, h);
         if (state.hotItem == ID) {
             if (state.activeItem == ID) {
             } else {
+                showHintText = true;
                 height = h * (0.96f + 0.04f * cos(timeAnimationAcc / 90.0f));
                 width = w * (0.96f + 0.04f * cos(timeAnimationAcc / 90.0f));
             }
@@ -165,9 +171,9 @@ namespace IMGUI {
         float offset_x = (w - width) / 2.0f;
         float offset_y = (h - height) / 2.0f;
 
-        RenderItem item =
-            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, text, x, y,
-                               width, height, offset_x, offset_y, color);
+        RenderItem item = generateRenderItem(
+            RENDER_ITEM_BUTTON, textureFile, text, x, y, width, height,
+            offset_x, offset_y, color, showHintText);
 
         addToRenderQueue(item);
         return checkUIHit(ID);
@@ -178,10 +184,12 @@ namespace IMGUI {
         float height = h;
         float width = w;
         int ID = generateID();
+        bool showHintText = false;
         checkUIRegion(ID, x, y, w, h);
         if (state.hotItem == ID) {
             if (state.activeItem == ID) {
             } else {
+                showHintText = true;
                 height = h * (0.96f + 0.04f * cos(timeAnimationAcc / 90.0f));
                 width = w * (0.96f + 0.04f * cos(timeAnimationAcc / 90.0f));
             }
@@ -193,9 +201,9 @@ namespace IMGUI {
             color *= 0.5f;
             color.a = oldAplha;
         }
-        RenderItem item =
-            generateRenderItem(RENDER_ITEM_BUTTON, textureFile, text, x, y,
-                               width, height, offset_x, offset_y, color);
+        RenderItem item = generateRenderItem(
+            RENDER_ITEM_CHECKBOX, textureFile, text, x, y, width, height,
+            offset_x, offset_y, color, showHintText);
 
         addToRenderQueue(item);
         if (checkUIHit(ID)) {
@@ -203,6 +211,14 @@ namespace IMGUI {
             return true;
         }
         return false;
+    }
+
+    void label(int x, int y, int w, int h, std::string text, Vector4 color) {
+        RenderItem item =
+            generateRenderItem(RENDER_ITEM_LABEL, "media/textures/FFFFFF-1.png",
+                               text, x, y, w, h, 0, 0, color, false);
+
+        addToRenderQueue(item);
     }
     int luaButton(lua_State* L) {
         int x = lua_tonumber(L, 1);

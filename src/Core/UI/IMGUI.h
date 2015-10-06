@@ -63,13 +63,16 @@ namespace IMGUI {
     UIState& getState();
 
     bool isUIHot();
-    enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_LABEL };
+    enum { RENDER_ITEM_BUTTON = 1, RENDER_ITEM_CHECKBOX, RENDER_ITEM_LABEL };
     struct RenderItem {
         int type;
         std::string textureFile;
         std::string text;
         Vector2 vertices[4];
         Vector4 color;
+        Vector2 pos;
+        Vector2 size;
+        bool showHintText;
     };
     std::queue<RenderItem> getRenderQueue();
     void update(float timeDelta);
@@ -78,5 +81,7 @@ namespace IMGUI {
                 std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
     bool checkbox(int x, int y, int w, int h, std::string text, bool& checked,
                   std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
+    void label(int x, int y, int w, int h, std::string text,
+               Vector4 color = Vector4(1, 1, 1, 0.8));
 }
 #endif /* defined(__cashew__IMGUI__) */

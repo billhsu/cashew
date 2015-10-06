@@ -6,6 +6,7 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "OpenGL/TextureManager/TextureManager.h"
+#include "OpenGL/Fonts/FontRenderer.h"
 
 namespace IMGUIImpl {
     HardwareBuffer buffer;
@@ -76,7 +77,7 @@ namespace IMGUIImpl {
         UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
         UIProgram.createProgram();
     }
-    void renderButton(RenderItem renderItem) {
+    void renderRenderItem(RenderItem renderItem) {
         verticesArray[0] = renderItem.vertices[0].x;
         verticesArray[1] = renderItem.vertices[0].y;
         verticesArray[2] = renderItem.vertices[1].x;
@@ -121,6 +122,24 @@ namespace IMGUIImpl {
                                    HardwareBuffer::FLAG_COLOR_BUFFER);
         buffer.render();
         glBindTexture(GL_TEXTURE_2D, 0);
+        if (renderItem.type == RENDER_ITEM_LABEL) {
+            float fontW = 0, fontH = 0;
+            FontRenderer::getTextBoundingBox("WenQuanYiMicroHei", 20,
+                                             renderItem.text, &fontW, &fontH);
+            float offsetX = (renderItem.size.x - fontW) / 2.f;
+            float offsetY = (renderItem.size.y - fontH) / 2.f;
+            FontRenderer::addText("WenQuanYiMicroHei", 20,
+                                  renderItem.pos.x + offsetX,
+                                  renderItem.pos.y + fontH + offsetY,
+                                  Vector3(0.1f, 0.1f, 0.1f), renderItem.text);
+        }
+        if (renderItem.showHintText) {
+            float fontW = 0, fontH = 0;
+            FontRenderer::getTextBoundingBox("WenQuanYiMicroHei", 20,
+                                             renderItem.text, &fontW, &fontH);
+            label(getState().mouseX + 10, getState().mouseY + 10, fontW + 10,
+                  fontH + 10, renderItem.text);
+        }
     }
     void render() {
         GLuint local_modelView;
@@ -144,16 +163,33 @@ namespace IMGUIImpl {
         while (renderQueue.size() > 0) {
             RenderItem renderItem = renderQueue.front();
             renderQueue.pop();
-            switch (renderItem.type) {
-                case RENDER_ITEM_BUTTON:
-                    renderButton(renderItem);
-                    break;
-                case RENDER_ITEM_LABEL:
-                    break;
-                default:
-                    break;
-            }
+            renderRenderItem(renderItem);
         }
+
+        // second pass
+        // this is for showing the hint text
+        // which is generated in renderRenderItem()
+        renderQueue = getRenderQueue();
+        while (renderQueue.size() > 0) {
+            RenderItem renderItem = renderQueue.front();
+            renderQueue.pop();
+            renderRenderItem(renderItem);
+        }
+
+        // Render Font
+        FontRenderer::getFontShader()->bind();
+        local_modelView = glGetUniformLocation(
+            FontRenderer::getFontShader()->getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           IMGUI::getModelView().get());
+        local_projection = glGetUniformLocation(
+            FontRenderer::getFontShader()->getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           IMGUI::getProjection().get());
+        glUniform1i(glGetUniformLocation(
+                        FontRenderer::getFontShader()->getProgram(), "image0"),
+                    0);
+        FontRenderer::render();
 
         glDepthMask(GL_TRUE);
         glDisable(GL_BLEND);
