@@ -6,8 +6,6 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Camera/Camera.h"
-#include "Core/UI/UI.h"
-#include "Core/UI/UIButton.h"
 
 std::vector<Vector3> StateSelectPlane::selectedPoints;
 StateSelectPlane* self;

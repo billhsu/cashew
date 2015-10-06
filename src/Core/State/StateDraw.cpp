@@ -5,8 +5,6 @@
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
-#include "Core/UI/UI.h"
-#include "Core/UI/UIButton.h"
 
 StateDraw::StateDraw() {
     stateID = STATE_DRAW;

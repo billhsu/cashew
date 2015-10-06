@@ -7,8 +7,6 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
-#include "Core/UI/UI.h"
-#include "Core/UI/UIButton.h"
 
 StateIdle::StateIdle() {
     stateID = STATE_IDLE;

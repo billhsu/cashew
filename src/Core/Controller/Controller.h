@@ -85,8 +85,6 @@ class Controller {
     static int mouseX, mouseY;
     static int mouseButton, mouseState;  // mouse status
 
-    static UI* GUI;
-
     static State* state_idle;
     static State* state_select_plane;
     static State* state_draw;

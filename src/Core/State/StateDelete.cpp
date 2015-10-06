@@ -6,8 +6,6 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
-#include "Core/UI/UI.h"
-#include "Core/UI/UIButton.h"
 
 StateDelete::StateDelete() {
     stateID = STATE_DELETE;

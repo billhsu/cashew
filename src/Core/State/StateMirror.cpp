@@ -3,8 +3,6 @@
 
 #include "StateMirror.h"
 #include "Core/Controller/Controller.h"
-#include "Core/UI/UI.h"
-#include "Core/UI/UIButton.h"
 
 StateMirror::StateMirror() {
     stateID = STATE_MIRRPR;
