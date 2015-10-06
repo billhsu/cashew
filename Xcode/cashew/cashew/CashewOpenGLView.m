@@ -120,16 +120,17 @@
 
 - (void)mouseDown:(NSEvent*)theEvent {
     //[super mouseDown:theEvent];
-
-    NSPoint location = [theEvent locationInWindow];
-    [[CashewInputController sharedInputController] mouseLeftDown:location];
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    [[CashewInputController sharedInputController] mouseLeftDown:windowPos];
 }
 
 - (void)mouseUp:(NSEvent*)theEvent {
     //[super mouseUp:theEvent];
 
-    NSPoint location = [theEvent locationInWindow];
-    [[CashewInputController sharedInputController] mouseLeftUp:location];
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    [[CashewInputController sharedInputController] mouseLeftUp:windowPos];
 }
 
 - (void)rightMouseDown:(NSEvent*)theEvent {
@@ -142,25 +143,28 @@
 - (void)rightMouseUp:(NSEvent*)theEvent {
     //[super rightMouseUp:theEvent];
 
-    NSPoint location = [theEvent locationInWindow];
-    [[CashewInputController sharedInputController] mouseRightUp:location];
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    [[CashewInputController sharedInputController] mouseRightUp:windowPos];
 }
 
 - (void)mouseMoved:(NSEvent*)theEvent {
     //[super mouseMoved:theEvent];
-
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
     [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
 }
 
 - (void)mouseDragged:(NSEvent*)theEvent {
     //[super mouseDragged:theEvent];
-
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
     CGFloat dx = [theEvent deltaX];
     CGFloat dy = [theEvent deltaY];
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
 
     [[CashewInputController sharedInputController] mouseLeftDragWithDX:dx
                                                                  andDY:dy
@@ -170,11 +174,12 @@
 
 - (void)rightMouseDragged:(NSEvent*)theEvent {
     //[super rightMouseDragged:theEvent];
-
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
     CGFloat dx = [theEvent deltaX];
     CGFloat dy = [theEvent deltaY];
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
     [[CashewInputController sharedInputController] mouseRightDragWithDX:dx
                                                                   andDY:dy
                                                                    andX:x
@@ -191,16 +196,20 @@
 
 - (void)mouseEntered:(NSEvent*)theEvent {
     //[super mouseEntered:theEvent];
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
     [[CashewInputController sharedInputController] mouseEnteredWithX:x andY:y];
     NSLog(@"mouseEntered");
 }
 
 - (void)mouseExited:(NSEvent*)theEvent {
     //[super mouseExited:theEvent];
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
     [[CashewInputController sharedInputController] mouseExitedWithX:x andY:y];
     NSLog(@"mouseExited");
 }
@@ -208,8 +217,10 @@
 - (void)cursorUpdate:(NSEvent*)theEvent {
     //[super cursorUpdate:theEvent];
     NSLog(@"cursorUpdate");
-    CGFloat x = [theEvent locationInWindow].x;
-    CGFloat y = [theEvent locationInWindow].y;
+    NSPoint windowPos =
+        [self convertPointToBacking:[theEvent locationInWindow]];
+    CGFloat x = windowPos.x;
+    CGFloat y = windowPos.y;
     [[CashewInputController sharedInputController] mouseMoveWithX:x andY:y];
 }
 
