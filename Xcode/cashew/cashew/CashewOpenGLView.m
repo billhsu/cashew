@@ -26,7 +26,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect pixelFormat:(NSOpenGLPixelFormat*)format {
     self = [super initWithFrame:frameRect pixelFormat:format];
-
+    [self setWantsBestResolutionOpenGLSurface:YES];
     if (self) {
         trackingArea = [[NSTrackingArea alloc]
             initWithRect:[self bounds]
@@ -87,8 +87,10 @@
     [[self openGLContext] makeCurrentContext];
     [[self openGLContext] update];
     NSRect rect = [self bounds];
+    NSRect rrect = [self convertRectToBacking:rect];
+
     //    glViewport(0, 0, rect.size.width, rect.size.height);
-    [self.delegate reshapeWidth:rect.size.width height:rect.size.height];
+    [self.delegate reshapeWidth:rrect.size.width height:rrect.size.height];
 }
 
 - (BOOL)acceptsFirstResponder {
