@@ -83,5 +83,9 @@ namespace IMGUI {
                   std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
     void label(int x, int y, int w, int h, std::string text,
                Vector4 color = Vector4(1, 1, 1, 0.8));
+    // For retina displays
+    void setBackingRatio(float x, float y);
+    float getBackingRatioX();
+    float getBackingRatioY();
 }
 #endif /* defined(__cashew__IMGUI__) */

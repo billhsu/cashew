@@ -24,6 +24,24 @@ namespace IMGUI {
     static int luaCheckbox(lua_State* L);
 
     int mWindowWidth, mWindowHeight;
+    float backingRatioX = 1.0f, backingRatioY = 1.0f;
+
+    void setBackingRatio(float x, float y) {
+        backingRatioX = x;
+        backingRatioY = y;
+        if (luaState != nullptr) {
+            lua_pushnumber(luaState, backingRatioX);
+            lua_setglobal(luaState, "backingRatioX");
+            lua_pushnumber(luaState, backingRatioY);
+            lua_setglobal(luaState, "backingRatioY");
+        }
+    }
+    float getBackingRatioX() {
+        return backingRatioX;
+    }
+    float getBackingRatioY() {
+        return backingRatioY;
+    }
 
     int currentMaxID = 0;
     int generateID() {
@@ -35,6 +53,10 @@ namespace IMGUI {
         luaState = _luaState;
         lua_register(luaState, "button", luaButton);
         lua_register(luaState, "checkbox", luaCheckbox);
+        lua_pushnumber(luaState, backingRatioX);
+        lua_setglobal(luaState, "backingRatioX");
+        lua_pushnumber(luaState, backingRatioY);
+        lua_setglobal(luaState, "backingRatioY");
     }
 
     bool regionHit(int x, int y, int w, int h) {

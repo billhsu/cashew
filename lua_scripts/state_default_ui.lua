@@ -29,8 +29,8 @@ function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isV
   end
 end
 
-local topBarItemSize = 60
-local topBarItemMargin = 10
+local topBarItemSize = 60 * backingRatioX
+local topBarItemMargin = 10 * backingRatioX
 local function genTopBarItemPos(idx)
   return genItemPos(window_width/2, topBarItemSize, topBarItemSize, topBarItemMargin, 5, idx, false)
 end
@@ -38,8 +38,8 @@ local function getTopBarItemSize()
   return topBarItemSize, topBarItemSize
 end
 
-local leftBarItemSize = 50
-local leftBarItemMargin = 5
+local leftBarItemSize = 50 * backingRatioX
+local leftBarItemMargin = 5 * backingRatioX
 local function genLeftBarItemPos(idx)
   return genItemPos(leftBarItemSize, window_height/2, leftBarItemSize, leftBarItemMargin, 3, idx, true)
 end

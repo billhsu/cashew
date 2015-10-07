@@ -435,6 +435,13 @@ void processMouseEvent(MouseEvent event) {
     checkGlErr(__FILE__, __LINE__);
 #endif
 }
+- (void)reshapeRect:(NSRect)rect backing:(NSRect)backing {
+    windowPaused = false;
+    IMGUI::setBackingRatio(backing.size.width / rect.size.width,
+                           backing.size.height / rect.size.height);
+    mController->resize(backing.size.width, backing.size.height);
+    depthPeeling->setWindowSize(backing.size.width, backing.size.height);
+}
 
 - (void)reshapeWidth:(int)width height:(int)height {
     windowPaused = false;

@@ -24,7 +24,7 @@
 - (BOOL)prepareRenderData;
 - (void)update:(NSTimeInterval)timeInterval;
 - (void)render;
-- (void)reshapeWidth:(int)width height:(int)height;
+- (void)reshapeRect:(NSRect)rect backing:(NSRect)backing;
 @end
 
 #define Set_OpenGLViewDelegate(classname)                                  \

@@ -137,8 +137,10 @@ namespace IMGUIImpl {
             float fontW = 0, fontH = 0;
             FontRenderer::getTextBoundingBox("WenQuanYiMicroHei", 20,
                                              renderItem.text, &fontW, &fontH);
-            label(getState().mouseX + 10, getState().mouseY + 10, fontW + 10,
-                  fontH + 10, renderItem.text);
+            label(getState().mouseX + 10 * IMGUI::getBackingRatioX(),
+                  getState().mouseY + 10 * IMGUI::getBackingRatioY(),
+                  fontW + 10 * IMGUI::getBackingRatioX(),
+                  fontH + 10 * IMGUI::getBackingRatioY(), renderItem.text);
         }
     }
     void render() {

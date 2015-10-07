@@ -90,7 +90,7 @@
     NSRect rrect = [self convertRectToBacking:rect];
 
     //    glViewport(0, 0, rect.size.width, rect.size.height);
-    [self.delegate reshapeWidth:rrect.size.width height:rrect.size.height];
+    [self.delegate reshapeRect:rect backing:rrect];
 }
 
 - (BOOL)acceptsFirstResponder {
