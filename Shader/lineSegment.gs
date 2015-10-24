@@ -30,6 +30,7 @@ void vectorsToRect(vec4 vector1, vec4 vector2, vec4 vector3, vec4 vector4) {
     gl_Position = projection * vector4;
     colorGs = lineColor;
     EmitVertex();
+    EndPrimitive();
 }
 
 void main (void)
@@ -67,16 +68,15 @@ void main (void)
     vec4 vector7 = Q - vec4(vBase, 0);
     
     // up
-    vectorsToRect(vector0, vector1, vector2, vector3);
+    vectorsToRect(vector1, vector0, vector2, vector3);
     // bottom
-    vectorsToRect(vector4, vector5, vector6, vector7);
+    vectorsToRect(vector5, vector4, vector6, vector7);
     // front
-    vectorsToRect(vector0, vector1, vector5, vector4);
+    vectorsToRect(vector1, vector0, vector5, vector4);
     // back
-    vectorsToRect(vector2, vector3, vector7, vector6);
+    vectorsToRect(vector3, vector2, vector7, vector6);
     // left
-    vectorsToRect(vector0, vector3, vector7, vector4);
-    // up
-    vectorsToRect(vector1, vector2, vector6, vector5);
-    EndPrimitive();
+    vectorsToRect(vector3, vector0, vector7, vector4);
+    // right
+    vectorsToRect(vector2, vector1, vector6, vector5);
 }
