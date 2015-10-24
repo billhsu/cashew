@@ -304,7 +304,7 @@ namespace Scene {
                                Controller::projection.get());
             GLuint local_pointSize = glGetUniformLocation(
                 PointRenderer::getPointShader()->getProgram(), "pointSize");
-            glUniform1f(local_pointSize, 0.2f);
+            glUniform1f(local_pointSize, 0.3f);
             glUniform1i(glGetUniformLocation(
                             PointRenderer::getPointShader()->getProgram(),
                             "pointTexture"),
