@@ -5,7 +5,7 @@
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
-
+int StateDraw::internalState;
 StateDraw::StateDraw() {
     stateID = STATE_DRAW;
     internalState = STATE_DRAW_IDLE;

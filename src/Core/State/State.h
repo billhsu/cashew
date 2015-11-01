@@ -46,6 +46,9 @@ class State {
         STATE_ID_MAX
     };
     static State* statePool[STATE_ID_MAX];
+    int getStateID() {
+        return stateID;
+    }
 
    protected:
     Camera* mCamera;

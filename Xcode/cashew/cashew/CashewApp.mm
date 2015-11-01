@@ -364,6 +364,12 @@ int openFile(lua_State* L) {
 }
 - (void)mouseExitedWithX:(CGFloat)x andY:(CGFloat)y {
     windowPaused = true;
+    if (State::currState->getStateID() == State::STATE_DRAW) {
+        if (StateDraw::internalState ==
+            StateDraw::STATE_DRAW_START_POINT_SELECTED) {
+            windowPaused = false;
+        }
+    }
 }
 - (void)keyDown:(unichar)key {
     mController->Keyboard(key, Controller::KEY_DOWN);

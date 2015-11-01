@@ -17,7 +17,7 @@ class StateDraw : public State {
     std::vector<Vector3> selectedPoints;
     Vector3 startPoint, endPoint;
 
-    int internalState;
+    static int internalState;
     enum { STATE_DRAW_IDLE, STATE_DRAW_START_POINT_SELECTED };
     enum { BTN_ID_DRAW_PLANE_DONE };
 
