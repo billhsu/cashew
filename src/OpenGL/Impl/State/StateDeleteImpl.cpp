@@ -32,26 +32,8 @@ void StateDeleteImpl::renderCurrentLine(void* data) {
         return;
     }
 
-    LineSegmentRenderer::getLineSegmentShader()->bind();
-
-    GLuint local_modelView = glGetUniformLocation(
-        LineSegmentRenderer::getLineSegmentShader()->getProgram(), "modelView");
-    glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
-                       Controller::modelView.get());
-    GLuint local_projection = glGetUniformLocation(
-        LineSegmentRenderer::getLineSegmentShader()->getProgram(),
-        "projection");
-    glUniformMatrix4fv(local_projection, 1, GL_FALSE,
-                       Controller::projection.get());
-    GLuint local_thickness = glGetUniformLocation(
-        LineSegmentRenderer::getLineSegmentShader()->getProgram(), "thickness");
-    glUniform1f(local_thickness, 0.15f);
-    GLuint local_lineColor = glGetUniformLocation(
-        LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
-    glUniform4f(local_lineColor, 1, 0, 0, 1.0f);
-    LineSegmentRenderer::getLineSegmentList().clear();
-    LineSegmentRenderer::getLineSegmentList().push_back(Controller::currLine);
     glDisable(GL_DEPTH_TEST);
-    LineSegmentRenderer::render(0);
+    Scene::renderSingleSketchLine(Controller::currLine, Vector4(1, 0, 0, 1.0f),
+                                  0.15f);
     glEnable(GL_DEPTH_TEST);
 }

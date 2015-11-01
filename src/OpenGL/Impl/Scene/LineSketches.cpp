@@ -7,6 +7,8 @@
 #include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/TextureManager/TextureManager.h"
+#include "Core/Math/Vectors.h"
+#include "Core/Basic/LineSegment.h"
 
 namespace Scene {
     void renderSketchLinesMode(bool wireframe) {
@@ -81,5 +83,32 @@ namespace Scene {
                     .getTexture("media/textures/point_current.png")
                     .glTextureID);
         }
+    }
+
+    void renderSingleSketchLine(LineSegment line, Vector4 color,
+                                float thickness) {
+        LineSegmentRenderer::getLineSegmentShader()->bind();
+
+        GLuint local_modelView = glGetUniformLocation(
+            LineSegmentRenderer::getLineSegmentShader()->getProgram(),
+            "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           Controller::modelView.get());
+        GLuint local_projection = glGetUniformLocation(
+            LineSegmentRenderer::getLineSegmentShader()->getProgram(),
+            "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           Controller::projection.get());
+        GLuint local_thickness = glGetUniformLocation(
+            LineSegmentRenderer::getLineSegmentShader()->getProgram(),
+            "thickness");
+        glUniform1f(local_thickness, thickness);
+        GLuint local_lineColor = glGetUniformLocation(
+            LineSegmentRenderer::getLineSegmentShader()->getProgram(),
+            "lineColor");
+        glUniform4f(local_lineColor, color.r, color.g, color.b, color.a);
+        LineSegmentRenderer::getLineSegmentList().clear();
+        LineSegmentRenderer::getLineSegmentList().push_back(line);
+        LineSegmentRenderer::render(0);
     }
 }
