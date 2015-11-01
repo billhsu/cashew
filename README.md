@@ -8,8 +8,6 @@ Cashew
 
 <img src="doc/screenshot.png" width="400" />
 
-Demo video: [Youtube](https://www.youtube.com/watch?v=LXAcakVGCuI),  [优酷](http://v.youku.com/v_show/id_XNjY1ODY2MjY4.html)
-
 
 ##Author
 **Shipeng Xu**
