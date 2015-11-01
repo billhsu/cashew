@@ -75,6 +75,8 @@ class Controller {
     static Plane currPlane;  // Plane to draw
     static Vector3 currPoint;
     static bool bCurrPoint;
+    static LineSegment currLine;
+    static bool bCurrLine;
 
     int status;
 

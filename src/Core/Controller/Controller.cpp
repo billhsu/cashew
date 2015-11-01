@@ -44,6 +44,9 @@ std::vector<Controller::LineOperation> Controller::redoOperations;
 Vector3 Controller::currPoint = Vector3(0, 0, 0);
 bool Controller::bCurrPoint = false;
 
+LineSegment Controller::currLine;
+bool Controller::bCurrLine = false;
+
 Vector3 Controller::rotate = Vector3(-30, 0, 0);
 
 lua_State* Controller::luaState = NULL;
@@ -131,7 +134,13 @@ void Controller::PassiveMotion(int x, int y) {
     } else {
         bCurrPoint = false;
     }
-    // todo: add check here
+    LineSegment line;
+    if (camera->getLine(x, y, sketchLines, line) != -1) {
+        currLine = line;
+        bCurrLine = true;
+    } else {
+        bCurrLine = false;
+    }
     State::currState->PassiveMotion(x, y);
 }
 void Controller::Keyboard(unsigned char key, unsigned char status) {

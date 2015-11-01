@@ -17,6 +17,4 @@ class StateDelete : public State {
 
    protected:
     static int btnDeleteDoneEvent(lua_State* L);
-    LineSegment currentLine;
-    bool isCurrentLineSelected;
 };

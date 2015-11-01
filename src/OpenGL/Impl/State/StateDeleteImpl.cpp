@@ -28,9 +28,9 @@ void StateDeleteImpl::render() {
 }
 
 void StateDeleteImpl::renderCurrentLine(void* data) {
-    StateDeleteImpl* self = static_cast<StateDeleteImpl*>(data);
-    if (!self->isCurrentLineSelected)
+    if (!Controller::bCurrLine) {
         return;
+    }
 
     LineSegmentRenderer::getLineSegmentShader()->bind();
 
@@ -50,7 +50,7 @@ void StateDeleteImpl::renderCurrentLine(void* data) {
         LineSegmentRenderer::getLineSegmentShader()->getProgram(), "lineColor");
     glUniform4f(local_lineColor, 1, 0, 0, 1.0f);
     LineSegmentRenderer::getLineSegmentList().clear();
-    LineSegmentRenderer::getLineSegmentList().push_back(self->currentLine);
+    LineSegmentRenderer::getLineSegmentList().push_back(Controller::currLine);
     glDisable(GL_DEPTH_TEST);
     LineSegmentRenderer::render(0);
     glEnable(GL_DEPTH_TEST);
