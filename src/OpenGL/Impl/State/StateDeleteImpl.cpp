@@ -22,16 +22,15 @@ StateDeleteImpl::~StateDeleteImpl() {
 void StateDeleteImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Scene::renderSketchLines(NULL);
+    renderCurrentLine();
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
-    depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
 }
 
-void StateDeleteImpl::renderCurrentLine(void* data) {
+void StateDeleteImpl::renderCurrentLine() {
     if (!Controller::bCurrLine) {
         return;
     }
-
     glDisable(GL_DEPTH_TEST);
     Scene::renderSingleSketchLine(Controller::currLine, Vector4(1, 0, 0, 1.0f),
                                   0.15f);

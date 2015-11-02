@@ -7,14 +7,14 @@
 class DepthPeeling;
 class TextureManager;
 
-class StateDeleteImpl : public StateDelete
-{
-public:
+class StateDeleteImpl : public StateDelete {
+   public:
     StateDeleteImpl();
     ~StateDeleteImpl();
     void render();
-private:
+
+   private:
     DepthPeeling* depthPeeling;
     TextureManager* textureManager;
-    static void renderCurrentLine(void* data);
+    void renderCurrentLine();
 };
