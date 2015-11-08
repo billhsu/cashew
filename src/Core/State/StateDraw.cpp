@@ -36,39 +36,41 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
             if (internalState == STATE_DRAW_START_POINT_SELECTED) {
                 Controller::getInstance().getCameraPoint(endPoint,
                                                          Controller::currPlane);
-                LineSegment line = LineSegment(startPoint, endPoint);
-                Controller::addLine(line);
+                addLineWithMirror();
 
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
-                    Vector3 startPointMirror = startPoint;
-                    Vector3 endPointMirror = endPoint;
-                    startPointMirror.x = -startPointMirror.x;
-                    endPointMirror.x = -endPointMirror.x;
-                    LineSegment lineMirror =
-                        LineSegment(startPointMirror, endPointMirror);
-                    Controller::addLine(lineMirror);
-                }
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
-                    Vector3 startPointMirror = startPoint;
-                    Vector3 endPointMirror = endPoint;
-                    startPointMirror.y = -startPointMirror.y;
-                    endPointMirror.y = -endPointMirror.y;
-                    LineSegment lineMirror =
-                        LineSegment(startPointMirror, endPointMirror);
-                    Controller::addLine(lineMirror);
-                }
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
-                    Vector3 startPointMirror = startPoint;
-                    Vector3 endPointMirror = endPoint;
-                    startPointMirror.z = -startPointMirror.z;
-                    endPointMirror.z = -endPointMirror.z;
-                    LineSegment lineMirror =
-                        LineSegment(startPointMirror, endPointMirror);
-                    Controller::addLine(lineMirror);
-                }
                 internalState = STATE_DRAW_IDLE;
             }
         }
+    }
+}
+
+void StateDraw::addLineWithMirror() {
+    LineSegment line = LineSegment(startPoint, endPoint);
+    Controller::addLine(line);
+
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+        Vector3 startPointMirror = startPoint;
+        Vector3 endPointMirror = endPoint;
+        startPointMirror.x = -startPointMirror.x;
+        endPointMirror.x = -endPointMirror.x;
+        LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+        Controller::addLine(lineMirror);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+        Vector3 startPointMirror = startPoint;
+        Vector3 endPointMirror = endPoint;
+        startPointMirror.y = -startPointMirror.y;
+        endPointMirror.y = -endPointMirror.y;
+        LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+        Controller::addLine(lineMirror);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+        Vector3 startPointMirror = startPoint;
+        Vector3 endPointMirror = endPoint;
+        startPointMirror.z = -startPointMirror.z;
+        endPointMirror.z = -endPointMirror.z;
+        LineSegment lineMirror = LineSegment(startPointMirror, endPointMirror);
+        Controller::addLine(lineMirror);
     }
 }
 
@@ -76,6 +78,11 @@ void StateDraw::MouseLeftDrag(int dx, int dy) {
     if (internalState == STATE_DRAW_START_POINT_SELECTED) {
         Controller::getInstance().getCameraPoint(endPoint,
                                                  Controller::currPlane);
+        if ((startPoint - endPoint).length() < 0.25f) {
+            return;
+        }
+        addLineWithMirror();
+        startPoint = endPoint;
     }
 }
 

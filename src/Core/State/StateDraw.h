@@ -22,5 +22,6 @@ class StateDraw : public State {
     enum { BTN_ID_DRAW_PLANE_DONE };
 
    private:
+    void addLineWithMirror();
     static int btnDrawPlaneDoneEvent(lua_State* L);
 };

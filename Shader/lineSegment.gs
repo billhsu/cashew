@@ -39,24 +39,8 @@ void main (void)
     vec4 Q = gl_in[1].gl_Position;
     vec3 PQ = Q.xyz - P.xyz;
     
-    vec3 xBase = cross(vec3(1, 0, 0), PQ);
-    vec3 yBase = cross(vec3(0, 1, 0), PQ);
-    vec3 zBase = cross(vec3(0, 0, 1), PQ);
-    
-    vec3 hBase, vBase;
-    if (length(xBase) <= length(yBase) && length(xBase) <= length(zBase)) {
-        hBase = normalize(yBase) * thickness;
-        vBase = normalize(zBase) * thickness;
-    } else if (length(yBase) <= length(xBase) &&
-               length(yBase) <= length(zBase)) {
-        hBase = normalize(xBase) * thickness;
-        vBase = normalize(zBase) * thickness;
-    } else if (length(zBase) <= length(xBase) &&
-               length(zBase) <= length(yBase)) {
-        hBase = normalize(xBase) * thickness;
-        vBase = normalize(yBase) * thickness;
-    }
-    
+    vec3 hBase = vec3(1, 0, 0) * thickness;
+    vec3 vBase = vec3(0, 1, 0) * thickness;
     vec4 vector0 = P + vec4(hBase, 0);
     vec4 vector1 = P + vec4(vBase, 0);
     vec4 vector2 = P - vec4(hBase, 0);
