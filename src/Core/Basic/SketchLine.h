@@ -10,38 +10,11 @@ class SketchLine {
    public:
     std::vector<LineSegment> lineSegments;
     // get the sketch line from a line segment
-    static SketchLine* lineSegmentToSkectLine(int lineSegmentID) {
-        if (lineSegIdTOSketchLineId.find(lineSegmentID) !=
-            lineSegIdTOSketchLineId.end()) {
-            return sketchLineFromID(lineSegIdTOSketchLineId[lineSegmentID]);
-        } else {
-            return NULL;
-        }
-    }
+    static SketchLine* lineSegmentToSkectLine(int lineSegmentID);
 
-    static SketchLine* sketchLineFromID(int sketchLineID) {
-        for (int i = 0; i < sketchLines.size(); ++i) {
-            if (sketchLines[i].ID == sketchLineID) {
-                return &sketchLines[i];
-            }
-        }
-        return NULL;
-    }
-    static void addSketchLine(SketchLine& sketchLine) {
-        sketchLines.push_back(sketchLine);
-    }
-
-    static void deleteSketchLine(SketchLine& sketchLine) {
-        for (int i = 0; i < sketchLines.size(); ++i) {
-            if (sketchLines[i].ID == sketchLine.ID) {
-                for (int j = 0; j < sketchLines[i].lineSegments.size(); ++j) {
-                    // TODO: delete the line segments
-                }
-                sketchLines.erase(sketchLines.begin() + i);
-                return;
-            }
-        }
-    }
+    static SketchLine* sketchLineFromID(int sketchLineID);
+    static void addSketchLine(SketchLine& sketchLine);
+    static void deleteSketchLine(SketchLine& sketchLine);
 
     static std::map<int, int> lineSegIdTOSketchLineId;
 
