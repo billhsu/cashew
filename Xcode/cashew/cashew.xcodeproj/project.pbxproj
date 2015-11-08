@@ -60,6 +60,7 @@
 		0C916B2D1A20A0AE00676D57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2C1A20A0AE00676D57 /* Images.xcassets */; };
 		0C916B301A20A0AE00676D57 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C916B2E1A20A0AE00676D57 /* MainMenu.xib */; };
 		0C916B3C1A20A0AE00676D57 /* cashewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C916B3B1A20A0AE00676D57 /* cashewTests.m */; };
+		0C91DBEC1BEF653300AA38D3 /* SketchLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C91DBEA1BEF653300AA38D3 /* SketchLine.cpp */; };
 		0C925C751B197D6B00B304F9 /* FlushDrawWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C925C731B197D6B00B304F9 /* FlushDrawWrapper.cpp */; };
 		0CC49AEC1B64E391007BC02A /* StateMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AEB1B64E391007BC02A /* StateMirror.cpp */; };
 		0CC49AEF1B64E9A0007BC02A /* StateMirrorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AED1B64E9A0007BC02A /* StateMirrorImpl.cpp */; };
@@ -187,6 +188,8 @@
 		0C916B351A20A0AE00676D57 /* cashewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cashewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C916B3A1A20A0AE00676D57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0C916B3B1A20A0AE00676D57 /* cashewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cashewTests.m; sourceTree = "<group>"; };
+		0C91DBEA1BEF653300AA38D3 /* SketchLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SketchLine.cpp; path = ../../../../../src/Core/Basic/SketchLine.cpp; sourceTree = "<group>"; };
+		0C91DBEB1BEF653300AA38D3 /* SketchLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SketchLine.h; path = ../../../../../src/Core/Basic/SketchLine.h; sourceTree = "<group>"; };
 		0C925C731B197D6B00B304F9 /* FlushDrawWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FlushDrawWrapper.cpp; sourceTree = "<group>"; };
 		0C925C741B197D6B00B304F9 /* FlushDrawWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlushDrawWrapper.h; sourceTree = "<group>"; };
 		0CC49AEA1B64E376007BC02A /* StateMirror.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StateMirror.h; sourceTree = "<group>"; };
@@ -422,6 +425,8 @@
 				0C8889711A2984C600068098 /* Plane.cpp */,
 				0C8889721A2984C600068098 /* Plane.h */,
 				0C8889731A2984C600068098 /* Ray.h */,
+				0C91DBEA1BEF653300AA38D3 /* SketchLine.cpp */,
+				0C91DBEB1BEF653300AA38D3 /* SketchLine.h */,
 			);
 			path = Basic;
 			sourceTree = "<group>";
@@ -734,6 +739,7 @@
 				0C8889A71A2B1AB100068098 /* StateDraw.cpp in Sources */,
 				0C88898B1A2984C600068098 /* Intersect.cpp in Sources */,
 				0C45C6051A86213300A5424F /* TextureManager.cpp in Sources */,
+				0C91DBEC1BEF653300AA38D3 /* SketchLine.cpp in Sources */,
 				0C68F9B21B229DAA00DDD23A /* StateDelete.cpp in Sources */,
 				0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */,
 				0C8889921A2AB05300068098 /* State.cpp in Sources */,
@@ -862,7 +868,7 @@
 				LIBRARY_SEARCH_PATHS = "../../lib/lua-5.2.3/src/";
 				OTHER_CFLAGS = (
 					"-I./cashew/",
-					"-I./../../lib/lua-5.2.3/src/"
+					"-I./../../lib/lua-5.2.3/src/",
 				);
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "me.billhsu.$(PRODUCT_NAME:rfc1034identifier)";
