@@ -2,8 +2,8 @@
 // billhsu.x@gmail.com
 #pragma once
 #include "Core/State/State.h"
+#include "Core/Basic/SketchLine.h"
 
-class UIButton;
 class StateDraw : public State {
    public:
     StateDraw();
@@ -24,4 +24,6 @@ class StateDraw : public State {
    private:
     void addLineWithMirror();
     static int btnDrawPlaneDoneEvent(lua_State* L);
+    SketchLine currentLine, currentLineMirrorX, currentLineMirrorY,
+        currentLineMirrorZ;
 };

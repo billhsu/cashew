@@ -9,6 +9,7 @@
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Math/Vectors.h"
 #include "Core/Basic/LineSegment.h"
+#include "Core/Basic/SketchLine.h"
 
 namespace Scene {
     void renderSketchLinesMode(bool wireframe) {
@@ -32,9 +33,9 @@ namespace Scene {
             LineSegmentRenderer::getLineSegmentShader()->getProgram(),
             "lineColor");
         LineSegmentRenderer::getLineSegmentList().clear();
-        for (int i = 0; i < Controller::sketchLines.size(); ++i) {
+        for (int i = 0; i < SketchLine::getGlobalLineSegments().size(); ++i) {
             LineSegmentRenderer::getLineSegmentList().push_back(
-                Controller::sketchLines[i]);
+                SketchLine::getGlobalLineSegments()[i]);
         }
         if (LineSegmentRenderer::getLineSegmentList().size() > 0) {
             if (!wireframe) {
@@ -72,8 +73,8 @@ namespace Scene {
                                  "pointTexture"),
             1);
         PointRenderer::getPointList().clear();
-        for_each(Controller::sketchLines.begin(), Controller::sketchLines.end(),
-                 [](LineSegment v) {
+        for_each(SketchLine::getGlobalLineSegments().begin(),
+                 SketchLine::getGlobalLineSegments().end(), [](LineSegment v) {
                      PointRenderer::getPointList().push_back(v.points[0]);
                      PointRenderer::getPointList().push_back(v.points[1]);
                  });

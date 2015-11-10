@@ -37,39 +37,6 @@ class Controller {
 
     void resize(int _width, int _heigth);
 
-    enum { OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE };
-    struct LineOperation {
-        int lineID;
-        int operation;
-    };
-
-    static std::vector<LineSegment> sketchLines;
-    static std::vector<LineSegment> deletedLines;
-    static std::vector<LineSegment> redoLines;
-    static std::vector<LineOperation> lineOperations;
-    static std::vector<LineOperation> redoOperations;
-    static void addLine(LineSegment l) {
-        static int IDCounter = 0;
-        l.ID = IDCounter++;
-        LineOperation lineOp;
-        lineOp.lineID = l.ID;
-        lineOp.operation = OPERATION_ADD_LINE;
-        lineOperations.push_back(lineOp);
-        sketchLines.push_back(l);
-    }
-    static void delLine(LineSegment& l) {
-        for (int i = 0; i < sketchLines.size(); ++i) {
-            if (sketchLines[i].ID == l.ID) {
-                LineOperation lineOp;
-                lineOp.lineID = l.ID;
-                lineOp.operation = OPERATION_DELETE_LINE;
-                lineOperations.push_back(lineOp);
-                deletedLines.push_back(sketchLines[i]);
-                sketchLines.erase(Controller::sketchLines.begin() + i);
-                break;
-            }
-        }
-    }
     static void undoLastOperation();
     static void redoLastOperation();
     static Plane currPlane;  // Plane to draw

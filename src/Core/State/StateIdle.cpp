@@ -7,6 +7,7 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
+#include "Core/Basic/SketchLine.h"
 #include <vector>
 StateIdle::StateIdle() {
     stateID = STATE_IDLE;
@@ -41,7 +42,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
             enterState(State::statePool[STATE_DRAW]);
         } else {
             Vector3 v;
-            mCamera->getPoint(x, y, Controller::sketchLines, v);
+            mCamera->getPoint(x, y, SketchLine::getGlobalLineSegments(), v);
             selectedPoints.push_back(v);
             Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
             if (Controller::currPlane.N.dot(mCamera->getDirection()) > 0) {

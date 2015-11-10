@@ -21,7 +21,9 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     }
     if (button == Mouse::MOUSE_BUTTON_LEFT && state == Mouse::MOUSE_ACTION_UP) {
         if (Controller::bCurrLine) {
-            Controller::delLine(Controller::currLine);
+            // TODO:
+
+            //            Controller::delLine(Controller::currLine);
             Controller::bCurrLine = false;
         }
     }

@@ -8,7 +8,6 @@ class LineSegment;
 // Sketch line contains multiple line segments
 class SketchLine {
    public:
-    std::vector<LineSegment> lineSegments;
     // get the sketch line from a line segment
     static SketchLine* lineSegmentToSkectLine(int lineSegmentID);
 
@@ -17,8 +16,30 @@ class SketchLine {
     static void deleteSketchLine(SketchLine& sketchLine);
 
     static std::map<int, int> lineSegIdTOSketchLineId;
+    static std::vector<LineSegment>& getGlobalLineSegments();
+    static std::vector<SketchLine>& getGlobalSketchLines() {
+        return sketchLines;
+    }
+    static void undoLastOperation();
+    static void redoLastOperation();
+
+    std::vector<LineSegment> getLineSegments();
+    void addLineSegment(const LineSegment& line);
 
    private:
+    enum { OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE };
+    struct SketchLineOperation {
+        int sketchLineID;
+        int operation;
+    };
+
     static std::vector<SketchLine> sketchLines;
+    static std::vector<SketchLine> deletedLines;
+    static std::vector<SketchLine> redoLines;
+    static std::vector<SketchLineOperation> lineOperations;
+    static std::vector<SketchLineOperation> redoOperations;
+    static std::vector<LineSegment> globalLineSegments;
+    static void updateGlobalLineSegments();
     int ID;
+    std::vector<LineSegment> lineSegments;
 };

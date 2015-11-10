@@ -15,6 +15,7 @@ billhsu.x@gmail.com
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
 #include "Core/UI/IMGUI.h"
+#include "Core/Basic/SketchLine.h"
 #include <iostream>
 #include <fstream>
 #include <stdint.h>
@@ -34,12 +35,6 @@ int Controller::mouseState;
 
 Plane Controller::currPlane = Plane();
 bool Controller::enableLight = false;
-
-std::vector<LineSegment> Controller::sketchLines;
-std::vector<LineSegment> Controller::deletedLines;
-std::vector<LineSegment> Controller::redoLines;
-std::vector<Controller::LineOperation> Controller::lineOperations;
-std::vector<Controller::LineOperation> Controller::redoOperations;
 
 Vector3 Controller::currPoint = Vector3(0, 0, 0);
 bool Controller::bCurrPoint = false;
@@ -128,14 +123,15 @@ void Controller::PassiveMotion(int x, int y) {
     Controller::mouseX = x;
     Controller::mouseY = y;
     Vector3 p;
-    if (camera->getPoint(x, y, sketchLines, p)) {
+    if (camera->getPoint(x, y, SketchLine::getGlobalLineSegments(), p)) {
         currPoint = p;
         bCurrPoint = true;
     } else {
         bCurrPoint = false;
     }
     LineSegment line;
-    if (camera->getLine(x, y, sketchLines, line) != -1) {
+    if (camera->getLine(x, y, SketchLine::getGlobalLineSegments(), line) !=
+        -1) {
         currLine = line;
         bCurrLine = true;
     } else {
@@ -174,7 +170,8 @@ void Controller::resize(int _width, int _height) {
 }
 
 bool Controller::getCameraPoint(Vector3& p, const Plane& plane) {
-    return camera->getPoint(mouseX, mouseY, sketchLines, p, plane);
+    return camera->getPoint(mouseX, mouseY, SketchLine::getGlobalLineSegments(),
+                            p, plane);
 }
 
 Ray Controller::getCameraRay() {
@@ -182,53 +179,11 @@ Ray Controller::getCameraRay() {
 }
 
 void Controller::undoLastOperation() {
-    if (lineOperations.size() > 0) {
-        LineOperation lineOp = lineOperations.back();
-        redoOperations.push_back(lineOp);
-        lineOperations.pop_back();
-        if (lineOp.operation == OPERATION_ADD_LINE) {
-            for (int i = 0; i < sketchLines.size(); ++i) {
-                if (lineOp.lineID == sketchLines[i].ID) {
-                    redoLines.push_back(sketchLines[i]);
-                    sketchLines.erase(sketchLines.begin() + i);
-                    break;
-                }
-            }
-        } else if (lineOp.operation == OPERATION_DELETE_LINE) {
-            for (int i = 0; i < deletedLines.size(); ++i) {
-                if (lineOp.lineID == deletedLines[i].ID) {
-                    sketchLines.push_back(deletedLines[i]);
-                    redoLines.push_back(deletedLines[i]);
-                    deletedLines.erase(deletedLines.begin() + i);
-                    break;
-                }
-            }
-        }
-    }
+    SketchLine::undoLastOperation();
 }
 
 void Controller::redoLastOperation() {
-    if (redoOperations.size() > 0) {
-        LineOperation lineOp = redoOperations.back();
-        redoOperations.pop_back();
-        bool idFound = false;
-        int idPos = 0;
-        for (int i = 0; i < redoLines.size(); ++i) {
-            if (lineOp.lineID == redoLines[i].ID) {
-                idFound = true;
-                idPos = i;
-                break;
-            }
-        }
-        if (!idFound)
-            return;
-        if (lineOp.operation == OPERATION_ADD_LINE) {
-            addLine(redoLines[idPos]);
-        } else if (lineOp.operation == OPERATION_DELETE_LINE) {
-            delLine(redoLines[idPos]);
-        }
-        redoLines.erase(redoLines.begin() + idPos);
-    }
+    SketchLine::redoLastOperation();
 }
 int btnStandardViewEvent(lua_State* L) {
     State::currState->UIEvent(Controller::BTN_ID_STANDARD_VIEW);
