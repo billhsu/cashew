@@ -55,14 +55,13 @@ void SketchLine::addSketchLine(SketchLine& sketchLine) {
     lineOperations.push_back(lineOp);
     sketchLines.push_back(sketchLine);
     updateGlobalLineSegments();
-    std::cout << getGlobalLineSegments().size() << std::endl;
 }
 
 std::vector<LineSegment>& SketchLine::getGlobalLineSegments() {
     return globalLineSegments;
 }
 
-std::vector<LineSegment> SketchLine::getLineSegments() {
+std::vector<LineSegment>& SketchLine::getLineSegments() {
     return lineSegments;
 }
 

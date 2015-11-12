@@ -12,6 +12,10 @@ class SketchLine {
     static SketchLine* lineSegmentToSkectLine(int lineSegmentID);
 
     static SketchLine* sketchLineFromID(int sketchLineID);
+
+    // Note:
+    //    Once added with addSketchLine(), the lineSegments in sketchLine is
+    //    fixed.
     static void addSketchLine(SketchLine& sketchLine);
     static void deleteSketchLine(SketchLine& sketchLine);
 
@@ -23,7 +27,7 @@ class SketchLine {
     static void undoLastOperation();
     static void redoLastOperation();
 
-    std::vector<LineSegment> getLineSegments();
+    std::vector<LineSegment>& getLineSegments();
     void addLineSegment(const LineSegment& line);
 
    private:

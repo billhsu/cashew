@@ -31,6 +31,15 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
                 currentLineMirrorX.getLineSegments().clear();
                 currentLineMirrorY.getLineSegments().clear();
                 currentLineMirrorZ.getLineSegments().clear();
+                internalState = STATE_DRAW_START_POINT_SELECTED;
+            }
+        }
+    }
+    if (state == Mouse::MOUSE_ACTION_UP) {
+        if (button == Mouse::MOUSE_BUTTON_LEFT) {
+            if (internalState == STATE_DRAW_START_POINT_SELECTED) {
+                Controller::getInstance().getCameraPoint(endPoint,
+                                                         Controller::currPlane);
                 SketchLine::addSketchLine(currentLine);
                 if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
                     SketchLine::addSketchLine(currentLineMirrorX);
@@ -41,16 +50,6 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
                 if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
                     SketchLine::addSketchLine(currentLineMirrorZ);
                 }
-                internalState = STATE_DRAW_START_POINT_SELECTED;
-            }
-        }
-    }
-    if (state == Mouse::MOUSE_ACTION_UP) {
-        if (button == Mouse::MOUSE_BUTTON_LEFT) {
-            if (internalState == STATE_DRAW_START_POINT_SELECTED) {
-                Controller::getInstance().getCameraPoint(endPoint,
-                                                         Controller::currPlane);
-                addLineWithMirror();
 
                 internalState = STATE_DRAW_IDLE;
             }
@@ -107,6 +106,20 @@ void StateDraw::Keyboard(unsigned char key, unsigned char status) {
 }
 
 void StateDraw::prepareState() {
+    currentLine.getLineSegments().clear();
+    currentLineMirrorX.getLineSegments().clear();
+    currentLineMirrorY.getLineSegments().clear();
+    currentLineMirrorZ.getLineSegments().clear();
+    SketchLine::addSketchLine(currentLine);
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+        SketchLine::addSketchLine(currentLineMirrorX);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+        SketchLine::addSketchLine(currentLineMirrorY);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+        SketchLine::addSketchLine(currentLineMirrorZ);
+    }
 }
 
 void StateDraw::postState() {
