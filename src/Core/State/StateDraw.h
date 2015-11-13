@@ -24,6 +24,8 @@ class StateDraw : public State {
    private:
     void addLineWithMirror();
     static int btnDrawPlaneDoneEvent(lua_State* L);
+
+   protected:
     SketchLine currentLine, currentLineMirrorX, currentLineMirrorY,
         currentLineMirrorZ;
 };

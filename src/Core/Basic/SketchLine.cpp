@@ -49,6 +49,7 @@ void SketchLine::deleteSketchLine(SketchLine& sketchLine) {
 void SketchLine::addSketchLine(SketchLine& sketchLine) {
     static int IDCounter = 0;
     sketchLine.ID = IDCounter++;
+    std::cout << "SketchLine::addSketchLine " << IDCounter << std::endl;
     SketchLineOperation lineOp;
     lineOp.sketchLineID = sketchLine.ID;
     lineOp.operation = OPERATION_ADD_LINE;

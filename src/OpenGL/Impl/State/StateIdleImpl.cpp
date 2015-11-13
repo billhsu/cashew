@@ -6,7 +6,7 @@
 #include <OpenGL/gl3.h>
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
-#include "OpenGL/Impl/Scene/LineSketches.h"
+#include "OpenGL/Impl/Scene/DrawLineSegment.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Controller.h"
 
@@ -16,10 +16,10 @@ StateIdleImpl::StateIdleImpl() {
 }
 void StateIdleImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    Scene::renderSketchLines(NULL);
+    Scene::renderLineSegments(NULL);
     if (Controller::bCurrLine && !Controller::bCurrPoint) {
-        Scene::renderSingleSketchLine(Controller::currLine,
-                                      Vector4(0, 1, 0, 1.0f), 0.15f);
+        Scene::renderSingleLineSegment(Controller::currLine,
+                                       Vector4(0, 1, 0, 1.0f), 0.15f);
     }
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

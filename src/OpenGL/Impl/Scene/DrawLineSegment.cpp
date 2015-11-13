@@ -1,7 +1,7 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "LineSketches.h"
+#include "DrawLineSegment.h"
 #include "Core/Controller/Controller.h"
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
@@ -12,7 +12,7 @@
 #include "Core/Basic/SketchLine.h"
 
 namespace Scene {
-    void renderSketchLinesMode(bool wireframe) {
+    void renderLineSegmentsMode(bool wireframe) {
         LineSegmentRenderer::getLineSegmentShader()->bind();
 
         GLuint local_modelView = glGetUniformLocation(
@@ -32,11 +32,6 @@ namespace Scene {
         GLuint local_lineColor = glGetUniformLocation(
             LineSegmentRenderer::getLineSegmentShader()->getProgram(),
             "lineColor");
-        LineSegmentRenderer::getLineSegmentList().clear();
-        for (int i = 0; i < SketchLine::getGlobalLineSegments().size(); ++i) {
-            LineSegmentRenderer::getLineSegmentList().push_back(
-                SketchLine::getGlobalLineSegments()[i]);
-        }
         if (LineSegmentRenderer::getLineSegmentList().size() > 0) {
             if (!wireframe) {
                 glUniform4f(local_lineColor, 0.545, 0.2, 1, 1.0f);
@@ -51,11 +46,16 @@ namespace Scene {
             }
         }
     }
-    void renderSketchLines(void* data) {
-        renderSketchLinesMode(false);
-        renderSketchLinesMode(true);
+    void renderLineSegments(void* data) {
+        LineSegmentRenderer::getLineSegmentList().clear();
+        for (int i = 0; i < SketchLine::getGlobalLineSegments().size(); ++i) {
+            LineSegmentRenderer::getLineSegmentList().push_back(
+                SketchLine::getGlobalLineSegments()[i]);
+        }
+        renderLineSegmentsMode(false);
+        renderLineSegmentsMode(true);
     }
-    void renderSketchLinesEndpoints(void* data) {
+    void renderLineSegmentsEndpoints(void* data) {
         PointRenderer::getPointShader()->bind();
         GLuint local_modelView = glGetUniformLocation(
             PointRenderer::getPointShader()->getProgram(), "modelView");
@@ -86,8 +86,8 @@ namespace Scene {
         }
     }
 
-    void renderSingleSketchLine(LineSegment line, Vector4 color,
-                                float thickness) {
+    void renderSingleLineSegment(LineSegment line, Vector4 color,
+                                 float thickness) {
         LineSegmentRenderer::getLineSegmentShader()->bind();
 
         GLuint local_modelView = glGetUniformLocation(
@@ -111,5 +111,15 @@ namespace Scene {
         LineSegmentRenderer::getLineSegmentList().clear();
         LineSegmentRenderer::getLineSegmentList().push_back(line);
         LineSegmentRenderer::render(0);
+    }
+    void renderSingleSketchLine(SketchLine sketchLine, Vector4 color,
+                                float thickness) {
+        LineSegmentRenderer::getLineSegmentList().clear();
+        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i) {
+            LineSegmentRenderer::getLineSegmentList().push_back(
+                sketchLine.getLineSegments()[i]);
+        }
+        renderLineSegmentsMode(false);
+        renderLineSegmentsMode(true);
     }
 }

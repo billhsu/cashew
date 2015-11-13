@@ -8,13 +8,13 @@
 class DepthPeeling;
 class TextureManager;
 
-class StateDrawImpl : public StateDraw
-{
-public:
+class StateDrawImpl : public StateDraw {
+   public:
     StateDrawImpl();
     ~StateDrawImpl();
     void render();
-private:
+
+   private:
     DepthPeeling* depthPeeling;
     static void renderCurrentPlane(void* data);
     static void renderCurrentPoints(void* data);

@@ -9,7 +9,7 @@
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/TextureManager/TextureManager.h"
-#include "OpenGL/Impl/Scene/LineSketches.h"
+#include "OpenGL/Impl/Scene/DrawLineSegment.h"
 
 Vector3 StateSelectPlaneImpl::renderCurrentPlaneCenter;
 Vector4 StateSelectPlaneImpl::renderCurrentPlaneColor;
@@ -30,7 +30,7 @@ void StateSelectPlaneImpl::render() {
     currentPlane = Controller::currPlane;
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
-    Scene::renderSketchLines(NULL);
+    Scene::renderLineSegments(NULL);
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

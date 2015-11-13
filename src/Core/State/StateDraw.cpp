@@ -66,6 +66,7 @@ void StateDraw::addLineWithMirror() {
         Vector3 endPointMirror = endPoint;
         startPointMirror.x = -startPointMirror.x;
         endPointMirror.x = -endPointMirror.x;
+        line = LineSegment(startPointMirror, endPointMirror);
         currentLineMirrorX.getLineSegments().push_back(line);
     }
     if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
@@ -73,6 +74,7 @@ void StateDraw::addLineWithMirror() {
         Vector3 endPointMirror = endPoint;
         startPointMirror.y = -startPointMirror.y;
         endPointMirror.y = -endPointMirror.y;
+        line = LineSegment(startPointMirror, endPointMirror);
         currentLineMirrorY.getLineSegments().push_back(line);
     }
     if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
@@ -80,6 +82,7 @@ void StateDraw::addLineWithMirror() {
         Vector3 endPointMirror = endPoint;
         startPointMirror.z = -startPointMirror.z;
         endPointMirror.z = -endPointMirror.z;
+        line = LineSegment(startPointMirror, endPointMirror);
         currentLineMirrorZ.getLineSegments().push_back(line);
     }
 }
@@ -110,16 +113,6 @@ void StateDraw::prepareState() {
     currentLineMirrorX.getLineSegments().clear();
     currentLineMirrorY.getLineSegments().clear();
     currentLineMirrorZ.getLineSegments().clear();
-    SketchLine::addSketchLine(currentLine);
-    if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
-        SketchLine::addSketchLine(currentLineMirrorX);
-    }
-    if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
-        SketchLine::addSketchLine(currentLineMirrorY);
-    }
-    if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
-        SketchLine::addSketchLine(currentLineMirrorZ);
-    }
 }
 
 void StateDraw::postState() {

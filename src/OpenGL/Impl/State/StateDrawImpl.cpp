@@ -10,7 +10,7 @@
 #include "Core/Controller/Controller.h"
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
 #include "OpenGL/TextureManager/TextureManager.h"
-#include "OpenGL/Impl/Scene/LineSketches.h"
+#include "OpenGL/Impl/Scene/DrawLineSegment.h"
 StateDrawImpl::StateDrawImpl() {
     depthPeeling = &DepthPeeling::getInstance();
     textureManager = &TextureManager::getInstance();
@@ -29,7 +29,7 @@ void StateDrawImpl::render() {
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
 
-    Scene::renderSketchLines(NULL);
+    Scene::renderLineSegments(NULL);
 
     depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
     depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
@@ -95,5 +95,19 @@ void StateDrawImpl::renderCurrentLine(void* data) {
         return;
     }
     LineSegment line = LineSegment(self->startPoint, self->endPoint);
-    Scene::renderSingleSketchLine(line, Vector4(0.5, 1, 0, 0.9f), 0.1f);
+    Scene::renderSingleLineSegment(line, Vector4(0.5, 1, 0, 0.9f), 0.1f);
+    Scene::renderSingleSketchLine(self->currentLine, Vector4(0.5, 1, 0, 0.9f),
+                                  0.1f);
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+        Scene::renderSingleSketchLine(self->currentLineMirrorX,
+                                      Vector4(0.5, 1, 0, 0.9f), 0.1f);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+        Scene::renderSingleSketchLine(self->currentLineMirrorY,
+                                      Vector4(0.5, 1, 0, 0.9f), 0.1f);
+    }
+    if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+        Scene::renderSingleSketchLine(self->currentLineMirrorZ,
+                                      Vector4(0.5, 1, 0, 0.9f), 0.1f);
+    }
 }
