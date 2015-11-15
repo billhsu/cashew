@@ -55,6 +55,7 @@ class Controller {
     static int mouseButton, mouseState;  // mouse status
 
     static State* state_idle;
+    static State* state_move_center;
     static State* state_select_plane;
     static State* state_draw;
     static State* state_delete;
@@ -78,6 +79,7 @@ class Controller {
         BTN_ID_DOC_OPEN,
         BTN_ID_DOC_SAVE,
         BTN_ID_STANDARD_VIEW,
+        BTN_ID_MOVE_CENTER,
         BTN_ID_UNDO,
         BTN_ID_DELETE_LINE,
         BTN_ID_MIRROR

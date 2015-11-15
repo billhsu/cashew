@@ -22,6 +22,12 @@ class Camera {
     Matrix4 getMatrix() {
         return cameraMatrix;
     }
+    Matrix4 getModelView() {
+        return modelView;
+    }
+    Matrix4 getProjection() {
+        return projection;
+    }
     void rotateCam(float rotX, float rotY, float rotZ) {
         rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
         rotateTo = rotate;
@@ -71,6 +77,9 @@ class Camera {
         distChange = true;
     }
 
+    Vector3 getCamCenter() {
+        return camCenter;
+    }
     void setCamCenter(Vector3 center) {
         camCenter = center;
     }

@@ -47,6 +47,7 @@ Vector3 Controller::rotate = Vector3(-30, 0, 0);
 lua_State* Controller::luaState = NULL;
 
 State* Controller::state_idle = NULL;
+State* Controller::state_move_center = NULL;
 State* Controller::state_select_plane = NULL;
 State* Controller::state_draw = NULL;
 State* Controller::state_delete = NULL;
@@ -61,6 +62,7 @@ Controller::Controller() {
 Controller::~Controller() {
     delete state_idle;
     delete state_select_plane;
+    delete state_move_center;
     delete state_draw;
     delete state_delete;
     delete state_mirror;
@@ -69,6 +71,7 @@ Controller::~Controller() {
 }
 
 static int btnStandardViewEvent(lua_State* L);
+static int btnMoveCenterEvent(lua_State* L);
 static int btnUndoEvent(lua_State* L);
 static int btnRedoEvent(lua_State* L);
 static int btnDeleteLineEvent(lua_State* L);
@@ -83,6 +86,7 @@ void Controller::init() {
     camera = &Camera::getInstance();
     camera->rotateCam(rotate);
     lua_register(luaState, "standardView", btnStandardViewEvent);
+    lua_register(luaState, "moveCenter", btnMoveCenterEvent);
     lua_register(luaState, "undo", btnUndoEvent);
     lua_register(luaState, "redo", btnRedoEvent);
     lua_register(luaState, "deleteLine", btnDeleteLineEvent);
@@ -187,6 +191,10 @@ void Controller::redoLastOperation() {
 }
 int btnStandardViewEvent(lua_State* L) {
     State::currState->UIEvent(Controller::BTN_ID_STANDARD_VIEW);
+    return 0;
+}
+int btnMoveCenterEvent(lua_State* L) {
+    State::currState->UIEvent(Controller::BTN_ID_MOVE_CENTER);
     return 0;
 }
 int btnUndoEvent(lua_State* L) {

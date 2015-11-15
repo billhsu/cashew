@@ -122,5 +122,7 @@ void StateIdle::UIEvent(int event) {
         mCamera->rotateCamTo(q);
     } else if (event == Controller::BTN_ID_DELETE_LINE) {
         enterState(State::statePool[STATE_DELETE]);
+    } else if (event == Controller::BTN_ID_MOVE_CENTER) {
+        enterState(State::statePool[STATE_MOVE_CENTER]);
     }
 }

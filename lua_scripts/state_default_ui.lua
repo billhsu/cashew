@@ -32,7 +32,7 @@ end
 local topBarItemSize = 60 * backingRatioX
 local topBarItemMargin = 10 * backingRatioX
 local function genTopBarItemPos(idx)
-  return genItemPos(window_width/2, topBarItemSize, topBarItemSize, topBarItemMargin, 5, idx, false)
+  return genItemPos(window_width/2, topBarItemSize, topBarItemSize, topBarItemMargin, 6, idx, false)
 end
 local function getTopBarItemSize()
   return topBarItemSize, topBarItemSize
@@ -71,24 +71,29 @@ if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Standard View
 end
 
 local buttonPosX,buttonPosY = genTopBarItemPos(2)
+if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Move center", "button_movecenter.png") then
+  moveCenter()
+end
+
+local buttonPosX,buttonPosY = genTopBarItemPos(3)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Undo", "button_undo.png") then
   undo()
 end
 
 
-local buttonPosX,buttonPosY = genTopBarItemPos(3)
+local buttonPosX,buttonPosY = genTopBarItemPos(4)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Redo", "button_redo.png") then
   redo()
 end
 
 
-local buttonPosX,buttonPosY = genTopBarItemPos(4)
+local buttonPosX,buttonPosY = genTopBarItemPos(5)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Delete lines", "button_delete.png") then
   deleteLine()
 end
 
 
-local buttonPosX,buttonPosY = genTopBarItemPos(5)
+local buttonPosX,buttonPosY = genTopBarItemPos(6)
 if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Mirror mode", "button_mirror.png") then
   mirrorMode()
 end

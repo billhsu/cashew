@@ -17,6 +17,7 @@
 
 #include "Core/Camera/Camera.h"
 #include "OpenGL/Impl/State/StateIdleImpl.h"
+#include "OpenGL/Impl/State/StateMoveCenterImpl.h"
 #include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
 #include "OpenGL/Impl/State/StateDrawImpl.h"
 #include "OpenGL/Impl/State/StateDeleteImpl.h"
@@ -70,6 +71,7 @@ bool windowPaused = false;
     textureManager->loadTexture("media/textures/point_current.png", 4);
     textureManager->loadTexture("media/textures/button_cancel.png", 4);
     textureManager->loadTexture("media/textures/button_confirm.png", 4);
+    textureManager->loadTexture("media/textures/button_movecenter.png", 4);
     textureManager->loadTexture("media/textures/button_horizontal.png", 4);
     textureManager->loadTexture("media/textures/button_vertical.png", 4);
     textureManager->loadTexture("media/textures/social-icon.png", 4);
@@ -85,6 +87,7 @@ bool windowPaused = false;
     }
     mController->init();
     mController->state_idle = new StateIdleImpl();
+    mController->state_move_center = new StateMoveCenterImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
     mController->state_draw = new StateDrawImpl();
     mController->state_delete = new StateDeleteImpl();

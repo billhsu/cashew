@@ -5,7 +5,7 @@
 #include "Core/Controller/Controller.h"
 
 StateMirror::StateMirror() {
-    stateID = STATE_MIRRPR;
+    stateID = STATE_MIRROR;
     assert(statePool[stateID] == NULL);
     statePool[stateID] = this;
     stateName = "mirror";
