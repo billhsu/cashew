@@ -11,120 +11,110 @@
 #include "Core/Math/Quaternion.h"
 #include "Core/Math/Matrices.h"
 
-class Camera
-{
-public:
-    static Camera& getInstance()
-    {
+class Camera {
+   public:
+    static Camera& getInstance() {
         static Camera instance;
-        std::cout <<"Camera getInstance()"<<std::endl;
+        std::cout << "Camera getInstance()" << std::endl;
         return instance;
     }
-    
-    Matrix4 getMatrix()
-    {
+
+    Matrix4 getMatrix() {
         return cameraMatrix;
     }
-    void rotateCam(float rotX, float rotY, float rotZ)
-    {
+    void rotateCam(float rotX, float rotY, float rotZ) {
         rotate = Quaternion::fromEuler(rotX, rotY, rotZ);
         rotateTo = rotate;
     }
-    void rotateCam(Vector3 rot)
-    {
+    void rotateCam(Vector3 rot) {
         rotateCam(rot.x, rot.y, rot.z);
     }
-    void rotateCam(Quaternion rot)
-    {
+    void rotateCam(Quaternion rot) {
         rotate = rot;
         rotateTo = rotate;
     }
-    void rotateCamDelta(Quaternion rotDelta)
-    {
+    void rotateCamDelta(Quaternion rotDelta) {
         rotate = rotate * rotDelta;
         rotateTo = rotate;
     }
-    void setCamDist(float dist)
-    {
-        if (dist<=0) dist = 0.0f;;
-        if(anim) return;
+    void setCamDist(float dist) {
+        if (dist <= 0)
+            dist = 0.0f;
+        ;
+        if (anim)
+            return;
         distance = dist;
-        distanceTo=dist;
+        distanceTo = dist;
     }
-    
+
     // rotate with animation
-    void rotateCamTo(float rotX, float rotY, float rotZ)
-    {
+    void rotateCamTo(float rotX, float rotY, float rotZ) {
         rotateTo = Quaternion::fromEuler(rotX, rotY, rotZ);
         rotChange = true;
         anim = true;
     }
-    void rotateCamTo(Vector3 rot)
-    {
+    void rotateCamTo(Vector3 rot) {
         rotateCamTo(rot.x, rot.y, rot.z);
     }
-    void rotateCamTo(Quaternion rot)
-    {
+    void rotateCamTo(Quaternion rot) {
         rotateTo = rot;
         anim = true;
         rotChange = true;
     }
-    
-    void setCamDistTo(float dist)
-    {
-        if (dist<=0) return;
+
+    void setCamDistTo(float dist) {
+        if (dist <= 0)
+            return;
         distanceTo = dist;
-        distanceDelta = distanceTo-distance;
+        distanceDelta = distanceTo - distance;
         anim = true;
-        distChange =true;
+        distChange = true;
     }
-    
-    void setCamCenter(Vector3 center)
-    {
+
+    void setCamCenter(Vector3 center) {
         camCenter = center;
     }
-    void setCamCenterTo(Vector3 center)
-    {
+    void setCamCenterTo(Vector3 center) {
         camCenterTo = center;
         anim = true;
         centerChange = true;
     }
-    
-    void setModelView(Matrix4 _modelView)
-    {
+
+    void setModelView(Matrix4 _modelView) {
         modelView = _modelView;
     }
-    
-    void setProjection(Matrix4 _projection)
-    {
+
+    void setProjection(Matrix4 _projection) {
         projection = _projection;
     }
-    
-    void setWindowHeight(int _height)
-    {
+
+    void setWindowHeight(int _height) {
         windowHeight = _height;
     }
-    
-    void setWindowWidth(int _width)
-    {
+
+    void setWindowWidth(int _width) {
         windowWidth = _width;
     }
-    
+
     int update(float timeDelta);
     Ray getRay(int mx, int my);
     Vector3 getDirection();
-    bool getPoint(int mx, int my, const std::vector<LineSegment>& lines, Vector3& p, const Plane& plane = Plane(Vector3(0,1,0),0));
-    int getLine(int mx, int my, const std::vector<LineSegment>& lines, LineSegment& line);
-    Quaternion getRotateQuaternion()
-    {
-        if(!anim) return rotate;
-        else return rotate_slerp;
+    bool getPoint(int mx, int my, const std::vector<LineSegment>& lines,
+                  Vector3& p, const Plane& plane = Plane(Vector3(0, 1, 0), 0));
+    int getLine(int mx, int my, const std::vector<LineSegment>& lines,
+                LineSegment& line);
+    Quaternion getRotateQuaternion() {
+        if (!anim)
+            return rotate;
+        else
+            return rotate_slerp;
     }
-    
-    float distance,distanceTo,distanceDelta;
+
+    float distance, distanceTo, distanceDelta;
     bool anim;
-    enum {UPDATE_OK, UPDATE_ANIM_DONE};
-private:
+    enum { UPDATE_OK, UPDATE_ANIM_DONE };
+
+   private:
     Camera();
     ~Camera();
     Camera(Camera const&);
@@ -138,7 +128,7 @@ private:
     Matrix4 modelView;
     Matrix4 projection;
     int windowWidth, windowHeight;
-    
+
     void updateFPS(float timeDelta);
     long lastTimeMS;
     int FPS;

@@ -5,6 +5,8 @@
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
+#include "Core/Util/Intersect.h"
+
 int StateDraw::internalState;
 StateDraw::StateDraw() {
     stateID = STATE_DRAW;
@@ -89,8 +91,8 @@ void StateDraw::addLineWithMirror() {
 
 void StateDraw::MouseLeftDrag(int dx, int dy) {
     if (internalState == STATE_DRAW_START_POINT_SELECTED) {
-        Controller::getInstance().getCameraPoint(endPoint,
-                                                 Controller::currPlane);
+        endPoint = intersect(Controller::getInstance().getCameraRay(),
+                             Controller::currPlane);
         if ((startPoint - endPoint).length() < 0.25f) {
             return;
         }
