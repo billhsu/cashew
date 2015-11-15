@@ -28,7 +28,10 @@ void StateMoveCenter::MouseLeftDrag(int dx, int dy) {
     Vector3 moveVector =
         Vector3(-(float)dx / IMGUI::getBackingRatioX() / 20.0f, 0.0f,
                 -(float)dy / IMGUI::getBackingRatioY() / 20.0f);
-    // TODO: fix this
+    Matrix4 modelView = mCamera->getModelView();
+    modelView.invert();
+    moveVector = modelView * moveVector;
+    moveVector.y = 0;
     mCamera->setCamCenter(mCamera->getCamCenter() + moveVector);
 }
 
