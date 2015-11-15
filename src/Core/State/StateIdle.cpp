@@ -25,8 +25,16 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
         Plane drawPlane;
         std::vector<Vector3> selectedPoints;
         if (Controller::bCurrLine && !Controller::bCurrPoint) {
-            selectedPoints.push_back(Controller::currLine.points[0]);
-            selectedPoints.push_back(Controller::currLine.points[1]);
+            SketchLine* sketchLine =
+                SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
+            if (sketchLine == NULL) {
+                return;
+            }
+            unsigned long size = sketchLine->getLineSegments().size();
+            selectedPoints.push_back(
+                sketchLine->getLineSegments()[0].points[0]);
+            selectedPoints.push_back(
+                sketchLine->getLineSegments()[size - 1].points[1]);
             Plane::buildPlane(selectedPoints, Controller::currPlane, planeVec);
             if (Controller::currPlane.N.dot(mCamera->getDirection()) > 0) {
                 Controller::currPlane = -Controller::currPlane;

@@ -6,6 +6,7 @@
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
 #include "Core/Basic/Plane.h"
+#include "Core/Basic/SketchLine.h"
 
 StateDelete::StateDelete() {
     stateID = STATE_DELETE;
@@ -21,9 +22,12 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     }
     if (button == Mouse::MOUSE_BUTTON_LEFT && state == Mouse::MOUSE_ACTION_UP) {
         if (Controller::bCurrLine) {
-            // TODO:
-
-            //            Controller::delLine(Controller::currLine);
+            SketchLine* sketchLine =
+                SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
+            if (sketchLine == NULL) {
+                return;
+            }
+            SketchLine::deleteSketchLine(*sketchLine);
             Controller::bCurrLine = false;
         }
     }

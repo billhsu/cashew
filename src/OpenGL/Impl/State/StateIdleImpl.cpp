@@ -9,6 +9,7 @@
 #include "OpenGL/Impl/Scene/DrawLineSegment.h"
 #include "OpenGL/TextureManager/TextureManager.h"
 #include "Core/Controller/Controller.h"
+#include "Core/Basic/SketchLine.h"
 
 StateIdleImpl::StateIdleImpl() {
     depthPeeling = &DepthPeeling::getInstance();
@@ -18,8 +19,10 @@ void StateIdleImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Scene::renderLineSegments(NULL);
     if (Controller::bCurrLine && !Controller::bCurrPoint) {
-        Scene::renderSingleLineSegment(Controller::currLine,
-                                       Vector4(0, 1, 0, 1.0f), 0.15f);
+        SketchLine* sketchLine =
+            SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
+        Scene::renderSingleSketchLine(*sketchLine, Vector4(0, 1, 0, 0.5f),
+                                      0.15f);
     }
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

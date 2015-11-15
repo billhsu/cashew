@@ -77,10 +77,10 @@ void SketchLine::updateGlobalLineSegments() {
     int count = 0;
     for (int i = 0; i < sketchLines.size(); ++i) {
         for (int j = 0; j < sketchLines[i].lineSegments.size(); ++j) {
-            LineSegment lineSegment = sketchLines[i].lineSegments[j];
-            lineSegment.ID = ++count;
-            lineSegIdTOSketchLineId[lineSegment.ID] = sketchLines[i].ID;
-            globalLineSegments.push_back(lineSegment);
+            LineSegment* lineSegment = &sketchLines[i].lineSegments[j];
+            lineSegment->ID = ++count;
+            lineSegIdTOSketchLineId[lineSegment->ID] = sketchLines[i].ID;
+            globalLineSegments.push_back(*lineSegment);
         }
     }
 }

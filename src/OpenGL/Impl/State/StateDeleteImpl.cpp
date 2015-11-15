@@ -10,6 +10,7 @@
 #include "OpenGL/Impl/Scene/DrawLineSegment.h"
 #include <OpenGL/gl3.h>
 #include "OpenGL/DepthPeeling/DepthPeeling.h"
+#include "Core/Basic/SketchLine.h"
 
 StateDeleteImpl::StateDeleteImpl() {
     depthPeeling = &DepthPeeling::getInstance();
@@ -32,7 +33,11 @@ void StateDeleteImpl::renderCurrentLine() {
         return;
     }
     glDisable(GL_DEPTH_TEST);
-    Scene::renderSingleLineSegment(Controller::currLine, Vector4(1, 0, 0, 1.0f),
-                                   0.15f);
+    SketchLine* sketchLine =
+        SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
+    if (sketchLine != NULL) {
+        Scene::renderSingleSketchLine(*sketchLine, Vector4(1, 0, 0, 0.5f),
+                                      0.15f);
+    }
     glEnable(GL_DEPTH_TEST);
 }

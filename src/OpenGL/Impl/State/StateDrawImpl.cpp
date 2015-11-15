@@ -96,8 +96,8 @@ void StateDrawImpl::renderCurrentLine(void* data) {
     }
     LineSegment line = LineSegment(self->startPoint, self->endPoint);
     Scene::renderSingleLineSegment(line, Vector4(0.5, 1, 0, 0.9f), 0.1f);
-    Scene::renderSingleSketchLine(self->currentLine, Vector4(0.5, 1, 0, 0.9f),
-                                  0.1f);
+    Scene::renderSingleSketchLine(self->currentLine,
+                                  Vector4(0.545, 0.2, 1, 1.0f), 0.1f);
     if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
         Scene::renderSingleSketchLine(self->currentLineMirrorX,
                                       Vector4(0.5, 1, 0, 0.9f), 0.1f);

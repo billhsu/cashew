@@ -12,7 +12,8 @@
 #include "Core/Basic/SketchLine.h"
 
 namespace Scene {
-    void renderLineSegmentsMode(bool wireframe) {
+    void renderLineSegmentsMode(bool wireframe, Vector4 color,
+                                float thickness) {
         LineSegmentRenderer::getLineSegmentShader()->bind();
 
         GLuint local_modelView = glGetUniformLocation(
@@ -28,18 +29,20 @@ namespace Scene {
         GLuint local_thickness = glGetUniformLocation(
             LineSegmentRenderer::getLineSegmentShader()->getProgram(),
             "thickness");
-        glUniform1f(local_thickness, 0.1f);
+        glUniform1f(local_thickness, thickness);
         GLuint local_lineColor = glGetUniformLocation(
             LineSegmentRenderer::getLineSegmentShader()->getProgram(),
             "lineColor");
         if (LineSegmentRenderer::getLineSegmentList().size() > 0) {
             if (!wireframe) {
-                glUniform4f(local_lineColor, 0.545, 0.2, 1, 1.0f);
+                glUniform4f(local_lineColor, color.r, color.g, color.b,
+                            color.a);
                 LineSegmentRenderer::render(0);
             } else {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 glDisable(GL_DEPTH_TEST);
-                glUniform4f(local_lineColor, 1, 1, 1, 0.5f);
+                glUniform4f(local_lineColor, color.r, color.g, color.b,
+                            color.a);
                 LineSegmentRenderer::render(0);
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                 glEnable(GL_DEPTH_TEST);
@@ -52,8 +55,8 @@ namespace Scene {
             LineSegmentRenderer::getLineSegmentList().push_back(
                 SketchLine::getGlobalLineSegments()[i]);
         }
-        renderLineSegmentsMode(false);
-        renderLineSegmentsMode(true);
+        renderLineSegmentsMode(false, Vector4(0.545, 0.2, 1, 1.0f), 0.1f);
+        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f), 0.1f);
     }
     void renderLineSegmentsEndpoints(void* data) {
         PointRenderer::getPointShader()->bind();
@@ -119,7 +122,7 @@ namespace Scene {
             LineSegmentRenderer::getLineSegmentList().push_back(
                 sketchLine.getLineSegments()[i]);
         }
-        renderLineSegmentsMode(false);
-        renderLineSegmentsMode(true);
+        renderLineSegmentsMode(false, color, thickness);
+        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f), thickness);
     }
 }
