@@ -18,7 +18,7 @@ StateIdleImpl::StateIdleImpl() {
 void StateIdleImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Scene::renderLineSegments(NULL);
-    if (Controller::bCurrLine && !Controller::bCurrPoint) {
+    if (Controller::bCurrLine) {
         SketchLine* sketchLine =
             SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
         Scene::renderSingleSketchLine(*sketchLine, Vector4(0, 1, 0, 0.5f),

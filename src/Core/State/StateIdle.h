@@ -7,8 +7,14 @@ class StateIdle : public State {
    public:
     StateIdle();
     void MouseButton(int button, int state, int x, int y);
+    void MouseLeftDrag(int dx, int dy);
     void MouseRightDrag(int dx, int dy);
     void prepareState();
     void postState();
     void UIEvent(int event);
+
+   private:
+    enum { INTERNAL_STATE_IDLE, INTERNAL_STATE_MOUSE_DOWN };
+    int internalState;
+    Vector3 selectedPoint;
 };
