@@ -21,11 +21,18 @@ class Plane {
     void printStatus() {
         std::cout << "Plane " << N << " " << D << std::endl;
     }
+    // Build plane from one point and a normal
     static void buildPlane(Vector3 v1, Plane& plane,
                            Vector3 normal = Vector3(0, 1, 0));
+
+    // Build plane from two points and a normal
     static void buildPlane(Vector3 v1, Vector3 v2, Plane& plane,
-                           Vector3 direction = Vector3(0, 1, 0));
+                           Vector3 normal = Vector3(0, 1, 0));
+
+    // Build plane from three points
     static void buildPlane(Vector3 v1, Vector3 v2, Vector3 v3, Plane& plane);
+
+    // Build plane from a list of points
     static void buildPlane(std::vector<Vector3>& v, Plane& plane,
                            Vector3 normal = Vector3(0, 1, 0));
 

@@ -8,9 +8,9 @@ void Plane::buildPlane(Vector3 v1, Plane& plane, Vector3 normal) {
     plane.D = v1.dot(normal.normalize());
 }
 
-void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane,
-                       Vector3 direction) {
+void Plane::buildPlane(Vector3 v1, Vector3 v2, Plane& plane, Vector3 normal) {
     Vector3 v12 = v1 - v2;
+    Vector3 direction = v12.cross(normal).normalize();
     Vector3 _normal = v12.cross(direction).normalize();
     float dist = v1.dot(_normal);
     plane.N = _normal;

@@ -110,13 +110,13 @@ void StateDraw::MouseRightDrag(int dx, int dy) {
         if (!changeDirection) {
             changeDirection = true;
             Plane::buildPlane(selectedPoints, Controller::currPlane,
-                              Vector3(0, 0, 1));
+                              Vector3(0, 1, 0));
         }
     } else {
         if (changeDirection) {
             changeDirection = false;
             Plane::buildPlane(selectedPoints, Controller::currPlane,
-                              Vector3(0, 1, 0));
+                              Vector3(0, 0, 1));
         }
     }
 }

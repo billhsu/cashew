@@ -22,7 +22,6 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     } else if (button == Mouse::MOUSE_BUTTON_LEFT) {
         std::vector<Vector3> selectedPoints;
-        Vector3 planeVec = Vector3(0, 1, 0);
         if (state == Mouse::MOUSE_ACTION_DOWN) {
             internalState = INTERNAL_STATE_MOUSE_DOWN;
             Vector3 v;
@@ -31,7 +30,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
             if (!Controller::bCurrLine) {
                 selectedPoints.push_back(v);
                 Plane::buildPlane(selectedPoints, Controller::currPlane,
-                                  planeVec);
+                                  Vector3(0, 1, 0));
                 if (Controller::currPlane.N.dot(mCamera->getDirection()) > 0) {
                     Controller::currPlane = -Controller::currPlane;
                 }
@@ -62,7 +61,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                 selectedPoints.push_back(
                     sketchLine->getLineSegments()[size - 1].points[1]);
                 Plane::buildPlane(selectedPoints, Controller::currPlane,
-                                  planeVec);
+                                  Vector3(0, 0, 1));
                 if (Controller::currPlane.N.dot(mCamera->getDirection()) > 0) {
                     Controller::currPlane = -Controller::currPlane;
                 }
