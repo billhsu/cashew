@@ -102,9 +102,23 @@ void StateDraw::MouseLeftDrag(int dx, int dy) {
 }
 
 void StateDraw::MouseRightDrag(int dx, int dy) {
+    static bool changeDirection = false;
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
     mCamera->rotateCam(Controller::rotate);
+    if (fabs(fabs(Controller::rotate.x) - 90) < 25) {
+        if (!changeDirection) {
+            changeDirection = true;
+            Plane::buildPlane(selectedPoints, Controller::currPlane,
+                              Vector3(0, 0, 1));
+        }
+    } else {
+        if (changeDirection) {
+            changeDirection = false;
+            Plane::buildPlane(selectedPoints, Controller::currPlane,
+                              Vector3(0, 1, 0));
+        }
+    }
 }
 
 void StateDraw::Keyboard(unsigned char key, unsigned char status) {
