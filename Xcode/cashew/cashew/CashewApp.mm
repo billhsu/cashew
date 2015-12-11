@@ -262,7 +262,11 @@ int openFile(lua_State* L) {
     int y = mController->windowHeight - (int)locationInWindow.y;
 
     MouseEvent event;
-    event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    if (NSShiftKeyMask & [NSEvent modifierFlags]) {
+        event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
+    } else {
+        event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    }
     event.mouseButtonAction = Mouse::MOUSE_ACTION_UP;
     event.mousePosX = x;
     event.mousePosY = y;
@@ -276,7 +280,11 @@ int openFile(lua_State* L) {
     int y = mController->windowHeight - (int)locationInWindow.y;
 
     MouseEvent event;
-    event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    if (NSShiftKeyMask & [NSEvent modifierFlags]) {
+        event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
+    } else {
+        event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    }
     event.mouseButtonAction = Mouse::MOUSE_ACTION_DOWN;
     event.mousePosX = x;
     event.mousePosY = y;
@@ -344,7 +352,11 @@ int openFile(lua_State* L) {
                        andY:(CGFloat)y {
     y = mController->windowHeight - y;
     MouseEvent event;
-    event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    if (NSShiftKeyMask & [NSEvent modifierFlags]) {
+        event.mouseButton = Mouse::MOUSE_BUTTON_RIGHT;
+    } else {
+        event.mouseButton = Mouse::MOUSE_BUTTON_LEFT;
+    }
     event.mouseButtonAction = Mouse::MOUSE_ACTION_DRAG;
     event.mousePosX = x;
     event.mousePosY = y;
