@@ -29,7 +29,8 @@ void State::enterState(State* state) {
     currState = state;
     currState->prepareState();
     std::cout << state << " - ";
-    std::cout << "enterState: " << state->stateID << std::endl;
+    std::cout << "enterState: [" << state->stateID << "] " << state->stateName
+              << std::endl;
     IMGUI::getState().setActiveItem(0);
     IMGUI::getState().setHotItem(0);
 }

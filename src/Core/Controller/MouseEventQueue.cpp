@@ -4,6 +4,7 @@
  */
 
 #include "MouseEventQueue.h"
+#include <iostream>
 namespace MouseEventQueue {
     std::queue<MouseEvent> queue;
 
@@ -16,6 +17,7 @@ namespace MouseEventQueue {
         }
         event = queue.front();
         queue.pop();
+
         return true;
     }
     void addEvent(const MouseEvent event) {
@@ -24,7 +26,7 @@ namespace MouseEventQueue {
     void clear() {
         queue = std::queue<MouseEvent>();
     }
-    std::queue<MouseEvent> getQueue() {
+    std::queue<MouseEvent> getQueueCpy() {
         return queue;
     }
 }

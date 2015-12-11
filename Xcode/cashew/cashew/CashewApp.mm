@@ -379,12 +379,22 @@ int openFile(lua_State* L) {
     mController->Keyboard(key, Controller::KEY_UP);
 }
 - (void)update:(NSTimeInterval)timeInterval {
-    if (windowPaused)
+    if (windowPaused) {
         return;
-    std::queue<MouseEvent> queueCpy = MouseEventQueue::getQueue();
+    }
+    int numClickEvents = 0;
+    std::queue<MouseEvent> queueCpy = MouseEventQueue::getQueueCpy();
     while (queueCpy.size() > 0) {
-        processMouseEventForUI(queueCpy.front());
+        MouseEvent event = queueCpy.front();
+        if (event.mouseButtonAction == Mouse::MOUSE_ACTION_DOWN ||
+            event.mouseButtonAction == Mouse::MOUSE_ACTION_UP) {
+            ++numClickEvents;
+        }
+        processMouseEventForUI(event);
         queueCpy.pop();
+        if (numClickEvents >= 1) {
+            break;
+        }
     }
     MouseEvent event;
     while (MouseEventQueue::pollEvent(event)) {
