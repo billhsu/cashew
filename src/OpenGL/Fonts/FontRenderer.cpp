@@ -19,7 +19,7 @@ namespace FontRenderer {
     std::map<std::string, int> fontList;
     std::vector<TextRenderInfo> textRenderInfoList;
 
-    void prepareRenderData() {
+    void init() {
         fontList.clear();
         stash = sth_create(512, 512);
         std::cout << "Loading fonts.." << std::endl;

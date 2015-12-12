@@ -9,9 +9,8 @@
 
 class GLSLShader;
 class LineSegment;
-namespace LineSegmentRenderer
-{
-    void prepareRenderData();
+namespace LineSegmentRenderer {
+    void init();
     void render(uint textureId);
     GLSLShader* getLineSegmentShader();
     std::vector<LineSegment>& getLineSegmentList();

@@ -100,11 +100,12 @@ bool windowPaused = false;
 
     State::enterState(mController->state_idle);
 
-    PlaneRenderer::prepareRenderData();
-    PointRenderer::prepareRenderData();
-    LineSegmentRenderer::prepareRenderData();
-    FontRenderer::prepareRenderData();
-    IMGUIImpl::prepareRenderData();
+    PlaneRenderer::init();
+    PointRenderer::init();
+    LineSegmentRenderer::init();
+    SketchLineRenderer::init();
+    FontRenderer::init();
+    IMGUIImpl::init();
 
     depthPeeling = &DepthPeeling::getInstance();
     depthPeeling->setPassCount(2);

@@ -32,7 +32,7 @@ namespace LineSegmentRenderer {
         }
         vertexBufferData = mapVectorToArray(lineSegmentList);
     }
-    void prepareRenderData() {
+    void init() {
         lineSegmentList.clear();
         lineSegmentList.push_back(
             LineSegment(Vector3(0, 0, 0), Vector3(0, 0, 0)));

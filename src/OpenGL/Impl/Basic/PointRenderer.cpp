@@ -4,8 +4,7 @@
 #include "PointRenderer.h"
 #include "OpenGL/Shader/GLSLShader.h"
 
-namespace PointRenderer
-{
+namespace PointRenderer {
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
     std::vector<Vector3> pointList;
@@ -14,15 +13,15 @@ namespace PointRenderer
 
     GLSLShader pointProgram;
     void mapVectorToArray(const std::vector<Vector3>& list) {
-        if(vertexBufferDataSize<list.size() * 3) {
-            if(vertexBufferData != NULL) {
+        if (vertexBufferDataSize < list.size() * 3) {
+            if (vertexBufferData != NULL) {
                 delete[] vertexBufferData;
                 vertexBufferData = NULL;
             }
             vertexBufferData = new float[list.size() * 3 * 2];
             vertexBufferDataSize = list.size() * 3 * 2;
         }
-        for(int i=0; i < list.size(); ++i) {
+        for (int i = 0; i < list.size(); ++i) {
             vertexBufferData[3 * i + 0] = list[i].x;
             vertexBufferData[3 * i + 1] = list[i].y;
             vertexBufferData[3 * i + 2] = list[i].z;
@@ -31,20 +30,20 @@ namespace PointRenderer
     void generateVertexBuffer() {
         mapVectorToArray(pointList);
     }
-    void prepareRenderData() {
+    void init() {
         pointList.clear();
-        pointList.push_back(Vector3(0,0,0));
-        
+        pointList.push_back(Vector3(0, 0, 0));
+
         generateVertexBuffer();
-        
+
         VBOInfo.vertexBufferSize = static_cast<int>(pointList.size()) * 3;
         VBOInfo.vertexBufferData = vertexBufferData;
-        
+
         buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
-        
-        pointProgram.loadFromFile(GL_VERTEX_SHADER,   "Shader/point.vs");
+
+        pointProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/point.vs");
         pointProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/point.fs");
         pointProgram.loadFromFile(GL_GEOMETRY_SHADER, "Shader/point.gs");
         pointProgram.createProgram();
@@ -79,10 +78,9 @@ namespace PointRenderer
     }
 
     void release() {
-        if(vertexBufferData != NULL) {
+        if (vertexBufferData != NULL) {
             delete[] vertexBufferData;
             vertexBufferData = NULL;
         }
     }
-
 }

@@ -9,15 +9,16 @@
 class TextureManager;
 
 class UILabelImpl : public UILabel {
-public:
-    UILabelImpl(UINode* parent) : UILabel(parent), indices{0,1,2, 0,2,3} {
-        std::cout<<"UILabelImpl("<<this<<")"<<std::endl;
+   public:
+    UILabelImpl(UINode* parent) : UILabel(parent), indices{0, 1, 2, 0, 2, 3} {
+        std::cout << "UILabelImpl(" << this << ")" << std::endl;
     };
     ~UILabelImpl();
     void render();
     void prepareRenderData();
     GLuint program;
-private:
+
+   private:
     HardwareBuffer buffer;
     HardwareBuffer::VBOStruct VBOInfo;
     float verticesArray[8];

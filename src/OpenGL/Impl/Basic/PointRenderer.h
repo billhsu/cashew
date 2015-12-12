@@ -8,9 +8,8 @@
 #include <OpenGL/gl3.h>
 
 class GLSLShader;
-namespace PointRenderer
-{
-    void prepareRenderData();
+namespace PointRenderer {
+    void init();
     void render(uint textureId);
     GLSLShader* getPointShader();
     std::vector<Vector3>& getPointList();

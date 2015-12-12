@@ -8,9 +8,8 @@
 
 #include <OpenGL/gl3.h>
 class GLSLShader;
-namespace PlaneRenderer
-{
-    void prepareRenderData();
+namespace PlaneRenderer {
+    void init();
     void render(Plane p, Vector3 center, float size, Vector4 color);
     GLSLShader* getPlaneShader();
 }

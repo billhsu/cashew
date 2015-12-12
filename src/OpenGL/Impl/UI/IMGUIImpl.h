@@ -8,7 +8,7 @@ class GLSLShader;
 
 namespace IMGUIImpl {
     using namespace IMGUI;
-    void prepareRenderData();
+    void init();
     void render();
     GLSLShader& getUIProgram();
 };
