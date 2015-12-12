@@ -4,7 +4,7 @@
 #pragma once
 #include <vector>
 #include <map>
-class LineSegment;
+#include "LineSegment.h"
 // Sketch line contains multiple line segments
 class SketchLine {
    public:

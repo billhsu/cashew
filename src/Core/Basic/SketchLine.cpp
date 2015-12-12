@@ -2,7 +2,6 @@
 // billhsu.x@gmail.com
 
 #include "SketchLine.h"
-#include "LineSegment.h"
 
 std::vector<SketchLine> SketchLine::sketchLines;
 std::map<int, int> SketchLine::lineSegIdTOSketchLineId;
