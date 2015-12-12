@@ -29,6 +29,7 @@
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
 #include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
+#include "OpenGL/Impl/Basic/SketchLineRenderer.h"
 
 #include "OpenGL/Fonts/FontRenderer.h"
 
@@ -503,6 +504,7 @@ void processMouseEvent(MouseEvent event) {
     PointRenderer::release();
     LineSegmentRenderer::release();
     FontRenderer::release();
+    SketchLineRenderer::release();
     [super clearGLContext];
 }
 
