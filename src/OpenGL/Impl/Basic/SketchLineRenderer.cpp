@@ -5,6 +5,7 @@
 #import <OpenGL/gl3.h>
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
+#include "Core/Controller/Controller.h"
 
 #define MAX_NUM_VERTEX 1024
 namespace SketchLineRenderer {
@@ -48,13 +49,28 @@ namespace SketchLineRenderer {
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_2, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_2, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
-        buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_1, 3);
+        buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
     }
     void render(SketchLine sketchLine, Vector3 color) {
         sketchShader.bind();
+        GLuint local_modelView =
+            glGetUniformLocation(sketchShader.getProgram(), "modelView");
+        glUniformMatrix4fv(local_modelView, 1, GL_FALSE,
+                           Controller::modelView.get());
+        GLuint local_projection =
+            glGetUniformLocation(sketchShader.getProgram(), "projection");
+        glUniformMatrix4fv(local_projection, 1, GL_FALSE,
+                           Controller::projection.get());
         GLuint local_color =
             glGetUniformLocation(sketchShader.getProgram(), "color");
         glUniform3fv(local_color, 1, color.cell);
+        GLuint local_aspect =
+            glGetUniformLocation(sketchShader.getProgram(), "aspect");
+        glUniform1f(local_aspect,
+                    Controller::windowWidth / Controller::windowHeight);
+        GLuint local_thickness =
+            glGetUniformLocation(sketchShader.getProgram(), "thickness");
+        glUniform1f(local_thickness, 1.0f);
         updateBuffer(sketchLine);
         buffer.render(GL_TRIANGLES);
     }
