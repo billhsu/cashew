@@ -460,6 +460,19 @@ void processMouseEvent(MouseEvent event) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(BACKGROUND_COLOR);
     mController->render();
+    SketchLine sketchLine;
+    for (int i = 0; i < 16; ++i) {
+        float radius = 4.0f;
+        float PI = 3.1415926f;
+        float currentPosX = sinf((float)i / 31.0f * 2 * PI) * radius;
+        float currentPosZ = cosf((float)i / 31.0f * 2 * PI) * radius;
+        float nextPosX = sinf((float)(i + 1) / 31.0f * 2 * PI) * radius;
+        float nextPosZ = cosf((float)(i + 1) / 31.0f * 2 * PI) * radius;
+        sketchLine.addLineSegment(
+            LineSegment(Vector3(currentPosX, 0, currentPosZ),
+                        Vector3(nextPosX, 0, nextPosZ)));
+    }
+    SketchLineRenderer::render(sketchLine, Vector3(1, 1, 1));
     depthPeeling->render();
     IMGUIImpl::render();
 #ifdef DEBUG

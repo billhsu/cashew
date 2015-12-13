@@ -72,7 +72,11 @@ namespace SketchLineRenderer {
             glGetUniformLocation(sketchShader.getProgram(), "thickness");
         glUniform1f(local_thickness, 1.0f);
         updateBuffer(sketchLine);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        glDisable(GL_DEPTH_TEST);
         buffer.render(GL_TRIANGLES);
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        glEnable(GL_DEPTH_TEST);
     }
 
     void setFloatArrayFromVector(float* arrayStartPtr, Vector3 position) {
@@ -154,9 +158,9 @@ namespace SketchLineRenderer {
         if (length < previousLength) {
             return;
         }
-        vboInfo.indexBufferSize = length * 6;
+        vboInfo.indexBufferSize = (length - 1) * 6;
         int count = 0, index = 0;
-        for (int j = 0; j < length; j++) {
+        for (int j = 0; j < length - 1; j++) {
             int i = index;
             indexBuffer[count++] = i + 0;
             indexBuffer[count++] = i + 1;

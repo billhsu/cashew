@@ -40,10 +40,9 @@ void main() {
         //ending point uses (current - previous)
         dir = normalize(currentScreen - previousScreen);
     } else {
-        //somewhere in middle, needs a join
-        
-        //get directions from (C - B) and (B - A)
-        dir = normalize((currentScreen - previousScreen));
+        vec2 dirA = normalize((currentScreen - previousScreen));
+        vec2 dirB = normalize((nextScreen - currentScreen));
+        dir = dirA;
     }
     vec2 normal = vec2(-dir.y, dir.x);
     normal *= len/2.0;
