@@ -15,7 +15,7 @@ namespace SketchLineRenderer {
     // times 2 to duplicate the array
     // this will help generate triangles in rendering
     float positionBuffer[MAX_NUM_VERTEX * 3 * 2];
-    float directionBuffer[MAX_NUM_VERTEX * 2];
+    float lineInfoBuffer[MAX_NUM_VERTEX * 3 * 2];
     float nextBuffer[MAX_NUM_VERTEX * 3 * 2];
     float previousBuffer[MAX_NUM_VERTEX * 3 * 2];
     int indexBuffer[MAX_NUM_VERTEX * 6];
@@ -31,7 +31,7 @@ namespace SketchLineRenderer {
         vboInfo.vertexBufferSize = 3 * 2;
         vboInfo.vertexBufferData = positionBuffer;
         vboInfo.extraBuffer1Size = 1 * 2;
-        vboInfo.extraBuffer1Data = directionBuffer;
+        vboInfo.extraBuffer1Data = lineInfoBuffer;
         vboInfo.extraBuffer2Size = 3 * 2;
         vboInfo.extraBuffer2Data = previousBuffer;
         vboInfo.extraBuffer3Size = 3 * 2;
@@ -45,7 +45,7 @@ namespace SketchLineRenderer {
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_1, 1);
-        buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_1, 1);
+        buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_1, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_2, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_2, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
@@ -70,13 +70,9 @@ namespace SketchLineRenderer {
                     Controller::windowWidth / Controller::windowHeight);
         GLuint local_thickness =
             glGetUniformLocation(sketchShader.getProgram(), "thickness");
-        glUniform1f(local_thickness, 1.0f);
+        glUniform1f(local_thickness, 0.5f);
         updateBuffer(sketchLine);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-        glDisable(GL_DEPTH_TEST);
         buffer.render(GL_TRIANGLES);
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        glEnable(GL_DEPTH_TEST);
     }
 
     void setFloatArrayFromVector(float* arrayStartPtr, Vector3 position) {
@@ -96,10 +92,16 @@ namespace SketchLineRenderer {
         // times 2 to duplicate the array
         // this will help generate triangles in rendering
         vboInfo.vertexBufferSize = numOfVertex * 3 * 2;
-        vboInfo.extraBuffer1Size = numOfVertex * 2;
+        vboInfo.extraBuffer1Size = numOfVertex * 3 * 2;
         vboInfo.extraBuffer2Size = numOfVertex * 3 * 2;
         vboInfo.extraBuffer3Size = numOfVertex * 3 * 2;
         updateIndexBuffer(numOfVertex);
+        float totalDistance = 0.0f;
+        float runningDistance = 0.0f;
+        // calculate the total distance of the sketch line
+        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i) {
+            totalDistance += sketchLine.getLineSegments()[i].length();
+        }
         LineSegment firstLineSegment = sketchLine.getLineSegments()[0];
         setFloatArrayFromVector(&positionBuffer[0], firstLineSegment.points[0]);
         setFloatArrayFromVector(&positionBuffer[3], firstLineSegment.points[0]);
@@ -107,8 +109,9 @@ namespace SketchLineRenderer {
         setFloatArrayFromVector(&previousBuffer[3], firstLineSegment.points[0]);
         setFloatArrayFromVector(&nextBuffer[0], firstLineSegment.points[1]);
         setFloatArrayFromVector(&nextBuffer[3], firstLineSegment.points[1]);
-        directionBuffer[0] = -1.0f;
-        directionBuffer[1] = 1.0f;
+        setFloatArrayFromVector(&lineInfoBuffer[0], Vector3(0, 0, 0));
+        setFloatArrayFromVector(&lineInfoBuffer[3], Vector3(0, 0, 0));
+        const float targetPct = 0.2f;
         for (int i = 1; i < numOfVertex - 1; ++i) {
             LineSegment preLineSegment = sketchLine.getLineSegments()[i - 1];
             LineSegment lineSegment = sketchLine.getLineSegments()[i];
@@ -124,8 +127,19 @@ namespace SketchLineRenderer {
                                     lineSegment.points[1]);
             setFloatArrayFromVector(&nextBuffer[6 * i + 3],
                                     lineSegment.points[1]);
-            directionBuffer[2 * i + 0] = -1.0f;
-            directionBuffer[2 * i + 1] = 1.0f;
+
+            runningDistance += preLineSegment.length();
+            float widthScale = 1.0f;
+            if (runningDistance / totalDistance <= targetPct) {
+                widthScale = runningDistance / totalDistance;
+            } else if ((totalDistance - runningDistance) / totalDistance <=
+                       targetPct) {
+                widthScale = (totalDistance - runningDistance) / totalDistance;
+            }
+            setFloatArrayFromVector(&lineInfoBuffer[6 * i + 0],
+                                    Vector3(-widthScale, 0, 0));
+            setFloatArrayFromVector(&lineInfoBuffer[6 * i + 3],
+                                    Vector3(widthScale, 0, 0));
         }
         int lastVertexIdx = numOfVertex - 1;
         LineSegment lastLineSegment =
@@ -142,8 +156,10 @@ namespace SketchLineRenderer {
                                 lastLineSegment.points[1]);
         setFloatArrayFromVector(&nextBuffer[6 * lastVertexIdx + 3],
                                 lastLineSegment.points[1]);
-        directionBuffer[2 * lastVertexIdx + 0] = -1.0f;
-        directionBuffer[2 * lastVertexIdx + 1] = 1.0f;
+        setFloatArrayFromVector(&lineInfoBuffer[6 * lastVertexIdx + 3],
+                                Vector3(0, 0, 0));
+        setFloatArrayFromVector(&lineInfoBuffer[6 * lastVertexIdx + 3],
+                                Vector3(0, 0, 0));
         buffer.updateVBO(vboInfo, HardwareBuffer::FLAG_VERTEX_BUFFER |
                                       HardwareBuffer::FLAG_EXTRA_BUFFER_1 |
                                       HardwareBuffer::FLAG_EXTRA_BUFFER_2 |
@@ -153,11 +169,6 @@ namespace SketchLineRenderer {
 
     void updateIndexBuffer(int length) {
         static int previousLength = 0;
-        // no need to update the index array if the previous length is longer
-        // than the current one.
-        if (length < previousLength) {
-            return;
-        }
         vboInfo.indexBufferSize = (length - 1) * 6;
         int count = 0, index = 0;
         for (int j = 0; j < length - 1; j++) {

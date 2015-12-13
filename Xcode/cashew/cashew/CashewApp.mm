@@ -462,7 +462,7 @@ void processMouseEvent(MouseEvent event) {
     mController->render();
     SketchLine sketchLine;
     for (int i = 0; i < 16; ++i) {
-        float radius = 4.0f;
+        float radius = 8.0f;
         float PI = 3.1415926f;
         float currentPosX = sinf((float)i / 31.0f * 2 * PI) * radius;
         float currentPosZ = cosf((float)i / 31.0f * 2 * PI) * radius;

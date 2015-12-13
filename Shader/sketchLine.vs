@@ -12,7 +12,7 @@ uniform float aspect;
 uniform float thickness;
 
 layout (location = 0) in vec3  position;
-layout (location = 1) in float direction;
+layout (location = 1) in vec3  lineInfo;
 layout (location = 2) in vec3  previous;
 layout (location = 3) in vec3  next;
 
@@ -23,14 +23,15 @@ void main() {
     vec4 previousProjected = projViewModel * vec4(previous, 1.0);
     vec4 currentProjected = projViewModel * vec4(position, 1.0);
     vec4 nextProjected = projViewModel * vec4(next, 1.0);
+    vec4 nonProjected = modelView * vec4(position, 1.0);
+    
     
     //get 2D screen space with W divide and aspect correction
     vec2 currentScreen = currentProjected.xy / currentProjected.w * aspectVec;
     vec2 previousScreen = previousProjected.xy / previousProjected.w * aspectVec;
     vec2 nextScreen = nextProjected.xy / nextProjected.w * aspectVec;
-    
     float len = thickness;
-    float orientation = direction;
+    float orientation = lineInfo.x;
     
     //starting point uses (next - current)
     vec2 dir = vec2(0.0);
@@ -46,7 +47,7 @@ void main() {
     }
     vec2 normal = vec2(-dir.y, dir.x);
     normal *= len/2.0;
-    normal.x /= aspect;
+//    normal.x /= aspect;
     
     vec4 offset = vec4(normal * orientation, 0.0, 1.0);
     gl_Position = currentProjected + offset;
