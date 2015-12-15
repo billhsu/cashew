@@ -156,7 +156,7 @@ namespace SketchLineRenderer {
                                 lastLineSegment.points[1]);
         setFloatArrayFromVector(&nextBuffer[6 * lastVertexIdx + 3],
                                 lastLineSegment.points[1]);
-        setFloatArrayFromVector(&lineInfoBuffer[6 * lastVertexIdx + 3],
+        setFloatArrayFromVector(&lineInfoBuffer[6 * lastVertexIdx + 0],
                                 Vector3(0, 0, 0));
         setFloatArrayFromVector(&lineInfoBuffer[6 * lastVertexIdx + 3],
                                 Vector3(0, 0, 0));
