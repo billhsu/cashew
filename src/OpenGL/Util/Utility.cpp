@@ -4,8 +4,7 @@
 #include "Utility.h"
 #include <stdio.h>
 
-void checkGlErr(const char* file, int line)
-{
+void checkGlErr(const char* file, int line) {
 #ifdef DEBUG
     GLenum err;
     while ((err = glGetError()) != GL_NO_ERROR) {

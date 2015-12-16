@@ -6,6 +6,7 @@
 #include "OpenGL/Shader/GLSLShader.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "Core/Controller/Controller.h"
+#include "Core/Util/Utility.h"
 
 #define MAX_NUM_VERTEX 1024
 namespace SketchLineRenderer {
@@ -70,7 +71,7 @@ namespace SketchLineRenderer {
                     Controller::windowWidth / Controller::windowHeight);
         GLuint local_thickness =
             glGetUniformLocation(sketchShader.getProgram(), "thickness");
-        glUniform1f(local_thickness, 0.5f);
+        glUniform1f(local_thickness, 1.0f);
         updateBuffer(sketchLine);
         buffer.render(GL_TRIANGLES);
     }
@@ -102,6 +103,9 @@ namespace SketchLineRenderer {
         for (int i = 0; i < sketchLine.getLineSegments().size(); ++i) {
             totalDistance += sketchLine.getLineSegments()[i].length();
         }
+        float widthMin = 0.1f;
+        float widthMax = 2.0f;
+        float widthSmooth = widthMin;
         LineSegment firstLineSegment = sketchLine.getLineSegments()[0];
         setFloatArrayFromVector(&positionBuffer[0], firstLineSegment.points[0]);
         setFloatArrayFromVector(&positionBuffer[3], firstLineSegment.points[0]);
@@ -111,7 +115,7 @@ namespace SketchLineRenderer {
         setFloatArrayFromVector(&nextBuffer[3], firstLineSegment.points[1]);
         setFloatArrayFromVector(&lineInfoBuffer[0], Vector3(0, 0, 0));
         setFloatArrayFromVector(&lineInfoBuffer[3], Vector3(0, 0, 0));
-        const float targetPct = 0.2f;
+        const float targetLength = 1.0f;
         for (int i = 1; i < numOfVertex - 1; ++i) {
             LineSegment preLineSegment = sketchLine.getLineSegments()[i - 1];
             LineSegment lineSegment = sketchLine.getLineSegments()[i];
@@ -130,20 +134,29 @@ namespace SketchLineRenderer {
 
             runningDistance += preLineSegment.length();
             float widthScale = 1.0f;
-            if (runningDistance / totalDistance <= targetPct) {
-                widthScale = runningDistance / totalDistance;
-            } else if ((totalDistance - runningDistance) / totalDistance <=
-                       targetPct) {
-                widthScale = (totalDistance - runningDistance) / totalDistance;
+            if (runningDistance <= targetLength) {
+                widthScale = runningDistance / targetLength;
+            } else if ((totalDistance - runningDistance) <= targetLength) {
+                widthScale = (totalDistance - runningDistance) / targetLength;
             }
+            float widthPct =
+                mapValueWithRange(preLineSegment.length(), 1, 0.7, 0, 1, true);
+            widthSmooth = 0.85f * widthSmooth +
+                          0.15 * mapValueWithRange(powf(widthPct, 3.4), 0, 1,
+                                                   widthMin, widthMax, true);
             setFloatArrayFromVector(&lineInfoBuffer[6 * i + 0],
-                                    Vector3(-widthScale, 0, 0));
+                                    Vector3(-widthSmooth * widthScale, 0, 0));
             setFloatArrayFromVector(&lineInfoBuffer[6 * i + 3],
-                                    Vector3(widthScale, 0, 0));
+                                    Vector3(widthSmooth * widthScale, 0, 0));
         }
         int lastVertexIdx = numOfVertex - 1;
         LineSegment lastLineSegment =
             sketchLine.getLineSegments()[lastVertexIdx - 1];
+        float widthPct =
+            mapValueWithRange(lastLineSegment.length(), 0.0, 0.7, 0, 1, true);
+        widthSmooth = 0.85f * widthSmooth +
+                      0.15 * mapValueWithRange(powf(widthPct, 3.4), 0, 1,
+                                               widthMin, widthMax, true);
         setFloatArrayFromVector(&positionBuffer[6 * lastVertexIdx + 0],
                                 lastLineSegment.points[1]);
         setFloatArrayFromVector(&positionBuffer[6 * lastVertexIdx + 3],

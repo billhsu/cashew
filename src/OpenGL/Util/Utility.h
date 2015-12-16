@@ -8,7 +8,7 @@ void checkGlErr(const char* file, int line);
 #ifdef __cplusplus
 extern "C" {
 #endif
-    void check_gl_err(const char* file, int line);
+void check_gl_err(const char* file, int line);
 #ifdef __cplusplus
 }
 #endif
