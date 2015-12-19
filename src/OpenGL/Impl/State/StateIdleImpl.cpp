@@ -21,8 +21,7 @@ void StateIdleImpl::render() {
     if (Controller::bCurrLine) {
         SketchLine* sketchLine =
             SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
-        Scene::renderSingleSketchLine(*sketchLine, Vector4(0, 1, 0, 0.5f),
-                                      0.15f);
+        Scene::renderSingleSketchLine(*sketchLine, Vector3(0, 1, 0), 0.15f);
     }
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

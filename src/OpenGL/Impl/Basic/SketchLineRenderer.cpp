@@ -106,6 +106,9 @@ namespace SketchLineRenderer {
         float widthMin = 0.1f;
         float widthMax = 2.0f;
         float widthSmooth = widthMin;
+        if (sketchLine.getLineSegments().size() == 0) {
+            return;
+        }
         LineSegment firstLineSegment = sketchLine.getLineSegments()[0];
         setFloatArrayFromVector(&positionBuffer[0], firstLineSegment.points[0]);
         setFloatArrayFromVector(&positionBuffer[3], firstLineSegment.points[0]);

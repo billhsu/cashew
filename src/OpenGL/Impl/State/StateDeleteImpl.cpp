@@ -36,8 +36,7 @@ void StateDeleteImpl::renderCurrentLine() {
     SketchLine* sketchLine =
         SketchLine::lineSegmentToSkectLine(Controller::currLine.ID);
     if (sketchLine != NULL) {
-        Scene::renderSingleSketchLine(*sketchLine, Vector4(1, 0, 0, 0.5f),
-                                      0.15f);
+        Scene::renderSingleSketchLine(*sketchLine, Vector3(1, 0, 0), 0.15f);
     }
     glEnable(GL_DEPTH_TEST);
 }

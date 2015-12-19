@@ -4,12 +4,14 @@
 #pragma once
 class LineSegment;
 class SketchLine;
+class Vector3;
 class Vector4;
+
 namespace Scene {
     void renderLineSegments(void* data);
     void renderLineSegmentsEndpoints(void* data);
     void renderSingleLineSegment(LineSegment line, Vector4 color,
                                  float thickness);
-    void renderSingleSketchLine(SketchLine sketchLine, Vector4 color,
+    void renderSingleSketchLine(SketchLine sketchLine, Vector3 color,
                                 float thickness);
 }

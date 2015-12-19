@@ -53,14 +53,9 @@ namespace Scene {
     void renderLineSegments(void* data) {
         LineSegmentRenderer::getLineSegmentList().clear();
         for (int i = 0; i < SketchLine::getGlobalSketchLines().size(); ++i) {
-            //            LineSegmentRenderer::getLineSegmentList().push_back(
-            //                SketchLine::getGlobalLineSegments()[i]);
             SketchLineRenderer::render(SketchLine::getGlobalSketchLines()[i],
                                        Vector3(1, 1, 1));
         }
-        //        renderLineSegmentsMode(false, Vector4(0.545, 0.2, 1, 1.0f),
-        //        0.1f);
-        //        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f), 0.1f);
     }
     void renderLineSegmentsEndpoints(void* data) {
         PointRenderer::getPointShader()->bind();
@@ -119,14 +114,17 @@ namespace Scene {
         LineSegmentRenderer::getLineSegmentList().push_back(line);
         LineSegmentRenderer::render(0);
     }
-    void renderSingleSketchLine(SketchLine sketchLine, Vector4 color,
+    void renderSingleSketchLine(SketchLine sketchLine, Vector3 color,
                                 float thickness) {
-        LineSegmentRenderer::getLineSegmentList().clear();
-        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i) {
-            LineSegmentRenderer::getLineSegmentList().push_back(
-                sketchLine.getLineSegments()[i]);
-        }
-        renderLineSegmentsMode(false, color, thickness);
-        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f), thickness);
+        //        LineSegmentRenderer::getLineSegmentList().clear();
+        //        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i)
+        //        {
+        //            LineSegmentRenderer::getLineSegmentList().push_back(
+        //                sketchLine.getLineSegments()[i]);
+        //        }
+        //        renderLineSegmentsMode(false, color, thickness);
+        //        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f),
+        //        thickness);
+        SketchLineRenderer::render(sketchLine, color);
     }
 }
