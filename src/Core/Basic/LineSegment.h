@@ -16,5 +16,5 @@ class LineSegment {
     static float distSegmentSegment(LineSegment S1, LineSegment S2);
     int ID;
     Vector3 points[2];
-    float length();
+    const float length() const;
 };

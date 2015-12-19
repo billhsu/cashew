@@ -29,10 +29,10 @@ void StateDrawImpl::render() {
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
 
-    Scene::renderLineSegments(NULL);
+    Scene::renderSketchLines(NULL);
+    renderCurrentLine();
 
     depthPeeling->addToRenderCallbackList(renderCurrentPlane, this);
-    depthPeeling->addToRenderCallbackList(renderCurrentLine, this);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper, this);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
     depthPeeling->addToRenderCallbackList(renderCurrentPoints, this);
@@ -89,23 +89,21 @@ void StateDrawImpl::renderCurrentPoints(void* data) {
     }
 }
 
-void StateDrawImpl::renderCurrentLine(void* data) {
-    StateDrawImpl* self = static_cast<StateDrawImpl*>(data);
-    if (self->internalState != STATE_DRAW_START_POINT_SELECTED) {
+void StateDrawImpl::renderCurrentLine() {
+    if (internalState != STATE_DRAW_START_POINT_SELECTED) {
         return;
     }
-    Scene::renderSingleSketchLine(self->currentLine, Vector3(0.545, 0.2, 1),
-                                  0.1f);
+    Scene::renderSingleSketchLine(currentLine, Vector3(0.545, 0.2, 1), 0.1f);
     if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
-        Scene::renderSingleSketchLine(self->currentLineMirrorX,
-                                      Vector3(0.5, 1, 0), 0.1f);
+        Scene::renderSingleSketchLine(currentLineMirrorX, Vector3(0.5, 1, 0),
+                                      0.1f);
     }
     if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
-        Scene::renderSingleSketchLine(self->currentLineMirrorY,
-                                      Vector3(0.5, 1, 0), 0.1f);
+        Scene::renderSingleSketchLine(currentLineMirrorY, Vector3(0.5, 1, 0),
+                                      0.1f);
     }
     if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
-        Scene::renderSingleSketchLine(self->currentLineMirrorZ,
-                                      Vector3(0.5, 1, 0), 0.1f);
+        Scene::renderSingleSketchLine(currentLineMirrorZ, Vector3(0.5, 1, 0),
+                                      0.1f);
     }
 }

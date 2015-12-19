@@ -22,7 +22,7 @@ StateDeleteImpl::~StateDeleteImpl() {
 
 void StateDeleteImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    Scene::renderLineSegments(NULL);
+    Scene::renderSketchLines(NULL);
     renderCurrentLine();
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

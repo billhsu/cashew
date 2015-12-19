@@ -71,6 +71,6 @@ float LineSegment::distSegmentSegment(LineSegment S1, LineSegment S2) {
     return dP.length();  // return the closest distance
 }
 
-float LineSegment::length() {
+const float LineSegment::length() const {
     return (points[0] - points[1]).length();
 }

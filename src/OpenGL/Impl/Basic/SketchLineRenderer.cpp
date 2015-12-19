@@ -20,7 +20,7 @@ namespace SketchLineRenderer {
     float nextBuffer[MAX_NUM_VERTEX * 3 * 2];
     float previousBuffer[MAX_NUM_VERTEX * 3 * 2];
     int indexBuffer[MAX_NUM_VERTEX * 6];
-    void updateBuffer(SketchLine sketchLine);
+    void updateBuffer(SketchLine& sketchLine);
     void updateIndexBuffer(int length);
 
     void init() {
@@ -52,7 +52,10 @@ namespace SketchLineRenderer {
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
     }
-    void render(SketchLine sketchLine, Vector3 color) {
+    void render(SketchLine& sketchLine, Vector3 color) {
+        if (sketchLine.getLineSegments().size() == 0) {
+            return;
+        }
         sketchShader.bind();
         GLuint local_modelView =
             glGetUniformLocation(sketchShader.getProgram(), "modelView");
@@ -82,7 +85,7 @@ namespace SketchLineRenderer {
         arrayStartPtr[2] = position.z;
     }
 
-    void updateBuffer(SketchLine sketchLine) {
+    void updateBuffer(SketchLine& sketchLine) {
         int numOfVertex = int(sketchLine.getLineSegments().size() + 1);
         if (numOfVertex > MAX_NUM_VERTEX - 1) {
             numOfVertex = MAX_NUM_VERTEX - 1;
@@ -106,9 +109,7 @@ namespace SketchLineRenderer {
         float widthMin = 0.1f;
         float widthMax = 2.0f;
         float widthSmooth = widthMin;
-        if (sketchLine.getLineSegments().size() == 0) {
-            return;
-        }
+
         LineSegment firstLineSegment = sketchLine.getLineSegments()[0];
         setFloatArrayFromVector(&positionBuffer[0], firstLineSegment.points[0]);
         setFloatArrayFromVector(&positionBuffer[3], firstLineSegment.points[0]);

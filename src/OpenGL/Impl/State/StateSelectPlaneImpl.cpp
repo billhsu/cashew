@@ -30,7 +30,7 @@ void StateSelectPlaneImpl::render() {
     currentPlane = Controller::currPlane;
     renderCurrentPlaneColor = color;
     renderCurrentPlaneCenter = center;
-    Scene::renderLineSegments(NULL);
+    Scene::renderSketchLines(NULL);
     depthPeeling->addToRenderCallbackList(renderCurrentPlane);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);

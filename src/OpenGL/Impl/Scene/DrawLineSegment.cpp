@@ -50,8 +50,7 @@ namespace Scene {
             }
         }
     }
-    void renderLineSegments(void* data) {
-        LineSegmentRenderer::getLineSegmentList().clear();
+    void renderSketchLines(void* data) {
         for (int i = 0; i < SketchLine::getGlobalSketchLines().size(); ++i) {
             SketchLineRenderer::render(SketchLine::getGlobalSketchLines()[i],
                                        Vector3(1, 1, 1));
@@ -114,17 +113,8 @@ namespace Scene {
         LineSegmentRenderer::getLineSegmentList().push_back(line);
         LineSegmentRenderer::render(0);
     }
-    void renderSingleSketchLine(SketchLine sketchLine, Vector3 color,
+    void renderSingleSketchLine(SketchLine& sketchLine, const Vector3& color,
                                 float thickness) {
-        //        LineSegmentRenderer::getLineSegmentList().clear();
-        //        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i)
-        //        {
-        //            LineSegmentRenderer::getLineSegmentList().push_back(
-        //                sketchLine.getLineSegments()[i]);
-        //        }
-        //        renderLineSegmentsMode(false, color, thickness);
-        //        renderLineSegmentsMode(true, Vector4(1, 1, 1, 0.5f),
-        //        thickness);
         SketchLineRenderer::render(sketchLine, color);
     }
 }

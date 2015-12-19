@@ -18,7 +18,7 @@ class StateDrawImpl : public StateDraw {
     DepthPeeling* depthPeeling;
     static void renderCurrentPlane(void* data);
     static void renderCurrentPoints(void* data);
-    static void renderCurrentLine(void* data);
+    void renderCurrentLine();
     Vector3 renderCurrentPlaneCenter;
     Vector4 renderCurrentPlaneColor;
     Plane currentPlane;

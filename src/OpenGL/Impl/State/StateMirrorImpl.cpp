@@ -20,7 +20,7 @@ StateMirrorImpl::~StateMirrorImpl() {
 
 void StateMirrorImpl::render() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    Scene::renderLineSegments(NULL);
+    Scene::renderSketchLines(NULL);
     depthPeeling->addToRenderCallbackList(Scene::drawSceneWrapper);
     depthPeeling->addToRenderCallbackList(Scene::renderCurrentPoint);
 }
