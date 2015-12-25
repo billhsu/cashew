@@ -41,7 +41,7 @@ bool Controller::bCurrPoint = false;
 
 LineSegment Controller::currLine;
 bool Controller::bCurrLine = false;
-
+bool Controller::bMoveCenterMode = false;
 Vector3 Controller::rotate = Vector3(-30, 0, 0);
 
 lua_State* Controller::luaState = NULL;
@@ -194,7 +194,8 @@ int btnStandardViewEvent(lua_State* L) {
     return 0;
 }
 int btnMoveCenterEvent(lua_State* L) {
-    State::currState->UIEvent(Controller::BTN_ID_MOVE_CENTER);
+    bool checked = lua_toboolean(L, 1);
+    Controller::bMoveCenterMode = !checked;
     return 0;
 }
 int btnUndoEvent(lua_State* L) {
@@ -208,7 +209,7 @@ int btnRedoEvent(lua_State* L) {
 }
 
 int btnDeleteLineEvent(lua_State* L) {
-    State::currState->UIEvent(Controller::BTN_ID_DELETE_LINE);
+    State::enterState(Controller::state_delete);
     return 0;
 }
 

@@ -93,7 +93,7 @@ void StateDrawImpl::renderCurrentLine() {
     if (internalState != STATE_DRAW_START_POINT_SELECTED) {
         return;
     }
-    Scene::renderSingleSketchLine(currentLine, Vector3(0.545, 0.2, 1), 0.1f);
+    Scene::renderSingleSketchLine(currentLine, Vector3(0.5, 1, 0), 0.1f);
     if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
         Scene::renderSingleSketchLine(currentLineMirrorX, Vector3(0.5, 1, 0),
                                       0.1f);

@@ -71,8 +71,8 @@ if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Standard View
 end
 
 local buttonPosX,buttonPosY = genTopBarItemPos(2)
-if button(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Move center", "button_movecenter.png") then
-  moveCenter()
+if checkbox(buttonPosX ,buttonPosY, topBarItemSize, topBarItemSize, "Move center", moveCenterMode, "button_movecenter.png") then
+  moveCenter(moveCenterMode.checked)
 end
 
 local buttonPosX,buttonPosY = genTopBarItemPos(3)
