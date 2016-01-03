@@ -87,9 +87,17 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
 
 void StateIdle::MouseLeftDrag(int dx, int dy) {
     if (Controller::bMoveCenterMode) {
-        Vector3 moveVector =
-            Vector3(-(float)dx / IMGUI::getBackingRatioX() / 20.0f, 0.0f,
-                    -(float)dy / IMGUI::getBackingRatioY() / 20.0f);
+        Vector3 moveVector;
+        float sign = Controller::rotate.x > 0 ? 1.0f : -1.0f;
+        if (fabs(Controller::rotate.x) <= 45) {
+            moveVector =
+                Vector3(-(float)dx / IMGUI::getBackingRatioX() / 20.0f, 0.0f,
+                        sign * (float)dy / IMGUI::getBackingRatioY() / 20.0f);
+        } else {
+            moveVector =
+                Vector3(-(float)dx / IMGUI::getBackingRatioX() / 20.0f,
+                        (float)dy / IMGUI::getBackingRatioY() / 20.0f, 0.0f);
+        }
         Matrix4 modelView = mCamera->getModelView();
         modelView.invert();
         moveVector = modelView * moveVector;
