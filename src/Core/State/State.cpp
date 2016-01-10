@@ -3,8 +3,10 @@
 
 #include "State.h"
 #include "Core/Camera/Camera.h"
+#include "Core/Basic/Plane.h"
 #include "Core/Controller/Controller.h"
 #include "Core/UI/IMGUI.h"
+#include "Core/Util/Intersect.h"
 
 State* State::statePool[STATE_ID_MAX];
 State* State::currState = NULL;
@@ -33,4 +35,14 @@ void State::enterState(State* state) {
               << std::endl;
     IMGUI::getState().setActiveItem(0);
     IMGUI::getState().setHotItem(0);
+}
+
+Vector3 State::calcMoveCenterVector(int dx, int dy, const Plane& activePlane) {
+    std::cout << Controller::mouseX << " " << Controller::mouseY << " "
+              << " " << dx << " " << dy << std::endl;
+    Ray rayCurrent = mCamera->getRay(Controller::mouseX, Controller::mouseY);
+    Ray rayPrevious =
+        mCamera->getRay(Controller::mouseX - dx, Controller::mouseY - dy);
+    return intersect(rayPrevious, activePlane) -
+           intersect(rayCurrent, activePlane);
 }

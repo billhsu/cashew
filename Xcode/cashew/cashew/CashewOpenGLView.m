@@ -161,8 +161,10 @@
     //[super mouseDragged:theEvent];
     NSPoint windowPos =
         [self convertPointToBacking:[theEvent locationInWindow]];
-    CGFloat dx = [theEvent deltaX];
-    CGFloat dy = [theEvent deltaY];
+    NSPoint deltaPos = NSMakePoint([theEvent deltaX], [theEvent deltaY]);
+    deltaPos = [self convertPointToBacking:deltaPos];
+    CGFloat dx = deltaPos.x;
+    CGFloat dy = deltaPos.y;
     CGFloat x = windowPos.x;
     CGFloat y = windowPos.y;
 

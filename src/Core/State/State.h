@@ -19,6 +19,7 @@ extern "C" {
 
 class Camera;
 class UINode;
+class Plane;
 
 class State {
    public:
@@ -60,4 +61,5 @@ class State {
     std::string getLuaUIFile() {
         return std::string("lua_scripts/state_" + stateName + "_ui.lua");
     }
+    Vector3 calcMoveCenterVector(int dx, int dy, const Plane& activePlane);
 };
