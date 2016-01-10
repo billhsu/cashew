@@ -20,12 +20,13 @@ StateIdle::StateIdle() {
     luaL_dofile(Controller::luaState, getLuaInitFile().c_str());
 }
 void StateIdle::MouseButton(int button, int state, int x, int y) {
+    if (button == Mouse::MOUSE_BUTTON_SCROLL) {
+        mCamera->setCamDist(mCamera->distance + 0.1f * state);
+    }
     if (Controller::bMoveCenterMode) {
         return;
     }
-    if (button == Mouse::MOUSE_BUTTON_SCROLL) {
-        mCamera->setCamDist(mCamera->distance + 0.1f * state);
-    } else if (button == Mouse::MOUSE_BUTTON_LEFT) {
+    if (button == Mouse::MOUSE_BUTTON_LEFT) {
         std::vector<Vector3> selectedPoints;
         if (state == Mouse::MOUSE_ACTION_DOWN) {
             internalState = INTERNAL_STATE_MOUSE_DOWN;
@@ -145,7 +146,5 @@ void StateIdle::UIEvent(int event) {
         mCamera->rotateCamTo(q);
     } else if (event == Controller::BTN_ID_DELETE_LINE) {
         enterState(State::statePool[STATE_DELETE]);
-    } else if (event == Controller::BTN_ID_MOVE_CENTER) {
-        enterState(State::statePool[STATE_MOVE_CENTER]);
     }
 }

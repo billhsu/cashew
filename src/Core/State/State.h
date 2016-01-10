@@ -43,7 +43,6 @@ class State {
         STATE_DRAW,
         STATE_DELETE,
         STATE_MIRROR,
-        STATE_MOVE_CENTER,
         STATE_ID_MAX
     };
     static State* statePool[STATE_ID_MAX];

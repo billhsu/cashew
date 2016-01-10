@@ -17,7 +17,6 @@
 
 #include "Core/Camera/Camera.h"
 #include "OpenGL/Impl/State/StateIdleImpl.h"
-#include "OpenGL/Impl/State/StateMoveCenterImpl.h"
 #include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
 #include "OpenGL/Impl/State/StateDrawImpl.h"
 #include "OpenGL/Impl/State/StateDeleteImpl.h"
@@ -88,7 +87,6 @@ bool windowPaused = false;
     }
     mController->init();
     mController->state_idle = new StateIdleImpl();
-    mController->state_move_center = new StateMoveCenterImpl();
     mController->state_select_plane = new StateSelectPlaneImpl();
     mController->state_draw = new StateDrawImpl();
     mController->state_delete = new StateDeleteImpl();

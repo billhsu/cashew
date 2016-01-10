@@ -20,6 +20,9 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
+    if (Controller::bMoveCenterMode) {
+        return;
+    }
     if (button == Mouse::MOUSE_BUTTON_LEFT && state == Mouse::MOUSE_ACTION_UP) {
         if (Controller::bCurrLine) {
             SketchLine* sketchLine =

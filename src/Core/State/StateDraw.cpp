@@ -22,6 +22,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
+    if (Controller::bMoveCenterMode) {
+        return;
+    }
     if (state == Mouse::MOUSE_ACTION_DOWN) {
         if (button == Mouse::MOUSE_BUTTON_LEFT) {
             if (internalState == STATE_DRAW_IDLE) {
