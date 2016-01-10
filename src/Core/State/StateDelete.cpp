@@ -20,9 +20,6 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
     if (button == Mouse::MOUSE_BUTTON_SCROLL) {
         mCamera->setCamDist(mCamera->distance + 0.1f * state);
     }
-    if (Controller::bMoveCenterMode) {
-        return;
-    }
     if (button == Mouse::MOUSE_BUTTON_LEFT && state == Mouse::MOUSE_ACTION_UP) {
         if (Controller::bCurrLine) {
             SketchLine* sketchLine =
@@ -37,6 +34,15 @@ void StateDelete::MouseButton(int button, int state, int x, int y) {
 }
 void StateDelete::PassiveMotion(int x, int y) {
 }
+
+void StateDelete::MouseLeftDrag(int dx, int dy) {
+    if (Controller::bMoveCenterMode) {
+        mCamera->setCamCenter(mCamera->getCamCenter() +
+                              calcMoveCenterVector(dx, dy, Plane()));
+        return;
+    }
+}
+
 void StateDelete::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
@@ -57,6 +63,10 @@ void StateDelete::UIEvent(int event) {
 }
 
 int StateDelete::btnDeleteDoneEvent(lua_State* L) {
-    enterState(State::statePool[STATE_IDLE]);
+    if (previousState->getStateID() == STATE_DRAW) {
+        returnPreviousState();
+    } else {
+        enterState(statePool[STATE_IDLE]);
+    }
     return 0;
 }

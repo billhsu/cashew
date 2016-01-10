@@ -60,6 +60,10 @@ int StateMirror::btnMirrorZEvent(lua_State* L) {
 }
 
 int StateMirror::btnMirrorDoneEvent(lua_State* L) {
-    enterState(State::statePool[STATE_IDLE]);
+    if (previousState->getStateID() == STATE_DRAW) {
+        returnPreviousState();
+    } else {
+        enterState(statePool[STATE_IDLE]);
+    }
     return 0;
 }

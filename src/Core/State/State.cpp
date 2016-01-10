@@ -10,6 +10,7 @@
 
 State* State::statePool[STATE_ID_MAX];
 State* State::currState = NULL;
+State* State::previousState = NULL;
 
 State::State() {
     mCamera = &Camera::getInstance();
@@ -26,8 +27,10 @@ void State::update(float timeDelta) {
 }
 
 void State::enterState(State* state) {
-    if (currState != NULL)
+    if (currState != NULL) {
         currState->postState();
+    }
+    previousState = currState;
     currState = state;
     currState->prepareState();
     std::cout << state << " - ";
@@ -35,6 +38,14 @@ void State::enterState(State* state) {
               << std::endl;
     IMGUI::getState().setActiveItem(0);
     IMGUI::getState().setHotItem(0);
+}
+
+void State::returnPreviousState() {
+    if (previousState != NULL) {
+        enterState(previousState);
+    } else {
+        enterState(State::statePool[STATE_IDLE]);
+    }
 }
 
 Vector3 State::calcMoveCenterVector(int dx, int dy, const Plane& activePlane) {

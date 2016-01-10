@@ -36,7 +36,9 @@ class State {
     virtual void update(float timeDelta);
     virtual void render(){};
     static State* currState;
+    static State* previousState;
     static void enterState(State* state);
+    static void returnPreviousState();
 
     enum {
         STATE_IDLE,
