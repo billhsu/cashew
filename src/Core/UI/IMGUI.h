@@ -70,6 +70,7 @@ namespace IMGUI {
         std::string text;
         Vector2 vertices[4];
         Vector4 color;
+        Vector3 textColor;
         Vector2 pos;
         Vector2 size;
         bool showHintText;
@@ -82,7 +83,8 @@ namespace IMGUI {
     bool checkbox(int x, int y, int w, int h, std::string text, bool& checked,
                   std::string textureFile, Vector4 color = Vector4(1, 1, 1, 1));
     void label(int x, int y, int w, int h, std::string text,
-               Vector4 color = Vector4(1, 1, 1, 0.8));
+               Vector4 color = Vector4(1, 1, 1, 0.8),
+               Vector3 textColor = Vector3(0, 0, 0));
     // For retina displays
     void setBackingRatio(float x, float y);
     float getBackingRatioX();

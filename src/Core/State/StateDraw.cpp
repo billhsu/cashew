@@ -45,17 +45,18 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
             if (internalState == STATE_DRAW_START_POINT_SELECTED) {
                 Controller::getInstance().getCameraPoint(endPoint,
                                                          Controller::currPlane);
-                SketchLine::addSketchLine(currentLine);
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
-                    SketchLine::addSketchLine(currentLineMirrorX);
+                if (currentLine.getLineSegments().size() > 1) {
+                    SketchLine::addSketchLine(currentLine);
+                    if (Controller::mirrorMode & Controller::MIRROR_MODE_X) {
+                        SketchLine::addSketchLine(currentLineMirrorX);
+                    }
+                    if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
+                        SketchLine::addSketchLine(currentLineMirrorY);
+                    }
+                    if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
+                        SketchLine::addSketchLine(currentLineMirrorZ);
+                    }
                 }
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_Y) {
-                    SketchLine::addSketchLine(currentLineMirrorY);
-                }
-                if (Controller::mirrorMode & Controller::MIRROR_MODE_Z) {
-                    SketchLine::addSketchLine(currentLineMirrorZ);
-                }
-
                 internalState = STATE_DRAW_IDLE;
             }
         }

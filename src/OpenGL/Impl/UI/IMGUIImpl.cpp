@@ -131,7 +131,7 @@ namespace IMGUIImpl {
             FontRenderer::addText("WenQuanYiMicroHei", 20,
                                   renderItem.pos.x + offsetX,
                                   renderItem.pos.y + fontH + offsetY,
-                                  Vector3(0.1f, 0.1f, 0.1f), renderItem.text);
+                                  renderItem.textColor, renderItem.text);
         }
         if (renderItem.showHintText) {
             float fontW = 0, fontH = 0;

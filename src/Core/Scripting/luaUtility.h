@@ -7,7 +7,7 @@ extern "C" {
 #include <lauxlib.h>
 }
 
-void lua_stack_dump (lua_State *L);
-void lua_evaluate_expression(lua_State *L, const char *expr);
-
+void lua_stack_dump(lua_State* L);
+void lua_evaluate_expression(lua_State* L, const char* expr);
+float get_table_field(lua_State* L, int tableIdx, const char* key);
 #endif

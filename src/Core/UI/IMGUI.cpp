@@ -22,6 +22,7 @@ namespace IMGUI {
 
     static int luaButton(lua_State* L);
     static int luaCheckbox(lua_State* L);
+    static int luaLabel(lua_State* L);
 
     int mWindowWidth, mWindowHeight;
     float backingRatioX = 1.0f, backingRatioY = 1.0f;
@@ -53,6 +54,7 @@ namespace IMGUI {
         luaState = _luaState;
         lua_register(luaState, "button", luaButton);
         lua_register(luaState, "checkbox", luaCheckbox);
+        lua_register(luaState, "label", luaLabel);
         lua_pushnumber(luaState, backingRatioX);
         lua_setglobal(luaState, "backingRatioX");
         lua_pushnumber(luaState, backingRatioY);
@@ -127,7 +129,7 @@ namespace IMGUI {
                                   std::string text, float x, float y,
                                   float width, float height, float offset_x,
                                   float offset_y, Vector4 color,
-                                  bool showHintText) {
+                                  Vector3 textColor, bool showHintText) {
         RenderItem item;
         item.type = itemType;
         if (textureFile.find(TEXTURE_FILE_PATH) == 0) {
@@ -144,11 +146,22 @@ namespace IMGUI {
         item.vertices[3].x = x + offset_x;
         item.vertices[3].y = y + offset_y + height;
         item.color = color;
+        item.textColor = textColor;
         item.text = text;
         item.showHintText = showHintText;
         item.pos = Vector2(x, y);
         item.size = Vector2(width, height);
         return item;
+    }
+
+    RenderItem generateRenderItem(int itemType, std::string textureFile,
+                                  std::string text, float x, float y,
+                                  float width, float height, float offset_x,
+                                  float offset_y, Vector4 color,
+                                  bool showHintText) {
+        return generateRenderItem(itemType, textureFile, text, x, y, width,
+                                  height, offset_x, offset_y, color,
+                                  Vector3(0, 0, 0), showHintText);
     }
 
     void checkUIRegion(int ID, int x, int y, int w, int h) {
@@ -235,10 +248,11 @@ namespace IMGUI {
         return false;
     }
 
-    void label(int x, int y, int w, int h, std::string text, Vector4 color) {
+    void label(int x, int y, int w, int h, std::string text, Vector4 color,
+               Vector3 textColor) {
         RenderItem item =
             generateRenderItem(RENDER_ITEM_LABEL, "media/textures/FFFFFF-1.png",
-                               text, x, y, w, h, 0, 0, color, false);
+                               text, x, y, w, h, 0, 0, color, textColor, false);
 
         addToRenderQueue(item);
     }
@@ -269,6 +283,26 @@ namespace IMGUI {
         lua_pushboolean(L, checked);
         lua_settable(L, 6);
         lua_pushboolean(L, hit);
+        return 1;
+    }
+    int luaLabel(lua_State* L) {
+        int x = lua_tonumber(L, 1);
+        int y = lua_tonumber(L, 2);
+        int w = lua_tonumber(L, 3);
+        int h = lua_tonumber(L, 4);
+        const char* text = lua_tostring(L, 5);
+        float r, g, b, a;
+        r = get_table_field(L, 6, "r");
+        g = get_table_field(L, 6, "g");
+        b = get_table_field(L, 6, "b");
+        a = get_table_field(L, 6, "a");
+        Vector4 color = Vector4(r, g, b, a);
+        std::cout << color << std::endl;
+        r = get_table_field(L, 7, "r");
+        g = get_table_field(L, 7, "g");
+        b = get_table_field(L, 7, "b");
+        Vector3 textColor = Vector3(r, g, b);
+        label(x, y, w, h, text, color, textColor);
         return 1;
     }
 }

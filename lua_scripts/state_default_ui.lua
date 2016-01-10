@@ -29,6 +29,10 @@ function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isV
   end
 end
 
+function showStateLabel(stateName)
+  label(10, 10, 200, 50, stateName, {r=1.0,g=1.0,b=1.0,a=0.8}, {r=0.0,g=0.0,b=0.0})
+end
+
 local topBarItemSize = 60 * backingRatioX
 local topBarItemMargin = 10 * backingRatioX
 local function genTopBarItemPos(idx)

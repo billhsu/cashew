@@ -53,6 +53,10 @@ class State {
         return stateID;
     }
 
+    std::string getStateName() {
+        return stateName;
+    }
+
    protected:
     Camera* mCamera;
     int stateID;
