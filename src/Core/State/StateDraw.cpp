@@ -93,6 +93,12 @@ void StateDraw::addLineWithMirror() {
 }
 
 void StateDraw::MouseLeftDrag(int dx, int dy) {
+    if (Controller::bMoveCenterMode) {
+        mCamera->setCamCenter(
+            mCamera->getCamCenter() +
+            calcMoveCenterVector(dx, dy, Controller::currPlane));
+        return;
+    }
     if (internalState == STATE_DRAW_START_POINT_SELECTED) {
         endPoint = intersect(Controller::getInstance().getCameraRay(),
                              Controller::currPlane);

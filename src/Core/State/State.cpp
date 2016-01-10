@@ -38,8 +38,6 @@ void State::enterState(State* state) {
 }
 
 Vector3 State::calcMoveCenterVector(int dx, int dy, const Plane& activePlane) {
-    std::cout << Controller::mouseX << " " << Controller::mouseY << " "
-              << " " << dx << " " << dy << std::endl;
     Ray rayCurrent = mCamera->getRay(Controller::mouseX, Controller::mouseY);
     Ray rayPrevious =
         mCamera->getRay(Controller::mouseX - dx, Controller::mouseY - dy);
