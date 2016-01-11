@@ -1,16 +1,16 @@
 /********************************************************/
 /*                 Page background                      */
 /********************************************************/
-body, .content { 
-	background: #fff; 
-	color:#333; 
+body, .content {
+	background: #fff;
+	color:#333;
 }
 
 
 /********************************************************/
 /*                     Typography                       */
 /********************************************************/
-h1, h2, h3, h4, h5, h6 { 
+h1, h2, h3, h4, h5, h6 {
 	font-family: "Open sans", Helvetica, Arial;
 	font-weight: 300;
 }
@@ -35,7 +35,7 @@ a:visited { color: #D87563; }
 	background: -o-linear-gradient(top,  #A43222 0%,#CD503A 100%);
 	background: -ms-linear-gradient(top,  #A43222 0%,#CD503A 100%);
 	background: linear-gradient(to bottom,  #A43222 0%,#CD503A 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A43222', endColorstr='#CD503A',GradientType=0 ); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A43222', endColorstr='#CD503A',GradientType=0 );
 	color: white;
 	margin-bottom: 0;
 	padding-bottom: 0px;
@@ -68,8 +68,8 @@ a:visited { color: #D87563; }
 	text-align: center;
 	text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
-.header .small { 
-	font-size: 0.9em; 
+.header .small {
+	font-size: 0.9em;
 	line-height: 1.2em;
 	text-align: center;
 	text-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
@@ -110,14 +110,14 @@ a:visited { color: #D87563; }
 /*                       Content                        */
 /********************************************************/
 
-.content { 
-	position: relative; 
-	z-index: 999; 
-	margin-bottom:40px;  
+.content {
+	position: relative;
+	z-index: 999;
+	margin-bottom:40px;
 }
 
-.jumbotron { 
-	background:#f5f5f5; 
+.jumbotron {
+	background:#f5f5f5;
 }
 
 .content .lead { font-family: Georgia; font-style: italic; color:#999; }
@@ -125,7 +125,7 @@ a:visited { color: #D87563; }
 .space-before { padding-top:20px; }
 .space-after { padding-bottom:20px; }
 
-.img-feature { 
+.img-feature {
 	border:15px solid #f5f5f5;
 	margin:0 auto;
 	-webkit-border-radius: 50% ;
@@ -191,7 +191,7 @@ a:visited { color: #D87563; }
 /* Remove this line to activate
 
 .header {
-	background: #005363 url(../images/header.jpg) bottom center; 
+	background: #005363 url(../images/header.jpg) bottom center;
 	-webkit-background-size: cover;
 	   -moz-background-size: cover;
 	     -o-background-size: cover;
@@ -212,7 +212,7 @@ a:visited { color: #5A8B86; }
 /*      Violet      */
 /********************/
 
-/* Remove this line to activate 
+/* Remove this line to activate
 
 .header {
 	background: #313A5B;
@@ -222,7 +222,7 @@ a:visited { color: #5A8B86; }
 	background: -o-linear-gradient(top,  #313A5B 0%,#5D577B 100%);
 	background: -ms-linear-gradient(top,  #313A5B 0%,#5D577B 100%);
 	background: linear-gradient(to bottom,  #313A5B 0%,#5D577B 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#313A5B', endColorstr='#5D577B',GradientType=0 ); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#313A5B', endColorstr='#5D577B',GradientType=0 );
 }
 .header h1 { color:white; }
 
@@ -232,4 +232,3 @@ a:hover, a:focus { color: #007777; }
 a:visited { color: #5A8B86; }
 
 /**/
-
