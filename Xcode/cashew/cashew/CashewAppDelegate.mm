@@ -67,6 +67,6 @@
 
 - (IBAction)showCashewHelp:(id)sender {
     [[NSWorkspace sharedWorkspace]
-        openURL:[NSURL URLWithString:@"http://github.com/billhsu/cashew"]];
+        openURL:[NSURL URLWithString:@"http://billhsu.github.io/cashew/"]];
 }
 @end
