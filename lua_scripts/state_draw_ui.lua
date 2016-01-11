@@ -10,3 +10,5 @@ local buttonPosX,buttonPosY = genConfirmationBarItemPos()
 if button(buttonPosX ,buttonPosY, itemSize, itemSize, "Confirm", "button_confirm.png") then
   drawPlaneDone()
 end
+
+showStateLabel("Draw Lines")

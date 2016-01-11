@@ -297,7 +297,6 @@ namespace IMGUI {
         b = get_table_field(L, 6, "b");
         a = get_table_field(L, 6, "a");
         Vector4 color = Vector4(r, g, b, a);
-        std::cout << color << std::endl;
         r = get_table_field(L, 7, "r");
         g = get_table_field(L, 7, "g");
         b = get_table_field(L, 7, "b");

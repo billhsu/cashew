@@ -39,7 +39,7 @@ void lua_evaluate_expression(lua_State* L, const char* expr) {
 }
 
 float get_table_field(lua_State* L, int tableIdx, const char* key) {
-    int result;
+    float result;
     lua_pushstring(L, key);
     lua_gettable(L, tableIdx);
     result = (float)lua_tonumber(L, -1);

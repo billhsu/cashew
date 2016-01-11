@@ -29,8 +29,18 @@ function genItemPos(centerX, centerY, size, margin, totalNumber, currentIdx, isV
   end
 end
 
+local stateNameLabelWidth = 200 * backingRatioX
+local stateNameLabelHeight = 50 * backingRatioX
+local confirmButtonSize = 60 * backingRatioX
+
+local function genStateNameLabelPos()
+  posX, posY = genItemPos(window_width - 2 * confirmButtonSize, window_height - 2 * confirmButtonSize, confirmButtonSize, 0, 1, 1, false)
+  return posX + confirmButtonSize / 2 - stateNameLabelWidth / 2, posY + confirmButtonSize
+end
+
 function showStateLabel(stateName)
-  label(10, 10, 200, 50, stateName, {r=1.0,g=1.0,b=1.0,a=0.8}, {r=0.0,g=0.0,b=0.0})
+  posX, posY = genStateNameLabelPos()
+  label(posX, posY, stateNameLabelWidth, stateNameLabelHeight, stateName, {r=0.0,g=0.0,b=0.0,a=0.0}, {r=0.8,g=0.8,b=0.8})
 end
 
 local topBarItemSize = 60 * backingRatioX

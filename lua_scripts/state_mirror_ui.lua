@@ -30,3 +30,5 @@ local buttonPosX,buttonPosY = genConfirmationBarItemPos()
 if button(buttonPosX ,buttonPosY, itemSize, itemSize, "Confirm", "button_confirm.png") then
   mirrorAxisSelectionDone()
 end
+
+showStateLabel("Mirror Selection")
