@@ -24,6 +24,14 @@ class SketchLine {
     static std::vector<SketchLine>& getGlobalSketchLines() {
         return sketchLines;
     }
+    static void clearAllSketchLines() {
+        sketchLines.clear();
+        deletedLines.clear();
+        redoLines.clear();
+        lineOperations.clear();
+        redoOperations.clear();
+        globalLineSegments.clear();
+    }
     static void undoLastOperation();
     static void redoLastOperation();
 

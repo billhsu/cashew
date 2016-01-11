@@ -121,7 +121,7 @@ int newFile(lua_State* L) {
     std::string option =
         showNewFileDialogWrapper((__bridge void*)fileOperations);
     if (option == "OK") {
-        SketchLine::getGlobalSketchLines().clear();
+        SketchLine::clearAllSketchLines();
     }
     return 0;
 }
@@ -203,22 +203,25 @@ int saveFile(lua_State* L) {
     std::cout << "Saving to " << filename << std::endl;
     std::ofstream fileStream;
     fileStream.open(filename);
-    //    if (filename.substr(filename.find_last_of(".") + 1) == "cashew") {
-    //        fileStream << "cashew_v1" << std::endl;
-    //        fileStream << Controller::sketchLines.size() << std::endl;
-    //        for (int i = 0; i < Controller::sketchLines.size(); ++i) {
-    //            fileStream << Controller::sketchLines[i].points[0] << " "
-    //                       << Controller::sketchLines[i].points[1] <<
-    //                       std::endl;
-    //        }
-    //    } else if (filename.substr(filename.find_last_of(".") + 1) == "stl") {
-    //        fileStream << "solid cashew" << std::endl;
-    //        for (int i = 0; i < Controller::sketchLines.size(); ++i) {
-    //            fileStream << lineSegmentToSTLCube(Controller::sketchLines[i])
-    //                       << std::endl;
-    //        }
-    //        fileStream << "endsolid cashew" << std::endl;
-    //    }
+    if (filename.substr(filename.find_last_of(".") + 1) == "cashew") {
+        fileStream << "cashew_v1" << std::endl;
+        fileStream << SketchLine::getGlobalSketchLines().size() << std::endl;
+        for (int i = 0; i < SketchLine::getGlobalSketchLines().size(); ++i) {
+            unsigned long lines =
+                SketchLine::getGlobalSketchLines()[i].getLineSegments().size();
+            fileStream << lines << std::endl;
+            for (unsigned long j = 0; j < lines; ++j) {
+                fileStream << SketchLine::getGlobalSketchLines()[i]
+                                  .getLineSegments()[j]
+                                  .points[0]
+                           << " "
+                           << SketchLine::getGlobalSketchLines()[i]
+                                  .getLineSegments()[j]
+                                  .points[1]
+                           << std::endl;
+            }
+        }
+    }
     fileStream.close();
     MouseEventQueue::clear();
     return 0;
@@ -229,29 +232,32 @@ int openFile(lua_State* L) {
     std::string filename =
         showOpenFileDialogWrapper((__bridge void*)fileOperations);
     windowPaused = false;
-    //    if (filename == "")
-    //        return 0;
-    //    std::cout << "Opening " << filename << std::endl;
-    //    Controller::sketchLines.clear();
-    //    std::ifstream fileStream;
-    //    fileStream.open(filename);
-    //    std::string versionStr;
-    //    fileStream >> versionStr;
-    //    std::cout << "Cashew version: " << versionStr << std::endl;
-    //    int sketchSize;
-    //    fileStream >> sketchSize;
-    //    std::cout << "Sketches: " << sketchSize << std::endl;
-    //    for (int i = 0; i < sketchSize; ++i) {
-    //        Vector3 point1, point2;
-    //        fileStream >> point1 >> point2;
-    //        LineSegment line = LineSegment(point1, point2);
-    //        Controller::addLine(line);
-    //    }
-    //    Controller::lineOperations.clear();
-    //    Controller::redoOperations.clear();
-    //    Controller::deletedLines.clear();
-    //    Controller::redoLines.clear();
-    //    fileStream.close();
+    if (filename == "")
+        return 0;
+    std::cout << "Opening " << filename << std::endl;
+    SketchLine::clearAllSketchLines();
+    std::ifstream fileStream;
+    fileStream.open(filename);
+    std::string versionStr;
+    fileStream >> versionStr;
+    std::cout << "Cashew version: " << versionStr << std::endl;
+    int sketchSize;
+    fileStream >> sketchSize;
+    std::cout << "Sketche Lines: " << sketchSize << std::endl;
+    for (int i = 0; i < sketchSize; ++i) {
+        unsigned long lines;
+        fileStream >> lines;
+        std::cout << "Line segments in current sketch line: " << lines
+                  << std::endl;
+        SketchLine sketchLine;
+        for (unsigned long j = 0; j < lines; ++j) {
+            LineSegment lineSegment;
+            fileStream >> lineSegment.points[0] >> lineSegment.points[1];
+            sketchLine.addLineSegment(lineSegment);
+        }
+        SketchLine::addSketchLine(sketchLine);
+    }
+    fileStream.close();
     MouseEventQueue::clear();
     return 0;
 }
