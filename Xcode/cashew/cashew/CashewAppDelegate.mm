@@ -11,54 +11,62 @@
 #import "CashewOpenGLInfoHelper.h"
 
 @interface CashewAppDelegate ()
+- (IBAction)showCashewHelp:(id)sender;
 
-@property (weak) IBOutlet NSWindow *window;
-@property (strong) NSOpenGLView *view;
+@property(weak) IBOutlet NSWindow* window;
+@property(strong) NSOpenGLView* view;
 @end
 
 @implementation CashewAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification*)aNotification {
     // Insert code here to initialize your application
-    NSOpenGLPixelFormatAttribute attributes[] = {
-        NSOpenGLPFAColorSize, 32,
-        NSOpenGLPFADepthSize, 16,
-        NSOpenGLPFAStencilSize, 8,
-        NSOpenGLPFADoubleBuffer,
-        NSOpenGLPFAAccelerated,
-        NSOpenGLPFAOpenGLProfile, NSOpenGLProfileVersion3_2Core,
-        0
-    };
-    
-    NSOpenGLPixelFormat *pixelFormat = [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
+    NSOpenGLPixelFormatAttribute attributes[] = {NSOpenGLPFAColorSize,
+                                                 32,
+                                                 NSOpenGLPFADepthSize,
+                                                 16,
+                                                 NSOpenGLPFAStencilSize,
+                                                 8,
+                                                 NSOpenGLPFADoubleBuffer,
+                                                 NSOpenGLPFAAccelerated,
+                                                 NSOpenGLPFAOpenGLProfile,
+                                                 NSOpenGLProfileVersion3_2Core,
+                                                 0};
+
+    NSOpenGLPixelFormat* pixelFormat =
+        [[NSOpenGLPixelFormat alloc] initWithAttributes:attributes];
     if (pixelFormat == nil) {
         NSLog(@"Faild create pixel format");
         return;
     }
-    
-    _view = [[CashewOpenGLView alloc] initWithFrame:self.window.frame pixelFormat:pixelFormat];
-    
+
+    _view = [[CashewOpenGLView alloc] initWithFrame:self.window.frame
+                                        pixelFormat:pixelFormat];
+
     [self.window setContentView:_view];
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
+- (void)applicationWillTerminate:(NSNotification*)aNotification {
     [_view clearGLContext];
     [_window setReleasedWhenClosed:NO];
 }
-- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication
-{
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:
+    (NSApplication*)theApplication {
     return TRUE;
 }
-- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
-{
-    if ( flag ) {
+- (BOOL)applicationShouldHandleReopen:(NSApplication*)theApplication
+                    hasVisibleWindows:(BOOL)flag {
+    if (flag) {
         [_window orderFront:self];
-    }
-    else {
+    } else {
         [_window makeKeyAndOrderFront:self];
     }
-    
+
     return YES;
 }
 
+- (IBAction)showCashewHelp:(id)sender {
+    [[NSWorkspace sharedWorkspace]
+        openURL:[NSURL URLWithString:@"http://github.com/billhsu/cashew"]];
+}
 @end
