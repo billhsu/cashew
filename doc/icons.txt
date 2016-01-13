@@ -1,4 +1,4 @@
-Icons from 
+Icons from
 http://findicons.com/pack/104/orb (http://taytel.deviantart.com/)
 http://findicons.com/pack/1035/human_o2?q=new
 http://findicons.com/pack/2580/android_icons
@@ -8,3 +8,4 @@ https://www.iconfinder.com/icons/48785/delete_document_error_remove_icon#size=12
 https://www.iconfinder.com/icons/183335/undo_icon#size=128
 https://www.iconfinder.com/icons/298828/mirror_icon#size=128
 https://www.iconfinder.com/icons/341046/circle_console_controller_gamepad_games_gaming_joystick_player_playstation_shape_sony_videogames_icon#size=64
+https://www.iconfinder.com/icons/513929/draw_edit_options_pen_pencil_tool_write_icon#size=128
