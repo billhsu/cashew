@@ -10,4 +10,21 @@
     - media/textures/point_4.png
     - media/textures/point_3.png
 
-2.
+##  MIT License
+1. Octicons by GitHub(www.github.com)
+  - https://www.iconfinder.com/iconsets/octicons
+  - Icons we use(adjusted the color of the icons):
+    - media/textures/button_pencil.png
+    - media/textures/button_mirror.png
+
+##  Flaticon Basic License http://cdn.flaticon.com/license/license.pdf / Creative Commons BY 3.0
+1. Basic Application by [Freepik](http://www.freepik.com/)
+  - www.flaticon.com/packs/basic-application/
+  - Icons we use(adjusted the color of the icons):
+    -	media/textures/button_movecenter.png
+	  - media/textures/button_redo.png
+	  - media/textures/button_undo.png
+2. Admin UI by [Freepik](http://www.freepik.com/)
+  - http://www.flaticon.com/packs/admin-ui
+  - Icons we use(adjusted the color of the icons):
+    - media/textures/button_delete.png
