@@ -67,14 +67,6 @@ bool windowPaused = false;
     NSLog(@"prepareRenderData");
 
     textureManager = &TextureManager::getInstance();
-    textureManager->loadTexture("media/textures/point_selected.png", 4);
-    textureManager->loadTexture("media/textures/point_current.png", 4);
-    textureManager->loadTexture("media/textures/button_cancel.png", 4);
-    textureManager->loadTexture("media/textures/button_confirm.png", 4);
-    textureManager->loadTexture("media/textures/button_movecenter.png", 4);
-    textureManager->loadTexture("media/textures/button_horizontal.png", 4);
-    textureManager->loadTexture("media/textures/button_vertical.png", 4);
-    textureManager->loadTexture("media/textures/social-icon.png", 4);
     textureManager->loadTexture("media/textures/point_3.png", 4);
     textureManager->loadTexture("media/textures/point_4.png", 4);
     textureManager->loadTexture("media/textures/FFFFFF-1.png", 4);
