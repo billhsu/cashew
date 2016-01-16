@@ -112,16 +112,17 @@ void StateDraw::MouseLeftDrag(int dx, int dy) {
         return;
     }
     if (internalState == STATE_DRAW_START_POINT_SELECTED) {
-        endPoint = intersect(Controller::getInstance().getCameraRay(),
-                             Controller::currPlane);
-
         if (Controller::bPencilMode) {
+            endPoint = intersect(Controller::getInstance().getCameraRay(),
+                                 Controller::currPlane);
             if ((startPoint - endPoint).length() < 0.25f) {
                 return;
             }
             addLineWithMirror();
             startPoint = endPoint;
         } else {
+            Controller::getInstance().getCameraPoint(endPoint,
+                                                     Controller::currPlane);
             if (currentLine.getLineSegments().size() == 0) {
                 addLineWithMirror();
             }

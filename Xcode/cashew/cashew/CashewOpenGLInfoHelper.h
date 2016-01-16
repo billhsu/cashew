@@ -1,19 +1,15 @@
-//  Shipeng Xu
-//  CashewOpenGLInfoHelper.h
-//
-//  Originally Created by 朱 巍 on 17/2/13.
-//  Copyright (c) 2013 Juicer. All rights reserved.
+//  Thanks https://github.com/JulianAtGitHub/OpenGL-tutorial-for-Cocoa-master
 //
 
 #import <Foundation/Foundation.h>
 
 @interface CashewOpenGLInfoHelper : NSObject
 
-@property (nonatomic, readonly) float openglVersion;
-@property (nonatomic, readonly) NSString *openglExtensions;
+@property(nonatomic, readonly) float openglVersion;
+@property(nonatomic, readonly) NSString* openglExtensions;
 
-+ (CashewOpenGLInfoHelper *)sharedOpenGLInfoHelper;
++ (CashewOpenGLInfoHelper*)sharedOpenGLInfoHelper;
 
-- (BOOL) checkForGLExtension:(NSString *)searchName;
+- (BOOL)checkForGLExtension:(NSString*)searchName;
 
 @end

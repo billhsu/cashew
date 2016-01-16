@@ -1,9 +1,4 @@
-//  Shipeng Xu
-//  CashewOpenGLView.m
-//
-//  Originally Created by wei.zhu on 1/23/13.
-//  Copyright (c) 2013 Juicer. All rights reserved.
-//
+// Thanks https://github.com/JulianAtGitHub/OpenGL-tutorial-for-Cocoa-master
 
 #import "CashewOpenGLView.h"
 #import "CashewInputController.h"
