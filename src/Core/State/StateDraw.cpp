@@ -28,10 +28,9 @@ void StateDraw::MouseButton(int button, int state, int x, int y) {
     if (state == Mouse::MOUSE_ACTION_DOWN) {
         if (button == Mouse::MOUSE_BUTTON_LEFT) {
             if (internalState == STATE_DRAW_IDLE) {
-                Controller::getInstance().getCameraPoint(startPoint,
-                                                         Controller::currPlane);
-                Controller::getInstance().getCameraPoint(endPoint,
-                                                         Controller::currPlane);
+                startPoint = intersect(Controller::getInstance().getCameraRay(),
+                                       Controller::currPlane);
+                endPoint = startPoint;
                 currentLine.getLineSegments().clear();
                 currentLineMirrorX.getLineSegments().clear();
                 currentLineMirrorY.getLineSegments().clear();
