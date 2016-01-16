@@ -10,8 +10,17 @@ Website: http://billhsu.github.io/cashew
 
 <a href="http://billhsu.github.io/cashew"><img src="doc/screenshot.png" width="600" /></a>
 
+## Build
+### With command line(Mac OS)
+```shell
+./configure && make
+xctool -project Xcode/cashew/cashew.xcodeproj -scheme cashew build;
+```
+### With Xcode
+1. ```./configure && make```
+2. Open Xcode/cashew/cashew.xcodeproj with Xcode
 
-##Author
+## Author
 **Shipeng Xu**
 
 + http://BillHsu.me
