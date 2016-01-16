@@ -7,3 +7,9 @@ backingRatioY = 1
 moveCenterMode = {
     checked=true
 }
+
+-- pencilModeEnabled.checked = true: pencil mode
+-- pencilModeEnabled.checked = false: line mode
+pencilModeEnabled = {
+    checked=true
+}

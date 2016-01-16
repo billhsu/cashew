@@ -52,7 +52,7 @@ namespace SketchLineRenderer {
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
     }
-    void render(SketchLine& sketchLine, Vector3 color) {
+    void render(SketchLine sketchLine, Vector3 color) {
         if (sketchLine.getLineSegments().size() == 0) {
             return;
         }
@@ -86,6 +86,15 @@ namespace SketchLineRenderer {
     }
 
     void updateBuffer(SketchLine& sketchLine) {
+        // This is a speciel case.
+        // Let's break the line segment into two half line segments.
+        if (sketchLine.getLineSegments().size() == 1) {
+            Vector3 originalEnd = sketchLine.getLineSegments()[0].points[1];
+            Vector3 originBegin = sketchLine.getLineSegments()[0].points[0];
+            Vector3 centerPos = 0.5f * (originBegin + originalEnd);
+            sketchLine.getLineSegments()[0].points[1] = centerPos;
+            sketchLine.addLineSegment(LineSegment(centerPos, originalEnd));
+        }
         int numOfVertex = int(sketchLine.getLineSegments().size() + 1);
         if (numOfVertex > MAX_NUM_VERTEX - 1) {
             numOfVertex = MAX_NUM_VERTEX - 1;

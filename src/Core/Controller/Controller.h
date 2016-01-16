@@ -45,6 +45,7 @@ class Controller {
     static LineSegment currLine;
     static bool bCurrLine;
     static bool bMoveCenterMode;
+    static bool bPencilMode;
 
     int status;
 

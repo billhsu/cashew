@@ -42,6 +42,8 @@ bool Controller::bCurrPoint = false;
 LineSegment Controller::currLine;
 bool Controller::bCurrLine = false;
 bool Controller::bMoveCenterMode = false;
+bool Controller::bPencilMode = true;
+
 Vector3 Controller::rotate = Vector3(-30, 0, 0);
 
 lua_State* Controller::luaState = NULL;
@@ -70,6 +72,7 @@ Controller::~Controller() {
 
 static int btnStandardViewEvent(lua_State* L);
 static int btnMoveCenterEvent(lua_State* L);
+static int btnPencilModeEvent(lua_State* L);
 static int btnUndoEvent(lua_State* L);
 static int btnRedoEvent(lua_State* L);
 static int btnDeleteLineEvent(lua_State* L);
@@ -85,6 +88,7 @@ void Controller::init() {
     camera->rotateCam(rotate);
     lua_register(luaState, "standardView", btnStandardViewEvent);
     lua_register(luaState, "moveCenter", btnMoveCenterEvent);
+    lua_register(luaState, "pencilMode", btnPencilModeEvent);
     lua_register(luaState, "undo", btnUndoEvent);
     lua_register(luaState, "redo", btnRedoEvent);
     lua_register(luaState, "deleteLine", btnDeleteLineEvent);
@@ -196,6 +200,13 @@ int btnMoveCenterEvent(lua_State* L) {
     Controller::bMoveCenterMode = !checked;
     return 0;
 }
+
+int btnPencilModeEvent(lua_State* L) {
+    bool checked = lua_toboolean(L, 1);
+    Controller::bPencilMode = checked;
+    return 0;
+}
+
 int btnUndoEvent(lua_State* L) {
     Controller::undoLastOperation();
     return 0;

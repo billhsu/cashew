@@ -10,7 +10,7 @@ class GLSLShader;
 
 namespace SketchLineRenderer {
     void init();
-    void render(SketchLine& sketchLine, Vector3 color);
+    void render(SketchLine sketchLine, Vector3 color);
     GLSLShader* getShader();
     void release();
 }
