@@ -7,7 +7,7 @@ Cashew
 Freestyle 3D sketching app.
 
 Website: http://billhsu.github.io/cashew  
-Demo Video: https://www.youtube.com/watch?v=kX9W6WuJf5U
+Demo Video: On [YouTube](https://www.youtube.com/watch?v=kX9W6WuJf5U), or on [优酷](http://v.youku.com/v_show/id_XMTQ0NzcwODQwOA==.html)
 
 <a href="http://billhsu.github.io/cashew"><img src="doc/screenshot.png" width="600" /></a>
 
