@@ -1,3 +1,4 @@
 build/
 cashew
 lib/
+.DS_Store
