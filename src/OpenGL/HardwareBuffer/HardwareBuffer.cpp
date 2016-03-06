@@ -8,22 +8,47 @@
 void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag) {
     VBOInfo = vboStruct;
     flags = vboFlag;
+    glGenVertexArrays(1, &vertexArrayObj);
+    glBindVertexArray(vertexArrayObj);
+    int index = 0;
+    int tmp_loc[32];
     if (vboFlag & FLAG_VERTEX_BUFFER) {
         bufferGenBind<float>(vertexBuffer, vboStruct.vertexBufferSize,
                              vboStruct.vertexBufferData, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        glEnableVertexAttribArray(VBOLocation[FLAG_VERTEX_BUFFER]);
+        glVertexAttribPointer(VBOLocation[FLAG_VERTEX_BUFFER],
+                              VBOUnitSize[FLAG_VERTEX_BUFFER], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_VERTEX_BUFFER];
+        ++index;
     }
 
     if (vboFlag & FLAG_UV_BUFFER) {
         bufferGenBind<float>(uvBuffer, vboStruct.uvBufferSize,
                              vboStruct.uvBufferData, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
+        glEnableVertexAttribArray(VBOLocation[FLAG_UV_BUFFER]);
+        glVertexAttribPointer(VBOLocation[FLAG_UV_BUFFER],
+                              VBOUnitSize[FLAG_UV_BUFFER], GL_FLOAT, GL_FALSE,
+                              0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_UV_BUFFER];
+        ++index;
     }
 
     if (vboFlag & FLAG_COLOR_BUFFER) {
         bufferGenBind<float>(colorBuffer, vboStruct.colorBufferSize,
                              vboStruct.colorBufferData, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
+        glEnableVertexAttribArray(VBOLocation[FLAG_COLOR_BUFFER]);
+        glVertexAttribPointer(VBOLocation[FLAG_COLOR_BUFFER],
+                              VBOUnitSize[FLAG_COLOR_BUFFER], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_COLOR_BUFFER];
+        ++index;
     }
 
     if (vboFlag & FLAG_INDEX_BUFFER) {
@@ -36,35 +61,70 @@ void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag) {
         bufferGenBind<float>(extraBuffer1, vboStruct.extraBuffer1Size,
                              vboStruct.extraBuffer1Data, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer1);
+        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_1]);
+        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_1],
+                              VBOUnitSize[FLAG_EXTRA_BUFFER_1], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_1];
+        ++index;
     }
 
     if (vboFlag & FLAG_EXTRA_BUFFER_2) {
         bufferGenBind<float>(extraBuffer2, vboStruct.extraBuffer2Size,
                              vboStruct.extraBuffer2Data, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer2);
+        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_2]);
+        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_2],
+                              VBOUnitSize[FLAG_EXTRA_BUFFER_2], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_2];
+        ++index;
     }
 
     if (vboFlag & FLAG_EXTRA_BUFFER_3) {
         bufferGenBind<float>(extraBuffer3, vboStruct.extraBuffer3Size,
                              vboStruct.extraBuffer3Data, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer3);
+        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_3]);
+        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_3],
+                              VBOUnitSize[FLAG_EXTRA_BUFFER_3], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_3];
+        ++index;
     }
 
     if (vboFlag & FLAG_EXTRA_BUFFER_4) {
         bufferGenBind<float>(extraBuffer4, vboStruct.extraBuffer4Size,
                              vboStruct.extraBuffer4Data, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer4);
+        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_4]);
+        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_4],
+                              VBOUnitSize[FLAG_EXTRA_BUFFER_4], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_4];
+        ++index;
     }
 
     if (vboFlag & FLAG_EXTRA_BUFFER_5) {
         bufferGenBind<float>(extraBuffer5, vboStruct.extraBuffer5Size,
                              vboStruct.extraBuffer5Data, GL_ARRAY_BUFFER,
                              GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer5);
+        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_5]);
+        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_5],
+                              VBOUnitSize[FLAG_EXTRA_BUFFER_5], GL_FLOAT,
+                              GL_FALSE, 0, (GLvoid*)0);
+        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_5];
+        ++index;
     }
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glGenVertexArrays(1, &vertexArrayObj);
+    glBindVertexArray(0);
 }
 
 void HardwareBuffer::updateVBO(const VBOStruct vboStruct,
@@ -160,97 +220,11 @@ void HardwareBuffer::setVBOUnitSize(unsigned int vboFlag, int unitSize) {
 void HardwareBuffer::render(GLenum mode, int unitSize) {
     checkGlErr(__FILE__, __LINE__);
     glBindVertexArray(vertexArrayObj);
-    int index = 0;
-    int tmp_loc[32];
-
-    if (flags & FLAG_VERTEX_BUFFER) {
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glEnableVertexAttribArray(VBOLocation[FLAG_VERTEX_BUFFER]);
-        glVertexAttribPointer(VBOLocation[FLAG_VERTEX_BUFFER],
-                              VBOUnitSize[FLAG_VERTEX_BUFFER], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_VERTEX_BUFFER];
-        ++index;
-    }
-
-    if (flags & FLAG_EXTRA_BUFFER_1) {
-        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer1);
-        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_1]);
-        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_1],
-                              VBOUnitSize[FLAG_EXTRA_BUFFER_1], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_1];
-        ++index;
-    }
-
-    if (flags & FLAG_EXTRA_BUFFER_2) {
-        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer2);
-        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_2]);
-        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_2],
-                              VBOUnitSize[FLAG_EXTRA_BUFFER_2], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_2];
-        ++index;
-    }
-
-    if (flags & FLAG_EXTRA_BUFFER_3) {
-        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer3);
-        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_3]);
-        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_3],
-                              VBOUnitSize[FLAG_EXTRA_BUFFER_3], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_3];
-        ++index;
-    }
-
-    if (flags & FLAG_EXTRA_BUFFER_4) {
-        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer4);
-        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_4]);
-        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_4],
-                              VBOUnitSize[FLAG_EXTRA_BUFFER_4], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_4];
-        ++index;
-    }
-
-    if (flags & FLAG_EXTRA_BUFFER_5) {
-        glBindBuffer(GL_ARRAY_BUFFER, extraBuffer5);
-        glEnableVertexAttribArray(VBOLocation[FLAG_EXTRA_BUFFER_5]);
-        glVertexAttribPointer(VBOLocation[FLAG_EXTRA_BUFFER_5],
-                              VBOUnitSize[FLAG_EXTRA_BUFFER_5], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_EXTRA_BUFFER_5];
-        ++index;
-    }
-
-    if (flags & FLAG_UV_BUFFER) {
-        glBindBuffer(GL_ARRAY_BUFFER, uvBuffer);
-        glEnableVertexAttribArray(VBOLocation[FLAG_UV_BUFFER]);
-        glVertexAttribPointer(VBOLocation[FLAG_UV_BUFFER],
-                              VBOUnitSize[FLAG_UV_BUFFER], GL_FLOAT, GL_FALSE,
-                              0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_UV_BUFFER];
-        ++index;
-    }
-
-    if (flags & FLAG_COLOR_BUFFER) {
-        glBindBuffer(GL_ARRAY_BUFFER, colorBuffer);
-        glEnableVertexAttribArray(VBOLocation[FLAG_COLOR_BUFFER]);
-        glVertexAttribPointer(VBOLocation[FLAG_COLOR_BUFFER],
-                              VBOUnitSize[FLAG_COLOR_BUFFER], GL_FLOAT,
-                              GL_FALSE, 0, (GLvoid*)0);
-        tmp_loc[index] = VBOLocation[FLAG_COLOR_BUFFER];
-        ++index;
-    }
-
     if (flags & FLAG_INDEX_BUFFER) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
         glDrawElements(mode, VBOInfo.indexBufferSize, GL_UNSIGNED_INT, 0);
     } else {
         glDrawArrays(mode, 0, VBOInfo.vertexBufferSize / unitSize);
-    }
-    for (int i = 0; i < index; ++i) {
-        glDisableVertexAttribArray(tmp_loc[i]);
     }
     checkGlErr(__FILE__, __LINE__);
 }

@@ -64,7 +64,6 @@ namespace IMGUIImpl {
                              HardwareBuffer::FLAG_COLOR_BUFFER |
                              HardwareBuffer::FLAG_INDEX_BUFFER;
 
-        buffer.initVBO(VBOInfo, flags);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOLocation(HardwareBuffer::FLAG_UV_BUFFER, 1);
         buffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 2);
@@ -72,6 +71,7 @@ namespace IMGUIImpl {
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+        buffer.initVBO(VBOInfo, flags);
 
         UIProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/UI.vs");
         UIProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/UI.fs");
