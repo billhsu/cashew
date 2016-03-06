@@ -41,7 +41,6 @@ namespace FontRenderer {
                              HardwareBuffer::FLAG_UV_BUFFER |
                              HardwareBuffer::FLAG_COLOR_BUFFER;
 
-        buffer.initVBO(VBOInfo, flags);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOLocation(HardwareBuffer::FLAG_UV_BUFFER, 1);
         buffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 2);
@@ -49,6 +48,7 @@ namespace FontRenderer {
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_UV_BUFFER, 2);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 3);
+        buffer.initVBO(VBOInfo, flags);
 
         fontProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/font.vs");
         fontProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/font.fs");

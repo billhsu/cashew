@@ -38,12 +38,12 @@ namespace PlaneRenderer {
                              HardwareBuffer::FLAG_COLOR_BUFFER |
                              HardwareBuffer::FLAG_INDEX_BUFFER;
 
-        buffer.initVBO(VBOInfo, flags);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 1);
 
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+        buffer.initVBO(VBOInfo, flags);
 
         program_plane.loadFromFile(GL_VERTEX_SHADER, "Shader/plane.vs");
         program_plane.loadFromFile(GL_FRAGMENT_SHADER, "Shader/plane.fs");
@@ -57,12 +57,12 @@ namespace PlaneRenderer {
         unsigned int gridFlags = HardwareBuffer::FLAG_VERTEX_BUFFER |
                                  HardwareBuffer::FLAG_COLOR_BUFFER;
 
-        gridBuffer.initVBO(gridVBOInfo, gridFlags);
         gridBuffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         gridBuffer.setVBOLocation(HardwareBuffer::FLAG_COLOR_BUFFER, 1);
 
         gridBuffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
         gridBuffer.setVBOUnitSize(HardwareBuffer::FLAG_COLOR_BUFFER, 4);
+        gridBuffer.initVBO(gridVBOInfo, gridFlags);
     }
     void render(Plane p, Vector3 center, float size, Vector4 color) {
         // ^ y

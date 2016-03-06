@@ -37,12 +37,6 @@ namespace SketchLineRenderer {
         vboInfo.extraBuffer2Data = previousBuffer;
         vboInfo.extraBuffer3Size = 3 * 2;
         vboInfo.extraBuffer3Data = nextBuffer;
-
-        buffer.initVBO(vboInfo, HardwareBuffer::FLAG_VERTEX_BUFFER |
-                                    HardwareBuffer::FLAG_EXTRA_BUFFER_1 |
-                                    HardwareBuffer::FLAG_EXTRA_BUFFER_2 |
-                                    HardwareBuffer::FLAG_EXTRA_BUFFER_3 |
-                                    HardwareBuffer::FLAG_INDEX_BUFFER);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_1, 1);
@@ -51,6 +45,11 @@ namespace SketchLineRenderer {
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_2, 3);
         buffer.setVBOLocation(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_EXTRA_BUFFER_3, 3);
+        buffer.initVBO(vboInfo, HardwareBuffer::FLAG_VERTEX_BUFFER |
+                                    HardwareBuffer::FLAG_EXTRA_BUFFER_1 |
+                                    HardwareBuffer::FLAG_EXTRA_BUFFER_2 |
+                                    HardwareBuffer::FLAG_EXTRA_BUFFER_3 |
+                                    HardwareBuffer::FLAG_INDEX_BUFFER);
     }
     void render(SketchLine sketchLine, Vector3 color) {
         if (sketchLine.getLineSegments().size() == 0) {

@@ -39,9 +39,9 @@ namespace PointRenderer {
         VBOInfo.vertexBufferSize = static_cast<int>(pointList.size()) * 3;
         VBOInfo.vertexBufferData = vertexBufferData;
 
-        buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
+        buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
 
         pointProgram.loadFromFile(GL_VERTEX_SHADER, "Shader/point.vs");
         pointProgram.loadFromFile(GL_FRAGMENT_SHADER, "Shader/point.fs");

@@ -43,9 +43,9 @@ namespace LineSegmentRenderer {
             static_cast<int>(lineSegmentList.size()) * 3 * 2;
         VBOInfo.vertexBufferData = vertexBufferData;
 
-        buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);
+        buffer.initVBO(VBOInfo, HardwareBuffer::FLAG_VERTEX_BUFFER);
 
         lineSegmentProgram.loadFromFile(GL_VERTEX_SHADER,
                                         "Shader/lineSegment.vs");
