@@ -66,8 +66,29 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                     sketchLine->getLineSegments()[0].points[0]);
                 selectedPoints.push_back(
                     sketchLine->getLineSegments()[size - 1].points[1]);
-                Plane::buildPlane(selectedPoints, Controller::currPlane,
-                                  Vector3(0, 0, 1));
+
+                Vector3 vecDiff = (selectedPoints[0] - selectedPoints[1]);
+                Vector3 vecXZ = vecDiff;
+                vecXZ.y = 0;
+
+                Vector3 vecXY = vecDiff;
+                vecXY.z = 0;
+                Vector3 calcNormal = Vector3(0, 0, 1);
+                if (vecXZ.length() >= vecXY.length()) {
+                    calcNormal = vecXY.cross(Vector3(0, 1, 0));
+                }
+                std::vector<Vector3> selectedPointsMap;
+                float middleVal =
+                    ((selectedPoints[0] + selectedPoints[1]) / 2.0f).y;
+                Vector3 v1 = selectedPoints[0];
+                v1.y = middleVal;
+                Vector3 v2 = selectedPoints[1];
+                v2.y = middleVal;
+                selectedPointsMap.push_back(v1);
+                selectedPointsMap.push_back(v2);
+                Plane::buildPlane(selectedPointsMap, Controller::currPlane,
+                                  calcNormal);
+
                 if (Controller::currPlane.N.dot(mCamera->getDirection()) > 0) {
                     Controller::currPlane = -Controller::currPlane;
                 }
