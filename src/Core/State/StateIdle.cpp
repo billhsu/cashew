@@ -71,21 +71,33 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                 Vector3 vecXZ = vecDiff;
                 vecXZ.y = 0;
 
-                Vector3 vecXY = vecDiff;
-                vecXY.z = 0;
-                Vector3 calcNormal = Vector3(0, 0, 1);
-                if (vecXZ.length() >= vecXY.length()) {
-                    calcNormal = vecXY.cross(Vector3(0, 1, 0));
+                if (vecDiff.length() == 0) {
+                    return;
                 }
+                Vector3 calcNormal = Vector3(0, 0, 1);
+                std::cout << vecDiff << " - " << vecXZ << std::endl;
                 std::vector<Vector3> selectedPointsMap;
-                float middleVal =
-                    ((selectedPoints[0] + selectedPoints[1]) / 2.0f).y;
-                Vector3 v1 = selectedPoints[0];
-                v1.y = middleVal;
-                Vector3 v2 = selectedPoints[1];
-                v2.y = middleVal;
-                selectedPointsMap.push_back(v1);
-                selectedPointsMap.push_back(v2);
+                if (vecDiff.y == 0 ||
+                    vecXZ.length() / vecDiff.length() >= 0.1) {
+                    calcNormal = vecXZ.cross(Vector3(0, 1, 0));
+                    float middleVal =
+                        ((selectedPoints[0] + selectedPoints[1]) / 2.0f).y;
+                    Vector3 v1 = selectedPoints[0];
+                    v1.y = middleVal;
+                    Vector3 v2 = selectedPoints[1];
+                    v2.y = middleVal;
+                    selectedPointsMap.push_back(v1);
+                    selectedPointsMap.push_back(v2);
+                } else {
+                    Vector3 planeVec = mCamera->getDirection();
+                    planeVec.y = 0;
+                    //                    planeVec = planeVec.cross(Vector3(0,
+                    //                    1, 0));
+                    planeVec.normalize();
+                    calcNormal = planeVec;
+                    selectedPointsMap = selectedPoints;
+                }
+
                 Plane::buildPlane(selectedPointsMap, Controller::currPlane,
                                   calcNormal);
 
@@ -138,6 +150,7 @@ void StateIdle::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
     mCamera->rotateCam(Controller::rotate);
+    std::cout << mCamera->getDirection() << std::endl;
 }
 
 void StateIdle::prepareState() {
