@@ -99,10 +99,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
 
                 Plane::buildPlane(selectedPointsMap, Controller::currPlane,
                                   calcNormal);
-                if (Controller::currPlane.N.dot(invertCameraMatrix *
-                                                Vector3(0, 0, 1)) < 0) {
-                    Controller::currPlane = -Controller::currPlane;
-                }
+                Controller::getInstance().correctCurrPlaneNormal();
                 Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
                                                       Quaternion::Z_NEG_AXIS);
 

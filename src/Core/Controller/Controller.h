@@ -32,6 +32,8 @@ class Controller {
     void Keyboard(unsigned char key, unsigned char status);
     void update(float timeDelta);
     void render();
+    // correct the normal of the current plane
+    void correctCurrPlaneNormal();
 
     void init();
 

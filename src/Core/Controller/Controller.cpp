@@ -164,6 +164,14 @@ void Controller::render() {
     State::currState->render();
 }
 
+void Controller::correctCurrPlaneNormal() {
+    Matrix4 invertCameraMatrix = camera->getMatrix();
+    invertCameraMatrix.invert();
+    if (currPlane.N.dot(invertCameraMatrix * Vector3(0, 0, 1)) < 0) {
+        currPlane = -currPlane;
+    }
+}
+
 void Controller::resize(int _width, int _height) {
     windowWidth = _width;
     windowHeight = _height;
