@@ -165,8 +165,7 @@ void Controller::render() {
 }
 
 void Controller::correctCurrPlaneNormal() {
-    Matrix4 invertCameraMatrix = camera->getMatrix();
-    invertCameraMatrix.invert();
+    Matrix4 invertCameraMatrix = camera->getInvertMatrix();
     if (currPlane.N.dot(invertCameraMatrix * Vector3(0, 0, 1)) < 0) {
         currPlane = -currPlane;
     }

@@ -22,6 +22,11 @@ class Camera {
     Matrix4 getMatrix() {
         return cameraMatrix;
     }
+    Matrix4 getInvertMatrix() {
+        Matrix4 invert = cameraMatrix;
+        invert.invert();
+        return invert;
+    }
     Matrix4 getModelView() {
         return modelView;
     }

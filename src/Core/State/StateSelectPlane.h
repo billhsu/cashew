@@ -2,6 +2,10 @@
 // billhsu.x@gmail.com
 #pragma once
 #include "State.h"
+/*
+ THIS CLASS IS DEPRECATED.
+ PLEASE DO NOT USE THIS FILE OR ADD ANY NEW FEATURES.
+ */
 
 class UIButton;
 class UINode;

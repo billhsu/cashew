@@ -7,6 +7,10 @@
 #include "Core/Controller/Mouse.h"
 #include "Core/Camera/Camera.h"
 
+/*
+ THIS CLASS IS DEPRECATED.
+ PLEASE DO NOT USE THIS FILE OR ADD ANY NEW FEATURES.
+ */
 std::vector<Vector3> StateSelectPlane::selectedPoints;
 StateSelectPlane* self;
 StateSelectPlane::StateSelectPlane() {

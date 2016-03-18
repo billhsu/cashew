@@ -76,8 +76,7 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                 }
                 Vector3 calcNormal = Vector3(0, 0, 1);
                 std::vector<Vector3> selectedPointsMap;
-                Matrix4 invertCameraMatrix = mCamera->getMatrix();
-                invertCameraMatrix = invertCameraMatrix.invert();
+                Matrix4 invertCameraMatrix = mCamera->getInvertMatrix();
                 if (vecDiff.y == 0 ||
                     vecXZ.length() / vecDiff.length() >= 0.1) {
                     calcNormal = vecXZ.cross(Vector3(0, 1, 0));
