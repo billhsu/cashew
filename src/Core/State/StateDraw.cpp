@@ -177,8 +177,69 @@ void StateDraw::prepareState() {
     currentLineMirrorX.getLineSegments().clear();
     currentLineMirrorY.getLineSegments().clear();
     currentLineMirrorZ.getLineSegments().clear();
+    if (selectedPoints.size() != 2) {
+        return;
+    }
+    Vector3 calcNormal = Vector3(0, 0, 1);
+    std::vector<Vector3> selectedPointsMap;
+    Matrix4 invertCameraMatrix = mCamera->getInvertMatrix();
+    Vector3 vecXZ = (selectedPoints[0] - selectedPoints[1]);
+    vecXZ.y = 0;
+    if (checkIfTwoPointsVertical(selectedPoints[0], selectedPoints[1])) {
+        Vector3 planeVec = invertCameraMatrix * Vector3(0, 0, 1);
+        planeVec.y = 0;
+        planeVec.normalize();
+        calcNormal = planeVec;
+    } else {
+        calcNormal = vecXZ.cross(Vector3(0, 1, 0));
+    }
+    selectedPointsMap = mapSelectedPoints(selectedPoints[0], selectedPoints[1]);
+    Plane::buildPlane(selectedPointsMap, Controller::currPlane, calcNormal);
+    Controller::getInstance().correctCurrPlaneNormal();
+    Quaternion q =
+        Quaternion::fromVector(Controller::currPlane.N, Quaternion::Z_NEG_AXIS);
+
+    mCamera->rotateCamTo(q);
+    mCamera->setCamCenterTo(
+        (Controller::currLine.points[0] + Controller::currLine.points[1]) /
+        2.0f);
 }
 
+bool StateDraw::checkIfTwoPointsVertical(Vector3 p1, Vector3 p2) {
+    Vector3 vecDiff = (p1 - p2);
+    Vector3 vecXZ = vecDiff;
+    vecXZ.y = 0;
+
+    if (vecDiff.length() == 0) {
+        return true;
+    }
+    if (vecDiff.y == 0 || vecXZ.length() / vecDiff.length() >= 0.1) {
+        return false;
+    }
+    return true;
+}
+
+std::vector<Vector3> StateDraw::mapSelectedPoints(Vector3 p1, Vector3 p2) {
+    std::vector<Vector3> mappedSelectedPoints;
+    if (checkIfTwoPointsVertical(p1, p2)) {
+        Vector3 middleVec = (p1 + p2) / 2.0f;
+        Vector3 v1 = middleVec;
+        v1.y = p1.y;
+        Vector3 v2 = middleVec;
+        v2.y = p2.y;
+        mappedSelectedPoints.push_back(v1);
+        mappedSelectedPoints.push_back(v2);
+    } else {
+        float middleVal = ((p1 + p2) / 2.0f).y;
+        Vector3 v1 = p1;
+        v1.y = middleVal;
+        Vector3 v2 = p2;
+        v2.y = middleVal;
+        mappedSelectedPoints.push_back(v1);
+        mappedSelectedPoints.push_back(v2);
+    }
+    return mappedSelectedPoints;
+}
 void StateDraw::postState() {
 }
 

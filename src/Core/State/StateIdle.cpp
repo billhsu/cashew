@@ -66,46 +66,6 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                     sketchLine->getLineSegments()[0].points[0]);
                 selectedPoints.push_back(
                     sketchLine->getLineSegments()[size - 1].points[1]);
-
-                Vector3 vecDiff = (selectedPoints[0] - selectedPoints[1]);
-                Vector3 vecXZ = vecDiff;
-                vecXZ.y = 0;
-
-                if (vecDiff.length() == 0) {
-                    return;
-                }
-                Vector3 calcNormal = Vector3(0, 0, 1);
-                std::vector<Vector3> selectedPointsMap;
-                Matrix4 invertCameraMatrix = mCamera->getInvertMatrix();
-                if (vecDiff.y == 0 ||
-                    vecXZ.length() / vecDiff.length() >= 0.1) {
-                    calcNormal = vecXZ.cross(Vector3(0, 1, 0));
-                    float middleVal =
-                        ((selectedPoints[0] + selectedPoints[1]) / 2.0f).y;
-                    Vector3 v1 = selectedPoints[0];
-                    v1.y = middleVal;
-                    Vector3 v2 = selectedPoints[1];
-                    v2.y = middleVal;
-                    selectedPointsMap.push_back(v1);
-                    selectedPointsMap.push_back(v2);
-                } else {
-                    Vector3 planeVec = invertCameraMatrix * Vector3(0, 0, 1);
-                    planeVec.y = 0;
-                    planeVec.normalize();
-                    calcNormal = planeVec;
-                    selectedPointsMap = selectedPoints;
-                }
-
-                Plane::buildPlane(selectedPointsMap, Controller::currPlane,
-                                  calcNormal);
-                Controller::getInstance().correctCurrPlaneNormal();
-                Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
-                                                      Quaternion::Z_NEG_AXIS);
-
-                mCamera->rotateCamTo(q);
-                mCamera->setCamCenterTo((Controller::currLine.points[0] +
-                                         Controller::currLine.points[1]) /
-                                        2.0f);
                 dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])
                     ->selectedPoints = selectedPoints;
                 enterState(State::statePool[STATE_DRAW]);

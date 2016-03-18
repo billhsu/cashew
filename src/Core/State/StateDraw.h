@@ -24,6 +24,8 @@ class StateDraw : public State {
    private:
     void addLineWithMirror();
     static int btnDrawPlaneDoneEvent(lua_State* L);
+    bool checkIfTwoPointsVertical(Vector3 p1, Vector3 p2);
+    std::vector<Vector3> mapSelectedPoints(Vector3 p1, Vector3 p2);
 
    protected:
     SketchLine currentLine, currentLineMirrorX, currentLineMirrorY,
