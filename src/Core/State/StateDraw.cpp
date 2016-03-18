@@ -154,17 +154,31 @@ void StateDraw::MouseRightDrag(int dx, int dy) {
     Controller::rotate.x -= dy;
     Controller::rotate.y += dx;
     mCamera->rotateCam(Controller::rotate);
+    if (selectedPoints.size() != 2) {
+        return;
+    }
+    if (checkIfTwoPointsVertical(selectedPoints[0], selectedPoints[1])) {
+        return;
+    }
+
     if (fabs(fabs(Controller::rotate.x) - 90) < 25) {
         if (!changeDirection) {
             changeDirection = true;
+            Vector3 vecXZ = (selectedPoints[0] - selectedPoints[1]);
+            vecXZ.y = 0;
+            Vector3 calcNormal = vecXZ.cross(Vector3(0, 0, 1));
             Plane::buildPlane(selectedPoints, Controller::currPlane,
-                              Vector3(0, 1, 0));
+                              calcNormal);
         }
     } else {
         if (changeDirection) {
             changeDirection = false;
-            Plane::buildPlane(selectedPoints, Controller::currPlane,
-                              Vector3(0, 0, 1));
+            Vector3 vecXZ = (selectedPoints[0] - selectedPoints[1]);
+            vecXZ.y = 0;
+            Vector3 calcNormal = vecXZ.cross(Vector3(0, 1, 0));
+            std::vector<Vector3> mappedPoints =
+                mapSelectedPoints(selectedPoints[0], selectedPoints[1]);
+            Plane::buildPlane(mappedPoints, Controller::currPlane, calcNormal);
         }
     }
 }
@@ -178,6 +192,9 @@ void StateDraw::prepareState() {
     currentLineMirrorY.getLineSegments().clear();
     currentLineMirrorZ.getLineSegments().clear();
     if (selectedPoints.size() != 2) {
+        return;
+    }
+    if (previousState == NULL || previousState->getStateID() != STATE_IDLE) {
         return;
     }
     Vector3 calcNormal = Vector3(0, 0, 1);
