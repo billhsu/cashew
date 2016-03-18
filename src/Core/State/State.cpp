@@ -25,7 +25,20 @@ void State::update(float timeDelta) {
         printf("%s\n", lua_tostring(Controller::luaState, -1));
     }
 }
-
+void State::UIEvent(int event) {
+    if (event == Controller::BTN_ID_STANDARD_VIEW) {
+        if (currState->getStateID() == STATE_IDLE) {
+            Quaternion q = Quaternion::fromEuler(Vector3(-90, 0, 0));
+            mCamera->setCamCenterTo(Vector3(0, 0, 0));
+            mCamera->rotateCamTo(q);
+        } else {
+            Controller::getInstance().correctCurrPlaneNormal();
+            Quaternion q = Quaternion::fromVector(Controller::currPlane.N,
+                                                  Quaternion::Z_NEG_AXIS);
+            mCamera->rotateCamTo(q);
+        }
+    }
+}
 void State::enterState(State* state) {
     if (currState != NULL) {
         currState->postState();

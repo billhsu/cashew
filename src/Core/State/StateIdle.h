@@ -11,7 +11,6 @@ class StateIdle : public State {
     void MouseRightDrag(int dx, int dy);
     void prepareState();
     void postState();
-    void UIEvent(int event);
 
    private:
     enum { INTERNAL_STATE_IDLE, INTERNAL_STATE_MOUSE_DOWN };

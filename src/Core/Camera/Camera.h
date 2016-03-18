@@ -87,6 +87,7 @@ class Camera {
     }
     void setCamCenter(Vector3 center) {
         camCenter = center;
+        camCenterTo = center;
     }
     void setCamCenterTo(Vector3 center) {
         camCenterTo = center;

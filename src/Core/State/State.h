@@ -30,7 +30,7 @@ class State {
     virtual void MouseLeftDrag(int dx, int dy){};
     virtual void PassiveMotion(int x, int y){};
     virtual void Keyboard(unsigned char key, unsigned char status){};
-    virtual void UIEvent(int event){};
+    virtual void UIEvent(int event);
     virtual void prepareState(){};
     virtual void postState(){};
     virtual void update(float timeDelta);
