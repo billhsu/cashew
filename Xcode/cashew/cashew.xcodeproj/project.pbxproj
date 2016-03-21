@@ -22,6 +22,8 @@
 		0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */; };
 		0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */; };
 		0C581BA01C1BEF42007D5D41 /* SketchLineRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C581B9E1C1BEF42007D5D41 /* SketchLineRenderer.cpp */; };
+		0C5C62D61CA03E2A0070A765 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5C62D51CA03E2A0070A765 /* SpriteKit.framework */; };
+		0C5C62D81CA03F4E0070A765 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0C5C62D21CA03DA10070A765 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C5F954B1A614F0100BE91E9 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F953E1A614F0100BE91E9 /* Scene.cpp */; };
 		0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95411A614F0100BE91E9 /* StateIdleImpl.cpp */; };
 		0C5F954D1A614F0100BE91E9 /* StateSelectPlaneImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95431A614F0100BE91E9 /* StateSelectPlaneImpl.cpp */; };
@@ -81,6 +83,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		0C5C62D71CA03F270070A765 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				0C5C62D81CA03F4E0070A765 /* Sparkle.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0C0118151AC6F64A0042E1CC /* FileOperations.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = FileOperations.mm; sourceTree = "<group>"; };
 		0C0118171AC6F68E0042E1CC /* FileOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileOperations.h; sourceTree = "<group>"; };
@@ -111,6 +126,8 @@
 		0C529D2C1A7382750034B1E5 /* PointRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointRenderer.h; sourceTree = "<group>"; };
 		0C581B9E1C1BEF42007D5D41 /* SketchLineRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SketchLineRenderer.cpp; sourceTree = "<group>"; };
 		0C581B9F1C1BEF42007D5D41 /* SketchLineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SketchLineRenderer.h; sourceTree = "<group>"; };
+		0C5C62D21CA03DA10070A765 /* Sparkle.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Sparkle.framework; sourceTree = "<group>"; };
+		0C5C62D51CA03E2A0070A765 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C5F953E1A614F0100BE91E9 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
 		0C5F953F1A614F0100BE91E9 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scene.h; sourceTree = "<group>"; };
 		0C5F95411A614F0100BE91E9 /* StateIdleImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StateIdleImpl.cpp; sourceTree = "<group>"; };
@@ -214,6 +231,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C5C62D61CA03E2A0070A765 /* SpriteKit.framework in Frameworks */,
 				0C8889A01A2ACB2E00068098 /* liblua.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +307,15 @@
 			);
 			name = TextureManager;
 			path = ../../../../src/OpenGL/TextureManager;
+			sourceTree = "<group>";
+		};
+		0C5C62D41CA03DA70070A765 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C5C62D51CA03E2A0070A765 /* SpriteKit.framework */,
+				0C5C62D21CA03DA10070A765 /* Sparkle.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		0C5F953B1A614F0100BE91E9 /* OpenGL */ = {
@@ -529,6 +556,7 @@
 				0C88899F1A2ACB2E00068098 /* liblua.a */,
 				0C916B241A20A0AE00676D57 /* cashew */,
 				0C916B381A20A0AE00676D57 /* cashewTests */,
+				0C5C62D41CA03DA70070A765 /* Frameworks */,
 				0C916B231A20A0AE00676D57 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -603,6 +631,7 @@
 				0C916B1E1A20A0AE00676D57 /* Sources */,
 				0C916B1F1A20A0AE00676D57 /* Frameworks */,
 				0C916B201A20A0AE00676D57 /* Resources */,
+				0C5C62D71CA03F270070A765 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -865,6 +894,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -888,6 +921,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
