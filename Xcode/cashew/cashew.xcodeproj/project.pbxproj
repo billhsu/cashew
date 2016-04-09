@@ -71,6 +71,7 @@
 		0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999341B510C65003378BF /* UILabelImpl.cpp */; };
 		0CEA565A1CB7B74700727254 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5C62D21CA03DA10070A765 /* Sparkle.framework */; };
 		0CEC95121B2414260069AAEC /* StateDeleteImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */; };
+		0CF1D3591CB9509C0000690D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0CF1D3571CB950060000690D /* dsa_pub.pem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,6 +225,7 @@
 		0CE999351B510C65003378BF /* UILabelImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UILabelImpl.h; path = ../../../../../../src/OpenGL/Impl/UI/UILabelImpl.h; sourceTree = "<group>"; };
 		0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDeleteImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.cpp; sourceTree = "<group>"; };
 		0CEC95111B2414260069AAEC /* StateDeleteImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDeleteImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.h; sourceTree = "<group>"; };
+		0CF1D3571CB950060000690D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = cashew/dsa_pub.pem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -555,6 +557,7 @@
 			children = (
 				0C88899F1A2ACB2E00068098 /* liblua.a */,
 				0C916B241A20A0AE00676D57 /* cashew */,
+				0CF1D3571CB950060000690D /* dsa_pub.pem */,
 				0C916B381A20A0AE00676D57 /* cashewTests */,
 				0C5C62D41CA03DA70070A765 /* Frameworks */,
 				0C916B231A20A0AE00676D57 /* Products */,
@@ -702,6 +705,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CF1D3591CB9509C0000690D /* dsa_pub.pem in Resources */,
 				0C2247701A3D925A00349BCC /* lua_scripts in Resources */,
 				0C2247721A3D92F700349BCC /* Shader in Resources */,
 				0C46317F1A5AE62D00D0CEFE /* media in Resources */,
