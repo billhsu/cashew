@@ -22,7 +22,6 @@
 		0C529D2A1A7364C10034B1E5 /* StateDrawImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D281A7364C10034B1E5 /* StateDrawImpl.cpp */; };
 		0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C529D2B1A7382750034B1E5 /* PointRenderer.cpp */; };
 		0C581BA01C1BEF42007D5D41 /* SketchLineRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C581B9E1C1BEF42007D5D41 /* SketchLineRenderer.cpp */; };
-		0C5C62D61CA03E2A0070A765 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5C62D51CA03E2A0070A765 /* SpriteKit.framework */; };
 		0C5C62D81CA03F4E0070A765 /* Sparkle.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0C5C62D21CA03DA10070A765 /* Sparkle.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C5F954B1A614F0100BE91E9 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F953E1A614F0100BE91E9 /* Scene.cpp */; };
 		0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5F95411A614F0100BE91E9 /* StateIdleImpl.cpp */; };
@@ -70,6 +69,7 @@
 		0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE732541B14928D0049D5FD /* FontRenderer.cpp */; };
 		0CE999331B510C1D003378BF /* UILabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999311B510C1D003378BF /* UILabel.cpp */; };
 		0CE999361B510C65003378BF /* UILabelImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999341B510C65003378BF /* UILabelImpl.cpp */; };
+		0CEA565A1CB7B74700727254 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5C62D21CA03DA10070A765 /* Sparkle.framework */; };
 		0CEC95121B2414260069AAEC /* StateDeleteImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */; };
 /* End PBXBuildFile section */
 
@@ -231,8 +231,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C5C62D61CA03E2A0070A765 /* SpriteKit.framework in Frameworks */,
 				0C8889A01A2ACB2E00068098 /* liblua.a in Frameworks */,
+				0CEA565A1CB7B74700727254 /* Sparkle.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
