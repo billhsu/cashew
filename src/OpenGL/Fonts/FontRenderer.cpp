@@ -1,10 +1,10 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
-#include "FontRenderer.h"
 #include "Core/Math/Vectors.h"
+#include "Core/UI/IMGUI.h"
+#include "FontRenderer.h"
 #include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "OpenGL/Shader/GLSLShader.h"
-#include "Core/UI/IMGUI.h"
 #define MAX_VERT_SIZE 1024
 
 namespace FontRenderer {
@@ -31,11 +31,8 @@ namespace FontRenderer {
         fontList["WenQuanYiMicroHei"] = font;
         std::cout << "WenQuanYiMicroHei " << font << std::endl;
 
-        VBOInfo.vertexBufferSize = 2;
         VBOInfo.vertexBufferData = vertexBufferData;
-        VBOInfo.uvBufferSize = 2;
         VBOInfo.uvBufferData = uvBufferData;
-        VBOInfo.colorBufferSize = 3;
         VBOInfo.colorBufferData = colorBufferData;
         unsigned int flags = HardwareBuffer::FLAG_VERTEX_BUFFER |
                              HardwareBuffer::FLAG_UV_BUFFER |

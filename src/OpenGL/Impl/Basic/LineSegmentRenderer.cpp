@@ -34,13 +34,8 @@ namespace LineSegmentRenderer {
     }
     void init() {
         lineSegmentList.clear();
-        lineSegmentList.push_back(
-            LineSegment(Vector3(0, 0, 0), Vector3(0, 0, 0)));
 
         generateVertexBuffer();
-
-        VBOInfo.vertexBufferSize =
-            static_cast<int>(lineSegmentList.size()) * 3 * 2;
         VBOInfo.vertexBufferData = vertexBufferData;
 
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);

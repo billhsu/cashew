@@ -1,12 +1,12 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "SketchLineRenderer.h"
 #import <OpenGL/gl3.h>
-#include "OpenGL/Shader/GLSLShader.h"
-#include "OpenGL/HardwareBuffer/HardwareBuffer.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Util/Utility.h"
+#include "OpenGL/HardwareBuffer/HardwareBuffer.h"
+#include "OpenGL/Shader/GLSLShader.h"
+#include "SketchLineRenderer.h"
 
 #define MAX_NUM_VERTEX 1024
 namespace SketchLineRenderer {
@@ -27,15 +27,10 @@ namespace SketchLineRenderer {
         sketchShader.loadFromFile(GL_VERTEX_SHADER, "Shader/sketchLine.vs");
         sketchShader.loadFromFile(GL_FRAGMENT_SHADER, "Shader/sketchLine.fs");
         sketchShader.createProgram();
-        vboInfo.indexBufferSize = 6;
         vboInfo.indexBufferData = indexBuffer;
-        vboInfo.vertexBufferSize = 3 * 2;
         vboInfo.vertexBufferData = positionBuffer;
-        vboInfo.extraBuffer1Size = 1 * 2;
         vboInfo.extraBuffer1Data = lineInfoBuffer;
-        vboInfo.extraBuffer2Size = 3 * 2;
         vboInfo.extraBuffer2Data = previousBuffer;
-        vboInfo.extraBuffer3Size = 3 * 2;
         vboInfo.extraBuffer3Data = nextBuffer;
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
         buffer.setVBOUnitSize(HardwareBuffer::FLAG_VERTEX_BUFFER, 3);

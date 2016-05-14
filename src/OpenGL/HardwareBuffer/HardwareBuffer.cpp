@@ -1,8 +1,8 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "HardwareBuffer.h"
 #include <iostream>
+#include "HardwareBuffer.h"
 #include "OpenGL/Util/Utility.h"
 
 void HardwareBuffer::initVBO(VBOStruct vboStruct, unsigned int vboFlag) {
@@ -235,6 +235,9 @@ void HardwareBuffer::bufferGenBind(GLuint& bufferID, int bufferSize,
     checkGlErr(__FILE__, __LINE__);
     glGenBuffers(1, &bufferID);
     glBindBuffer(bufferType, bufferID);
+    if (bufferSize == 0) {
+        return;
+    }
     glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
 
     T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);

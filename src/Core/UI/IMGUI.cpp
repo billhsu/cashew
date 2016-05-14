@@ -5,13 +5,13 @@
  Thanks to http://sol.gfxile.net/imgui
  */
 extern "C" {
+#include "lauxlib.h"
 #include "lua.h"
 #include "lualib.h"
-#include "lauxlib.h"
 }
-#include "IMGUI.h"
-#include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
+#include "Core/Scripting/luaUtility.h"
+#include "IMGUI.h"
 
 #define TEXTURE_FILE_PATH "media/textures/"
 namespace IMGUI {

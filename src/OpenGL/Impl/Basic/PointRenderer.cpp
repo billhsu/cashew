@@ -1,8 +1,8 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "PointRenderer.h"
 #include "OpenGL/Shader/GLSLShader.h"
+#include "PointRenderer.h"
 
 namespace PointRenderer {
     HardwareBuffer buffer;
@@ -32,11 +32,9 @@ namespace PointRenderer {
     }
     void init() {
         pointList.clear();
-        pointList.push_back(Vector3(0, 0, 0));
 
         generateVertexBuffer();
 
-        VBOInfo.vertexBufferSize = static_cast<int>(pointList.size()) * 3;
         VBOInfo.vertexBufferData = vertexBufferData;
 
         buffer.setVBOLocation(HardwareBuffer::FLAG_VERTEX_BUFFER, 0);
