@@ -238,20 +238,7 @@ void HardwareBuffer::bufferGenBind(GLuint& bufferID, int bufferSize,
     if (bufferSize == 0) {
         return;
     }
-    glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
-    bufferIdToBufferSize[bufferID] = bufferSize;
-
-    T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);
-
-    if (dataBufVertices == 0) {
-        std::cerr << "glMapBuffer failed: " << __FILE__ << "[" << __LINE__
-                  << "]" << std::endl;
-    } else {
-        for (int i = 0; i < bufferSize; i++) {
-            dataBufVertices[i] = bufferData[i];
-        }
-        glUnmapBuffer(bufferType);
-    }
+    glBufferData(bufferType, bufferSize * sizeof(T), bufferData, bufferUsage);
     checkGlErr(__FILE__, __LINE__);
 }
 
@@ -262,25 +249,9 @@ void HardwareBuffer::bufferUpdate(GLuint& bufferID, int bufferSize,
     checkGlErr(__FILE__, __LINE__);
     glBindBuffer(bufferType, bufferID);
     checkGlErr(__FILE__, __LINE__);
-    if (bufferIdToBufferSize[bufferID] < bufferSize) {
-        glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
-        bufferIdToBufferSize[bufferID] = bufferSize;
-    } else if (bufferIdToBufferSize[bufferID] > 2 * bufferSize) {
-        // let's not waste GPU memory..
-        glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
-        bufferIdToBufferSize[bufferID] = bufferSize;
-    }
+    // orphan the buffer first
+    glBufferData(bufferType, bufferSize * sizeof(T), 0, bufferUsage);
     checkGlErr(__FILE__, __LINE__);
-    T* dataBufVertices = (T*)glMapBuffer(bufferType, GL_WRITE_ONLY);
-    checkGlErr(__FILE__, __LINE__);
-    if (dataBufVertices == 0) {
-        std::cerr << "glMapBuffer failed: " << __FILE__ << "[" << __LINE__
-                  << "]" << std::endl;
-    } else {
-        for (int i = 0; i < bufferSize; i++) {
-            dataBufVertices[i] = bufferData[i];
-        }
-        glUnmapBuffer(bufferType);
-    }
+    glBufferData(bufferType, bufferSize * sizeof(T), bufferData, bufferUsage);
     checkGlErr(__FILE__, __LINE__);
 }
