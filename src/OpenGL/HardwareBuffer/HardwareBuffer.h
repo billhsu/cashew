@@ -5,6 +5,7 @@
 
 #include <OpenGL/gl3.h>
 #include <iostream>
+#include <map>
 
 class HardwareBuffer {
    public:
@@ -111,6 +112,8 @@ class HardwareBuffer {
 
     int VBOLocation[512];
     int VBOUnitSize[512];
+
+    std::map<int, int> bufferIdToBufferSize;
 
     void setVBOLocation(unsigned int vboFlag, int location);
     void setVBOUnitSize(unsigned int vboFlag, int unitSize);
