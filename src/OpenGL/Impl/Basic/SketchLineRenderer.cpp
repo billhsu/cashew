@@ -47,7 +47,7 @@ namespace SketchLineRenderer {
                                     HardwareBuffer::FLAG_INDEX_BUFFER);
     }
     void render(SketchLine sketchLine, Vector3 color) {
-        if (sketchLine.getLineSegments().size() == 0) {
+        if (sketchLine.getLineSegmentsSize() == 0) {
             return;
         }
         sketchShader.bind();
@@ -70,6 +70,7 @@ namespace SketchLineRenderer {
             glGetUniformLocation(sketchShader.getProgram(), "thickness");
         glUniform1f(local_thickness, 1.0f);
         updateBuffer(sketchLine);
+
         buffer.render(GL_TRIANGLES);
     }
 
@@ -82,14 +83,14 @@ namespace SketchLineRenderer {
     void updateBuffer(SketchLine& sketchLine) {
         // This is a speciel case.
         // Let's break the line segment into two half line segments.
-        if (sketchLine.getLineSegments().size() == 1) {
-            Vector3 originalEnd = sketchLine.getLineSegments()[0].points[1];
-            Vector3 originBegin = sketchLine.getLineSegments()[0].points[0];
+        if (sketchLine.getLineSegmentsSize() == 1) {
+            Vector3 originalEnd = sketchLine.getLineSegment(0).points[1];
+            Vector3 originBegin = sketchLine.getLineSegment(0).points[0];
             Vector3 centerPos = 0.5f * (originBegin + originalEnd);
-            sketchLine.getLineSegments()[0].points[1] = centerPos;
+            sketchLine.setLineSegmentPoint(0, 1, centerPos);
             sketchLine.addLineSegment(LineSegment(centerPos, originalEnd));
         }
-        int numOfVertex = int(sketchLine.getLineSegments().size() + 1);
+        int numOfVertex = int(sketchLine.getLineSegmentsSize() + 1);
         if (numOfVertex > MAX_NUM_VERTEX - 1) {
             numOfVertex = MAX_NUM_VERTEX - 1;
         }
@@ -106,14 +107,14 @@ namespace SketchLineRenderer {
         float totalDistance = 0.0f;
         float runningDistance = 0.0f;
         // calculate the total distance of the sketch line
-        for (int i = 0; i < sketchLine.getLineSegments().size(); ++i) {
-            totalDistance += sketchLine.getLineSegments()[i].length();
+        for (int i = 0; i < sketchLine.getLineSegmentsSize(); ++i) {
+            totalDistance += sketchLine.getLineSegment(i).length();
         }
         float widthMin = 0.1f;
         float widthMax = 2.0f;
         float widthSmooth = widthMin;
 
-        LineSegment firstLineSegment = sketchLine.getLineSegments()[0];
+        LineSegment firstLineSegment = sketchLine.getLineSegment(0);
         setFloatArrayFromVector(&positionBuffer[0], firstLineSegment.points[0]);
         setFloatArrayFromVector(&positionBuffer[3], firstLineSegment.points[0]);
         setFloatArrayFromVector(&previousBuffer[0], firstLineSegment.points[0]);
@@ -124,8 +125,8 @@ namespace SketchLineRenderer {
         setFloatArrayFromVector(&lineInfoBuffer[3], Vector3(0, 0, 0));
         const float targetLength = 1.0f;
         for (int i = 1; i < numOfVertex - 1; ++i) {
-            LineSegment preLineSegment = sketchLine.getLineSegments()[i - 1];
-            LineSegment lineSegment = sketchLine.getLineSegments()[i];
+            LineSegment preLineSegment = sketchLine.getLineSegment(i - 1);
+            LineSegment lineSegment = sketchLine.getLineSegment(i);
             setFloatArrayFromVector(&positionBuffer[6 * i + 0],
                                     lineSegment.points[0]);
             setFloatArrayFromVector(&positionBuffer[6 * i + 3],
@@ -158,7 +159,7 @@ namespace SketchLineRenderer {
         }
         int lastVertexIdx = numOfVertex - 1;
         LineSegment lastLineSegment =
-            sketchLine.getLineSegments()[lastVertexIdx - 1];
+            sketchLine.getLineSegment(lastVertexIdx - 1);
         float widthPct =
             mapValueWithRange(lastLineSegment.length(), 0.0, 0.7, 0, 1, true);
         widthSmooth = 0.85f * widthSmooth +

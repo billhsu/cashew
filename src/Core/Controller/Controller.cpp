@@ -5,20 +5,20 @@ billhsu.x@gmail.com
 #include "Controller.h"
 #include "Mouse.h"
 
-#include "Core/State/State.h"
-#include "Core/State/StateIdle.h"
-#include "Core/State/StateSelectPlane.h"
-#include "Core/State/StateDelete.h"
-#include "Core/State/StateDraw.h"
+#include <stdint.h>
+#include <fstream>
+#include <iostream>
+#include "Core/Basic/SketchLine.h"
 #include "Core/Camera/Camera.h"
-#include "Core/Scripting/luaUtility.h"
 #include "Core/Graphics/Project.h"
 #include "Core/Math/Quaternion.h"
+#include "Core/Scripting/luaUtility.h"
+#include "Core/State/State.h"
+#include "Core/State/StateDelete.h"
+#include "Core/State/StateDraw.h"
+#include "Core/State/StateIdle.h"
+#include "Core/State/StateSelectPlane.h"
 #include "Core/UI/IMGUI.h"
-#include "Core/Basic/SketchLine.h"
-#include <iostream>
-#include <fstream>
-#include <stdint.h>
 
 int Controller::windowWidth = 800;
 int Controller::windowHeight = 600;

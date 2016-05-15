@@ -7,44 +7,44 @@
 //
 
 #import <OpenGL/gl3.h>
-#import "CashewOpenGLView.h"
 #import "CashewInputController.h"
-#include "Core/Math/Vectors.h"
-#include "Core/Math/Matrices.h"
-#include "OpenGL/Impl/Scene/Scene.h"
-#include "Core/Controller/MouseEventQueue.h"
+#import "CashewOpenGLView.h"
 #include "Core/Basic/SketchLine.h"
+#include "Core/Controller/MouseEventQueue.h"
+#include "Core/Math/Matrices.h"
+#include "Core/Math/Vectors.h"
+#include "OpenGL/Impl/Scene/Scene.h"
 
 #include "Core/Camera/Camera.h"
-#include "OpenGL/Impl/State/StateIdleImpl.h"
-#include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
-#include "OpenGL/Impl/State/StateDrawImpl.h"
-#include "OpenGL/Impl/State/StateDeleteImpl.h"
-#include "OpenGL/Impl/State/StateMirrorImpl.h"
 #include "Core/Controller/Controller.h"
-#include "OpenGL/Impl/UI/IMGUIImpl.h"
-#include "OpenGL/Util/Utility.h"
-#include "OpenGL/Shader/GLSLShader.h"
+#include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
 #include "OpenGL/Impl/Basic/PlaneRenderer.h"
 #include "OpenGL/Impl/Basic/PointRenderer.h"
-#include "OpenGL/Impl/Basic/LineSegmentRenderer.h"
 #include "OpenGL/Impl/Basic/SketchLineRenderer.h"
+#include "OpenGL/Impl/State/StateDeleteImpl.h"
+#include "OpenGL/Impl/State/StateDrawImpl.h"
+#include "OpenGL/Impl/State/StateIdleImpl.h"
+#include "OpenGL/Impl/State/StateMirrorImpl.h"
+#include "OpenGL/Impl/State/StateSelectPlaneImpl.h"
+#include "OpenGL/Impl/UI/IMGUIImpl.h"
+#include "OpenGL/Shader/GLSLShader.h"
+#include "OpenGL/Util/Utility.h"
 
 #include "OpenGL/Fonts/FontRenderer.h"
 
-#include "OpenGL/DepthPeeling/DepthPeeling.h"
-#include "OpenGL/TextureManager/TextureManager.h"
+#include <fstream>
+#include <queue>
+#include <sstream>
 #include "Core/Controller/Mouse.h"
 #include "FileOperations.h"
 #include "FileOperationsCppWrapper.h"
-#include <fstream>
-#include <sstream>
-#include <queue>
+#include "OpenGL/DepthPeeling/DepthPeeling.h"
+#include "OpenGL/TextureManager/TextureManager.h"
 
 extern "C" {
+#include "lauxlib.h"
 #include "lua.h"
 #include "lualib.h"
-#include "lauxlib.h"
 }
 
 DepthPeeling* depthPeeling;
@@ -200,15 +200,15 @@ int saveFile(lua_State* L) {
         fileStream << SketchLine::getGlobalSketchLines().size() << std::endl;
         for (int i = 0; i < SketchLine::getGlobalSketchLines().size(); ++i) {
             unsigned long lines =
-                SketchLine::getGlobalSketchLines()[i].getLineSegments().size();
+                SketchLine::getGlobalSketchLines()[i].getLineSegmentsSize();
             fileStream << lines << std::endl;
             for (unsigned long j = 0; j < lines; ++j) {
                 fileStream << SketchLine::getGlobalSketchLines()[i]
-                                  .getLineSegments()[j]
+                                  .getLineSegment(j)
                                   .points[0]
                            << " "
                            << SketchLine::getGlobalSketchLines()[i]
-                                  .getLineSegments()[j]
+                                  .getLineSegment(j)
                                   .points[1]
                            << std::endl;
             }

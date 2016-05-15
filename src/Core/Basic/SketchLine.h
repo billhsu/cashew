@@ -2,8 +2,8 @@
 // billhsu.x@gmail.com
 
 #pragma once
-#include <vector>
 #include <map>
+#include <vector>
 #include "LineSegment.h"
 // Sketch line contains multiple line segments
 class SketchLine {
@@ -35,8 +35,16 @@ class SketchLine {
     static void undoLastOperation();
     static void redoLastOperation();
 
-    std::vector<LineSegment>& getLineSegments();
+    const LineSegment getLineSegment(const size_t index);
+    void setLineSegment(const size_t index, const LineSegment lineSegment);
+    void setLineSegmentPoint(const size_t index, const int whichPoint,
+                             const Vector3 point);
+    size_t getLineSegmentsSize();
+    void clearLineSegments();
     void addLineSegment(const LineSegment& line);
+    int getID() {
+        return ID;
+    }
 
    private:
     enum { OPERATION_ADD_LINE = 1, OPERATION_DELETE_LINE };

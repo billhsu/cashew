@@ -61,10 +61,25 @@ std::vector<LineSegment>& SketchLine::getGlobalLineSegments() {
     return globalLineSegments;
 }
 
-std::vector<LineSegment>& SketchLine::getLineSegments() {
-    return lineSegments;
+const LineSegment SketchLine::getLineSegment(const size_t index) {
+    return lineSegments[index];
 }
 
+void SketchLine::setLineSegmentPoint(const size_t index, const int whichPoint,
+                                     const Vector3 point) {
+    lineSegments[index].points[whichPoint] = point;
+}
+
+void SketchLine::setLineSegment(const size_t index,
+                                const LineSegment lineSegment) {
+    lineSegments[index] = lineSegment;
+}
+size_t SketchLine::getLineSegmentsSize() {
+    return lineSegments.size();
+}
+void SketchLine::clearLineSegments() {
+    lineSegments.clear();
+}
 void SketchLine::addLineSegment(const LineSegment& line) {
     lineSegments.push_back(line);
     updateGlobalLineSegments();

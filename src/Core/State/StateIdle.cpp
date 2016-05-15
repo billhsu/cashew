@@ -1,14 +1,14 @@
 // Shipeng Xu
 // billhsu.x@gmail.com
 
-#include "StateIdle.h"
-#include "StateDraw.h"
+#include "Core/Basic/Plane.h"
+#include "Core/Basic/SketchLine.h"
 #include "Core/Camera/Camera.h"
 #include "Core/Controller/Controller.h"
 #include "Core/Controller/Mouse.h"
-#include "Core/Basic/Plane.h"
-#include "Core/Basic/SketchLine.h"
 #include "Core/UI/IMGUI.h"
+#include "StateDraw.h"
+#include "StateIdle.h"
 
 #include <vector>
 StateIdle::StateIdle() {
@@ -61,11 +61,11 @@ void StateIdle::MouseButton(int button, int state, int x, int y) {
                 if (sketchLine == NULL) {
                     return;
                 }
-                unsigned long size = sketchLine->getLineSegments().size();
+                size_t size = sketchLine->getLineSegmentsSize();
                 selectedPoints.push_back(
-                    sketchLine->getLineSegments()[0].points[0]);
+                    sketchLine->getLineSegment(0).points[0]);
                 selectedPoints.push_back(
-                    sketchLine->getLineSegments()[size - 1].points[1]);
+                    sketchLine->getLineSegment(size - 1).points[1]);
                 dynamic_cast<StateDraw*>(State::statePool[STATE_DRAW])
                     ->selectedPoints = selectedPoints;
                 enterState(State::statePool[STATE_DRAW]);
