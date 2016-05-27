@@ -18,18 +18,18 @@ Demo Video: On [YouTube](https://www.youtube.com/watch?v=kX9W6WuJf5U), or on [ä¼
 
 ## Usage
 ### File
-<p><img src="doc/button_document_new.png" width="30px" style="margin:5px;" align="middle"/>Create a new sketch file</p>
-<p><img src="doc/button_document_open.png" width="30px" style="margin:5px;" align="middle"/>Open a sketch file</p>
-<p><img src="doc/button_document_save.png" width="30px" style="margin:5px;" align="middle"/>Save the current sketch file</p>
+<p><img src="doc/button_document_new.png" width="30px" align="middle"/>&nbsp;&nbsp;Create a new sketch file</p>
+<p><img src="doc/button_document_open.png" width="30px" align="middle"/>&nbsp;&nbsp;Open a sketch file</p>
+<p><img src="doc/button_document_save.png" width="30px" align="middle"/>&nbsp;&nbsp;Save the current sketch file</p>
 
 ### Operations
-<p><img src="doc/button_standard_view.png" width="30px" style="margin:5px;" align="middle"/>Reset camera to recommended angle</p>
-<p><img src="doc/button_movecenter.png" width="30px" style="margin:5px;" align="middle"/>Translate camera position</p>
-<p><img src="doc/button_pencil.png" width="30px" style="margin:5px;" align="middle"/>Toggle between drawing straight lines or free drawing</p>
-<p><img src="doc/button_undo.png" width="30px" style="margin:5px;" align="middle"/>Undo last operation</p>
-<p><img src="doc/button_redo.png" width="30px" style="margin:5px;" align="middle"/>Redo last operation</p>
-<p><img src="doc/button_delete.png" width="30px" style="margin:5px;" align="middle"/>Delete lines</p>
-<p><img src="doc/button_mirror.png" width="30px" style="margin:5px;" align="middle"/>Select mirror mode</p>
+<p><img src="doc/button_standard_view.png" width="30px" align="middle"/>&nbsp;&nbsp;Reset camera to recommended angle</p>
+<p><img src="doc/button_movecenter.png" width="30px" align="middle"/>&nbsp;&nbsp;Translate camera position</p>
+<p><img src="doc/button_pencil.png" width="30px" align="middle"/>&nbsp;&nbsp;Toggle between drawing straight lines or free drawing</p>
+<p><img src="doc/button_undo.png" width="30px" align="middle"/>&nbsp;&nbsp;Undo last operation</p>
+<p><img src="doc/button_redo.png" width="30px" align="middle"/>&nbsp;&nbsp;Redo last operation</p>
+<p><img src="doc/button_delete.png" width="30px" align="middle"/>&nbsp;&nbsp;Delete lines</p>
+<p><img src="doc/button_mirror.png" width="30px" align="middle"/>&nbsp;&nbsp;Select mirror mode</p>
 
 
 ## Build
