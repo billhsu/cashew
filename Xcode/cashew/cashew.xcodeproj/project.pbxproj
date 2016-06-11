@@ -33,9 +33,6 @@
 		0C7201A81A7DFE4700CFA38F /* DepthPeeling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7201A61A7DFE4700CFA38F /* DepthPeeling.cpp */; };
 		0C73BF401B883D2100A9B7D2 /* IMGUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C73BF3E1B883D2100A9B7D2 /* IMGUI.cpp */; };
 		0C74DAE61B89BB9C0096D8DA /* MouseEventQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C74DAE41B89BB9C0096D8DA /* MouseEventQueue.cpp */; };
-		0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641D1A3C7ABE0010E1BB /* UI.cpp */; };
-		0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */; };
-		0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C7764211A3C7ABE0010E1BB /* UINode.cpp */; };
 		0C8889851A2984C600068098 /* LineSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C88896F1A2984C600068098 /* LineSegment.cpp */; };
 		0C8889861A2984C600068098 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889711A2984C600068098 /* Plane.cpp */; };
 		0C8889871A2984C600068098 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8889751A2984C600068098 /* Camera.cpp */; };
@@ -65,7 +62,6 @@
 		0CC49AEC1B64E391007BC02A /* StateMirror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AEB1B64E391007BC02A /* StateMirror.cpp */; };
 		0CC49AEF1B64E9A0007BC02A /* StateMirrorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CC49AED1B64E9A0007BC02A /* StateMirrorImpl.cpp */; };
 		0CE732561B14928D0049D5FD /* FontRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE732541B14928D0049D5FD /* FontRenderer.cpp */; };
-		0CE999331B510C1D003378BF /* UILabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CE999311B510C1D003378BF /* UILabel.cpp */; };
 		0CEA565A1CB7B74700727254 /* Sparkle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C5C62D21CA03DA10070A765 /* Sparkle.framework */; };
 		0CEC95121B2414260069AAEC /* StateDeleteImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */; };
 		0CF1D3591CB9509C0000690D /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = 0CF1D3571CB950060000690D /* dsa_pub.pem */; };
@@ -148,12 +144,6 @@
 		0C74DAE21B89BA3C0096D8DA /* MouseEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseEvent.h; sourceTree = "<group>"; };
 		0C74DAE41B89BB9C0096D8DA /* MouseEventQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MouseEventQueue.cpp; sourceTree = "<group>"; };
 		0C74DAE51B89BB9C0096D8DA /* MouseEventQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MouseEventQueue.h; sourceTree = "<group>"; };
-		0C77641D1A3C7ABE0010E1BB /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
-		0C77641E1A3C7ABE0010E1BB /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
-		0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIButton.cpp; sourceTree = "<group>"; };
-		0C7764201A3C7ABE0010E1BB /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIButton.h; sourceTree = "<group>"; };
-		0C7764211A3C7ABE0010E1BB /* UINode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UINode.cpp; sourceTree = "<group>"; };
-		0C7764221A3C7ABE0010E1BB /* UINode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UINode.h; sourceTree = "<group>"; };
 		0C88896F1A2984C600068098 /* LineSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LineSegment.cpp; sourceTree = "<group>"; };
 		0C8889701A2984C600068098 /* LineSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineSegment.h; sourceTree = "<group>"; };
 		0C8889711A2984C600068098 /* Plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
@@ -212,8 +202,6 @@
 		0CC49AEE1B64E9A0007BC02A /* StateMirrorImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateMirrorImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateMirrorImpl.h; sourceTree = "<group>"; };
 		0CE732541B14928D0049D5FD /* FontRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FontRenderer.cpp; sourceTree = "<group>"; };
 		0CE732551B14928D0049D5FD /* FontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontRenderer.h; sourceTree = "<group>"; };
-		0CE999311B510C1D003378BF /* UILabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UILabel.cpp; sourceTree = "<group>"; };
-		0CE999321B510C1D003378BF /* UILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabel.h; sourceTree = "<group>"; };
 		0CEC95101B2414260069AAEC /* StateDeleteImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StateDeleteImpl.cpp; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.cpp; sourceTree = "<group>"; };
 		0CEC95111B2414260069AAEC /* StateDeleteImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StateDeleteImpl.h; path = ../../../../../../src/OpenGL/Impl/State/StateDeleteImpl.h; sourceTree = "<group>"; };
 		0CF1D3571CB950060000690D /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = dsa_pub.pem; path = cashew/dsa_pub.pem; sourceTree = "<group>"; };
@@ -405,14 +393,6 @@
 		0C77641C1A3C7ABE0010E1BB /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				0C77641D1A3C7ABE0010E1BB /* UI.cpp */,
-				0C77641E1A3C7ABE0010E1BB /* UI.h */,
-				0CE999311B510C1D003378BF /* UILabel.cpp */,
-				0CE999321B510C1D003378BF /* UILabel.h */,
-				0C77641F1A3C7ABE0010E1BB /* UIButton.cpp */,
-				0C7764201A3C7ABE0010E1BB /* UIButton.h */,
-				0C7764211A3C7ABE0010E1BB /* UINode.cpp */,
-				0C7764221A3C7ABE0010E1BB /* UINode.h */,
 				0C73BF3E1B883D2100A9B7D2 /* IMGUI.cpp */,
 				0C73BF3F1B883D2100A9B7D2 /* IMGUI.h */,
 			);
@@ -731,14 +711,12 @@
 				0C8889891A2984C600068098 /* Matrices.cpp in Sources */,
 				0C0A52681B8CC18500F378BE /* IMGUIImpl.cpp in Sources */,
 				0C2E4F341A65641D003C6ABF /* PlaneRenderer.cpp in Sources */,
-				0C7764251A3C7ABE0010E1BB /* UINode.cpp in Sources */,
 				0C45C60B1A86246200A5424F /* stb_image.cpp in Sources */,
 				0C88899E1A2AC0B600068098 /* luaUtility.cpp in Sources */,
 				0C88898A1A2984C600068098 /* Quaternion.cpp in Sources */,
 				0C88899D1A2AC0B600068098 /* luatables.cpp in Sources */,
 				0C5F95521A614FD500BE91E9 /* Utility.cpp in Sources */,
 				0C8889851A2984C600068098 /* LineSegment.cpp in Sources */,
-				0C7764231A3C7ABE0010E1BB /* UI.cpp in Sources */,
 				0C529D2D1A7382750034B1E5 /* PointRenderer.cpp in Sources */,
 				0C8889881A2984C600068098 /* Project.cpp in Sources */,
 				0C7201A81A7DFE4700CFA38F /* DepthPeeling.cpp in Sources */,
@@ -751,8 +729,6 @@
 				0C8D44261A218473005421E1 /* CashewOpenGLInfoHelper.m in Sources */,
 				0C50774A1AB56F7E00145A41 /* LineSegmentRenderer.cpp in Sources */,
 				0CC49AEC1B64E391007BC02A /* StateMirror.cpp in Sources */,
-				0CE999331B510C1D003378BF /* UILabel.cpp in Sources */,
-				0C7764241A3C7ABE0010E1BB /* UIButton.cpp in Sources */,
 				0C5F954C1A614F0100BE91E9 /* StateIdleImpl.cpp in Sources */,
 				0C73BF401B883D2100A9B7D2 /* IMGUI.cpp in Sources */,
 				0C74DAE61B89BB9C0096D8DA /* MouseEventQueue.cpp in Sources */,
