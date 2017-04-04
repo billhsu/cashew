@@ -2,7 +2,7 @@ Cashew
 ========
 
 [![Build Status](https://travis-ci.org/billhsu/cashew.png)](https://travis-ci.org/billhsu/cashew)
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/billhsu/cashew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/billhsu/cashew?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 Freestyle 3D sketching app.  
 The only limit is your imagination.  
